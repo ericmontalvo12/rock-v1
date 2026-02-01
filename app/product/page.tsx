@@ -8,7 +8,40 @@ import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/lib/cart-context";
 import { motion, AnimatePresence } from "framer-motion";
-import { Check, ChevronDown, Minus, Plus } from "lucide-react";
+import { Check, ChevronDown, Minus, Plus, Truck, Tag } from "lucide-react";
+
+const bundleOptions = [
+  {
+    id: "1-bottle",
+    quantity: 1,
+    label: "1 Bottle",
+    subtitle: "30-day supply",
+    price: 49.99,
+    perBottle: 49.99,
+    badge: null,
+    freeShipping: false,
+  },
+  {
+    id: "2-bottles",
+    quantity: 2,
+    label: "2 Bottles",
+    subtitle: "Free Shipping",
+    price: 99.98,
+    perBottle: 49.99,
+    badge: "Most Popular",
+    freeShipping: true,
+  },
+  {
+    id: "3-bottles",
+    quantity: 3,
+    label: "3 Bottles",
+    subtitle: "Save 10% + Free Shipping",
+    price: 134.97,
+    perBottle: 44.99,
+    badge: "Best Value",
+    freeShipping: true,
+  },
+];
 
 const benefits = [
   "Science backed testosterone support",
@@ -207,19 +240,44 @@ function AccordionItem({
   );
 }
 
+// Pricing logic helper
+function getPricing(qty: number) {
+  if (qty >= 3) {
+    return { perBottle: 44.99, freeShipping: true, dealName: "Best Value" };
+  } else if (qty === 2) {
+    return { perBottle: 49.99, freeShipping: true, dealName: "Free Shipping" };
+  } else {
+    return { perBottle: 49.99, freeShipping: false, dealName: null };
+  }
+}
+
 export default function ProductPage() {
-  const [quantity, setQuantity] = useState(1);
+  const [quantity, setQuantity] = useState(2);
   const [openSection, setOpenSection] = useState<number | null>(0);
   const [addedToCart, setAddedToCart] = useState(false);
   const { addToCart } = useCart();
   const router = useRouter();
 
-  const decreaseQuantity = () => {
-    if (quantity > 1) setQuantity(quantity - 1);
+  const pricing = getPricing(quantity);
+  const totalPrice = pricing.perBottle * quantity;
+
+  // Determine which bundle option matches the current quantity (if any)
+  const matchingBundle = bundleOptions.find((b) => b.quantity === quantity);
+
+  const handleBundleSelect = (bundleQty: number) => {
+    setQuantity(bundleQty);
   };
 
-  const increaseQuantity = () => {
-    setQuantity(quantity + 1);
+  const handleQuantityChange = (newQty: number) => {
+    const clampedQty = Math.max(1, Math.min(20, newQty));
+    setQuantity(clampedQty);
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = parseInt(e.target.value, 10);
+    if (!isNaN(value)) {
+      handleQuantityChange(value);
+    }
   };
 
   const handleAddToCart = () => {
@@ -227,7 +285,7 @@ export default function ProductPage() {
       {
         id: "peak-performance",
         name: "Peak Performance",
-        price: 49.99,
+        price: pricing.perBottle,
         image: "/product-main.png",
       },
       quantity
@@ -241,7 +299,7 @@ export default function ProductPage() {
       {
         id: "peak-performance",
         name: "Peak Performance",
-        price: 49.99,
+        price: pricing.perBottle,
         image: "/product-main.png",
       },
       quantity
@@ -278,7 +336,7 @@ export default function ProductPage() {
               </h1>
 
               <p className="text-2xl sm:text-3xl font-bold text-primary mb-6">
-                $49.99
+                From $49.99
               </p>
 
               {/* Benefits */}
@@ -293,22 +351,105 @@ export default function ProductPage() {
                 ))}
               </ul>
 
-              {/* Quantity & Add to Cart */}
+              {/* Bundle Selector */}
+              <div className="space-y-3 mb-4">
+                {bundleOptions.map((bundle) => {
+                  const isSelected = matchingBundle?.id === bundle.id;
+                  return (
+                    <button
+                      key={bundle.id}
+                      onClick={() => handleBundleSelect(bundle.quantity)}
+                      className={`w-full p-4 rounded-lg border-2 transition-all text-left relative ${
+                        isSelected
+                          ? "border-primary bg-primary/5"
+                          : "border-border hover:border-border-subtle"
+                      }`}
+                    >
+                      {bundle.badge && (
+                        <span className="absolute -top-2.5 right-4 px-2.5 py-1 text-xs font-semibold rounded bg-primary text-white">
+                          {bundle.badge}
+                        </span>
+                      )}
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                            isSelected
+                              ? "border-primary"
+                              : "border-text-secondary"
+                          }`}>
+                            {isSelected && (
+                              <div className="w-2.5 h-2.5 rounded-full bg-primary" />
+                            )}
+                          </div>
+                          <div>
+                            <p className="font-semibold text-text-primary">{bundle.label}</p>
+                            <p className="text-sm text-text-secondary">{bundle.subtitle}</p>
+                          </div>
+                        </div>
+                        <div className="text-right">
+                          <p className="font-bold text-text-primary">${bundle.price.toFixed(2)}</p>
+                          {bundle.quantity > 1 && (
+                            <p className="text-xs text-text-secondary">${bundle.perBottle.toFixed(2)}/bottle</p>
+                          )}
+                        </div>
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Deal Status Indicator */}
+              <div className="flex flex-wrap gap-3 mb-6 text-sm">
+                {pricing.freeShipping && (
+                  <span className="inline-flex items-center gap-1.5 text-primary">
+                    <Truck className="w-4 h-4" />
+                    Free shipping applied
+                  </span>
+                )}
+                {quantity >= 3 && (
+                  <span className="inline-flex items-center gap-1.5 text-primary">
+                    <Tag className="w-4 h-4" />
+                    ${pricing.perBottle.toFixed(2)}/bottle applied
+                  </span>
+                )}
+                {quantity > 3 && !matchingBundle && (
+                  <span className="inline-flex items-center gap-1.5 text-primary font-medium">
+                    Best value pricing applied
+                  </span>
+                )}
+              </div>
+
+              {/* Quantity Stepper + Add to Cart */}
               <div className="flex flex-col sm:flex-row gap-4 mb-8">
                 <div className="flex items-center border border-border rounded-lg">
                   <button
-                    onClick={decreaseQuantity}
-                    className="px-4 py-3 text-text-secondary hover:text-text-primary transition-colors"
+                    onClick={() => handleQuantityChange(quantity - 1)}
+                    disabled={quantity <= 1}
+                    className={`px-4 py-3 transition-colors ${
+                      quantity <= 1
+                        ? "text-text-muted cursor-not-allowed"
+                        : "text-text-secondary hover:text-text-primary"
+                    }`}
                     aria-label="Decrease quantity"
                   >
                     <Minus className="w-4 h-4" />
                   </button>
-                  <span className="px-4 py-3 text-text-primary font-medium min-w-[60px] text-center">
-                    {quantity}
-                  </span>
+                  <input
+                    type="number"
+                    min="1"
+                    max="20"
+                    value={quantity}
+                    onChange={handleInputChange}
+                    className="w-14 py-3 text-center text-text-primary font-medium bg-transparent border-none focus:outline-none focus:ring-0 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                  />
                   <button
-                    onClick={increaseQuantity}
-                    className="px-4 py-3 text-text-secondary hover:text-text-primary transition-colors"
+                    onClick={() => handleQuantityChange(quantity + 1)}
+                    disabled={quantity >= 20}
+                    className={`px-4 py-3 transition-colors ${
+                      quantity >= 20
+                        ? "text-text-muted cursor-not-allowed"
+                        : "text-text-secondary hover:text-text-primary"
+                    }`}
                     aria-label="Increase quantity"
                   >
                     <Plus className="w-4 h-4" />
@@ -316,10 +457,10 @@ export default function ProductPage() {
                 </div>
                 <Button
                   size="lg"
-                  className="flex-1 sm:flex-none sm:px-12"
+                  className="flex-1"
                   onClick={handleAddToCart}
                 >
-                  {addedToCart ? "Added!" : "Add to Cart"}
+                  {addedToCart ? "Added!" : `Add to Cart — $${totalPrice.toFixed(2)}`}
                 </Button>
               </div>
 

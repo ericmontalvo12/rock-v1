@@ -10,7 +10,10 @@ import { CheckoutButton } from "@/components/CheckoutButton";
 import { Minus, Plus, Trash2, ShoppingBag } from "lucide-react";
 
 export default function CartPage() {
-  const { items, updateQuantity, removeFromCart, totalPrice, clearCart } = useCart();
+  const { items, updateQuantity, removeFromCart, totalPrice, totalItems, clearCart } = useCart();
+
+  // Free shipping for 2+ bottles or orders over $100
+  const qualifiesForFreeShipping = totalItems >= 2 || totalPrice >= 100;
 
   // Map cart items to the format expected by CheckoutButton
   const checkoutItems = items.map((item) => ({
@@ -100,7 +103,12 @@ export default function CartPage() {
                       <div className="flex items-center border border-border rounded-lg">
                         <button
                           onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                          className="px-3 py-2 text-text-secondary hover:text-text-primary transition-colors"
+                          disabled={item.quantity <= 1}
+                          className={`px-3 py-2 transition-colors ${
+                            item.quantity <= 1
+                              ? "text-text-muted cursor-not-allowed"
+                              : "text-text-secondary hover:text-text-primary"
+                          }`}
                           aria-label="Decrease quantity"
                         >
                           <Minus className="w-4 h-4" />
@@ -147,13 +155,13 @@ export default function CartPage() {
                   <div className="flex justify-between text-text-secondary">
                     <span>Shipping</span>
                     <span className="text-text-primary">
-                      {totalPrice >= 100 ? "Free" : "$9.99"}
+                      {qualifiesForFreeShipping ? "Free" : "$9.99"}
                     </span>
                   </div>
                   <div className="pt-4 border-t border-border flex justify-between">
                     <span className="font-semibold text-text-primary">Total</span>
                     <span className="font-bold text-primary text-xl">
-                      ${(totalPrice + (totalPrice >= 100 ? 0 : 9.99)).toFixed(2)}
+                      ${(totalPrice + (qualifiesForFreeShipping ? 0 : 9.99)).toFixed(2)}
                     </span>
                   </div>
                 </div>

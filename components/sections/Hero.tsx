@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export function Hero() {
@@ -27,11 +28,12 @@ export function Hero() {
             className="text-center lg:text-left"
           >
             <h1 className="text-2xl sm:text-4xl lg:text-6xl font-bold tracking-tight text-white mb-4 sm:mb-6 break-words">
-              Clinically Dosed Testosterone Support
+              Built for Men Chasing Their Peak
             </h1>
 
-            <p className="text-base sm:text-lg lg:text-xl text-white/90 mb-6 sm:mb-8 max-w-xl mx-auto lg:mx-0">
-              Built for Strength, Energy, and Daily Performance
+            <p className="text-base sm:text-lg lg:text-xl text-white/90 mb-6 sm:mb-8 mx-auto lg:mx-0 leading-relaxed">
+              Full-strength ingredients for drive,<br className="hidden sm:block" />
+              recovery, and healthy testosterone
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
@@ -46,19 +48,23 @@ export function Hero() {
             </div>
 
             {/* Trust indicators */}
-            <div className="mt-8 sm:mt-12 flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-6 justify-center lg:justify-start text-xs sm:text-sm text-white/80">
-              <span className="flex items-center justify-center lg:justify-start gap-2">
-                <span className="w-2 h-2 rounded-full bg-primary" />
-                No Proprietary Blends
-              </span>
-              <span className="flex items-center justify-center lg:justify-start gap-2">
-                <span className="w-2 h-2 rounded-full bg-primary" />
-                Clinically Dosed
-              </span>
-              <span className="flex items-center justify-center lg:justify-start gap-2">
-                <span className="w-2 h-2 rounded-full bg-primary" />
-                Science-Backed
-              </span>
+            <div className="mt-8 sm:mt-10 grid grid-cols-1 sm:grid-cols-2 gap-y-3 gap-x-4 text-sm text-white/80 max-w-sm">
+              <div className="flex items-start gap-2">
+                <Check className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+                <span className="leading-snug">No Proprietary Blends</span>
+              </div>
+              <div className="flex items-start gap-2">
+                <Check className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+                <span className="leading-snug">Third-Party Tested</span>
+              </div>
+              <div className="flex items-start gap-2">
+                <Check className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+                <span className="leading-snug">Made in USA</span>
+              </div>
+              <div className="flex items-start gap-2">
+                <Check className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+                <span className="leading-snug">30-Day Guarantee</span>
+              </div>
             </div>
           </motion.div>
 
