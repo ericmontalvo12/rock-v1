@@ -188,15 +188,19 @@ const blogPosts = [
   },
 ];
 
+type Ingredient = (typeof ingredients)[number];
+
+type IngredientShowcaseProps = {
+  ingredients: Ingredient[];
+  selectedIndex: number;
+  onSelect: (index: number) => void;
+};
+
 function IngredientShowcase({
   ingredients,
   selectedIndex,
   onSelect,
-}: {
-  ingredients: typeof ingredients;
-  selectedIndex: number;
-  onSelect: (index: number) => void;
-}) {
+}: IngredientShowcaseProps) {
   const selected = ingredients[selectedIndex];
   const [expandedSection, setExpandedSection] = useState<string | null>(null);
 
@@ -230,7 +234,12 @@ function IngredientShowcase({
         >
           <div className="w-48 h-48 sm:w-56 sm:h-56 rounded-full bg-gradient-to-br from-surface to-background border-4 border-primary/20 shadow-2xl shadow-primary/10 flex items-center justify-center overflow-hidden">
             <Image
-              src={selected.image || `https://placehold.co/300x300/141414/2d94ff?text=${encodeURIComponent(selected.name)}`}
+              src={
+                selected.image ||
+                `https://placehold.co/300x300/141414/2d94ff?text=${encodeURIComponent(
+                  selected.name
+                )}`
+              }
               alt={selected.name}
               width={300}
               height={300}
@@ -262,16 +271,28 @@ function IngredientShowcase({
           {/* Info Table */}
           <div className="bg-background/10 rounded-xl p-4 mb-6 space-y-3">
             <div className="flex justify-between items-start border-b border-background/20 pb-3">
-              <span className="text-background/70 text-sm font-medium">Scientific Name</span>
-              <span className="text-background text-sm text-right max-w-[60%]">{selected.scientificName}</span>
+              <span className="text-background/70 text-sm font-medium">
+                Scientific Name
+              </span>
+              <span className="text-background text-sm text-right max-w-[60%]">
+                {selected.scientificName}
+              </span>
             </div>
             <div className="flex justify-between items-start border-b border-background/20 pb-3">
-              <span className="text-background/70 text-sm font-medium">Sourced From</span>
-              <span className="text-background text-sm text-right max-w-[60%]">{selected.sourcedFrom}</span>
+              <span className="text-background/70 text-sm font-medium">
+                Sourced From
+              </span>
+              <span className="text-background text-sm text-right max-w-[60%]">
+                {selected.sourcedFrom}
+              </span>
             </div>
             <div className="flex justify-between items-start">
-              <span className="text-background/70 text-sm font-medium">Origin</span>
-              <span className="text-background text-sm text-right max-w-[60%]">{selected.origin}</span>
+              <span className="text-background/70 text-sm font-medium">
+                Origin
+              </span>
+              <span className="text-background text-sm text-right max-w-[60%]">
+                {selected.origin}
+              </span>
             </div>
           </div>
 
@@ -280,7 +301,10 @@ function IngredientShowcase({
             <h4 className="text-background font-semibold mb-3">Benefits</h4>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
               {selected.benefits.map((benefit, i) => (
-                <div key={i} className="flex items-center gap-2 text-xs text-background/90">
+                <div
+                  key={i}
+                  className="flex items-center gap-2 text-xs text-background/90"
+                >
                   <Check className="w-3 h-3 text-background flex-shrink-0" />
                   <span>{benefit}</span>
                 </div>
@@ -291,11 +315,19 @@ function IngredientShowcase({
           {/* Expandable Sections */}
           <div className="space-y-2">
             <button
-              onClick={() => setExpandedSection(expandedSection === "background" ? null : "background")}
+              onClick={() =>
+                setExpandedSection(
+                  expandedSection === "background" ? null : "background"
+                )
+              }
               className="w-full flex items-center justify-between py-3 border-t border-background/20 text-background"
             >
               <span className="font-medium text-sm">Background</span>
-              <Plus className={`w-4 h-4 transition-transform ${expandedSection === "background" ? "rotate-45" : ""}`} />
+              <Plus
+                className={`w-4 h-4 transition-transform ${
+                  expandedSection === "background" ? "rotate-45" : ""
+                }`}
+              />
             </button>
             <AnimatePresence>
               {expandedSection === "background" && (
@@ -305,17 +337,27 @@ function IngredientShowcase({
                   exit={{ height: 0, opacity: 0 }}
                   className="overflow-hidden"
                 >
-                  <p className="text-background/80 text-sm pb-3">{selected.background}</p>
+                  <p className="text-background/80 text-sm pb-3">
+                    {selected.background}
+                  </p>
                 </motion.div>
               )}
             </AnimatePresence>
 
             <button
-              onClick={() => setExpandedSection(expandedSection === "compounds" ? null : "compounds")}
+              onClick={() =>
+                setExpandedSection(
+                  expandedSection === "compounds" ? null : "compounds"
+                )
+              }
               className="w-full flex items-center justify-between py-3 border-t border-background/20 text-background"
             >
               <span className="font-medium text-sm">Active Compounds</span>
-              <Plus className={`w-4 h-4 transition-transform ${expandedSection === "compounds" ? "rotate-45" : ""}`} />
+              <Plus
+                className={`w-4 h-4 transition-transform ${
+                  expandedSection === "compounds" ? "rotate-45" : ""
+                }`}
+              />
             </button>
             <AnimatePresence>
               {expandedSection === "compounds" && (

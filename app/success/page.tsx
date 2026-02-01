@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { Header } from "@/components/Header";
@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { CheckCircle } from "lucide-react";
 import { useCart } from "@/lib/cart-context";
 
-export default function SuccessPage() {
+function SuccessContent() {
   const searchParams = useSearchParams();
   const sessionId = searchParams.get("session_id");
   const { clearCart } = useCart();
@@ -36,32 +36,51 @@ export default function SuccessPage() {
             </h1>
 
             <p className="text-text-secondary mb-2">
-              Thank you for your purchase. Your order has been successfully placed.
+              Thank you for your purchase. Your order has been successfully
+              placed.
             </p>
 
             {sessionId && (
               <p className="text-text-muted text-sm mb-8">
-                Order reference: <code className="bg-surface px-2 py-1 rounded">{sessionId.slice(0, 20)}...</code>
+                Order reference:{" "}
+                <code className="bg-surface px-2 py-1 rounded">
+                  {sessionId.slice(0, 20)}...
+                </code>
               </p>
             )}
 
             <div className="bg-surface border border-border rounded-2xl p-6 mb-8 text-left">
-              <h2 className="font-semibold text-text-primary mb-4">What happens next?</h2>
+              <h2 className="font-semibold text-text-primary mb-4">
+                What happens next?
+              </h2>
               <ul className="space-y-3 text-text-secondary text-sm">
                 <li className="flex items-start gap-3">
-                  <span className="w-6 h-6 rounded-full bg-primary/10 text-primary text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">1</span>
+                  <span className="w-6 h-6 rounded-full bg-primary/10 text-primary text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">
+                    1
+                  </span>
                   <span>You'll receive an order confirmation email shortly.</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="w-6 h-6 rounded-full bg-primary/10 text-primary text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">2</span>
-                  <span>Your order will be processed and shipped within 1 business day.</span>
+                  <span className="w-6 h-6 rounded-full bg-primary/10 text-primary text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">
+                    2
+                  </span>
+                  <span>
+                    Your order will be processed and shipped within 1 business
+                    day.
+                  </span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="w-6 h-6 rounded-full bg-primary/10 text-primary text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">3</span>
-                  <span>You'll receive tracking information via email once shipped.</span>
+                  <span className="w-6 h-6 rounded-full bg-primary/10 text-primary text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">
+                    3
+                  </span>
+                  <span>
+                    You'll receive tracking information via email once shipped.
+                  </span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="w-6 h-6 rounded-full bg-primary/10 text-primary text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">4</span>
+                  <span className="w-6 h-6 rounded-full bg-primary/10 text-primary text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">
+                    4
+                  </span>
                   <span>Delivery typically takes 4-7 business days.</span>
                 </li>
               </ul>
@@ -82,5 +101,13 @@ export default function SuccessPage() {
       </main>
       <Footer />
     </div>
+  );
+}
+
+export default function SuccessPage() {
+  return (
+    <Suspense fallback={<div className="pt-32 px-6">Loading...</div>}>
+      <SuccessContent />
+    </Suspense>
   );
 }
