@@ -39,7 +39,7 @@ export default function Contact() {
   };
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     setFormData((prev) => ({
       ...prev,
@@ -110,18 +110,22 @@ export default function Contact() {
                 htmlFor="subject"
                 className="block text-sm font-medium text-text-primary mb-2"
               >
-                Subject
+                What is this about?
               </label>
-              <input
-                type="text"
+              <select
                 id="subject"
                 name="subject"
                 value={formData.subject}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 rounded-lg bg-background border border-border text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
-                placeholder="How can we help?"
-              />
+                className="w-full px-4 py-3 rounded-lg bg-background border border-border text-text-primary focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+              >
+                <option value="">Select an option</option>
+                <option value="Order issue">Order issue</option>
+                <option value="Product question">Product question</option>
+                <option value="Partnership">Partnership</option>
+                <option value="Other">Other</option>
+              </select>
             </div>
 
             <div className="mb-6">
@@ -152,6 +156,10 @@ export default function Contact() {
               {status === "loading" ? "Sending..." : "Send Message"}
             </Button>
 
+            <p className="mt-3 text-sm text-text-muted">
+              We typically respond within 24 hours.
+            </p>
+
             {status === "success" && (
               <p className="mt-4 text-sm text-green-500">
                 Thank you! Your message has been sent successfully.
@@ -163,6 +171,16 @@ export default function Contact() {
               </p>
             )}
           </form>
+
+          <p className="mt-6 text-center text-sm text-text-secondary">
+            Or email us directly:{" "}
+            <a
+              href="mailto:contact@rockmountainperformance.com"
+              className="text-primary hover:underline"
+            >
+              contact@rockmountainperformance.com
+            </a>
+          </p>
         </div>
       </main>
       <Footer />

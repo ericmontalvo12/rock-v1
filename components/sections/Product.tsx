@@ -7,26 +7,26 @@ import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
 
 const productFeatures = [
-  "7 clinically studied ingredients",
-  "Full-dose transparency",
-  "No proprietary blends",
-  "Made in the USA",
+  "Supports natural hormone balance",
+  "Enhances strength and recovery",
+  "Reduces stress-related fatigue",
+  "Made in the USA • No proprietary blends",
 ];
 
 export function Product() {
   return (
-    <section id="product" className="py-16 sm:py-24 lg:py-32 bg-surface/50">
+    <section id="product" className="py-12 sm:py-16 lg:py-20 bg-surface/50">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div className="flex flex-col md:flex-row gap-12 lg:gap-16 items-center">
           {/* Product Image */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="relative order-2 lg:order-1"
+            className="relative order-1 md:order-1 md:w-1/2"
           >
-            <div className="relative aspect-square max-w-md mx-auto">
+            <div className="relative aspect-square max-w-[320px] sm:max-w-md mx-auto">
               <div className="relative w-full h-full rounded-2xl border border-border overflow-hidden flex items-center justify-center">
                 <Image
                   src="/product-main.png"
@@ -45,7 +45,7 @@ export function Product() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="order-1 lg:order-2"
+            className="order-2 md:order-2 md:w-1/2 text-center"
           >
             <span className="inline-block px-3 py-1 mb-4 text-xs font-medium uppercase tracking-wider text-primary bg-primary/10 rounded-full">
               Testosterone Support
@@ -56,12 +56,10 @@ export function Product() {
             </h2>
 
             <p className="text-lg text-text-secondary mb-8">
-              Science-backed testosterone support formula designed to support
-              healthy testosterone levels, improve training performance, and
-              optimize daily vitality.
+              One daily formula to support your strength, energy, and drive—so you can show up at your best, every day.
             </p>
 
-            <ul className="space-y-3 mb-8">
+            <ul className="space-y-3 mb-8 inline-block text-left">
               {productFeatures.map((feature) => (
                 <li
                   key={feature}
@@ -75,14 +73,14 @@ export function Product() {
               ))}
             </ul>
 
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Link href="/product">
-                <Button size="lg" className="flex-1 sm:flex-none">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link href="/product" className="w-full sm:w-auto">
+                <Button size="lg" className="w-full sm:w-auto">
                   Buy Now
                 </Button>
               </Link>
-              <Link href="/product">
-                <Button size="lg" variant="outline" className="flex-1 sm:flex-none">
+              <Link href="/product" className="w-full sm:w-auto">
+                <Button size="lg" variant="outline" className="w-full sm:w-auto">
                   Learn More
                 </Button>
               </Link>

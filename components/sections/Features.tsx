@@ -6,21 +6,30 @@ import { FlaskConical, Dumbbell, Zap } from "lucide-react";
 const features = [
   {
     icon: FlaskConical,
-    title: "Science-backed testosterone support",
-    description:
-      "Supports healthy testosterone levels using clinically studied ingredients shown to aid hormonal balance, stress response, and micronutrient sufficiency.",
+    title: "Formulated for results",
+    bullets: [
+      "7 active ingredients at effective doses",
+      "Supports healthy testosterone levels",
+      "Addresses key mineral deficiencies",
+    ],
   },
   {
     icon: Zap,
-    title: "Clinically dosed, no proprietary blends",
-    description:
-      "Every ingredient is included at research-supported levels—fully transparent, no under-dosing, and no hidden blends.",
+    title: "Energy that lasts",
+    bullets: [
+      "Reduces stress-related fatigue",
+      "Supports sustained daily output",
+      "No stimulants or crash",
+    ],
   },
   {
     icon: Dumbbell,
-    title: "Built for strength, energy, and recovery",
-    description:
-      "Designed to support physical performance, daily energy, and recovery by addressing key factors that influence testosterone, stress, and mineral balance.",
+    title: "Train harder, recover faster",
+    bullets: [
+      "Aids muscle function and repair",
+      "Supports quality sleep",
+      "Optimizes post-workout recovery",
+    ],
   },
 ];
 
@@ -45,21 +54,20 @@ const itemVariants = {
 
 export function Features() {
   return (
-    <section className="py-16 sm:py-24 lg:py-32 bg-surface/50">
+    <section className="py-12 sm:py-16 lg:py-20 bg-gradient-to-b from-gray-50/80 to-white">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-16"
+          className="text-center mb-10"
         >
           <h2 className="text-3xl sm:text-4xl font-bold text-text-primary mb-4">
             Why Peak Performance
           </h2>
           <p className="text-text-secondary max-w-2xl mx-auto">
-            Formulated with precision for athletes and high performers who
-            demand transparency and results.
+            Built for men who take their performance seriously.
           </p>
         </motion.div>
 
@@ -68,7 +76,7 @@ export function Features() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="grid md:grid-cols-3 gap-8"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
         >
           {features.map((feature) => (
             <motion.div
@@ -76,16 +84,21 @@ export function Features() {
               variants={itemVariants}
               className="relative group h-full"
             >
-              <div className="h-full p-8 rounded-2xl bg-background border border-border hover:border-primary/50 transition-colors duration-300 flex flex-col">
+              <div className="h-full p-5 sm:p-8 rounded-2xl bg-background border border-black/[0.08] shadow-[0_12px_30px_rgba(15,23,42,0.06)] hover:border-primary/50 hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center">
                 <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-6 flex-shrink-0">
                   <feature.icon className="w-6 h-6 text-primary" />
                 </div>
                 <h3 className="text-xl font-semibold text-text-primary mb-3">
                   {feature.title}
                 </h3>
-                <p className="text-text-secondary leading-relaxed flex-grow">
-                  {feature.description}
-                </p>
+                <ul className="space-y-2 flex-grow inline-block text-left">
+                  {feature.bullets.map((bullet, i) => (
+                    <li key={i} className="flex items-start gap-2 text-text-secondary">
+                      <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0" />
+                      {bullet}
+                    </li>
+                  ))}
+                </ul>
               </div>
             </motion.div>
           ))}

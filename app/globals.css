@@ -2,6 +2,23 @@
 
 /* TODO: Adjust brand colors as needed */
 @theme {
+  /* LIGHT THEME - swap back to dark values to revert */
+  --color-background: #f7f7f8;
+  --color-surface: #ffffff;
+  --color-surface-elevated: #ededef;
+  --color-border: #d4d4d8;
+  --color-border-subtle: #e4e4e7;
+  --color-primary: #2d94ff;
+  --color-primary-hover: #1a7ee6;
+  --color-text-primary: #18181b;
+  --color-text-secondary: #52525b;
+  --color-text-muted: #a1a1aa;
+
+  --font-sans: var(--font-montserrat), "Montserrat", sans-serif;
+}
+
+/* DARK THEME (original) - uncomment to revert:
+@theme {
   --color-background: #0a0a0a;
   --color-surface: #141414;
   --color-surface-elevated: #1a1a1a;
@@ -15,6 +32,7 @@
 
   --font-sans: var(--font-montserrat), "Montserrat", sans-serif;
 }
+*/
 
 html {
   scroll-behavior: smooth;
@@ -32,4 +50,51 @@ body {
 ::selection {
   background-color: var(--color-primary);
   color: var(--color-background);
+}
+
+/* Mobile-only overflow protection */
+@media (max-width: 768px) {
+  html, body {
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6, p, span, li {
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+}
+
+/* Mobile announcement bar marquee */
+@media (max-width: 640px) {
+  .announceBar {
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .announceTrack {
+    display: inline-flex;
+    gap: 0;
+    will-change: transform;
+    animation: marquee 20s linear infinite;
+  }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+}
+
+@media (max-width: 640px) and (prefers-reduced-motion: reduce) {
+  .announceTrack {
+    animation: none;
+  }
+}
+
+/* Hide scrollbar utility */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }

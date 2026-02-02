@@ -8,7 +8,7 @@ export default function RefundPolicy() {
       <main className="pt-32 pb-16 sm:pb-24">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
           <h1 className="text-3xl sm:text-4xl font-bold text-text-primary mb-8">
-            Refund Policy
+            Returns & Guarantee
           </h1>
 
           <div className="prose prose-invert max-w-none space-y-8 text-text-secondary">
@@ -97,6 +97,28 @@ export default function RefundPolicy() {
               </h2>
               <p>
                 Once we receive and inspect your return, we will notify you whether your refund has been approved. Approved refunds will be issued to your original payment method. Please note that it may take some time for your bank or credit card company to post the refund.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-xl font-semibold text-text-primary mb-4">
+                Guarantee Terms (Fair Use)
+              </h2>
+              <p className="mb-4">
+                We offer a 30-day money-back guarantee on first-time purchases.
+              </p>
+              <p className="mb-4">
+                Refunds are limited to one per customer or household and may be declined in cases of repeated claims, suspected abuse, fraud, or resale activity.
+              </p>
+              <p className="mb-4">
+                Shipping costs are non-refundable.
+              </p>
+              <p>
+                If you need help with a return, contact us at{" "}
+                <a href="mailto:contact@rockmountainperformance.com" className="text-primary hover:underline">
+                  contact@rockmountainperformance.com
+                </a>
+                .
               </p>
             </section>
           </div>

@@ -31,30 +31,47 @@ export function Header() {
     <header className="fixed top-0 left-0 right-0 z-50">
       {/* Announcement Bar */}
       <div
-        className={`bg-background border-b border-border-subtle text-center transition-all duration-300 ease-in-out overflow-hidden ${showAnnouncement ? 'h-9 flex items-center justify-center px-4' : 'h-0'}`}
+        className={`announceBar bg-black border-b border-border-subtle text-center transition-all duration-300 ease-in-out overflow-hidden ${showAnnouncement ? 'h-9 flex items-center justify-center px-4' : 'h-0'}`}
       >
-        <p className="text-xs sm:text-sm font-medium text-text-secondary whitespace-nowrap">
+        {/* Desktop: static text */}
+        <p className="hidden sm:block text-sm font-medium text-white whitespace-nowrap">
           Free shipping on 2+ bottles <span className="text-text-muted mx-2">•</span> Best value bundles <span className="text-text-muted mx-2">•</span> 30-day guarantee
         </p>
+        {/* Mobile: scrolling marquee */}
+        <div className="sm:hidden announceTrack">
+          <span className="text-xs font-medium text-white whitespace-nowrap">
+            Free shipping on 2+ bottles <span className="text-text-muted mx-2">•</span> Best value bundles <span className="text-text-muted mx-2">•</span> 30-day guarantee <span className="text-text-muted mx-2">•</span>
+          </span>
+          <span className="text-xs font-medium text-white whitespace-nowrap">
+            Free shipping on 2+ bottles <span className="text-text-muted mx-2">•</span> Best value bundles <span className="text-text-muted mx-2">•</span> 30-day guarantee <span className="text-text-muted mx-2">•</span>
+          </span>
+          <span className="text-xs font-medium text-white whitespace-nowrap">
+            Free shipping on 2+ bottles <span className="text-text-muted mx-2">•</span> Best value bundles <span className="text-text-muted mx-2">•</span> 30-day guarantee <span className="text-text-muted mx-2">•</span>
+          </span>
+          <span className="text-xs font-medium text-white whitespace-nowrap">
+            Free shipping on 2+ bottles <span className="text-text-muted mx-2">•</span> Best value bundles <span className="text-text-muted mx-2">•</span> 30-day guarantee <span className="text-text-muted mx-2">•</span>
+          </span>
+        </div>
       </div>
       {/* Navbar */}
-      <div className="bg-surface border-b border-border-subtle">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-[80px] items-center justify-between">
+      <nav className="bg-surface/95 backdrop-blur-xl border-b border-black/[0.08] shadow-sm">
+        <div className="mx-auto max-w-7xl px-3 md:px-4 lg:px-8">
+          {/* Desktop Layout */}
+          <div className="hidden md:flex h-[68px] items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center">
             <Image
-              src="/logo.png"
+              src="/logo-new.png"
               alt="Rock Mountain Performance"
               width={200}
               height={60}
-              className="h-[70px] w-auto"
+              className="h-[68px] w-auto scale-[2.15] translate-y-[8px]"
               priority
             />
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="flex items-center gap-8">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
@@ -67,7 +84,7 @@ export function Header() {
           </nav>
 
           {/* Desktop Actions */}
-          <div className="hidden md:flex items-center gap-4">
+          <div className="flex items-center gap-4">
             <Link href="/cart" className="relative">
               <Button variant="ghost" size="icon" aria-label="Cart" className="cursor-pointer text-text-primary hover:text-primary hover:bg-surface-elevated">
                 <ShoppingCart className="h-5 w-5" />
@@ -82,22 +99,53 @@ export function Header() {
               <Button size="sm">Shop Now</Button>
             </Link>
           </div>
-
-          {/* Mobile Menu Button */}
-          <button
-            className="md:hidden p-2 text-text-primary hover:text-primary transition-colors"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label="Toggle menu"
-          >
-            {mobileMenuOpen ? (
-              <X className="h-6 w-6" />
-            ) : (
-              <Menu className="h-6 w-6" />
-            )}
-          </button>
         </div>
-      </div>
-      </div>
+
+        {/* Mobile Layout */}
+        <div className="md:hidden grid grid-cols-3 items-center h-[56px] max-h-[56px] overflow-hidden">
+          {/* Left: Hamburger */}
+          <div className="justify-self-start flex items-center">
+            <button
+              className="p-2 text-text-primary hover:text-primary transition-colors"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label="Toggle menu"
+            >
+              {mobileMenuOpen ? (
+                <X className="h-6 w-6" />
+              ) : (
+                <Menu className="h-6 w-6" />
+              )}
+            </button>
+          </div>
+
+          {/* Center: Logo */}
+          <div className="justify-self-center flex items-center justify-center">
+            <Link href="/" className="block">
+              <Image
+                src="/logo-new.png"
+                alt="Rock Mountain Performance"
+                width={210}
+                height={60}
+                className="max-w-[180px] sm:max-w-[210px] max-h-[50px] w-auto h-auto object-contain scale-[1.75] translate-y-[5px]"
+                priority
+              />
+            </Link>
+          </div>
+
+          {/* Right: Cart */}
+          <div className="justify-self-end flex items-center justify-end">
+            <Link href="/cart" className="relative p-2 block">
+              <ShoppingCart className="h-5 w-5 text-text-primary" />
+              {totalItems > 0 && (
+                <span className="absolute top-0 right-0 w-5 h-5 bg-primary text-background text-xs font-bold rounded-full flex items-center justify-center">
+                  {totalItems}
+                </span>
+              )}
+            </Link>
+          </div>
+        </div>
+        </div>
+      </nav>
 
       {/* Mobile Menu */}
       <AnimatePresence>
@@ -107,7 +155,7 @@ export function Header() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.2 }}
-            className="md:hidden bg-surface border-b border-border-subtle"
+            className="md:hidden bg-surface/95 backdrop-blur-xl border-b border-border-subtle"
           >
             <nav className="flex flex-col px-4 py-4 gap-2">
               {navLinks.map((link) => (

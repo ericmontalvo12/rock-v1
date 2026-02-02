@@ -14,7 +14,7 @@ const footerLinks = {
   legal: [
     { label: "Privacy Policy", href: "/privacy-policy" },
     { label: "Terms of Service", href: "/terms-of-service" },
-    { label: "Refund Policy", href: "/refund-policy" },
+    { label: "Returns & Guarantee", href: "/refund-policy" },
   ],
 };
 
@@ -58,12 +58,12 @@ const socialLinks = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-border bg-surface/30">
+    <footer className="bg-[#18181b]">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12">
           {/* Product Links */}
           <div>
-            <h4 className="text-sm font-semibold text-text-primary mb-4">
+            <h4 className="text-sm font-semibold text-white mb-4">
               Product
             </h4>
             <ul className="space-y-3">
@@ -71,7 +71,7 @@ export function Footer() {
                 <li key={link.label}>
                   <Link
                     href={link.href}
-                    className="text-sm text-text-muted hover:text-text-primary transition-colors"
+                    className="text-sm text-gray-400 hover:text-white transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -82,7 +82,7 @@ export function Footer() {
 
           {/* Company Links */}
           <div>
-            <h4 className="text-sm font-semibold text-text-primary mb-4">
+            <h4 className="text-sm font-semibold text-white mb-4">
               Company
             </h4>
             <ul className="space-y-3">
@@ -90,7 +90,7 @@ export function Footer() {
                 <li key={link.label}>
                   <Link
                     href={link.href}
-                    className="text-sm text-text-muted hover:text-text-primary transition-colors"
+                    className="text-sm text-gray-400 hover:text-white transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -101,7 +101,7 @@ export function Footer() {
 
           {/* Legal Links */}
           <div>
-            <h4 className="text-sm font-semibold text-text-primary mb-4">
+            <h4 className="text-sm font-semibold text-white mb-4">
               Legal
             </h4>
             <ul className="space-y-3">
@@ -109,7 +109,7 @@ export function Footer() {
                 <li key={link.label}>
                   <Link
                     href={link.href}
-                    className="text-sm text-text-muted hover:text-text-primary transition-colors"
+                    className="text-sm text-gray-400 hover:text-white transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -120,7 +120,7 @@ export function Footer() {
 
           {/* Social Links */}
           <div>
-            <h4 className="text-sm font-semibold text-text-primary mb-4">
+            <h4 className="text-sm font-semibold text-white mb-4">
               Follow Us
             </h4>
             <div className="flex gap-4">
@@ -130,7 +130,7 @@ export function Footer() {
                   href={social.href}
                   target={social.href !== "#" ? "_blank" : undefined}
                   rel={social.href !== "#" ? "noopener noreferrer" : undefined}
-                  className="text-text-muted hover:text-primary transition-colors"
+                  className="text-gray-400 hover:text-primary transition-colors"
                   aria-label={social.label}
                 >
                   {social.icon}
@@ -141,8 +141,8 @@ export function Footer() {
         </div>
 
         {/* Bottom */}
-        <div className="mt-12 pt-8 border-t border-border">
-          <p className="text-sm text-text-muted text-center">
+        <div className="mt-12 pt-8 border-t border-gray-700">
+          <p className="text-sm text-gray-500 text-center">
             {new Date().getFullYear()} Rock Mountain Performance. All rights
             reserved.
           </p>

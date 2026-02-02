@@ -8,7 +8,7 @@ import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/lib/cart-context";
 import { motion, AnimatePresence } from "framer-motion";
-import { Check, ChevronDown, Minus, Plus, Truck, Tag } from "lucide-react";
+import { Check, ChevronDown, Truck, Tag } from "lucide-react";
 
 const bundleOptions = [
   {
@@ -25,7 +25,7 @@ const bundleOptions = [
     id: "2-bottles",
     quantity: 2,
     label: "2 Bottles",
-    subtitle: "Free Shipping",
+    subtitle: "Free Shipping + Priority Processing",
     price: 99.98,
     perBottle: 49.99,
     badge: "Most Popular",
@@ -51,48 +51,46 @@ const benefits = [
 
 const productSections = [
   {
-    title: "Details",
+    title: "How to Take",
     content: (
-      <div className="space-y-4 text-text-secondary">
+      <div className="space-y-4 text-text-secondary text-center">
         <p>
-          Rock Mountain Peak Performance is a daily testosterone support formula
-          designed to support strength, energy, focus, and overall vitality.
-          Built for men who train and prioritize consistency, it helps support
-          performance and recovery without stimulants or shortcuts.
+          Take 3 capsules daily with food. For best results, use consistently
+          for at least 30 days alongside proper sleep, nutrition, and training.
         </p>
         <div className="pt-2">
           <p>
-            <strong className="text-text-primary">Serving Size:</strong> 3
-            Capsules
+            <strong className="text-text-primary">Serving Size:</strong> 3 Capsules
           </p>
           <p>
-            <strong className="text-text-primary">Servings Per Container:</strong>{" "}
-            30
+            <strong className="text-text-primary">Servings Per Container:</strong> 30
           </p>
         </div>
       </div>
     ),
   },
   {
+    title: "Who It's For",
+    content: (
+      <div className="space-y-4 text-text-secondary text-center">
+        <p>Peak Performance is designed for:</p>
+        <ul className="list-disc space-y-2 text-sm inline-block text-left">
+          <li>Men who train regularly or stay physically active</li>
+          <li>Men focused on long-term performance, recovery, and consistency</li>
+          <li>Men looking to support healthy testosterone levels naturally</li>
+        </ul>
+      </div>
+    ),
+  },
+  {
     title: "Supplement Facts",
     content: (
-      <div className="space-y-6 text-text-secondary">
-        <div>
-          <p className="text-sm mb-1">
-            <strong className="text-text-primary">Serving Size:</strong> 3
-            Capsules
-          </p>
-          <p className="text-sm">
-            <strong className="text-text-primary">Servings Per Container:</strong>{" "}
-            30
-          </p>
-        </div>
-
+      <div className="space-y-6 text-text-secondary text-center">
         <div>
           <h4 className="text-text-primary font-semibold mb-3">
             Amount Per Serving
           </h4>
-          <ul className="space-y-2 text-sm">
+          <ul className="space-y-2 text-sm inline-block text-left">
             <li>Vitamin D (as Cholecalciferol) - 75 mcg (3,000 IU)</li>
             <li>Magnesium (as Magnesium Bisglycinate) - 300 mg</li>
             <li>Zinc (as Zinc Citrate) - 30 mg</li>
@@ -117,82 +115,12 @@ const productSections = [
   {
     title: "Shipping & Guarantee",
     content: (
-      <div className="space-y-4 text-text-secondary">
-        <div>
-          <h4 className="text-text-primary font-semibold mb-2">Free Shipping</h4>
-          <p className="text-sm">
-            We offer free shipping on orders over $100 in the contiguous U.S.
-            All orders are processed and shipped within one business day, with
-            delivery typically taking between 4 to 7 business days.
-          </p>
-        </div>
-      </div>
-    ),
-  },
-  {
-    title: "FAQ",
-    content: (
-      <div className="space-y-6 text-text-secondary text-sm">
-        <div>
-          <h4 className="text-text-primary font-semibold mb-2">
-            What is Rock Mountain Peak Performance?
-          </h4>
-          <p>
-            Rock Mountain Peak Performance is a daily testosterone support
-            supplement designed to support energy, training performance,
-            recovery, and overall vitality. It is formulated with clinically
-            studied ingredients and transparent, research based dosing with no
-            proprietary blends.
-          </p>
-        </div>
-
-        <div>
-          <h4 className="text-text-primary font-semibold mb-2">
-            Who is this product for?
-          </h4>
-          <p className="mb-2">This product is best suited for:</p>
-          <ul className="list-disc pl-5 space-y-1">
-            <li>Men who train regularly or stay physically active</li>
-            <li>
-              Men focused on long term performance, recovery, and consistency
-            </li>
-            <li>
-              Men looking to support healthy testosterone levels naturally
-            </li>
-          </ul>
-        </div>
-
-        <div>
-          <h4 className="text-text-primary font-semibold mb-2">
-            How do I take Rock Mountain Peak Performance?
-          </h4>
-          <p>
-            Take the recommended daily serving consistently, preferably with
-            food. For best results, use daily for at least 30 days alongside
-            proper sleep, nutrition, and training.
-          </p>
-        </div>
-
-        <div>
-          <h4 className="text-text-primary font-semibold mb-2">
-            How long does it take to notice results?
-          </h4>
-          <p>
-            Most customers report subtle improvements in energy, recovery, and
-            training performance within 2 to 4 weeks of consistent use.
-          </p>
-        </div>
-
-        <div>
-          <h4 className="text-text-primary font-semibold mb-2">
-            Is this safe for daily use?
-          </h4>
-          <p>
-            Yes. The formula is designed for daily, long term use and contains
-            ingredients commonly used in sports nutrition. Always follow the
-            recommended serving size.
-          </p>
-        </div>
+      <div className="space-y-4 text-text-secondary text-center">
+        <p className="text-sm">
+          Free shipping on 2+ bottles. All orders ship within 24 hours.
+          Delivery typically takes 4–7 business days. 30-day money-back guarantee
+          if you're not satisfied.
+        </p>
       </div>
     ),
   },
@@ -213,7 +141,7 @@ function AccordionItem({
     <div className="border-b border-border">
       <button
         onClick={onToggle}
-        className="w-full py-4 flex items-center justify-between text-left"
+        className="w-full py-5 sm:py-4 flex items-center justify-center sm:justify-between text-center sm:text-left min-h-[56px] sm:min-h-0 gap-3"
       >
         <span className="font-semibold text-text-primary">{title}</span>
         <motion.span
@@ -232,7 +160,7 @@ function AccordionItem({
             transition={{ duration: 0.3, ease: "easeInOut" }}
             className="overflow-hidden"
           >
-            <div className="pb-4">{content}</div>
+            <div className="pb-5 sm:pb-4 text-left">{content}</div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -310,13 +238,13 @@ export default function ProductPage() {
   return (
     <div className="w-full max-w-full overflow-x-hidden">
       <Header />
-      <main className="pt-28 sm:pt-32 pb-16 sm:pb-24">
+      <main className="pt-28 sm:pt-32 pb-16 sm:pb-24 bg-surface/50">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-16">
+          <div className="grid lg:grid-cols-2 gap-6 lg:gap-16">
             {/* Product Image */}
-            <div className="relative">
-              <div className="sticky top-32">
-                <div className="aspect-square rounded-2xl border border-border overflow-hidden flex items-center justify-center" style={{ width: '446px', height: '446px' }}>
+            <div className="relative order-1 lg:order-1">
+              <div className="lg:sticky lg:top-32">
+                <div className="aspect-square rounded-2xl border border-border overflow-hidden flex items-center justify-center max-w-[340px] lg:max-w-none mx-auto mb-6 lg:mb-0 lg:w-[446px] lg:h-[446px]">
                   <Image
                     src="/product-main.png"
                     alt="Rock Mountain Peak Performance"
@@ -330,17 +258,13 @@ export default function ProductPage() {
             </div>
 
             {/* Product Info */}
-            <div>
-              <h1 className="text-3xl sm:text-4xl font-bold text-text-primary mb-2">
+            <div className="order-2 lg:order-2 text-center sm:text-left">
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-text-primary mb-4 sm:mb-6">
                 Peak Performance
               </h1>
 
-              <p className="text-2xl sm:text-3xl font-bold text-primary mb-6">
-                From $49.99
-              </p>
-
               {/* Benefits */}
-              <ul className="space-y-3 mb-8">
+              <ul className="space-y-3 mb-4 inline-block sm:block text-left">
                 {benefits.map((benefit) => (
                   <li key={benefit} className="flex items-center gap-3">
                     <span className="flex-shrink-0 w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center">
@@ -351,6 +275,11 @@ export default function ProductPage() {
                 ))}
               </ul>
 
+              {/* Credibility line */}
+              <p className="text-xs text-text-muted mb-8">
+                Clinically studied ingredients • No proprietary blends • Third-party tested
+              </p>
+
               {/* Bundle Selector */}
               <div className="space-y-3 mb-4">
                 {bundleOptions.map((bundle) => {
@@ -359,20 +288,20 @@ export default function ProductPage() {
                     <button
                       key={bundle.id}
                       onClick={() => handleBundleSelect(bundle.quantity)}
-                      className={`w-full p-4 rounded-lg border-2 transition-all text-left relative ${
+                      className={`w-full p-3 sm:p-4 rounded-lg border-2 transition-all text-left relative ${
                         isSelected
                           ? "border-primary bg-primary/5"
                           : "border-border hover:border-border-subtle"
                       }`}
                     >
                       {bundle.badge && (
-                        <span className="absolute -top-2.5 right-4 px-2.5 py-1 text-xs font-semibold rounded bg-primary text-white">
+                        <span className="absolute -top-2 sm:-top-2.5 right-2 sm:right-4 px-2 py-0.5 sm:px-2.5 sm:py-1 text-[10px] sm:text-xs font-semibold rounded bg-primary text-white">
                           {bundle.badge}
                         </span>
                       )}
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-3">
-                          <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                      <div className="flex items-center justify-between gap-2">
+                        <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+                          <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
                             isSelected
                               ? "border-primary"
                               : "border-text-secondary"
@@ -381,15 +310,15 @@ export default function ProductPage() {
                               <div className="w-2.5 h-2.5 rounded-full bg-primary" />
                             )}
                           </div>
-                          <div>
-                            <p className="font-semibold text-text-primary">{bundle.label}</p>
-                            <p className="text-sm text-text-secondary">{bundle.subtitle}</p>
+                          <div className="min-w-0">
+                            <p className="font-semibold text-text-primary text-sm sm:text-base">{bundle.label}</p>
+                            <p className="text-xs sm:text-sm text-text-secondary truncate">{bundle.subtitle}</p>
                           </div>
                         </div>
-                        <div className="text-right">
-                          <p className="font-bold text-text-primary">${bundle.price.toFixed(2)}</p>
+                        <div className="text-right flex-shrink-0">
+                          <p className="font-bold text-text-primary text-sm sm:text-base">${bundle.price.toFixed(2)}</p>
                           {bundle.quantity > 1 && (
-                            <p className="text-xs text-text-secondary">${bundle.perBottle.toFixed(2)}/bottle</p>
+                            <p className="text-[10px] sm:text-xs text-text-secondary">${bundle.perBottle.toFixed(2)}/bottle</p>
                           )}
                         </div>
                       </div>
@@ -399,7 +328,7 @@ export default function ProductPage() {
               </div>
 
               {/* Deal Status Indicator */}
-              <div className="flex flex-wrap gap-3 mb-6 text-sm">
+              <div className="flex flex-wrap gap-3 mb-6 text-sm justify-center sm:justify-start">
                 {pricing.freeShipping && (
                   <span className="inline-flex items-center gap-1.5 text-primary">
                     <Truck className="w-4 h-4" />
@@ -419,53 +348,24 @@ export default function ProductPage() {
                 )}
               </div>
 
-              {/* Quantity Stepper + Add to Cart */}
-              <div className="flex flex-col sm:flex-row gap-4 mb-8">
-                <div className="flex items-center border border-border rounded-lg">
-                  <button
-                    onClick={() => handleQuantityChange(quantity - 1)}
-                    disabled={quantity <= 1}
-                    className={`px-4 py-3 transition-colors ${
-                      quantity <= 1
-                        ? "text-text-muted cursor-not-allowed"
-                        : "text-text-secondary hover:text-text-primary"
-                    }`}
-                    aria-label="Decrease quantity"
-                  >
-                    <Minus className="w-4 h-4" />
-                  </button>
-                  <input
-                    type="number"
-                    min="1"
-                    max="20"
-                    value={quantity}
-                    onChange={handleInputChange}
-                    className="w-14 py-3 text-center text-text-primary font-medium bg-transparent border-none focus:outline-none focus:ring-0 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-                  />
-                  <button
-                    onClick={() => handleQuantityChange(quantity + 1)}
-                    disabled={quantity >= 20}
-                    className={`px-4 py-3 transition-colors ${
-                      quantity >= 20
-                        ? "text-text-muted cursor-not-allowed"
-                        : "text-text-secondary hover:text-text-primary"
-                    }`}
-                    aria-label="Increase quantity"
-                  >
-                    <Plus className="w-4 h-4" />
-                  </button>
-                </div>
+              {/* Add to Cart */}
+              <div className="mb-4">
                 <Button
                   size="lg"
-                  className="flex-1"
+                  className="w-full"
                   onClick={handleAddToCart}
                 >
                   {addedToCart ? "Added!" : `Add to Cart — $${totalPrice.toFixed(2)}`}
                 </Button>
               </div>
 
+              {/* Trust strip */}
+              <p className="text-xs text-text-muted text-center sm:text-left mb-8">
+                Ships in 24 hours • 30-day guarantee • Secure checkout
+              </p>
+
               {/* Accordion Sections */}
-              <div className="border-t border-border">
+              <div className="border-t border-border text-center sm:text-left">
                 {productSections.map((section, index) => (
                   <AccordionItem
                     key={section.title}
@@ -482,6 +382,7 @@ export default function ProductPage() {
           </div>
         </div>
       </main>
+
       <Footer />
     </div>
   );

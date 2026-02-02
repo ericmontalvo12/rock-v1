@@ -71,24 +71,20 @@ const itemVariants = {
 
 export function Ingredients() {
   return (
-    <section id="ingredients" className="py-16 sm:py-24 lg:py-32">
+    <section id="ingredients" className="py-12 sm:py-16 lg:py-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-10 sm:mb-16"
+          className="text-center mb-8 sm:mb-10"
         >
-          <span className="inline-block px-3 py-1 mb-4 text-xs font-medium uppercase tracking-wider text-primary bg-primary/10 rounded-full">
-            Full Transparency
-          </span>
           <h2 className="text-3xl sm:text-4xl font-bold text-text-primary mb-4">
-            Ingredients
+            What's Inside
           </h2>
           <p className="text-text-secondary max-w-2xl mx-auto">
-            Every ingredient at research-supported levels. No proprietary
-            blends. No under-dosing.
+            The exact formula—fully disclosed.
           </p>
         </motion.div>
 
@@ -97,7 +93,7 @@ export function Ingredients() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="space-y-4"
+          className="space-y-3"
         >
           {ingredients.map((ingredient, index) => (
             <motion.div
@@ -105,7 +101,7 @@ export function Ingredients() {
               variants={itemVariants}
               className="group"
             >
-              <div className="p-4 sm:p-6 rounded-xl bg-surface border border-border hover:border-primary/30 transition-colors duration-300">
+              <div className="p-3 sm:p-5 rounded-xl bg-surface border border-black/[0.06] hover:border-primary/30 transition-colors duration-300">
                 <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
                   <div className="flex items-start sm:items-center gap-3 sm:gap-4 flex-1">
                     <span className="flex-shrink-0 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-primary/10 text-primary text-xs sm:text-sm font-medium flex items-center justify-center">

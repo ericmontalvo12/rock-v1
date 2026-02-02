@@ -6,185 +6,171 @@ import Link from "next/link";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDown, Check, ArrowRight, Shield, Plus } from "lucide-react";
+import { Check, ArrowRight, Shield, Plus } from "lucide-react";
 
 const ingredients = [
   {
     name: "Vitamin D3",
-    scientificName: "Cholecalciferol",
+    form: "Cholecalciferol (D3)",
     dosage: "3,000 IU (75 mcg)",
     image: "/ingredients/vitamin-d3.png",
     overview: "The foundation of hormonal health. Vitamin D3 acts as a hormone precursor, directly influencing testosterone production and overall metabolic function.",
-    sourcedFrom: "Lanolin-derived, pharmaceutical-grade cholecalciferol. Verified for purity and potency through third-party testing.",
-    origin: "Naturally derived from sheep wool lanolin",
+    source: "Lanolin-derived cholecalciferol, standardized for potency, third-party tested for purity and potency.",
     benefits: [
-      "Supports testosterone levels",
+      "Supports healthy testosterone levels",
       "Enhances calcium absorption",
+      "Supports muscle function + recovery",
       "Modulates immune function",
-      "Improves muscle synthesis",
-      "Supports mood regulation",
-      "Cognitive function support",
     ],
     background: "Research shows that men with sufficient Vitamin D levels have significantly higher testosterone than those deficient. Modern indoor lifestyles leave most men deficient, making supplementation essential for peak performance.",
-    activeCompounds: ["Cholecalciferol (D3)", "Fat-soluble hormone precursor", "Bioactive form"],
+    research: [
+      { title: "Effect of vitamin D supplementation on testosterone levels in men", url: "https://pubmed.ncbi.nlm.nih.gov/21154195/" },
+      { title: "Association of vitamin D status with serum androgen levels in men", url: "https://pubmed.ncbi.nlm.nih.gov/20197091/" },
+    ],
   },
   {
     name: "Magnesium",
-    scientificName: "Magnesium Bisglycinate",
+    form: "Magnesium Bisglycinate",
     dosage: "300 mg",
     image: "/magnesium-new.png",
     overview: "The master mineral for recovery and performance. Magnesium bisglycinate delivers superior absorption without GI distress, supporting over 300 enzymatic reactions.",
-    sourcedFrom: "Chelated magnesium bound to glycine for maximum bioavailability. Laboratory tested for heavy metals.",
-    origin: "Mineral-derived, chelated with amino acid glycine",
+    source: "Chelated bisglycinate form, verified for bioavailability, third-party tested for purity and potency.",
     benefits: [
       "Supports testosterone production",
       "Enhances sleep quality",
       "Reduces muscle cramps",
       "Supports energy metabolism",
-      "Calms nervous system",
-      "Improves exercise performance",
     ],
     background: "Magnesium deficiency is epidemic among athletes due to sweat losses. Studies link adequate magnesium to free testosterone levels and improved strength gains. The bisglycinate form ensures you absorb what you take.",
-    activeCompounds: ["Elemental Magnesium", "Glycine amino acid complex", "Chelated mineral form"],
+    research: [
+      { title: "Magnesium and testosterone in men", url: "https://pubmed.ncbi.nlm.nih.gov/20352370/" },
+      { title: "The interplay between magnesium and testosterone in men", url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC3958794/" },
+    ],
   },
   {
     name: "Zinc",
-    scientificName: "Zinc Citrate",
+    form: "Zinc Citrate",
     dosage: "30 mg",
     image: "/ingredients/zinc.png",
     overview: "Essential for testosterone synthesis and immune defense. Zinc citrate provides optimal absorption to support the enzymatic processes that drive male hormone production.",
-    sourcedFrom: "High-purity zinc citrate, third-party verified for elemental zinc content and free from contamination.",
-    origin: "Mineral zinc complexed with citric acid",
+    source: "Citrate-bound zinc, verified for elemental content, third-party tested for purity and potency.",
     benefits: [
       "Critical for testosterone synthesis",
       "Supports protein synthesis",
       "Strengthens immune function",
-      "Aids wound healing",
-      "Supports sperm production",
-      "Recovery optimization",
+      "Aids recovery optimization",
     ],
     background: "Zinc is lost through sweat during intense training, making supplementation crucial for athletes. Research demonstrates that zinc-deficient men experience significant drops in testosterone.",
-    activeCompounds: ["Elemental Zinc", "Citrate complex", "Enzyme cofactor"],
+    research: [
+      { title: "Zinc status and serum testosterone levels in adult males", url: "https://pubmed.ncbi.nlm.nih.gov/8875519/" },
+      { title: "Effect of zinc administration on testosterone levels", url: "https://pubmed.ncbi.nlm.nih.gov/6786094/" },
+    ],
   },
   {
     name: "Fenugreek",
-    scientificName: "Trigonella foenum-graecum",
-    dosage: "500 mg (50% Saponins)",
+    form: "50% Saponins Extract",
+    dosage: "500 mg",
     image: "/fenugreek-new.png",
     overview: "Ancient herb backed by modern science. Fenugreek seed extract standardized to 50% saponins supports healthy testosterone levels and enhances exercise performance.",
-    sourcedFrom: "Premium fenugreek seed extract, standardized to 50% furostanolic saponins with full traceability.",
-    origin: "Mediterranean and South Asian cultivation",
+    source: "Seed extract, standardized to 50% saponins, third-party tested for purity and potency.",
     benefits: [
       "Supports free testosterone",
       "Enhances strength output",
       "Improves performance",
-      "Supports healthy libido",
       "Aids body composition",
-      "Blood sugar regulation",
     ],
     background: "Clinical studies show fenugreek extract significantly increases both total and free testosterone while improving strength markers. The saponin compounds inhibit enzymes that convert testosterone to estrogen.",
-    activeCompounds: ["Furostanolic saponins (50%)", "Protodioscin", "Diosgenin precursors"],
+    research: [
+      { title: "Fenugreek extract and testosterone in resistance-trained men", url: "https://pubmed.ncbi.nlm.nih.gov/32048383/" },
+      { title: "Fenugreek supplementation and male sexual function", url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC6191980/" },
+    ],
   },
   {
     name: "Ashwagandha",
-    scientificName: "Withania somnifera (KSM-66)",
+    form: "KSM-66 Root Extract",
     dosage: "500 mg",
     image: "/ashwagandha-new.png",
-    overview: "The king of adaptogens. KSM-66 Ashwagandha is the most clinically studied form, proven to reduce cortisol, enhance recovery, and support healthy testosterone.",
-    sourcedFrom: "KSM-66 branded extract, full-spectrum root extraction with extensive clinical validation.",
-    origin: "Cultivated in India using sustainable farming",
+    overview: "The most clinically studied ashwagandha extract. KSM-66 is proven to reduce cortisol, enhance recovery, and support healthy testosterone levels in active men.",
+    source: "KSM-66 root extract, standardized for withanolides, third-party tested for purity and potency.",
     benefits: [
       "Reduces cortisol levels",
-      "Supports testosterone",
+      "Supports healthy testosterone",
       "Enhances muscle recovery",
-      "Improves sleep quality",
-      "Cognitive support",
-      "Enhances endurance",
+      "Improves stress adaptation",
     ],
-    background: "KSM-66 is backed by 24+ clinical studies. Research shows significant improvements in testosterone, strength, and recovery in men who train. It works by modulating the stress response.",
-    activeCompounds: ["Withanolides (5%+)", "Withaferin A", "Withanone", "Full-spectrum alkaloids"],
+    background: "KSM-66 is backed by 24+ clinical studies. Research shows significant improvements in testosterone, strength, and recovery in men who train. It works by modulating the stress response and lowering cortisol.",
+    research: [
+      { title: "Withania somnifera improves semen quality in stressed males", url: "https://pubmed.ncbi.nlm.nih.gov/19789200/" },
+      { title: "Ashwagandha supplementation and testosterone in overweight men", url: "https://pubmed.ncbi.nlm.nih.gov/31517876/" },
+    ],
   },
   {
     name: "Tongkat Ali",
-    scientificName: "Eurycoma longifolia (1% Eurycomanone)",
+    form: "1% Eurycomanone Extract",
     dosage: "300 mg",
     image: "/tongkat-ali-new.png",
-    overview: "Southeast Asia's testosterone secret. Tongkat Ali root extract standardized to 1% eurycomanone supports free testosterone, energy, and training drive.",
-    sourcedFrom: "Malaysian Tongkat Ali, standardized to 1% eurycomanone. Sustainably harvested from mature roots.",
-    origin: "Wild-harvested from Malaysian rainforests",
+    overview: "Tongkat Ali root extract standardized to 1% eurycomanone supports free testosterone, energy, and training drive by aiding the body's stress and hormonal response.",
+    source: "Root extract, standardized to 1% eurycomanone, third-party tested for purity and potency.",
     benefits: [
       "Supports free testosterone",
       "Enhances energy levels",
       "Balances stress hormones",
       "Improves training drive",
-      "Supports male vitality",
-      "Reduces fatigue",
     ],
-    background: "Tongkat Ali has been used for centuries by Southeast Asian cultures for male vitality. Modern research confirms its ability to support testosterone by reducing SHBG and cortisol.",
-    activeCompounds: ["Eurycomanone (1%)", "Quassinoids", "Eurycolactone", "Bioactive glycosaponins"],
+    background: "Clinical studies suggest Tongkat Ali supports free testosterone levels, stress adaptation, and overall vitality. Modern research confirms its ability to support testosterone by reducing SHBG and cortisol.",
+    research: [
+      { title: "Eurycoma longifolia and androgenic status in moderately stressed males", url: "https://pubmed.ncbi.nlm.nih.gov/21671978/" },
+      { title: "Tongkat Ali effects on stress hormones and testosterone", url: "https://pubmed.ncbi.nlm.nih.gov/23342982/" },
+    ],
   },
   {
     name: "Boron",
-    scientificName: "Boron Citrate",
+    form: "Boron Citrate",
     dosage: "9 mg",
     image: "/boron.png",
     overview: "The overlooked optimizer. Boron citrate supports free testosterone by influencing SHBG levels and enhancing the metabolism of key hormones.",
-    sourcedFrom: "High-purity boron citrate, laboratory verified for elemental boron content.",
-    origin: "Trace mineral complexed with citric acid",
+    source: "Citrate-bound boron, verified for elemental content, third-party tested for purity and potency.",
     benefits: [
       "Supports free testosterone",
-      "Enhances Vitamin D use",
+      "Enhances Vitamin D utilization",
       "Supports bone density",
-      "Reduces inflammation",
-      "Cognitive function",
-      "Synergistic effects",
+      "Synergizes with other minerals",
     ],
     background: "Research shows that boron supplementation can increase free testosterone by reducing SHBG within just one week. It also enhances the body's use of Vitamin D and magnesium.",
-    activeCompounds: ["Elemental Boron", "Citrate complex", "Trace mineral"],
-  },
-];
-
-const scienceConcepts = [
-  {
-    title: "Bioavailability",
-    description: "Not all supplements are created equal. Bioavailability determines how much of an ingredient your body actually absorbs and uses. We select chelated minerals and standardized extracts specifically for superior absorption rates.",
-  },
-  {
-    title: "Testosterone Pathways",
-    description: "Testosterone production involves multiple pathways: the HPT axis, enzyme activity, and hormone binding proteins. Our formula targets multiple points in this cascade, from supporting precursor nutrients to optimizing free testosterone ratios.",
-  },
-  {
-    title: "Mineral Synergy",
-    description: "Nutrients don't work in isolation. Zinc supports Vitamin D metabolism. Magnesium enhances zinc absorption. Boron amplifies both. Our formula leverages these synergies for compounded results.",
+    research: [
+      { title: "Comparative effects of daily boron supplementation on plasma steroid hormones", url: "https://pubmed.ncbi.nlm.nih.gov/21129941/" },
+      { title: "Nothing boring about boron and testosterone", url: "https://pubmed.ncbi.nlm.nih.gov/28859553/" },
+    ],
   },
 ];
 
 const certifications = [
-  "Gluten Free",
+  "Third-Party Verified",
   "Heavy Metal Tested",
   "Pesticide Screened",
   "Allergen Free",
-  "Aflatoxin Free",
-  "Sustainably Sourced",
-  "Third Party Verified",
 ];
 
-const blogPosts = [
+const researchCards = [
   {
-    title: "Vitamin D & Testosterone: The Connection Most Men Miss",
-    preview: "Research reveals that Vitamin D deficiency directly impacts testosterone production. Here's what the science says and how to optimize your levels.",
+    title: "Vitamin D Supplementation and Testosterone Levels",
+    description: "Clinical trial showing testosterone increases in men with low vitamin D.",
+    url: "https://pubmed.ncbi.nlm.nih.gov/21154195/",
   },
   {
-    title: "Magnesium for Recovery: Why Athletes Are Chronically Deficient",
-    preview: "Intense training depletes magnesium faster than diet can replace it. Understanding this gap is crucial for sustained performance.",
+    title: "Ashwagandha (KSM-66) and Male Hormonal Health",
+    description: "Randomized study linking stress reduction with improved testosterone markers.",
+    url: "https://pubmed.ncbi.nlm.nih.gov/31517876/",
   },
   {
-    title: "Tongkat Ali Explained: Ancient Root, Modern Research",
-    preview: "From Malaysian rainforests to clinical trials. The science behind one of nature's most effective testosterone supporters.",
+    title: "Tongkat Ali and Free Testosterone Support",
+    description: "Human data supporting androgen balance and stress adaptation in men.",
+    url: "https://pubmed.ncbi.nlm.nih.gov/21671978/",
   },
   {
-    title: "Bioavailability: Why Most Supplements Fail Before They Start",
-    preview: "The supplement industry's dirty secret. Cheap forms mean wasted money. Here's how to know if you're actually absorbing what you take.",
+    title: "Zinc Status and Testosterone Regulation",
+    description: "Classic human evidence showing zinc deficiency lowers testosterone and supplementation restores levels.",
+    url: "https://pubmed.ncbi.nlm.nih.gov/8875519/",
   },
 ];
 
@@ -207,12 +193,12 @@ function IngredientShowcase({
   return (
     <div className="grid lg:grid-cols-12 gap-8 items-start">
       {/* Left: Ingredient Names */}
-      <div className="lg:col-span-3 flex lg:flex-col gap-2 lg:gap-1 overflow-x-auto lg:overflow-visible pb-4 lg:pb-0">
+      <div className="lg:col-span-3 flex lg:flex-col gap-3 lg:gap-1 overflow-x-auto lg:overflow-visible pb-4 lg:pb-0 px-4 lg:px-0 -mx-4 lg:mx-0 scrollbar-hide snap-x snap-mandatory">
         {ingredients.map((ingredient, index) => (
           <button
             key={ingredient.name}
             onClick={() => onSelect(index)}
-            className={`text-left px-4 py-3 rounded-lg whitespace-nowrap lg:whitespace-normal transition-all duration-300 ${
+            className={`text-left px-3 py-2 lg:px-4 lg:py-3 text-sm lg:text-base rounded-lg whitespace-nowrap lg:whitespace-normal transition-all duration-300 snap-start flex-shrink-0 ${
               selectedIndex === index
                 ? "text-primary font-semibold bg-primary/10 border-l-2 border-primary"
                 : "text-text-muted hover:text-text-secondary hover:bg-surface/50"
@@ -224,15 +210,15 @@ function IngredientShowcase({
       </div>
 
       {/* Center: Ingredient Image */}
-      <div className="lg:col-span-3 flex justify-center items-start">
+      <div className="lg:col-span-3 flex justify-center items-start mb-4 lg:mb-0">
         <motion.div
           key={selectedIndex}
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.3 }}
-          className="relative"
+          className="relative max-h-[160px] lg:max-h-none"
         >
-          <div className="w-48 h-48 sm:w-56 sm:h-56 rounded-full bg-gradient-to-br from-surface to-background border-4 border-primary/20 shadow-2xl shadow-primary/10 flex items-center justify-center overflow-hidden">
+          <div className="w-36 h-36 sm:w-48 sm:h-48 lg:w-56 lg:h-56 rounded-full bg-gradient-to-br from-surface to-background border-4 border-primary/20 shadow-2xl shadow-primary/10 flex items-center justify-center overflow-hidden">
             <Image
               src={
                 selected.image ||
@@ -243,10 +229,9 @@ function IngredientShowcase({
               alt={selected.name}
               width={300}
               height={300}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-contain"
             />
           </div>
-          {/* Glow effect */}
           <div className="absolute inset-0 rounded-full bg-primary/10 blur-2xl -z-10" />
         </motion.div>
       </div>
@@ -257,9 +242,9 @@ function IngredientShowcase({
         initial={{ opacity: 0, x: 20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.3 }}
-        className="lg:col-span-6 rounded-2xl bg-gradient-to-br from-primary/90 to-primary border border-primary overflow-hidden"
+        className="lg:col-span-6 rounded-xl lg:rounded-2xl bg-gradient-to-br from-primary/90 to-primary border border-primary overflow-hidden w-full"
       >
-        <div className="p-6 sm:p-8">
+        <div className="p-4 sm:p-6 lg:p-8">
           {/* Header */}
           <h3 className="text-2xl font-bold text-background italic mb-3">
             {selected.name}
@@ -272,26 +257,18 @@ function IngredientShowcase({
           <div className="bg-background/10 rounded-xl p-4 mb-6 space-y-3">
             <div className="flex justify-between items-start border-b border-background/20 pb-3">
               <span className="text-background/70 text-sm font-medium">
-                Scientific Name
+                Dose
               </span>
               <span className="text-background text-sm text-right max-w-[60%]">
-                {selected.scientificName}
-              </span>
-            </div>
-            <div className="flex justify-between items-start border-b border-background/20 pb-3">
-              <span className="text-background/70 text-sm font-medium">
-                Sourced From
-              </span>
-              <span className="text-background text-sm text-right max-w-[60%]">
-                {selected.sourcedFrom}
+                {selected.dosage}
               </span>
             </div>
             <div className="flex justify-between items-start">
               <span className="text-background/70 text-sm font-medium">
-                Origin
+                Form
               </span>
               <span className="text-background text-sm text-right max-w-[60%]">
-                {selected.origin}
+                {selected.form}
               </span>
             </div>
           </div>
@@ -299,7 +276,7 @@ function IngredientShowcase({
           {/* Benefits */}
           <div className="mb-6">
             <h4 className="text-background font-semibold mb-3">Benefits</h4>
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
               {selected.benefits.map((benefit, i) => (
                 <div
                   key={i}
@@ -312,7 +289,7 @@ function IngredientShowcase({
             </div>
           </div>
 
-          {/* Expandable Sections */}
+          {/* Background Dropdown */}
           <div className="space-y-2">
             <button
               onClick={() =>
@@ -343,39 +320,28 @@ function IngredientShowcase({
                 </motion.div>
               )}
             </AnimatePresence>
-
-            <button
-              onClick={() =>
-                setExpandedSection(
-                  expandedSection === "compounds" ? null : "compounds"
-                )
-              }
-              className="w-full flex items-center justify-between py-3 border-t border-background/20 text-background"
-            >
-              <span className="font-medium text-sm">Active Compounds</span>
-              <Plus
-                className={`w-4 h-4 transition-transform ${
-                  expandedSection === "compounds" ? "rotate-45" : ""
-                }`}
-              />
-            </button>
-            <AnimatePresence>
-              {expandedSection === "compounds" && (
-                <motion.div
-                  initial={{ height: 0, opacity: 0 }}
-                  animate={{ height: "auto", opacity: 1 }}
-                  exit={{ height: 0, opacity: 0 }}
-                  className="overflow-hidden"
-                >
-                  <ul className="text-background/80 text-sm pb-3 space-y-1">
-                    {selected.activeCompounds.map((compound, i) => (
-                      <li key={i}>• {compound}</li>
-                    ))}
-                  </ul>
-                </motion.div>
-              )}
-            </AnimatePresence>
           </div>
+
+          {/* Research Links - Always Visible */}
+          {selected.research && selected.research.length > 0 && (
+            <div className="mt-4 pt-4 border-t border-background/20">
+              <h4 className="text-background font-semibold text-sm mb-2">Research</h4>
+              <ul className="space-y-1">
+                {selected.research.map((item, i) => (
+                  <li key={i}>
+                    <a
+                      href={item.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-background/80 text-xs hover:text-background underline"
+                    >
+                      {item.title} (PubMed)
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
       </motion.div>
     </div>
@@ -390,25 +356,25 @@ export default function FormulaPage() {
       <Header />
       <main className="pt-32 pb-16 sm:pb-24">
         {/* Hero Section */}
-        <section className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 mb-20 text-center">
-          <span className="inline-block px-3 py-1 mb-4 text-xs font-medium uppercase tracking-wider text-primary bg-primary/10 rounded-full">
-            Science + Ingredients
-          </span>
+        <section className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 mb-16 text-center">
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-text-primary mb-4">
-            Inside The Formula
+            Inside the Formula
           </h1>
-          <p className="text-text-secondary max-w-2xl mx-auto leading-relaxed">
-            Every ingredient in Peak Performance is selected at clinical doses, backed by peer-reviewed research, and tested for purity.
+          <p className="text-text-secondary max-w-2xl mx-auto">
+            7 clinically dosed ingredients. No fillers. No proprietary blends.
           </p>
         </section>
 
         {/* Ingredient Library */}
-        <section className="bg-surface/50 py-16 sm:py-20 mb-20">
+        <section className="bg-surface/50 py-16 sm:py-20 mb-16">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
-              <h2 className="text-2xl sm:text-3xl font-bold text-text-primary">
+              <h2 className="text-2xl sm:text-3xl font-bold text-text-primary mb-4">
                 Ingredient Library
               </h2>
+              <p className="text-text-secondary max-w-2xl mx-auto">
+                Below is a breakdown of the exact ingredients used in Peak Performance and why each one matters.
+              </p>
             </div>
 
             <IngredientShowcase
@@ -419,74 +385,63 @@ export default function FormulaPage() {
           </div>
         </section>
 
-        {/* Testing & Certifications */}
-        <section className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 mb-20">
-          <div className="text-center mb-12">
-            <span className="inline-block px-3 py-1 mb-4 text-xs font-medium uppercase tracking-wider text-primary bg-primary/10 rounded-full">
-              Certified Clean
-            </span>
-            <h2 className="text-2xl sm:text-3xl font-bold text-text-primary">
-              Third-party tested for purity and safety
+        {/* Verified for Purity */}
+        <section className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 mb-16">
+          <div className="text-center">
+            <h2 className="text-2xl sm:text-3xl font-bold text-text-primary mb-4">
+              Verified for Purity
             </h2>
-          </div>
-
-          <div className="grid lg:grid-cols-2 gap-12 items-center mb-12">
-            {/* Product Image */}
-            <div className="flex justify-center">
-              <div className="relative w-full max-w-md aspect-square overflow-hidden rounded-2xl border border-border flex items-center justify-center">
-                <Image
-                  src="/product-main.png"
-                  alt="Peak Performance - Testosterone Support"
-                  width={500}
-                  height={500}
-                  className="object-contain scale-110"
-                />
-              </div>
-            </div>
-
-            {/* Certifications */}
-            <div className="flex flex-wrap justify-center lg:justify-start gap-4">
+            <p className="text-text-secondary mb-8">
+              Every batch is independently tested for heavy metals, pesticides, and contaminants.
+            </p>
+            <div className="grid grid-cols-2 sm:flex sm:flex-wrap sm:justify-center gap-3 sm:gap-4">
               {certifications.map((cert) => (
                 <div
                   key={cert}
-                  className="flex items-center gap-2 px-4 py-3 rounded-lg bg-surface border border-border"
+                  className="flex items-center justify-center sm:justify-start gap-2 px-3 sm:px-4 py-3 rounded-lg bg-surface border border-border w-full sm:w-auto"
                 >
-                  <Shield className="w-4 h-4 text-primary" />
-                  <span className="text-sm text-text-primary">{cert}</span>
+                  <Shield className="w-4 h-4 text-primary flex-shrink-0" />
+                  <span className="text-xs sm:text-sm text-text-primary">{cert}</span>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* Research Hub */}
-        <section className="bg-surface/50 py-20">
-          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12">
+        {/* Research Section */}
+        <section className="bg-surface/50 py-16 sm:py-20">
+          <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-10">
               <h2 className="text-2xl sm:text-3xl font-bold text-text-primary mb-4">
-                Research
+                Research Behind the Formula
               </h2>
               <p className="text-text-secondary">
-                Performance science, ingredient deep dives, and modern hormone optimization.
+                Peer-reviewed evidence informing each ingredient choice.
               </p>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-6">
-              {blogPosts.map((post, index) => (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+              {researchCards.map((card, index) => (
                 <div
                   key={index}
-                  className="p-6 rounded-2xl bg-background border border-border hover:border-primary/30 transition-colors cursor-pointer"
+                  className="p-4 sm:p-5 rounded-xl bg-background border border-border"
                 >
-                  <h3 className="text-lg font-bold text-text-primary mb-2">{post.title}</h3>
-                  <p className="text-sm text-text-secondary mb-4">{post.preview}</p>
-                  <span className="inline-flex items-center gap-2 text-primary text-sm font-medium">
-                    Read Article <ArrowRight className="w-4 h-4" />
-                  </span>
+                  <h3 className="font-semibold text-text-primary mb-2">{card.title}</h3>
+                  <p className="text-sm text-text-secondary mb-3">{card.description}</p>
+                  <a
+                    href={card.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center text-primary text-sm font-medium hover:underline mt-3"
+                  >
+                    View on PubMed →
+                  </a>
                 </div>
               ))}
             </div>
           </div>
         </section>
+
       </main>
       <Footer />
     </div>

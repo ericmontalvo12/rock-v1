@@ -10,20 +10,20 @@ const faqs = [
   {
     question: "What is Rock Mountain Peak Performance?",
     answer:
-      "Rock Mountain Peak Performance is a daily testosterone support supplement designed to support energy, training performance, recovery, and overall vitality. It is formulated with clinically studied ingredients and transparent, research based dosing with no proprietary blends.",
+      "Rock Mountain Peak Performance is a daily testosterone support formula designed to support strength, recovery, and overall vitality. It's built with clinically studied ingredients, fully transparent dosing, and no proprietary blends.",
   },
   {
     question: "Who is this product for?",
     answer: `This product is best suited for:
 
 - Men who train regularly or stay physically active
-- Men focused on long term performance, recovery, and consistency
+- Men focused on long-term performance and recovery
 - Men looking to support healthy testosterone levels naturally`,
   },
   {
     question: "How do I take Rock Mountain Peak Performance?",
     answer:
-      "Take the recommended daily serving consistently, preferably with food. For best results, use daily for at least 30 days alongside proper sleep, nutrition, and training.",
+      "Take 3 capsules daily with food. For best results, use consistently for at least 30 days alongside proper training, sleep, and nutrition.",
   },
   {
     question: "How long does it take to notice results?",
@@ -33,7 +33,7 @@ const faqs = [
   {
     question: "Is this safe for daily use?",
     answer:
-      "Yes. The formula is designed for daily, long term use and contains ingredients commonly used in sports nutrition. Always follow the recommended serving size.",
+      "Yes. Peak Performance is formulated with well-studied ingredients at research-supported doses intended for daily use. Always follow the recommended serving size.",
   },
   {
     question: "Is Peak Performance backed by a guarantee?",

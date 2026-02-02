@@ -168,22 +168,19 @@ export default function CartPage() {
 
                 {/* Discount Code */}
                 <div className="mb-6">
-                  <label className="block text-sm text-text-secondary mb-2">
+                  <label className="block text-sm text-text-secondary mb-2 text-center">
                     Discount Code
                   </label>
-                  <div className="flex gap-2">
+                  <div className="flex gap-2 justify-center">
                     <input
                       type="text"
                       placeholder="Enter code"
-                      className="flex-1 px-4 py-2 rounded-lg bg-background border border-border text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                      className="w-40 px-4 py-2 rounded-lg bg-background border border-border text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                     />
-                    <Button variant="outline" size="sm">
+                    <Button variant="outline" className="px-4 py-2 h-auto">
                       Apply
                     </Button>
                   </div>
-                  <p className="text-xs text-text-muted mt-2">
-                    Try code: LAUNCH for 20% off
-                  </p>
                 </div>
 
                 <CheckoutButton cartItems={checkoutItems} />
