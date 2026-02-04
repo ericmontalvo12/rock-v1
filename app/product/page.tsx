@@ -25,7 +25,7 @@ const bundleOptions = [
     id: "2-bottles",
     quantity: 2,
     label: "2 Bottles",
-    subtitle: "Free Shipping + Priority Processing",
+    subtitle: "Free Shipping",
     price: 99.98,
     perBottle: 49.99,
     badge: "Most Popular",
@@ -147,7 +147,7 @@ function AccordionItem({
     <div className="border-b border-border">
       <button
         onClick={onToggle}
-        className="w-full py-5 sm:py-4 flex items-center justify-center sm:justify-between text-center sm:text-left min-h-[56px] sm:min-h-0 gap-3"
+        className="w-full py-5 sm:py-4 flex items-center justify-center text-center min-h-[56px] sm:min-h-0 gap-3"
       >
         <span className="font-semibold text-text-primary">{title}</span>
         <motion.span
@@ -166,7 +166,7 @@ function AccordionItem({
             transition={{ duration: 0.3, ease: "easeInOut" }}
             className="overflow-hidden"
           >
-            <div className="pb-5 sm:pb-4 text-left">{content}</div>
+            <div className="pb-5 sm:pb-4 text-center">{content}</div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -264,7 +264,7 @@ export default function ProductPage() {
             </div>
 
             {/* Product Info */}
-            <div className="order-2 lg:order-2 text-center sm:text-left">
+            <div className="order-2 lg:order-2 text-center">
               <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-text-primary mb-3">
                 Peak Performance
               </h1>
@@ -380,12 +380,12 @@ export default function ProductPage() {
               </div>
 
               {/* Trust strip */}
-              <p className="text-xs text-text-muted text-center sm:text-left mb-8">
+              <p className="text-xs text-text-muted text-center mb-8">
                 Ships within 24 hours • 30-day money-back guarantee • No subscriptions or tricks
               </p>
 
               {/* Accordion Sections */}
-              <div className="border-t border-border text-center sm:text-left">
+              <div className="border-t border-border text-center">
                 {productSections.map((section, index) => (
                   <AccordionItem
                     key={section.title}

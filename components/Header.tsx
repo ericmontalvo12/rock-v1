@@ -126,7 +126,7 @@ export function Header() {
                 alt="Rock Mountain Performance"
                 width={210}
                 height={60}
-                className="max-w-[180px] sm:max-w-[210px] max-h-[50px] w-auto h-auto object-contain scale-[1.75] translate-y-[5px]"
+                className="max-w-[180px] sm:max-w-[210px] max-h-[50px] w-auto h-auto object-contain scale-[2] sm:scale-[1.75] translate-y-[5px]"
                 priority
               />
             </Link>

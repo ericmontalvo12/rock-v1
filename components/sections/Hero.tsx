@@ -30,19 +30,19 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-center lg:text-left max-w-[340px] sm:max-w-none mx-auto lg:mx-0"
+            className="text-center max-w-[340px] sm:max-w-none mx-auto"
           >
             <h1 className="text-3xl sm:text-4xl lg:text-6xl font-bold tracking-tight text-white mb-4 sm:mb-6 leading-tight">
-              Testosterone Support<br className="hidden sm:block" />
+              Testosterone Support<br />
               Built on Research
             </h1>
 
             <p className="text-base sm:text-lg lg:text-xl text-white/90 mb-6 sm:mb-8 mx-auto lg:mx-0 leading-relaxed">
-              Most supplements hide behind proprietary blends or use underdosed ingredients.<br className="hidden sm:block" />
+              Most supplements hide behind proprietary blends or use underdosed ingredients.<br />
               We don't.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start mt-6 sm:mt-0">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center mt-6 sm:mt-0">
               <Link href="/product" className="w-full max-w-[320px] sm:max-w-none sm:w-auto mx-auto sm:mx-0">
                 <Button size="lg" className="w-full sm:w-auto h-11 text-sm rounded-lg sm:h-12 sm:text-base sm:px-8 sm:rounded-md">View Peak Performance</Button>
               </Link>
@@ -55,7 +55,7 @@ export function Hero() {
 
 
             {/* Trust indicators */}
-            <div className="mt-8 sm:mt-10 grid grid-cols-2 gap-y-3 gap-x-4 text-sm text-white/80 max-w-sm mx-auto lg:mx-0">
+            <div className="mt-8 sm:mt-10 grid grid-cols-2 gap-y-3 gap-x-4 text-sm text-white/80 max-w-sm mx-auto">
               <div className="flex items-start gap-2">
                 <Check className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
                 <span className="leading-snug">Research-Backed</span>
