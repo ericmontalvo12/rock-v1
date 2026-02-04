@@ -1,16 +1,11 @@
-"use client";
-
-import { useState } from "react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDown } from "lucide-react";
 
 const faqs = [
   {
     question: "What is Rock Mountain Peak Performance?",
     answer:
-      "Rock Mountain Peak Performance is a daily testosterone support formula designed to support strength, recovery, and overall vitality. It's built with clinically studied ingredients, fully transparent dosing, and no proprietary blends.",
+      "Rock Mountain Peak Performance is a daily testosterone support formula designed to support strength, recovery, and overall vitality. It's built with ingredients supported by human studies, fully transparent dosing, and no proprietary blends.",
   },
   {
     question: "Who is this product for?",
@@ -23,85 +18,111 @@ const faqs = [
   {
     question: "How do I take Rock Mountain Peak Performance?",
     answer:
-      "Take 3 capsules daily with food. For best results, use consistently for at least 30 days alongside proper training, sleep, and nutrition.",
+      "Take 3 capsules daily with food. For best results, use consistently for at least 30 days, alongside proper training, sleep, and nutrition.",
   },
   {
     question: "How long does it take to notice results?",
     answer:
-      "Most customers report subtle improvements in energy, recovery, and training performance within 2 to 4 weeks of consistent use.",
+      "Results vary by individual. Many users report noticing improvements in energy, recovery, or training drive within 2–4 weeks of consistent use. Full evaluation is best made after 30 days.",
   },
   {
     question: "Is this safe for daily use?",
     answer:
-      "Yes. Peak Performance is formulated with well-studied ingredients at research-supported doses intended for daily use. Always follow the recommended serving size.",
+      "Peak Performance is formulated with well-researched ingredients at evidence-based doses intended for daily use. Always follow the recommended serving size.\n\nIf you have a medical condition or take prescription medications, consult your physician before use.",
+  },
+  {
+    question: "Can I take this if I'm on medication or have a medical condition?",
+    answer:
+      "If you are taking prescription medications or have a medical condition, consult your healthcare provider before using this product. Dietary supplements may interact with certain medications.",
   },
   {
     question: "Is Peak Performance backed by a guarantee?",
     answer:
-      "Yes. Rock Mountain Peak Performance includes a 30 day money back guarantee if you are not satisfied.",
+      "Yes. Rock Mountain Peak Performance is backed by a 30-day money-back guarantee. If you're not satisfied, contact us within 30 days of purchase for a refund.",
   },
 ];
 
-function FAQItem({
-  question,
-  answer,
-  isOpen,
-  onToggle,
-}: {
-  question: string;
-  answer: string;
-  isOpen: boolean;
-  onToggle: () => void;
-}) {
+function FAQItem({ question, answer }: { question: string; answer: string }) {
+  const renderAnswer = () => {
+    const lines = answer.split("\n");
+    const hasBullets = lines.some((line) => line.trim().startsWith("- "));
+
+    if (hasBullets) {
+      const parts: JSX.Element[] = [];
+      let currentText = "";
+
+      lines.forEach((line, i) => {
+        if (line.trim().startsWith("- ")) {
+          if (currentText) {
+            parts.push(
+              <p key={`text-${i}`} className="text-text-secondary leading-relaxed mb-3">
+                {currentText.trim()}
+              </p>
+            );
+            currentText = "";
+          }
+          if (parts.length > 0 && parts[parts.length - 1].type !== "ul") {
+            parts.push(<ul key={`ul-${i}`} className="space-y-2 text-text-secondary leading-relaxed list-disc pl-5 mb-3"></ul>);
+          }
+          if (parts.length === 0) {
+            parts.push(<ul key={`ul-${i}`} className="space-y-2 text-text-secondary leading-relaxed list-disc pl-5 mb-3"></ul>);
+          }
+          const lastUl = parts[parts.length - 1];
+          if (lastUl.type === "ul") {
+            parts[parts.length - 1] = (
+              <ul key={lastUl.key} className="space-y-2 text-text-secondary leading-relaxed list-disc pl-5 mb-3">
+                {lastUl.props.children}
+                <li key={`li-${i}`}>{line.trim().substring(2)}</li>
+              </ul>
+            );
+          }
+        } else if (line.trim()) {
+          currentText += (currentText ? "\n" : "") + line;
+        } else if (currentText) {
+          parts.push(
+            <p key={`text-${i}`} className="text-text-secondary leading-relaxed mb-3">
+              {currentText.trim()}
+            </p>
+          );
+          currentText = "";
+        }
+      });
+
+      if (currentText) {
+        parts.push(
+          <p key="text-final" className="text-text-secondary leading-relaxed">
+            {currentText.trim()}
+          </p>
+        );
+      }
+
+      return <div>{parts}</div>;
+    }
+
+    return (
+      <p className="text-text-secondary leading-relaxed whitespace-pre-line">
+        {answer}
+      </p>
+    );
+  };
+
   return (
-    <div className="border-b border-border last:border-b-0">
-      <button
-        onClick={onToggle}
-        className="w-full py-6 flex items-center justify-between text-left"
-      >
-        <span className="text-base sm:text-lg font-semibold text-text-primary pr-4">
-          {question}
-        </span>
-        <motion.span
-          animate={{ rotate: isOpen ? 180 : 0 }}
-          transition={{ duration: 0.2 }}
-          className="flex-shrink-0"
-        >
-          <ChevronDown className="w-5 h-5 text-primary" />
-        </motion.span>
-      </button>
-      <AnimatePresence initial={false}>
-        {isOpen && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="overflow-hidden"
-          >
-            <div className="pb-6 text-text-secondary whitespace-pre-line">
-              {answer}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+    <div className="pt-10 first:pt-0">
+      <h3 className="text-lg sm:text-xl font-semibold text-text-primary mb-4">
+        {question}
+      </h3>
+      {renderAnswer()}
     </div>
   );
 }
 
 export default function FAQ() {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
-
-  const handleToggle = (index: number) => {
-    setOpenIndex(openIndex === index ? null : index);
-  };
-
   return (
     <div className="w-full max-w-full overflow-x-hidden">
       <Header />
       <main className="pt-32 pb-16 sm:pb-24">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
+          <div className="text-center mb-16">
             <span className="inline-block px-3 py-1 mb-4 text-xs font-medium uppercase tracking-wider text-primary bg-primary/10 rounded-full">
               FAQ
             </span>
@@ -113,24 +134,18 @@ export default function FAQ() {
             </p>
           </div>
 
-          <div className="rounded-2xl bg-surface border border-border p-6 sm:p-8">
+          <div className="mx-auto max-w-[720px] rounded-2xl bg-surface border border-border/50 shadow-sm p-8 sm:p-10">
             {faqs.map((faq, index) => (
-              <FAQItem
-                key={index}
-                question={faq.question}
-                answer={faq.answer}
-                isOpen={openIndex === index}
-                onToggle={() => handleToggle(index)}
-              />
+              <FAQItem key={index} question={faq.question} answer={faq.answer} />
             ))}
           </div>
 
-          <div className="mt-12 text-center p-6 sm:p-8 rounded-2xl bg-surface border border-border">
+          <div className="mx-auto max-w-[720px] mt-16 text-center p-8 sm:p-10 rounded-2xl bg-surface border border-border/50 shadow-sm">
             <h2 className="text-xl font-semibold text-text-primary mb-2">
               Still have questions?
             </h2>
-            <p className="text-text-secondary mb-4">
-              Can't find the answer you're looking for? Reach out to our team.
+            <p className="text-text-secondary mb-6">
+              Email us anytime — we respond within 24 hours.
             </p>
             <a
               href="/contact"

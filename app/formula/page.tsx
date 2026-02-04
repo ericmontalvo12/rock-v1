@@ -14,15 +14,15 @@ const ingredients = [
     form: "Cholecalciferol (D3)",
     dosage: "3,000 IU (75 mcg)",
     image: "/ingredients/vitamin-d3.png",
-    overview: "The foundation of hormonal health. Vitamin D3 acts as a hormone precursor, directly influencing testosterone production and overall metabolic function.",
+    overview: "Vitamin D3 acts as a hormone precursor and is strongly associated with testosterone production and overall metabolic function.",
     source: "Lanolin-derived cholecalciferol, standardized for potency, third-party tested for purity and potency.",
     benefits: [
       "Supports healthy testosterone levels",
-      "Enhances calcium absorption",
-      "Supports muscle function + recovery",
-      "Modulates immune function",
+      "Supports calcium absorption",
+      "Supports muscle function and recovery",
+      "Supports immune function",
     ],
-    background: "Research shows that men with sufficient Vitamin D levels have significantly higher testosterone than those deficient. Modern indoor lifestyles leave most men deficient, making supplementation essential for peak performance.",
+    background: "Research shows an association between adequate Vitamin D levels and healthy testosterone in men. Modern indoor lifestyles contribute to widespread deficiency among active individuals.",
     research: [
       { title: "Effect of vitamin D supplementation on testosterone levels in men", url: "https://pubmed.ncbi.nlm.nih.gov/21154195/" },
       { title: "Association of vitamin D status with serum androgen levels in men", url: "https://pubmed.ncbi.nlm.nih.gov/20197091/" },
@@ -33,15 +33,15 @@ const ingredients = [
     form: "Magnesium Bisglycinate",
     dosage: "300 mg",
     image: "/magnesium-new.png",
-    overview: "The master mineral for recovery and performance. Magnesium bisglycinate delivers superior absorption without GI distress, supporting over 300 enzymatic reactions.",
+    overview: "Magnesium bisglycinate delivers superior absorption without GI distress and is involved in over 300 enzymatic reactions tied to recovery and performance.",
     source: "Chelated bisglycinate form, verified for bioavailability, third-party tested for purity and potency.",
     benefits: [
       "Supports testosterone production",
-      "Enhances sleep quality",
-      "Reduces muscle cramps",
+      "Supports sleep quality",
+      "May reduce muscle cramps",
       "Supports energy metabolism",
     ],
-    background: "Magnesium deficiency is epidemic among athletes due to sweat losses. Studies link adequate magnesium to free testosterone levels and improved strength gains. The bisglycinate form ensures you absorb what you take.",
+    background: "Magnesium deficiency is common among athletes due to sweat losses. Studies link adequate magnesium intake to free testosterone levels and improved strength outcomes. The bisglycinate form is used for its superior absorption compared to standard forms.",
     research: [
       { title: "Magnesium and testosterone in men", url: "https://pubmed.ncbi.nlm.nih.gov/20352370/" },
       { title: "The interplay between magnesium and testosterone in men", url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC3958794/" },
@@ -52,15 +52,15 @@ const ingredients = [
     form: "Zinc Citrate",
     dosage: "30 mg",
     image: "/ingredients/zinc.png",
-    overview: "Essential for testosterone synthesis and immune defense. Zinc citrate provides optimal absorption to support the enzymatic processes that drive male hormone production.",
+    overview: "Zinc plays a critical role in testosterone synthesis and immune defense. Zinc citrate provides optimal absorption to support the enzymatic processes involved in male hormone production.",
     source: "Citrate-bound zinc, verified for elemental content, third-party tested for purity and potency.",
     benefits: [
-      "Critical for testosterone synthesis",
+      "Plays a role in testosterone synthesis",
       "Supports protein synthesis",
-      "Strengthens immune function",
-      "Aids recovery optimization",
+      "Supports immune function",
+      "Supports recovery",
     ],
-    background: "Zinc is lost through sweat during intense training, making supplementation crucial for athletes. Research demonstrates that zinc-deficient men experience significant drops in testosterone.",
+    background: "Zinc is lost through sweat during intense training, making supplementation common for athletes. Research shows that zinc deficiency is associated with lower testosterone levels in men.",
     research: [
       { title: "Zinc status and serum testosterone levels in adult males", url: "https://pubmed.ncbi.nlm.nih.gov/8875519/" },
       { title: "Effect of zinc administration on testosterone levels", url: "https://pubmed.ncbi.nlm.nih.gov/6786094/" },
@@ -71,15 +71,15 @@ const ingredients = [
     form: "50% Saponins Extract",
     dosage: "500 mg",
     image: "/fenugreek-new.png",
-    overview: "Ancient herb backed by modern science. Fenugreek seed extract standardized to 50% saponins supports healthy testosterone levels and enhances exercise performance.",
+    overview: "Fenugreek seed extract standardized to 50% saponins is associated with healthy testosterone levels and exercise performance in human studies.",
     source: "Seed extract, standardized to 50% saponins, third-party tested for purity and potency.",
     benefits: [
       "Supports free testosterone",
-      "Enhances strength output",
-      "Improves performance",
-      "Aids body composition",
+      "Supports strength output",
+      "Associated with performance",
+      "May support body composition",
     ],
-    background: "Clinical studies show fenugreek extract significantly increases both total and free testosterone while improving strength markers. The saponin compounds inhibit enzymes that convert testosterone to estrogen.",
+    background: "Human studies associate fenugreek extract with changes in testosterone levels and strength markers in resistance-trained men. Saponin compounds are thought to influence enzymes involved in testosterone metabolism.",
     research: [
       { title: "Fenugreek extract and testosterone in resistance-trained men", url: "https://pubmed.ncbi.nlm.nih.gov/32048383/" },
       { title: "Fenugreek supplementation and male sexual function", url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC6191980/" },
@@ -90,15 +90,15 @@ const ingredients = [
     form: "KSM-66 Root Extract",
     dosage: "500 mg",
     image: "/ashwagandha-new.png",
-    overview: "The most clinically studied ashwagandha extract. KSM-66 is proven to reduce cortisol, enhance recovery, and support healthy testosterone levels in active men.",
+    overview: "The most researched ashwagandha extract. KSM-66 is supported by over 20 human studies associating it with cortisol reduction, recovery, and healthy testosterone levels in active men.",
     source: "KSM-66 root extract, standardized for withanolides, third-party tested for purity and potency.",
     benefits: [
-      "Reduces cortisol levels",
+      "Associated with lower cortisol",
       "Supports healthy testosterone",
-      "Enhances muscle recovery",
-      "Improves stress adaptation",
+      "Supports muscle recovery",
+      "Supports stress adaptation",
     ],
-    background: "KSM-66 is backed by 24+ clinical studies. Research shows significant improvements in testosterone, strength, and recovery in men who train. It works by modulating the stress response and lowering cortisol.",
+    background: "KSM-66 is backed by 24+ human studies. Research associates it with improvements in testosterone, strength, and recovery in men who train. It is thought to work by modulating the stress response.",
     research: [
       { title: "Withania somnifera improves semen quality in stressed males", url: "https://pubmed.ncbi.nlm.nih.gov/19789200/" },
       { title: "Ashwagandha supplementation and testosterone in overweight men", url: "https://pubmed.ncbi.nlm.nih.gov/31517876/" },
@@ -109,15 +109,15 @@ const ingredients = [
     form: "1% Eurycomanone Extract",
     dosage: "300 mg",
     image: "/tongkat-ali-new.png",
-    overview: "Tongkat Ali root extract standardized to 1% eurycomanone supports free testosterone, energy, and training drive by aiding the body's stress and hormonal response.",
+    overview: "Tongkat Ali root extract standardized to 1% eurycomanone is associated with free testosterone, energy, and training drive in human studies.",
     source: "Root extract, standardized to 1% eurycomanone, third-party tested for purity and potency.",
     benefits: [
       "Supports free testosterone",
-      "Enhances energy levels",
-      "Balances stress hormones",
-      "Improves training drive",
+      "Supports energy levels",
+      "May balance stress hormones",
+      "Supports training drive",
     ],
-    background: "Clinical studies suggest Tongkat Ali supports free testosterone levels, stress adaptation, and overall vitality. Modern research confirms its ability to support testosterone by reducing SHBG and cortisol.",
+    background: "Human studies associate Tongkat Ali with free testosterone levels, stress adaptation, and vitality. Research links it to changes in SHBG and cortisol levels.",
     research: [
       { title: "Eurycoma longifolia and androgenic status in moderately stressed males", url: "https://pubmed.ncbi.nlm.nih.gov/21671978/" },
       { title: "Tongkat Ali effects on stress hormones and testosterone", url: "https://pubmed.ncbi.nlm.nih.gov/23342982/" },
@@ -128,15 +128,15 @@ const ingredients = [
     form: "Boron Citrate",
     dosage: "9 mg",
     image: "/boron.png",
-    overview: "The overlooked optimizer. Boron citrate supports free testosterone by influencing SHBG levels and enhancing the metabolism of key hormones.",
+    overview: "Boron citrate is associated with free testosterone levels and is thought to influence SHBG and the metabolism of key hormones.",
     source: "Citrate-bound boron, verified for elemental content, third-party tested for purity and potency.",
     benefits: [
       "Supports free testosterone",
-      "Enhances Vitamin D utilization",
+      "Supports Vitamin D utilization",
       "Supports bone density",
-      "Synergizes with other minerals",
+      "Works with other minerals",
     ],
-    background: "Research shows that boron supplementation can increase free testosterone by reducing SHBG within just one week. It also enhances the body's use of Vitamin D and magnesium.",
+    background: "Research links boron supplementation to changes in free testosterone and SHBG levels. Human studies also associate boron with the body's use of Vitamin D and magnesium.",
     research: [
       { title: "Comparative effects of daily boron supplementation on plasma steroid hormones", url: "https://pubmed.ncbi.nlm.nih.gov/21129941/" },
       { title: "Nothing boring about boron and testosterone", url: "https://pubmed.ncbi.nlm.nih.gov/28859553/" },
@@ -154,22 +154,22 @@ const certifications = [
 const researchCards = [
   {
     title: "Vitamin D Supplementation and Testosterone Levels",
-    description: "Clinical trial showing testosterone increases in men with low vitamin D.",
+    description: "Human trial examining vitamin D supplementation and testosterone levels in men with low vitamin D status.",
     url: "https://pubmed.ncbi.nlm.nih.gov/21154195/",
   },
   {
     title: "Ashwagandha (KSM-66) and Male Hormonal Health",
-    description: "Randomized study linking stress reduction with improved testosterone markers.",
+    description: "Randomized study examining the association between ashwagandha, stress markers, and testosterone in men.",
     url: "https://pubmed.ncbi.nlm.nih.gov/31517876/",
   },
   {
     title: "Tongkat Ali and Free Testosterone Support",
-    description: "Human data supporting androgen balance and stress adaptation in men.",
+    description: "Human study examining tongkat ali in relation to androgen status and stress adaptation in men.",
     url: "https://pubmed.ncbi.nlm.nih.gov/21671978/",
   },
   {
     title: "Zinc Status and Testosterone Regulation",
-    description: "Classic human evidence showing zinc deficiency lowers testosterone and supplementation restores levels.",
+    description: "Human study examining the relationship between zinc status and testosterone levels in adult males.",
     url: "https://pubmed.ncbi.nlm.nih.gov/8875519/",
   },
 ];
@@ -360,9 +360,16 @@ export default function FormulaPage() {
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-text-primary mb-4">
             Inside the Formula
           </h1>
-          <p className="text-text-secondary max-w-2xl mx-auto">
-            7 clinically dosed ingredients. No fillers. No proprietary blends.
+          <p className="text-text-secondary max-w-2xl mx-auto mb-6">
+            7 ingredients at research-aligned doses. No fillers. No proprietary blends.
           </p>
+          <Link
+            href="/product"
+            className="inline-flex items-center gap-2 text-primary hover:text-primary-hover text-sm font-medium transition-colors"
+          >
+            View the product
+            <ArrowRight className="w-4 h-4" />
+          </Link>
         </section>
 
         {/* Ingredient Library */}
@@ -440,6 +447,17 @@ export default function FormulaPage() {
               ))}
             </div>
           </div>
+        </section>
+
+        {/* Return CTA */}
+        <section className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-16 text-center">
+          <Link
+            href="/product"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-background font-medium hover:bg-primary-hover transition-colors"
+          >
+            View Peak Performance
+            <ArrowRight className="w-4 h-4" />
+          </Link>
         </section>
 
       </main>

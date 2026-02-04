@@ -33,7 +33,7 @@ const ingredients = [
     dosage: "500 mg",
     note: "KSM-66",
     description:
-      "Clinically studied to support stress reduction, cortisol balance, recovery, and healthy testosterone levels in active men.",
+      "Human studies suggest it supports stress reduction, cortisol balance, recovery, and healthy testosterone levels in active men.",
   },
   {
     name: "Tongkat Ali Root Extract",

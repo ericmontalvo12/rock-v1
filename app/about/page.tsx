@@ -15,7 +15,7 @@ export default function About() {
               Designed for Performance
             </h1>
             <p className="text-text-secondary text-lg">
-              Supplements built with clinically studied ingredients at fully disclosed doses.
+              Supplements built with ingredients supported by human studies at fully disclosed doses.
             </p>
           </div>
         </section>

@@ -45,7 +45,7 @@ const bundleOptions = [
 
 const benefits = [
   "Science backed testosterone support",
-  "Clinically dosed, no proprietary blends",
+  "Research-aligned doses, no proprietary blends",
   "Built for strength, energy, and recovery",
 ];
 
@@ -277,7 +277,7 @@ export default function ProductPage() {
 
               {/* Credibility line */}
               <p className="text-xs text-text-muted mb-8">
-                Clinically studied ingredients • No proprietary blends • Third-party tested
+                Ingredients supported by human studies • No proprietary blends • Third-party tested
               </p>
 
               {/* Bundle Selector */}

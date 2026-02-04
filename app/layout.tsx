@@ -10,7 +10,7 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title: "Rock Mountain Performance | Clinically Dosed Testosterone Support",
+  title: "Rock Mountain Performance | Research-Aligned Testosterone Support",
   description:
     "Science-backed testosterone support formula designed to support healthy testosterone levels, improve training performance, and optimize daily vitality.",
   keywords: [
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     "strength",
     "energy",
     "recovery",
-    "clinically dosed",
+    "research-aligned doses",
   ],
 };
 
