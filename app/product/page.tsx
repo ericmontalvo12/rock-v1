@@ -51,48 +51,39 @@ const benefits = [
 
 const productSections = [
   {
-    title: "How to Take",
+    title: "Who This Is For",
     content: (
       <div className="space-y-4 text-text-secondary text-center">
-        <p>
+        <p className="text-sm">Designed for men who train regularly and want to support healthy testosterone levels naturally.</p>
+        <p className="text-sm">
+          <strong className="text-text-primary">This is for you if:</strong> You're focused on long-term performance,
+          recovery, and energy — not shortcuts or quick fixes.
+        </p>
+      </div>
+    ),
+  },
+  {
+    title: "How to Take & What to Expect",
+    content: (
+      <div className="space-y-4 text-text-secondary text-center">
+        <p className="text-sm">
           Take 3 capsules daily with food, preferably at the same time each day.
         </p>
         <p className="text-sm">
-          For best results, use consistently for at least 30 days. This product supports
-          healthy testosterone levels over time — not an acute pre-workout or stimulant.
-          Results vary, but most users report changes in energy and recovery within 2–4 weeks.
+          <strong className="text-text-primary">Timeline:</strong> This supports healthy testosterone
+          levels over time — not an acute pre-workout or stimulant. Results vary, but most users
+          report changes in energy and recovery within 2–4 weeks. For best results, use consistently
+          for at least 30 days.
         </p>
-        <div className="pt-2">
-          <p>
-            <strong className="text-text-primary">Serving Size:</strong> 3 Capsules
-          </p>
-          <p>
-            <strong className="text-text-primary">Servings Per Container:</strong> 30 (30-day supply)
-          </p>
+        <div className="pt-2 text-sm">
+          <p><strong className="text-text-primary">Serving Size:</strong> 3 Capsules</p>
+          <p><strong className="text-text-primary">Supply:</strong> 30-day (90 capsules)</p>
         </div>
       </div>
     ),
   },
   {
-    title: "Who It's For",
-    content: (
-      <div className="space-y-4 text-text-secondary text-center">
-        <p className="font-medium text-text-primary">Peak Performance is designed for:</p>
-        <ul className="list-disc space-y-2 text-sm inline-block text-left">
-          <li>Men who train regularly and prioritize long-term performance</li>
-          <li>Men looking to support healthy testosterone levels naturally</li>
-          <li>Men focused on recovery, energy, and consistency — not shortcuts</li>
-        </ul>
-        <p className="text-sm pt-2">
-          <strong className="text-text-primary">Not for:</strong> Men under 18, those on testosterone
-          replacement therapy (consult your doctor), or those expecting immediate, dramatic changes.
-          This is a long-term support formula, not a quick fix.
-        </p>
-      </div>
-    ),
-  },
-  {
-    title: "Supplement Facts",
+    title: "Full Ingredient List",
     content: (
       <div className="space-y-6 text-text-secondary text-center">
         <div>
@@ -122,20 +113,19 @@ const productSections = [
     ),
   },
   {
-    title: "Shipping & Guarantee",
+    title: "Guarantee & Shipping",
     content: (
       <div className="space-y-4 text-text-secondary text-center">
         <p className="text-sm">
-          <strong className="text-text-primary">Shipping:</strong> Free on 2+ bottles.
-          All orders ship within 24 hours. Delivery typically takes 4–7 business days.
+          <strong className="text-text-primary">30-Day Money-Back Guarantee:</strong> Try it for 30 days.
+          If you're not satisfied for any reason, contact us for a full refund. No questions asked.
         </p>
         <p className="text-sm">
-          <strong className="text-text-primary">30-Day Money-Back Guarantee:</strong> If you're
-          not satisfied for any reason, contact us within 30 days for a full refund.
-          No questions asked.
+          <strong className="text-text-primary">Shipping:</strong> Free on 2+ bottles.
+          All orders ship within 24 hours. Delivery takes 4–7 business days.
         </p>
         <p className="text-xs text-text-muted pt-2">
-          We stand behind this formula. If it doesn't meet your expectations, we don't want your money.
+          We stand behind this formula. If it doesn't work for you, we don't want your money.
         </p>
       </div>
     ),
@@ -279,6 +269,10 @@ export default function ProductPage() {
                 Peak Performance
               </h1>
 
+              <p className="text-sm sm:text-base text-text-muted mb-2 italic">
+                Most testosterone supplements are underdosed or hidden behind proprietary blends. This one isn't.
+              </p>
+
               <p className="text-base sm:text-lg text-text-secondary mb-6">
                 Research-backed testosterone support for men who train
               </p>
@@ -297,12 +291,12 @@ export default function ProductPage() {
 
               {/* Differentiation Block */}
               <div className="bg-surface border border-border rounded-lg p-4 mb-8">
-                <h3 className="text-sm font-semibold text-text-primary mb-3">Why This Formula Is Different</h3>
-                <div className="space-y-2 text-xs sm:text-sm text-text-secondary">
-                  <p>• Every ingredient backed by human studies on testosterone or performance</p>
-                  <p>• Doses aligned with published research — not underdosed or inflated</p>
-                  <p>• Fully disclosed label with exact amounts and standardized extracts</p>
-                  <p>• Third-party tested for purity, heavy metals, and contaminants</p>
+                <h3 className="text-sm font-semibold text-text-primary mb-3">What Makes This Different</h3>
+                <div className="space-y-1.5 text-xs sm:text-sm text-text-secondary">
+                  <p>• 7 ingredients dosed based on published research — not guesswork</p>
+                  <p>• Fully disclosed label with exact amounts and forms</p>
+                  <p>• No proprietary blends, no underdosing, no filler ingredients</p>
+                  <p>• Third-party tested for purity and contaminants</p>
                 </div>
               </div>
 
