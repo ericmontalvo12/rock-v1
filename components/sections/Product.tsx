@@ -7,10 +7,10 @@ import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
 
 const productFeatures = [
-  "Supports natural hormone balance",
-  "Enhances strength and recovery",
-  "Reduces stress-related fatigue",
-  "Made in the USA • No proprietary blends",
+  "Supports testosterone, strength, and recovery",
+  "Research-backed formulation",
+  "Transparent labeling",
+  "Made in the USA",
 ];
 
 export function Product() {
@@ -56,7 +56,7 @@ export function Product() {
             </h2>
 
             <p className="text-lg text-text-secondary mb-8">
-              One daily formula to support your strength, energy, and drive—so you can show up at your best, every day.
+              A daily formula designed to support healthy testosterone levels for men who train.
             </p>
 
             <ul className="space-y-3 mb-8 inline-block text-left">
@@ -76,12 +76,7 @@ export function Product() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/product" className="w-full sm:w-auto">
                 <Button size="lg" className="w-full sm:w-auto">
-                  Buy Now
-                </Button>
-              </Link>
-              <Link href="/product" className="w-full sm:w-auto">
-                <Button size="lg" variant="outline" className="w-full sm:w-auto">
-                  Learn More
+                  View Product
                 </Button>
               </Link>
             </div>

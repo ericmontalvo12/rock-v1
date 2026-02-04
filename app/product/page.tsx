@@ -44,9 +44,9 @@ const bundleOptions = [
 ];
 
 const benefits = [
-  "7 ingredients dosed based on published research",
-  "Fully disclosed label — no proprietary blends",
-  "Supports testosterone, strength, and recovery naturally",
+  "Research-backed formulation",
+  "Transparent labeling",
+  "Supports testosterone, strength, and recovery",
 ];
 
 const productSections = [
@@ -57,7 +57,7 @@ const productSections = [
         <p className="text-sm">Designed for men who train regularly and want to support healthy testosterone levels naturally.</p>
         <p className="text-sm">
           <strong className="text-text-primary">This is for you if:</strong> You're focused on long-term performance,
-          recovery, and energy — not shortcuts or quick fixes.
+          recovery, and energy, not shortcuts or quick fixes.
         </p>
       </div>
     ),
@@ -71,8 +71,8 @@ const productSections = [
         </p>
         <p className="text-sm">
           <strong className="text-text-primary">Timeline:</strong> This supports healthy testosterone
-          levels over time — not an acute pre-workout or stimulant. Results vary, but most users
-          report changes in energy and recovery within 2–4 weeks. For best results, use consistently
+          levels over time. Not an acute pre-workout or stimulant. Results vary, but most users
+          report changes in energy and recovery within 2 to 4 weeks. For best results, use consistently
           for at least 30 days.
         </p>
         <div className="pt-2 text-sm">
@@ -293,9 +293,9 @@ export default function ProductPage() {
               <div className="bg-surface border border-border rounded-lg p-4 mb-8">
                 <h3 className="text-sm font-semibold text-text-primary mb-3">What Makes This Different</h3>
                 <div className="space-y-1.5 text-xs sm:text-sm text-text-secondary">
-                  <p>• 7 ingredients dosed based on published research — not guesswork</p>
-                  <p>• Fully disclosed label with exact amounts and forms</p>
-                  <p>• No proprietary blends, no underdosing, no filler ingredients</p>
+                  <p>• Seven ingredients dosed based on published research, not guesswork</p>
+                  <p>• Fully disclosed label with exact amounts and ingredient forms</p>
+                  <p>• No proprietary blends, no underdosing, no filler</p>
                   <p>• Third-party tested for purity and contaminants</p>
                 </div>
               </div>

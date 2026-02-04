@@ -33,21 +33,22 @@ export function Hero() {
             className="text-center lg:text-left max-w-[340px] sm:max-w-none mx-auto lg:mx-0"
           >
             <h1 className="text-3xl sm:text-4xl lg:text-6xl font-bold tracking-tight text-white mb-4 sm:mb-6 leading-tight">
-              Built for Men Chasing Their Peak
+              Testosterone Support<br className="hidden sm:block" />
+              Built on Research
             </h1>
 
             <p className="text-base sm:text-lg lg:text-xl text-white/90 mb-6 sm:mb-8 mx-auto lg:mx-0 leading-relaxed">
-              Fuel your strength, sharpen your focus,<br className="hidden sm:block" />
-              and recover like you mean it.
+              Most supplements hide behind proprietary blends or use underdosed ingredients.<br className="hidden sm:block" />
+              We don't.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start mt-6 sm:mt-0">
               <Link href="/product" className="w-full max-w-[320px] sm:max-w-none sm:w-auto mx-auto sm:mx-0">
-                <Button size="lg" className="w-full sm:w-auto h-11 text-sm rounded-lg sm:h-12 sm:text-base sm:px-8 sm:rounded-md">Shop Now</Button>
+                <Button size="lg" className="w-full sm:w-auto h-11 text-sm rounded-lg sm:h-12 sm:text-base sm:px-8 sm:rounded-md">View Peak Performance</Button>
               </Link>
-              <Link href="#ingredients" className="w-full max-w-[320px] sm:max-w-none sm:w-auto mx-auto sm:mx-0">
+              <Link href="/formula" className="w-full max-w-[320px] sm:max-w-none sm:w-auto mx-auto sm:mx-0">
                 <Button size="lg" variant="outline" className="w-full sm:w-auto h-11 text-sm rounded-lg sm:h-12 sm:text-base sm:px-8 sm:rounded-md border-white text-white hover:bg-white/10">
-                  View Ingredients
+                  Inside the Formula
                 </Button>
               </Link>
             </div>
@@ -57,15 +58,15 @@ export function Hero() {
             <div className="mt-8 sm:mt-10 grid grid-cols-2 gap-y-3 gap-x-4 text-sm text-white/80 max-w-sm mx-auto lg:mx-0">
               <div className="flex items-start gap-2">
                 <Check className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
-                <span className="leading-snug">No Proprietary Blends</span>
+                <span className="leading-snug">Research-Backed</span>
+              </div>
+              <div className="flex items-start gap-2">
+                <Check className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+                <span className="leading-snug">Fully Disclosed Labels</span>
               </div>
               <div className="flex items-start gap-2">
                 <Check className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
                 <span className="leading-snug">Third-Party Tested</span>
-              </div>
-              <div className="flex items-start gap-2">
-                <Check className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
-                <span className="leading-snug">Made in USA</span>
               </div>
               <div className="flex items-start gap-2">
                 <Check className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />

@@ -6,30 +6,21 @@ import { FlaskConical, Dumbbell, Zap } from "lucide-react";
 const features = [
   {
     icon: FlaskConical,
-    title: "Formulated for results",
-    bullets: [
-      "7 active ingredients at effective doses",
-      "Supports healthy testosterone levels",
-      "Addresses key mineral deficiencies",
-    ],
+    title: "Research-Based Formulation",
+    description:
+      "Ingredients dosed based on published human studies, not marketing trends or guesswork.",
   },
   {
     icon: Zap,
-    title: "Energy that lasts",
-    bullets: [
-      "Reduces stress-related fatigue",
-      "Supports sustained daily output",
-      "No stimulants or crash",
-    ],
+    title: "Fully Disclosed Labels",
+    description:
+      "Exact amounts and ingredient forms listed. No proprietary blends, no hidden doses.",
   },
   {
     icon: Dumbbell,
-    title: "Train harder, recover faster",
-    bullets: [
-      "Aids muscle function and repair",
-      "Supports quality sleep",
-      "Optimizes post-workout recovery",
-    ],
+    title: "Third-Party Tested",
+    description:
+      "Every batch tested for purity, heavy metals, and contaminants by independent labs.",
   },
 ];
 
@@ -64,10 +55,10 @@ export function Features() {
           className="text-center mb-10"
         >
           <h2 className="text-3xl sm:text-4xl font-bold text-text-primary mb-4">
-            Why Peak Performance
+            What Makes This Different
           </h2>
           <p className="text-text-secondary max-w-2xl mx-auto">
-            Built for men who take their performance seriously.
+            Transparency and evidence, from formulation to final product.
           </p>
         </motion.div>
 
@@ -91,14 +82,9 @@ export function Features() {
                 <h3 className="text-xl font-semibold text-text-primary mb-3">
                   {feature.title}
                 </h3>
-                <ul className="space-y-2 flex-grow inline-block text-left">
-                  {feature.bullets.map((bullet, i) => (
-                    <li key={i} className="flex items-start gap-2 text-text-secondary">
-                      <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0" />
-                      {bullet}
-                    </li>
-                  ))}
-                </ul>
+                <p className="text-text-secondary leading-relaxed">
+                  {feature.description}
+                </p>
               </div>
             </motion.div>
           ))}
