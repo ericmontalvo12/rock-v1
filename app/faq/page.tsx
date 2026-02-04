@@ -1,3 +1,4 @@
+import React from "react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 
@@ -48,7 +49,7 @@ function FAQItem({ question, answer }: { question: string; answer: string }) {
     const hasBullets = lines.some((line) => line.trim().startsWith("- "));
 
     if (hasBullets) {
-      const parts: JSX.Element[] = [];
+      const parts: React.JSX.Element[] = [];
       let currentText = "";
 
       lines.forEach((line, i) => {
