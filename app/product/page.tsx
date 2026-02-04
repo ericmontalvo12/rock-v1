@@ -44,9 +44,9 @@ const bundleOptions = [
 ];
 
 const benefits = [
-  "Science backed testosterone support",
-  "Research-aligned doses, no proprietary blends",
-  "Built for strength, energy, and recovery",
+  "7 ingredients dosed based on published research",
+  "Fully disclosed label — no proprietary blends",
+  "Supports testosterone, strength, and recovery naturally",
 ];
 
 const productSections = [
@@ -55,15 +55,19 @@ const productSections = [
     content: (
       <div className="space-y-4 text-text-secondary text-center">
         <p>
-          Take 3 capsules daily with food. For best results, use consistently
-          for at least 30 days alongside proper sleep, nutrition, and training.
+          Take 3 capsules daily with food, preferably at the same time each day.
+        </p>
+        <p className="text-sm">
+          For best results, use consistently for at least 30 days. This product supports
+          healthy testosterone levels over time — not an acute pre-workout or stimulant.
+          Results vary, but most users report changes in energy and recovery within 2–4 weeks.
         </p>
         <div className="pt-2">
           <p>
             <strong className="text-text-primary">Serving Size:</strong> 3 Capsules
           </p>
           <p>
-            <strong className="text-text-primary">Servings Per Container:</strong> 30
+            <strong className="text-text-primary">Servings Per Container:</strong> 30 (30-day supply)
           </p>
         </div>
       </div>
@@ -73,12 +77,17 @@ const productSections = [
     title: "Who It's For",
     content: (
       <div className="space-y-4 text-text-secondary text-center">
-        <p>Peak Performance is designed for:</p>
+        <p className="font-medium text-text-primary">Peak Performance is designed for:</p>
         <ul className="list-disc space-y-2 text-sm inline-block text-left">
-          <li>Men who train regularly or stay physically active</li>
-          <li>Men focused on long-term performance, recovery, and consistency</li>
+          <li>Men who train regularly and prioritize long-term performance</li>
           <li>Men looking to support healthy testosterone levels naturally</li>
+          <li>Men focused on recovery, energy, and consistency — not shortcuts</li>
         </ul>
+        <p className="text-sm pt-2">
+          <strong className="text-text-primary">Not for:</strong> Men under 18, those on testosterone
+          replacement therapy (consult your doctor), or those expecting immediate, dramatic changes.
+          This is a long-term support formula, not a quick fix.
+        </p>
       </div>
     ),
   },
@@ -117,9 +126,16 @@ const productSections = [
     content: (
       <div className="space-y-4 text-text-secondary text-center">
         <p className="text-sm">
-          Free shipping on 2+ bottles. All orders ship within 24 hours.
-          Delivery typically takes 4–7 business days. 30-day money-back guarantee
-          if you're not satisfied.
+          <strong className="text-text-primary">Shipping:</strong> Free on 2+ bottles.
+          All orders ship within 24 hours. Delivery typically takes 4–7 business days.
+        </p>
+        <p className="text-sm">
+          <strong className="text-text-primary">30-Day Money-Back Guarantee:</strong> If you're
+          not satisfied for any reason, contact us within 30 days for a full refund.
+          No questions asked.
+        </p>
+        <p className="text-xs text-text-muted pt-2">
+          We stand behind this formula. If it doesn't meet your expectations, we don't want your money.
         </p>
       </div>
     ),
@@ -259,26 +275,36 @@ export default function ProductPage() {
 
             {/* Product Info */}
             <div className="order-2 lg:order-2 text-center sm:text-left">
-              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-text-primary mb-4 sm:mb-6">
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-text-primary mb-3">
                 Peak Performance
               </h1>
 
+              <p className="text-base sm:text-lg text-text-secondary mb-6">
+                Research-backed testosterone support for men who train
+              </p>
+
               {/* Benefits */}
-              <ul className="space-y-3 mb-4 inline-block sm:block text-left">
+              <ul className="space-y-3 mb-6 inline-block sm:block text-left">
                 {benefits.map((benefit) => (
                   <li key={benefit} className="flex items-center gap-3">
                     <span className="flex-shrink-0 w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center">
                       <Check className="w-3 h-3 text-primary" />
                     </span>
-                    <span className="text-text-secondary">{benefit}</span>
+                    <span className="text-text-secondary text-sm sm:text-base">{benefit}</span>
                   </li>
                 ))}
               </ul>
 
-              {/* Credibility line */}
-              <p className="text-xs text-text-muted mb-8">
-                Ingredients supported by human studies • No proprietary blends • Third-party tested
-              </p>
+              {/* Differentiation Block */}
+              <div className="bg-surface border border-border rounded-lg p-4 mb-8">
+                <h3 className="text-sm font-semibold text-text-primary mb-3">Why This Formula Is Different</h3>
+                <div className="space-y-2 text-xs sm:text-sm text-text-secondary">
+                  <p>• Every ingredient backed by human studies on testosterone or performance</p>
+                  <p>• Doses aligned with published research — not underdosed or inflated</p>
+                  <p>• Fully disclosed label with exact amounts and standardized extracts</p>
+                  <p>• Third-party tested for purity, heavy metals, and contaminants</p>
+                </div>
+              </div>
 
               {/* Bundle Selector */}
               <div className="space-y-3 mb-4">
@@ -361,7 +387,7 @@ export default function ProductPage() {
 
               {/* Trust strip */}
               <p className="text-xs text-text-muted text-center sm:text-left mb-8">
-                Ships in 24 hours • 30-day guarantee • Secure checkout
+                Ships within 24 hours • 30-day money-back guarantee • No subscriptions or tricks
               </p>
 
               {/* Accordion Sections */}

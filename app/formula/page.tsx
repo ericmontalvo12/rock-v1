@@ -191,17 +191,18 @@ function IngredientShowcase({
   const [expandedSection, setExpandedSection] = useState<string | null>(null);
 
   return (
-    <div className="grid lg:grid-cols-12 gap-8 items-start">
-      {/* Left: Ingredient Names */}
-      <div className="lg:col-span-3 flex lg:flex-col gap-3 lg:gap-1 overflow-x-auto lg:overflow-visible pb-4 lg:pb-0 px-4 lg:px-0 -mx-4 lg:mx-0 scrollbar-hide snap-x snap-mandatory">
+    <div className="bg-background/60 backdrop-blur-sm rounded-2xl lg:rounded-3xl border border-border/40 shadow-lg shadow-black/5 pt-4 lg:pt-6 px-6 lg:px-10 pb-6 lg:pb-10">
+      <div className="grid lg:grid-cols-12 gap-6 lg:gap-8 items-center">
+        {/* Left: Ingredient Names */}
+      <div className="lg:col-span-2 flex lg:flex-col gap-4 lg:gap-3 overflow-x-auto lg:overflow-visible pb-4 lg:pb-0 px-4 lg:px-0 -mx-4 lg:mx-0 scrollbar-hide snap-x snap-mandatory">
         {ingredients.map((ingredient, index) => (
           <button
             key={ingredient.name}
             onClick={() => onSelect(index)}
-            className={`text-left px-3 py-2 lg:px-4 lg:py-3 text-sm lg:text-base rounded-lg whitespace-nowrap lg:whitespace-normal transition-all duration-300 snap-start flex-shrink-0 ${
+            className={`text-left px-3 py-2.5 lg:px-4 lg:py-3.5 text-sm lg:text-base rounded-lg whitespace-nowrap lg:whitespace-normal transition-all duration-300 snap-start flex-shrink-0 relative ${
               selectedIndex === index
-                ? "text-primary font-semibold bg-primary/10 border-l-2 border-primary"
-                : "text-text-muted hover:text-text-secondary hover:bg-surface/50"
+                ? "text-primary font-semibold bg-primary/10 border-l-3 border-primary shadow-sm"
+                : "text-text-primary/90 font-medium hover:text-text-primary hover:bg-surface/80 hover:border-l-2 hover:border-primary/30 cursor-pointer"
             }`}
           >
             {ingredient.name}
@@ -210,15 +211,15 @@ function IngredientShowcase({
       </div>
 
       {/* Center: Ingredient Image */}
-      <div className="lg:col-span-3 flex justify-center items-start mb-4 lg:mb-0">
+      <div className="lg:col-span-4 flex justify-center items-center mb-4 lg:mb-0">
         <motion.div
           key={selectedIndex}
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.3 }}
-          className="relative max-h-[160px] lg:max-h-none"
+          initial={{ opacity: 0, scale: 0.95, y: 10 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
+          className="relative"
         >
-          <div className="w-36 h-36 sm:w-48 sm:h-48 lg:w-56 lg:h-56 rounded-full bg-gradient-to-br from-surface to-background border-4 border-primary/20 shadow-2xl shadow-primary/10 flex items-center justify-center overflow-hidden">
+          <div className="w-48 h-48 sm:w-64 sm:h-64 lg:w-80 lg:h-80 rounded-full bg-gradient-to-br from-surface to-background border-4 border-primary/20 shadow-2xl shadow-primary/10 flex items-center justify-center overflow-hidden">
             <Image
               src={
                 selected.image ||
@@ -239,23 +240,23 @@ function IngredientShowcase({
       {/* Right: Ingredient Details Card */}
       <motion.div
         key={`details-${selectedIndex}`}
-        initial={{ opacity: 0, x: 20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.3 }}
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
         className="lg:col-span-6 rounded-xl lg:rounded-2xl bg-gradient-to-br from-primary/90 to-primary border border-primary overflow-hidden w-full"
       >
-        <div className="p-4 sm:p-6 lg:p-8">
+        <div className="p-4 sm:p-5 lg:p-6">
           {/* Header */}
-          <h3 className="text-2xl font-bold text-background italic mb-3">
+          <h3 className="text-2xl font-bold text-background italic mb-2">
             {selected.name}
           </h3>
-          <p className="text-background/80 text-sm leading-relaxed mb-6">
+          <p className="text-background/80 text-sm leading-relaxed mb-4">
             {selected.overview}
           </p>
 
           {/* Info Table */}
-          <div className="bg-background/10 rounded-xl p-4 mb-6 space-y-3">
-            <div className="flex justify-between items-start border-b border-background/20 pb-3">
+          <div className="bg-background/10 rounded-xl p-4 mb-4 space-y-2.5">
+            <div className="flex justify-between items-start border-b border-background/20 pb-2.5">
               <span className="text-background/70 text-sm font-medium">
                 Dose
               </span>
@@ -274,8 +275,8 @@ function IngredientShowcase({
           </div>
 
           {/* Benefits */}
-          <div className="mb-6">
-            <h4 className="text-background font-semibold mb-3">Benefits</h4>
+          <div className="mb-4">
+            <h4 className="text-background font-semibold mb-2.5">Benefits</h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
               {selected.benefits.map((benefit, i) => (
                 <div
@@ -290,7 +291,7 @@ function IngredientShowcase({
           </div>
 
           {/* Background Dropdown */}
-          <div className="space-y-2">
+          <div className="space-y-1.5">
             <button
               onClick={() =>
                 setExpandedSection(
@@ -314,7 +315,7 @@ function IngredientShowcase({
                   exit={{ height: 0, opacity: 0 }}
                   className="overflow-hidden"
                 >
-                  <p className="text-background/80 text-sm pb-3">
+                  <p className="text-background/80 text-sm pb-2">
                     {selected.background}
                   </p>
                 </motion.div>
@@ -324,9 +325,9 @@ function IngredientShowcase({
 
           {/* Research Links - Always Visible */}
           {selected.research && selected.research.length > 0 && (
-            <div className="mt-4 pt-4 border-t border-background/20">
-              <h4 className="text-background font-semibold text-sm mb-2">Research</h4>
-              <ul className="space-y-1">
+            <div className="mt-3 pt-3 border-t border-background/20">
+              <h4 className="text-background font-semibold text-sm mb-1.5">Research</h4>
+              <ul className="space-y-0.5">
                 {selected.research.map((item, i) => (
                   <li key={i}>
                     <a
@@ -344,6 +345,7 @@ function IngredientShowcase({
           )}
         </div>
       </motion.div>
+      </div>
     </div>
   );
 }
@@ -356,13 +358,17 @@ export default function FormulaPage() {
       <Header />
       <main className="pt-32 pb-16 sm:pb-24">
         {/* Hero Section */}
-        <section className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 mb-16 text-center">
+        <section className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 mb-10 text-center">
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-text-primary mb-4">
             Inside the Formula
           </h1>
-          <p className="text-text-secondary max-w-2xl mx-auto mb-6">
-            7 ingredients at research-aligned doses. No fillers. No proprietary blends.
+          <p className="text-text-secondary max-w-2xl mx-auto mb-2">
+            7 ingredients dosed based on published research
           </p>
+          <div className="flex items-center justify-center gap-6 mb-6 text-text-secondary">
+            <span>✓ No fillers</span>
+            <span>✓ No proprietary blends</span>
+          </div>
           <Link
             href="/product"
             className="inline-flex items-center gap-2 text-primary hover:text-primary-hover text-sm font-medium transition-colors"
@@ -373,9 +379,9 @@ export default function FormulaPage() {
         </section>
 
         {/* Ingredient Library */}
-        <section className="bg-surface/50 py-16 sm:py-20 mb-16">
+        <section className="bg-surface/50 py-10 sm:py-12 mb-16">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12">
+            <div className="text-center mb-8">
               <h2 className="text-2xl sm:text-3xl font-bold text-text-primary mb-4">
                 Ingredient Library
               </h2>
