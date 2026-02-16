@@ -354,38 +354,116 @@ export default function FormulaPage() {
   const [selectedIngredient, setSelectedIngredient] = useState(0);
 
   return (
-    <div className="w-full max-w-full overflow-x-hidden">
+    <div className="w-full max-w-full overflow-x-hidden bg-white">
       <Header />
-      <main className="pt-32 pb-16 sm:pb-24">
-        {/* Hero Section */}
-        <section className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 mb-10 text-center">
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-text-primary mb-4">
-            Inside the Formula
-          </h1>
-          <p className="text-text-secondary max-w-2xl mx-auto mb-2">
-            7 ingredients dosed based on published research
-          </p>
-          <div className="flex items-center justify-center gap-6 mb-6 text-text-secondary">
-            <span>✓ No fillers</span>
-            <span>✓ No proprietary blends</span>
+      <main className="pt-28 sm:pt-32">
+        {/* A) Hero Section - WHITE */}
+        <section className="bg-white py-12 sm:py-16">
+          <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 text-center">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-3">
+              Inside the Formula
+            </h1>
+            <p className="text-gray-600 max-w-2xl mx-auto mb-2">
+              7 ingredients dosed based on published research
+            </p>
+            <div className="flex items-center justify-center gap-6 mb-5 text-gray-500 text-sm">
+              <span>✓ No fillers</span>
+              <span>✓ No proprietary blends</span>
+            </div>
+            <Link
+              href="/product"
+              className="inline-flex items-center gap-2 text-primary hover:text-primary-hover text-sm font-medium transition-colors"
+            >
+              View the product
+              <ArrowRight className="w-4 h-4" />
+            </Link>
           </div>
-          <Link
-            href="/product"
-            className="inline-flex items-center gap-2 text-primary hover:text-primary-hover text-sm font-medium transition-colors"
-          >
-            View the product
-            <ArrowRight className="w-4 h-4" />
-          </Link>
         </section>
 
-        {/* Ingredient Library */}
-        <section className="bg-surface/50 py-10 sm:py-12 mb-16">
+        {/* B) Three Problems. One Formula. - LIGHT TINT */}
+        <section className="bg-[#F7F9FC] py-12 sm:py-16">
+          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="text-center mb-8"
+            >
+              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">
+                Three Problems. One Formula.
+              </h2>
+              <p className="text-gray-600 text-base sm:text-lg max-w-2xl mx-auto">
+                Every ingredient in Peak Performance addresses one of these limiting factors.
+              </p>
+            </motion.div>
+
+            <div className="grid md:grid-cols-3 gap-4 sm:gap-6">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0 }}
+                className="bg-white p-5 sm:p-6 rounded-xl border border-gray-200 shadow-sm text-center"
+              >
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-3">
+                  <span className="text-primary font-bold text-base sm:text-lg">1</span>
+                </div>
+                <h3 className="text-gray-900 font-semibold text-base sm:text-lg mb-2">
+                  Nutrient Gaps
+                </h3>
+                <p className="text-gray-500 text-sm">
+                  Your body can't produce testosterone without the raw materials. We fill the gaps most men don't know they have.
+                </p>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+                className="bg-white p-5 sm:p-6 rounded-xl border border-gray-200 shadow-sm text-center"
+              >
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-3">
+                  <span className="text-primary font-bold text-base sm:text-lg">2</span>
+                </div>
+                <h3 className="text-gray-900 font-semibold text-base sm:text-lg mb-2">
+                  Cortisol Interference
+                </h3>
+                <p className="text-gray-500 text-sm">
+                  Chronic stress keeps cortisol elevated, which directly suppresses testosterone signaling. We address the interference.
+                </p>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="bg-white p-5 sm:p-6 rounded-xl border border-gray-200 shadow-sm text-center"
+              >
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-3">
+                  <span className="text-primary font-bold text-base sm:text-lg">3</span>
+                </div>
+                <h3 className="text-gray-900 font-semibold text-base sm:text-lg mb-2">
+                  Bound Testosterone
+                </h3>
+                <p className="text-gray-500 text-sm">
+                  SHBG binds testosterone and makes it unavailable. We support free testosterone — the portion your body can actually use.
+                </p>
+              </motion.div>
+            </div>
+          </div>
+        </section>
+
+        {/* C) Ingredient Library - WHITE */}
+        <section className="bg-white py-12 sm:py-16">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-8">
-              <h2 className="text-2xl sm:text-3xl font-bold text-text-primary mb-4">
+              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">
                 Ingredient Library
               </h2>
-              <p className="text-text-secondary max-w-2xl mx-auto">
+              <p className="text-gray-600 max-w-2xl mx-auto">
                 Below is a breakdown of the exact ingredients used in Peak Performance and why each one matters.
               </p>
             </div>
@@ -398,37 +476,74 @@ export default function FormulaPage() {
           </div>
         </section>
 
-        {/* Verified for Purity */}
-        <section className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 mb-16">
-          <div className="text-center">
-            <h2 className="text-2xl sm:text-3xl font-bold text-text-primary mb-4">
+        {/* D) What's Not in the Formula - LIGHT TINT */}
+        <section className="bg-[#F7F9FC] py-12 sm:py-16">
+          <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
+              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">
+                What's Not in the Formula
+              </h2>
+              <p className="text-gray-600 mb-6">
+                We left out what doesn't belong.
+              </p>
+              <div className="grid sm:grid-cols-2 gap-3 max-w-xl mx-auto">
+                <div className="flex items-center gap-3 text-left p-3 sm:p-4 bg-white rounded-lg border border-gray-200 shadow-sm">
+                  <span className="text-red-500 text-base">✕</span>
+                  <span className="text-gray-600 text-sm">Proprietary blends that hide real doses</span>
+                </div>
+                <div className="flex items-center gap-3 text-left p-3 sm:p-4 bg-white rounded-lg border border-gray-200 shadow-sm">
+                  <span className="text-red-500 text-base">✕</span>
+                  <span className="text-gray-600 text-sm">Stimulants that mask the real issue</span>
+                </div>
+                <div className="flex items-center gap-3 text-left p-3 sm:p-4 bg-white rounded-lg border border-gray-200 shadow-sm">
+                  <span className="text-red-500 text-base">✕</span>
+                  <span className="text-gray-600 text-sm">Underdosed ingredients for label appeal</span>
+                </div>
+                <div className="flex items-center gap-3 text-left p-3 sm:p-4 bg-white rounded-lg border border-gray-200 shadow-sm">
+                  <span className="text-red-500 text-base">✕</span>
+                  <span className="text-gray-600 text-sm">Cheap fillers to cut costs</span>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* E) Verified for Purity - WHITE */}
+        <section className="bg-white py-12 sm:py-16">
+          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">
               Verified for Purity
             </h2>
-            <p className="text-text-secondary mb-8">
-              Every batch is independently tested for heavy metals, pesticides, and contaminants.
+            <p className="text-gray-600 mb-6">
+              Every batch is tested before it ships to confirm the label matches what's in the bottle.
             </p>
-            <div className="grid grid-cols-2 sm:flex sm:flex-wrap sm:justify-center gap-3 sm:gap-4">
+            <div className="grid grid-cols-2 sm:flex sm:flex-wrap sm:justify-center gap-2 sm:gap-3">
               {certifications.map((cert) => (
                 <div
                   key={cert}
-                  className="flex items-center justify-center sm:justify-start gap-2 px-3 sm:px-4 py-3 rounded-lg bg-surface border border-border w-full sm:w-auto"
+                  className="flex items-center justify-center sm:justify-start gap-2 px-3 py-2.5 rounded-lg bg-gray-50 border border-gray-200 w-full sm:w-auto"
                 >
                   <Shield className="w-4 h-4 text-primary flex-shrink-0" />
-                  <span className="text-xs sm:text-sm text-text-primary">{cert}</span>
+                  <span className="text-xs sm:text-sm text-gray-700">{cert}</span>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* Research Section */}
-        <section className="bg-surface/50 py-16 sm:py-20">
+        {/* F) Research Section - LIGHT TINT */}
+        <section className="bg-[#F7F9FC] py-12 sm:py-16">
           <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-10">
-              <h2 className="text-2xl sm:text-3xl font-bold text-text-primary mb-4">
+            <div className="text-center mb-8">
+              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">
                 Research Behind the Formula
               </h2>
-              <p className="text-text-secondary">
+              <p className="text-gray-600">
                 Peer-reviewed evidence informing each ingredient choice.
               </p>
             </div>
@@ -437,15 +552,15 @@ export default function FormulaPage() {
               {researchCards.map((card, index) => (
                 <div
                   key={index}
-                  className="p-4 sm:p-5 rounded-xl bg-background border border-border"
+                  className="p-4 sm:p-5 rounded-xl bg-white border border-gray-200 shadow-sm"
                 >
-                  <h3 className="font-semibold text-text-primary mb-2">{card.title}</h3>
-                  <p className="text-sm text-text-secondary mb-3">{card.description}</p>
+                  <h3 className="font-semibold text-gray-900 mb-2">{card.title}</h3>
+                  <p className="text-sm text-gray-600 mb-3">{card.description}</p>
                   <a
                     href={card.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center text-primary text-sm font-medium hover:underline mt-3"
+                    className="inline-flex items-center text-primary text-sm font-medium hover:underline"
                   >
                     View on PubMed →
                   </a>
@@ -455,15 +570,23 @@ export default function FormulaPage() {
           </div>
         </section>
 
-        {/* Return CTA */}
-        <section className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-16 text-center">
-          <Link
-            href="/product"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-background font-medium hover:bg-primary-hover transition-colors"
-          >
-            View Peak Performance
-            <ArrowRight className="w-4 h-4" />
-          </Link>
+        {/* G) Final CTA - WHITE */}
+        <section className="bg-white py-12 sm:py-16">
+          <div className="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8 text-center">
+            <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">
+              Ready to run the full protocol?
+            </h2>
+            <p className="text-gray-600 mb-6">
+              See Peak Performance and the full Supplement Facts.
+            </p>
+            <Link
+              href="/product"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-white font-medium hover:bg-primary-hover transition-colors"
+            >
+              View Peak Performance
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
         </section>
 
       </main>

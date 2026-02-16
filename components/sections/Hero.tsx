@@ -38,8 +38,8 @@ export function Hero() {
             </h1>
 
             <p className="text-base sm:text-lg lg:text-xl text-white/90 mb-6 sm:mb-8 mx-auto lg:mx-0 leading-relaxed">
-              Most supplements hide behind proprietary blends or use underdosed ingredients.<br />
-              We don't.
+              No proprietary blends. No underdosing.<br />
+              Just research-backed ingredients at effective amounts.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center mt-6 sm:mt-0">
@@ -66,7 +66,7 @@ export function Hero() {
               </div>
               <div className="flex items-start gap-2">
                 <Check className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
-                <span className="leading-snug">Third-Party Tested</span>
+                <span className="leading-snug">Batch Tested</span>
               </div>
               <div className="flex items-start gap-2">
                 <Check className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />

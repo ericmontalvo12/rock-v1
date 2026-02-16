@@ -18,9 +18,9 @@ const features = [
   },
   {
     icon: Dumbbell,
-    title: "Third-Party Tested",
+    title: "Batch Tested",
     description:
-      "Every batch tested for purity, heavy metals, and contaminants by independent labs.",
+      "Each batch is tested for purity and heavy metals before release.",
   },
 ];
 
