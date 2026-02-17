@@ -8,13 +8,24 @@ import { Footer } from "@/components/Footer";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check, ArrowRight, Shield, Plus } from "lucide-react";
 
+// Tab definitions
+const ingredientTabs = [
+  { id: "foundational", label: "Foundational Support" },
+  { id: "stress", label: "Stress Hormone Balance" },
+  { id: "availability", label: "Testosterone Availability" },
+] as const;
+
+type TabId = typeof ingredientTabs[number]["id"];
+
 const ingredients = [
+  // FOUNDATIONAL SUPPORT
   {
     name: "Vitamin D3",
-    form: "Cholecalciferol (D3)",
-    dosage: "3,000 IU (75 mcg)",
+    category: "foundational" as TabId,
+    form: "Cholecalciferol",
+    dosage: "3,000 IU",
     image: "/ingredients/vitamin-d3.png",
-    overview: "Vitamin D3 acts as a hormone precursor and is strongly associated with testosterone production and overall metabolic function.",
+    overview: "Functions as a hormone precursor essential for testosterone synthesis. Research links low Vitamin D to lower testosterone — and most men who train indoors are deficient without knowing it.",
     source: "Lanolin-derived cholecalciferol, standardized for potency, third-party tested for purity and potency.",
     benefits: [
       "Supports healthy testosterone levels",
@@ -30,10 +41,11 @@ const ingredients = [
   },
   {
     name: "Magnesium",
-    form: "Magnesium Bisglycinate",
+    category: "foundational" as TabId,
+    form: "Bisglycinate",
     dosage: "300 mg",
     image: "/magnesium-new.png",
-    overview: "Magnesium bisglycinate delivers superior absorption without GI distress and is involved in over 300 enzymatic reactions tied to recovery and performance.",
+    overview: "Required for over 300 enzymatic reactions, including those involved in testosterone production. Bisglycinate is used for superior absorption without digestive issues. Lost daily through sweat during training.",
     source: "Chelated bisglycinate form, verified for bioavailability, third-party tested for purity and potency.",
     benefits: [
       "Supports testosterone production",
@@ -49,10 +61,11 @@ const ingredients = [
   },
   {
     name: "Zinc",
-    form: "Zinc Citrate",
+    category: "foundational" as TabId,
+    form: "Citrate",
     dosage: "30 mg",
     image: "/ingredients/zinc.png",
-    overview: "Zinc plays a critical role in testosterone synthesis and immune defense. Zinc citrate provides optimal absorption to support the enzymatic processes involved in male hormone production.",
+    overview: "Directly involved in testosterone synthesis at the cellular level. Research shows deficiency suppresses testosterone — and active men lose zinc through sweat faster than they replace it.",
     source: "Citrate-bound zinc, verified for elemental content, third-party tested for purity and potency.",
     benefits: [
       "Plays a role in testosterone synthesis",
@@ -67,30 +80,33 @@ const ingredients = [
     ],
   },
   {
-    name: "Fenugreek",
-    form: "50% Saponins Extract",
-    dosage: "500 mg",
-    image: "/fenugreek-new.png",
-    overview: "Fenugreek seed extract standardized to 50% saponins is associated with healthy testosterone levels and exercise performance in human studies.",
-    source: "Seed extract, standardized to 50% saponins, third-party tested for purity and potency.",
+    name: "Boron",
+    category: "foundational" as TabId,
+    form: "Citrate",
+    dosage: "9 mg",
+    image: "/boron.png",
+    overview: "Influences SHBG (sex hormone-binding globulin), freeing more testosterone for use. Also improves how the body utilizes Vitamin D and magnesium — amplifying their effects.",
+    source: "Citrate-bound boron, verified for elemental content, third-party tested for purity and potency.",
     benefits: [
       "Supports free testosterone",
-      "Supports strength output",
-      "Associated with performance",
-      "May support body composition",
+      "Supports Vitamin D utilization",
+      "Supports bone density",
+      "Works with other minerals",
     ],
-    background: "Human studies associate fenugreek extract with changes in testosterone levels and strength markers in resistance-trained men. Saponin compounds are thought to influence enzymes involved in testosterone metabolism.",
+    background: "Research links boron supplementation to changes in free testosterone and SHBG levels. Human studies also associate boron with the body's use of Vitamin D and magnesium.",
     research: [
-      { title: "Fenugreek extract and testosterone in resistance-trained men", url: "https://pubmed.ncbi.nlm.nih.gov/32048383/" },
-      { title: "Fenugreek supplementation and male sexual function", url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC6191980/" },
+      { title: "Comparative effects of daily boron supplementation on plasma steroid hormones", url: "https://pubmed.ncbi.nlm.nih.gov/21129941/" },
+      { title: "Nothing boring about boron and testosterone", url: "https://pubmed.ncbi.nlm.nih.gov/28859553/" },
     ],
   },
+  // STRESS HORMONE BALANCE
   {
     name: "Ashwagandha",
+    category: "stress" as TabId,
     form: "KSM-66 Root Extract",
     dosage: "500 mg",
     image: "/ashwagandha-new.png",
-    overview: "The most researched ashwagandha extract. KSM-66 is supported by over 20 human studies associating it with cortisol reduction, recovery, and healthy testosterone levels in active men.",
+    overview: "KSM-66 is backed by 24+ human studies. Research associates it with reduced cortisol, improved recovery, and better testosterone levels in men under physical and mental stress. When cortisol stays elevated, testosterone signaling gets suppressed — this helps restore the balance.",
     source: "KSM-66 root extract, standardized for withanolides, third-party tested for purity and potency.",
     benefits: [
       "Associated with lower cortisol",
@@ -104,12 +120,14 @@ const ingredients = [
       { title: "Ashwagandha supplementation and testosterone in overweight men", url: "https://pubmed.ncbi.nlm.nih.gov/31517876/" },
     ],
   },
+  // TESTOSTERONE AVAILABILITY
   {
     name: "Tongkat Ali",
-    form: "1% Eurycomanone Extract",
+    category: "availability" as TabId,
+    form: "100:1 Extract (1% Eurycomanone)",
     dosage: "300 mg",
     image: "/tongkat-ali-new.png",
-    overview: "Tongkat Ali root extract standardized to 1% eurycomanone is associated with free testosterone, energy, and training drive in human studies.",
+    overview: "Human studies link it to increased free testosterone by influencing SHBG and supporting the HPG axis. Works with what your body already produces — not by forcing production artificially.",
     source: "Root extract, standardized to 1% eurycomanone, third-party tested for purity and potency.",
     benefits: [
       "Supports free testosterone",
@@ -124,31 +142,30 @@ const ingredients = [
     ],
   },
   {
-    name: "Boron",
-    form: "Boron Citrate",
-    dosage: "9 mg",
-    image: "/boron.png",
-    overview: "Boron citrate is associated with free testosterone levels and is thought to influence SHBG and the metabolism of key hormones.",
-    source: "Citrate-bound boron, verified for elemental content, third-party tested for purity and potency.",
+    name: "Fenugreek",
+    category: "availability" as TabId,
+    form: "50% Saponins Extract",
+    dosage: "500 mg",
+    image: "/fenugreek-new.png",
+    overview: "Standardized for furostanolic saponins, which influence enzymes involved in testosterone metabolism. Research in resistance-trained men links it to improvements in free testosterone and strength output.",
+    source: "Seed extract, standardized to 50% saponins, third-party tested for purity and potency.",
     benefits: [
       "Supports free testosterone",
-      "Supports Vitamin D utilization",
-      "Supports bone density",
-      "Works with other minerals",
+      "Supports strength output",
+      "Associated with performance",
+      "May support body composition",
     ],
-    background: "Research links boron supplementation to changes in free testosterone and SHBG levels. Human studies also associate boron with the body's use of Vitamin D and magnesium.",
+    background: "Human studies associate fenugreek extract with changes in testosterone levels and strength markers in resistance-trained men. Saponin compounds are thought to influence enzymes involved in testosterone metabolism.",
     research: [
-      { title: "Comparative effects of daily boron supplementation on plasma steroid hormones", url: "https://pubmed.ncbi.nlm.nih.gov/21129941/" },
-      { title: "Nothing boring about boron and testosterone", url: "https://pubmed.ncbi.nlm.nih.gov/28859553/" },
+      { title: "Fenugreek extract and testosterone in resistance-trained men", url: "https://pubmed.ncbi.nlm.nih.gov/32048383/" },
+      { title: "Fenugreek supplementation and male sexual function", url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC6191980/" },
     ],
   },
 ];
 
 const certifications = [
-  "Third-Party Verified",
-  "Heavy Metal Tested",
-  "Pesticide Screened",
-  "Allergen Free",
+  "Heavy Metals Tested",
+  "Quality Tested",
 ];
 
 const researchCards = [
@@ -351,7 +368,17 @@ function IngredientShowcase({
 }
 
 export default function FormulaPage() {
-  const [selectedIngredient, setSelectedIngredient] = useState(0);
+  const [activeTab, setActiveTab] = useState<TabId>("foundational");
+  const [selectedIngredientIndex, setSelectedIngredientIndex] = useState(0);
+
+  // Filter ingredients based on active tab
+  const filteredIngredients = ingredients.filter(ing => ing.category === activeTab);
+
+  // Handle tab change - auto-select first ingredient in new tab
+  const handleTabChange = (tabId: TabId) => {
+    setActiveTab(tabId);
+    setSelectedIngredientIndex(0);
+  };
 
   return (
     <div className="w-full max-w-full overflow-x-hidden bg-white">
@@ -457,7 +484,7 @@ export default function FormulaPage() {
         </section>
 
         {/* C) Ingredient Library - WHITE */}
-        <section className="bg-white py-12 sm:py-16">
+        <section id="ingredient-library" className="bg-white py-12 sm:py-16">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-8">
               <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">
@@ -468,10 +495,27 @@ export default function FormulaPage() {
               </p>
             </div>
 
+            {/* Tab Navigation */}
+            <div className="flex flex-wrap justify-center gap-2 mb-8">
+              {ingredientTabs.map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => handleTabChange(tab.id)}
+                  className={`px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${
+                    activeTab === tab.id
+                      ? "bg-primary text-white shadow-sm"
+                      : "bg-gray-100 text-gray-600 hover:bg-gray-200 hover:text-gray-900"
+                  }`}
+                >
+                  {tab.label}
+                </button>
+              ))}
+            </div>
+
             <IngredientShowcase
-              ingredients={ingredients}
-              selectedIndex={selectedIngredient}
-              onSelect={setSelectedIngredient}
+              ingredients={filteredIngredients}
+              selectedIndex={selectedIngredientIndex}
+              onSelect={setSelectedIngredientIndex}
             />
           </div>
         </section>
@@ -513,11 +557,11 @@ export default function FormulaPage() {
           </div>
         </section>
 
-        {/* E) Verified for Purity - WHITE */}
+        {/* E) Batch Tested - WHITE */}
         <section className="bg-white py-12 sm:py-16">
           <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">
-              Verified for Purity
+              Batch Tested
             </h2>
             <p className="text-gray-600 mb-6">
               Every batch is tested before it ships to confirm the label matches what's in the bottle.

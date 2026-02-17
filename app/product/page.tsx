@@ -129,7 +129,7 @@ const productSections = [
             This formula is designed to support your body's natural response, not override it. If you're looking to feel something on day three, this will disappoint you. If you're looking to feel like yourself again by week six, this makes sense.
           </p>
           <p className="text-sm text-text-primary font-medium mt-2">
-            Give it 60 days before deciding if it's working. Hormonal shifts don't happen overnight.
+            Give it 30 days before deciding if it's working. Hormonal shifts don't happen overnight.
           </p>
         </div>
       </div>
@@ -149,7 +149,7 @@ const productSections = [
         </div>
         <div>
           <p className="text-sm font-medium text-text-primary mb-1">Commitment Window</p>
-          <p className="text-sm">Take it daily for at least 60 days before evaluating. Hormonal changes are gradual.</p>
+          <p className="text-sm">Take it daily for at least 30 days before evaluating. Hormonal changes are gradual.</p>
         </div>
         <div className="bg-surface border border-border rounded-lg p-4 mt-2">
           <p className="text-sm text-text-muted">
@@ -178,7 +178,7 @@ const productSections = [
         <div>
           <p className="text-sm font-medium text-text-primary mb-2">How long until I know if it's working?</p>
           <p className="text-sm">
-            Most men notice subtle shifts in energy and recovery within 3–4 weeks. Libido and body composition changes take longer — 6–8 weeks. Blood work at 8–12 weeks will show measurable hormone changes if the formula is working for you. If you see no change by 60 days, it's likely not the right fit, and you're covered by the guarantee.
+            Most men notice subtle shifts in energy and recovery within 2–3 weeks. Libido and body composition changes take longer — 4–6 weeks. If you see no change by 30 days, it's likely not the right fit, and you're covered by the guarantee.
           </p>
         </div>
       </div>
@@ -216,17 +216,17 @@ const productSections = [
     ),
   },
   {
-    title: "60-Day Guarantee",
+    title: "30-Day Guarantee",
     content: (
       <div className="space-y-4 text-text-secondary text-left max-w-lg mx-auto">
         <p className="text-sm">
-          Try Peak Performance for 60 days. If you don't feel the difference, contact us for a full refund.
+          Try Peak Performance for 30 days. If you don't feel a difference, contact us for a full refund.
         </p>
         <p className="text-sm">
           No hassle. No questions designed to talk you out of it. We respect that this either works for you or it doesn't.
         </p>
         <p className="text-sm text-text-muted">
-          The window is 60 days because real hormonal shifts take time. We're not selling stimulants that work on day one and fade by week two.
+          The window is 30 days because real change takes consistency. We're not selling stimulants that work on day one and fade by week two.
         </p>
         <div className="pt-2">
           <p className="text-sm font-medium text-text-primary mb-2">Shipping</p>
@@ -295,7 +295,7 @@ function getPricing(qty: number) {
 }
 
 export default function ProductV2Page() {
-  const [quantity, setQuantity] = useState(2);
+  const [quantity, setQuantity] = useState(1);
   const [openSection, setOpenSection] = useState<number | null>(0);
   const [addedToCart, setAddedToCart] = useState(false);
   const { addToCart } = useCart();
@@ -454,13 +454,13 @@ export default function ProductV2Page() {
                   className="w-full"
                   onClick={handleAddToCart}
                 >
-                  {addedToCart ? "Added!" : `Start with Peak Performance — $${totalPrice.toFixed(2)}`}
+                  {addedToCart ? "Added!" : "Start with Peak Performance"}
                 </Button>
               </div>
 
               {/* Trust strip */}
               <p className="text-xs text-text-muted text-center mb-8">
-                Ships within 2 business days • 60-day money-back guarantee • No subscriptions or tricks
+                Ships within 2 business days • 30-day money-back guarantee • No subscriptions or tricks
               </p>
 
               {/* Accordion Sections */}
