@@ -6,7 +6,7 @@ import Link from "next/link";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { motion, AnimatePresence } from "framer-motion";
-import { Check, ArrowRight, Shield, Plus } from "lucide-react";
+import { Check, ArrowRight, Shield } from "lucide-react";
 
 // Tab definitions
 const ingredientTabs = [
@@ -191,182 +191,6 @@ const researchCards = [
   },
 ];
 
-type Ingredient = (typeof ingredients)[number];
-
-type IngredientShowcaseProps = {
-  ingredients: Ingredient[];
-  selectedIndex: number;
-  onSelect: (index: number) => void;
-};
-
-function IngredientShowcase({
-  ingredients,
-  selectedIndex,
-  onSelect,
-}: IngredientShowcaseProps) {
-  const selected = ingredients[selectedIndex];
-  const [expandedSection, setExpandedSection] = useState<string | null>(null);
-
-  return (
-    <div className="bg-background/60 backdrop-blur-sm rounded-2xl lg:rounded-3xl border border-border/40 shadow-lg shadow-black/5 pt-4 lg:pt-6 px-6 lg:px-10 pb-6 lg:pb-10">
-      <div className="grid lg:grid-cols-12 gap-6 lg:gap-8 items-center">
-        {/* Left: Ingredient Names */}
-      <div className="lg:col-span-2 flex lg:flex-col gap-4 lg:gap-3 overflow-x-auto lg:overflow-visible pb-4 lg:pb-0 px-4 lg:px-0 -mx-4 lg:mx-0 scrollbar-hide snap-x snap-mandatory">
-        {ingredients.map((ingredient, index) => (
-          <button
-            key={ingredient.name}
-            onClick={() => onSelect(index)}
-            className={`text-left px-3 py-2.5 lg:px-4 lg:py-3.5 text-sm lg:text-base rounded-lg whitespace-nowrap lg:whitespace-normal transition-all duration-300 snap-start flex-shrink-0 relative ${
-              selectedIndex === index
-                ? "text-primary font-semibold bg-primary/10 border-l-3 border-primary shadow-sm"
-                : "text-text-primary/90 font-medium hover:text-text-primary hover:bg-surface/80 hover:border-l-2 hover:border-primary/30 cursor-pointer"
-            }`}
-          >
-            {ingredient.name}
-          </button>
-        ))}
-      </div>
-
-      {/* Center: Ingredient Image */}
-      <div className="lg:col-span-4 flex justify-center items-center mb-4 lg:mb-0">
-        <motion.div
-          key={selectedIndex}
-          initial={{ opacity: 0, scale: 0.95, y: 10 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
-          className="relative"
-        >
-          <div className="w-48 h-48 sm:w-64 sm:h-64 lg:w-80 lg:h-80 rounded-full bg-gradient-to-br from-surface to-background border-4 border-primary/20 shadow-2xl shadow-primary/10 flex items-center justify-center overflow-hidden">
-            <Image
-              src={
-                selected.image ||
-                `https://placehold.co/300x300/141414/2d94ff?text=${encodeURIComponent(
-                  selected.name
-                )}`
-              }
-              alt={selected.name}
-              width={300}
-              height={300}
-              className="w-full h-full object-contain"
-            />
-          </div>
-          <div className="absolute inset-0 rounded-full bg-primary/10 blur-2xl -z-10" />
-        </motion.div>
-      </div>
-
-      {/* Right: Ingredient Details Card */}
-      <motion.div
-        key={`details-${selectedIndex}`}
-        initial={{ opacity: 0, y: 8 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
-        className="lg:col-span-6 rounded-xl lg:rounded-2xl bg-gradient-to-br from-primary/90 to-primary border border-primary overflow-hidden w-full"
-      >
-        <div className="p-4 sm:p-5 lg:p-6">
-          {/* Header */}
-          <h3 className="text-2xl font-bold text-background italic mb-2">
-            {selected.name}
-          </h3>
-          <p className="text-background/80 text-sm leading-relaxed mb-4">
-            {selected.overview}
-          </p>
-
-          {/* Info Table */}
-          <div className="bg-background/10 rounded-xl p-4 mb-4 space-y-2.5">
-            <div className="flex justify-between items-start border-b border-background/20 pb-2.5">
-              <span className="text-background/70 text-sm font-medium">
-                Dose
-              </span>
-              <span className="text-background text-sm text-right max-w-[60%]">
-                {selected.dosage}
-              </span>
-            </div>
-            <div className="flex justify-between items-start">
-              <span className="text-background/70 text-sm font-medium">
-                Form
-              </span>
-              <span className="text-background text-sm text-right max-w-[60%]">
-                {selected.form}
-              </span>
-            </div>
-          </div>
-
-          {/* Benefits */}
-          <div className="mb-4">
-            <h4 className="text-background font-semibold mb-2.5">Benefits</h4>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-              {selected.benefits.map((benefit, i) => (
-                <div
-                  key={i}
-                  className="flex items-center gap-2 text-xs text-background/90"
-                >
-                  <Check className="w-3 h-3 text-background flex-shrink-0" />
-                  <span>{benefit}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Background Dropdown */}
-          <div className="space-y-1.5">
-            <button
-              onClick={() =>
-                setExpandedSection(
-                  expandedSection === "background" ? null : "background"
-                )
-              }
-              className="w-full flex items-center justify-between py-3 border-t border-background/20 text-background"
-            >
-              <span className="font-medium text-sm">Background</span>
-              <Plus
-                className={`w-4 h-4 transition-transform ${
-                  expandedSection === "background" ? "rotate-45" : ""
-                }`}
-              />
-            </button>
-            <AnimatePresence>
-              {expandedSection === "background" && (
-                <motion.div
-                  initial={{ height: 0, opacity: 0 }}
-                  animate={{ height: "auto", opacity: 1 }}
-                  exit={{ height: 0, opacity: 0 }}
-                  className="overflow-hidden"
-                >
-                  <p className="text-background/80 text-sm pb-2">
-                    {selected.background}
-                  </p>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-
-          {/* Research Links - Always Visible */}
-          {selected.research && selected.research.length > 0 && (
-            <div className="mt-3 pt-3 border-t border-background/20">
-              <h4 className="text-background font-semibold text-sm mb-1.5">Research</h4>
-              <ul className="space-y-0.5">
-                {selected.research.map((item, i) => (
-                  <li key={i}>
-                    <a
-                      href={item.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-background/80 text-xs hover:text-background underline"
-                    >
-                      {item.title} (PubMed)
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-        </div>
-      </motion.div>
-      </div>
-    </div>
-  );
-}
-
 export default function FormulaPage() {
   const [activeTab, setActiveTab] = useState<TabId>("foundational");
   const [selectedIngredientIndex, setSelectedIngredientIndex] = useState(0);
@@ -490,33 +314,149 @@ export default function FormulaPage() {
               <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">
                 Ingredient Library
               </h2>
-              <p className="text-gray-600 max-w-2xl mx-auto">
+              <p className="text-gray-600 max-w-2xl mx-auto mb-8">
                 Below is a breakdown of the exact ingredients used in Peak Performance and why each one matters.
               </p>
+
+              {/* Pill Tabs */}
+              <div className="flex flex-wrap justify-center gap-2">
+                {ingredientTabs.map((tab) => (
+                  <button
+                    key={tab.id}
+                    onClick={() => handleTabChange(tab.id)}
+                    className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-200 ${
+                      activeTab === tab.id
+                        ? "bg-primary text-white shadow-md"
+                        : "bg-white text-gray-600 border border-gray-300 hover:border-primary hover:text-primary"
+                    }`}
+                  >
+                    {tab.label}
+                  </button>
+                ))}
+              </div>
             </div>
 
-            {/* Tab Navigation */}
-            <div className="flex flex-wrap justify-center gap-2 mb-8">
-              {ingredientTabs.map((tab) => (
-                <button
-                  key={tab.id}
-                  onClick={() => handleTabChange(tab.id)}
-                  className={`px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${
-                    activeTab === tab.id
-                      ? "bg-primary text-white shadow-sm"
-                      : "bg-gray-100 text-gray-600 hover:bg-gray-200 hover:text-gray-900"
-                  }`}
+            {/* Library Card */}
+            <motion.div
+              key={activeTab}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3 }}
+              className="bg-white rounded-2xl lg:rounded-3xl border border-gray-200 shadow-lg pt-6 lg:pt-8 px-6 lg:px-10 pb-8 lg:pb-10"
+            >
+              <div className="grid lg:grid-cols-12 gap-6 lg:gap-8 items-start">
+                {/* Left: Ingredient List */}
+                <div className="lg:col-span-2 flex lg:flex-col gap-3 overflow-x-auto lg:overflow-visible pb-4 lg:pb-0 -mx-2 px-2 lg:mx-0 lg:px-0 scrollbar-hide snap-x snap-mandatory">
+                  {filteredIngredients.map((ingredient, index) => (
+                    <button
+                      key={ingredient.name}
+                      onClick={() => setSelectedIngredientIndex(index)}
+                      className={`text-left px-4 py-3 text-sm rounded-xl whitespace-nowrap lg:whitespace-normal transition-all duration-200 snap-start flex-shrink-0 ${
+                        selectedIngredientIndex === index
+                          ? "bg-primary/10 text-primary font-semibold border-l-4 border-primary shadow-sm"
+                          : "text-gray-700 font-medium hover:bg-gray-50 hover:text-gray-900 border-l-4 border-transparent"
+                      }`}
+                    >
+                      {ingredient.name}
+                    </button>
+                  ))}
+                </div>
+
+                {/* Center: Ingredient Image */}
+                <div className="lg:col-span-4 flex justify-center items-center">
+                  <motion.div
+                    key={filteredIngredients[selectedIngredientIndex]?.name}
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.3 }}
+                    className="relative"
+                  >
+                    <div className="w-48 h-48 sm:w-56 sm:h-56 lg:w-72 lg:h-72 rounded-full bg-gradient-to-br from-gray-50 to-white border-4 border-primary/15 shadow-xl flex items-center justify-center overflow-hidden">
+                      <Image
+                        src={
+                          filteredIngredients[selectedIngredientIndex]?.image ||
+                          `https://placehold.co/280x280/f8fafc/2d94ff?text=${encodeURIComponent(
+                            filteredIngredients[selectedIngredientIndex]?.name || "Ingredient"
+                          )}`
+                        }
+                        alt={filteredIngredients[selectedIngredientIndex]?.name || "Ingredient"}
+                        width={280}
+                        height={280}
+                        className="w-full h-full object-contain"
+                      />
+                    </div>
+                    <div className="absolute inset-0 rounded-full bg-primary/5 blur-2xl -z-10" />
+                  </motion.div>
+                </div>
+
+                {/* Right: Premium Blue Detail Panel */}
+                <motion.div
+                  key={`panel-${filteredIngredients[selectedIngredientIndex]?.name}`}
+                  initial={{ opacity: 0, x: 12 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.3 }}
+                  className="lg:col-span-6 rounded-2xl bg-gradient-to-br from-primary to-primary/90 overflow-hidden shadow-xl"
                 >
-                  {tab.label}
-                </button>
-              ))}
-            </div>
+                  <div className="p-6 lg:p-8">
+                    {/* Ingredient Name */}
+                    <h3 className="text-2xl lg:text-3xl font-bold text-white mb-4">
+                      {filteredIngredients[selectedIngredientIndex]?.name}
+                    </h3>
 
-            <IngredientShowcase
-              ingredients={filteredIngredients}
-              selectedIndex={selectedIngredientIndex}
-              onSelect={setSelectedIngredientIndex}
-            />
+                    {/* Description */}
+                    <p className="text-white/90 text-sm lg:text-base leading-relaxed mb-6">
+                      {filteredIngredients[selectedIngredientIndex]?.overview}
+                    </p>
+
+                    {/* Dose & Form Row */}
+                    <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 mb-6">
+                      <div className="flex justify-between items-center border-b border-white/20 pb-3 mb-3">
+                        <span className="text-white/70 text-sm font-medium">Dose</span>
+                        <span className="text-white font-semibold">
+                          {filteredIngredients[selectedIngredientIndex]?.dosage}
+                        </span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-white/70 text-sm font-medium">Form</span>
+                        <span className="text-white font-medium text-sm text-right max-w-[65%]">
+                          {filteredIngredients[selectedIngredientIndex]?.form}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Key Mechanisms / Benefits */}
+                    <div className="mb-6">
+                      <h4 className="text-white font-semibold text-sm mb-3 uppercase tracking-wide">
+                        Key Benefits
+                      </h4>
+                      <ul className="space-y-2.5">
+                        {filteredIngredients[selectedIngredientIndex]?.benefits.slice(0, 3).map((benefit, i) => (
+                          <li key={i} className="flex items-start gap-3">
+                            <div className="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                              <Check className="w-3 h-3 text-white" />
+                            </div>
+                            <span className="text-white/90 text-sm leading-relaxed">{benefit}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    {/* View Study CTA */}
+                    {filteredIngredients[selectedIngredientIndex]?.research?.[0] && (
+                      <a
+                        href={filteredIngredients[selectedIngredientIndex].research[0].url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-white text-primary font-semibold text-sm hover:bg-white/90 transition-colors shadow-sm"
+                      >
+                        View Study
+                        <ArrowRight className="w-4 h-4" />
+                      </a>
+                    )}
+                  </div>
+                </motion.div>
+              </div>
+            </motion.div>
           </div>
         </section>
 
