@@ -9,53 +9,56 @@ import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/lib/cart-context";
 import { motion, AnimatePresence } from "framer-motion";
-import { Check, ChevronDown, Truck, Tag, ArrowRight } from "lucide-react";
+import { Check, ChevronDown, ArrowRight } from "lucide-react";
 
 const bundleOptions = [
   {
     id: "1-bottle",
     quantity: 1,
-    label: "1 Bottle",
-    subtitle: "30-day supply",
+    label: "Starter — 30 Days",
+    subtitle: "Minimum window to evaluate response.",
     price: 49.99,
     perBottle: 49.99,
     badge: null,
     freeShipping: false,
+    showPerBottle: false,
   },
   {
     id: "2-bottles",
     quantity: 2,
-    label: "2 Bottles",
-    subtitle: "Free Shipping",
+    label: "Recommended — 60 Days",
+    subtitle: "Sufficient time for measurable functional changes.",
     price: 99.98,
     perBottle: 49.99,
-    badge: "Most Popular",
+    badge: "Recommended",
     freeShipping: true,
+    showPerBottle: false,
   },
   {
     id: "3-bottles",
     quantity: 3,
-    label: "3 Bottles",
-    subtitle: "Save 10% + Free Shipping",
+    label: "Best Value — 90 Days",
+    subtitle: "Maximum consistency. Best long-term value.",
     price: 134.97,
     perBottle: 44.99,
     badge: "Best Value",
     freeShipping: true,
+    showPerBottle: true,
   },
 ];
 
 const corePrinciples = [
   {
     title: "Free testosterone availability over total numbers",
-    description: "Ingredients like fenugreek and boron reduce SHBG to unlock testosterone already in your system.",
+    description: "Fenugreek and boron reduce SHBG to unlock testosterone already present in your system.",
   },
   {
-    title: "Stress management creates hormonal balance",
-    description: "Ashwagandha and magnesium lower cortisol, allowing testosterone to function.",
+    title: "Stress balance restores hormonal function",
+    description: "Ashwagandha and magnesium lower cortisol, allowing testosterone to work as intended.",
   },
   {
-    title: "Foundational nutrients support natural production",
-    description: "Zinc, magnesium, and vitamin D provide what your body needs to synthesize testosterone efficiently.",
+    title: "Foundational nutrients enable natural production",
+    description: "Zinc, magnesium, and vitamin D3 provide the raw materials testosterone synthesis requires.",
   },
 ];
 
@@ -68,27 +71,23 @@ const productSections = [
         <ul className="space-y-2 text-sm">
           <li className="flex items-start gap-2">
             <Check className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
-            <span>Feel off but aren't broken — energy is lower, drive has dulled, recovery takes longer</span>
+            <span>Feel off but aren't broken — energy lower, drive dulled, recovery slower</span>
           </li>
           <li className="flex items-start gap-2">
             <Check className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
-            <span>Have tried generic test boosters and saw nothing happen</span>
+            <span>Have tried generic boosters and seen nothing change</span>
           </li>
           <li className="flex items-start gap-2">
             <Check className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
-            <span>Want to support your body's natural testosterone function</span>
+            <span>Understand that free testosterone availability matters more than total T</span>
           </li>
           <li className="flex items-start gap-2">
             <Check className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
-            <span>Understand that free testosterone availability matters more than just total T</span>
-          </li>
-          <li className="flex items-start gap-2">
-            <Check className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
-            <span>Are willing to commit to consistency rather than chasing stimulation</span>
+            <span>Are committed to consistency, not stimulation</span>
           </li>
         </ul>
         <p className="text-sm text-text-muted pt-2 text-center">
-          If you're looking for a quick fix or a stimulant buzz, this isn't it. If you're looking to restore function over time, keep reading.
+          If you want an immediate effect, this isn't it. If you want to restore function over time, the approach is here.
         </p>
       </div>
     ),
@@ -98,13 +97,13 @@ const productSections = [
     content: (
       <div className="space-y-4 text-text-secondary text-left max-w-lg mx-auto">
         <p className="text-sm">
-          This is not a stimulant. There is no immediate buzz, no jolt of energy, no performance spike on day one.
+          This is not a stimulant. There is no immediate response on day one.
         </p>
-        <p className="text-sm font-medium text-text-primary">What you're more likely to notice over the first 4–8 weeks:</p>
+        <p className="text-sm font-medium text-text-primary">Over 4–8 weeks of consistent use, most men notice:</p>
         <ul className="space-y-2 text-sm">
           <li className="flex items-start gap-2">
             <span className="text-primary">•</span>
-            <span>Energy feels more stable — less dragging in the afternoon</span>
+            <span>Energy becomes more stable through the day</span>
           </li>
           <li className="flex items-start gap-2">
             <span className="text-primary">•</span>
@@ -112,24 +111,24 @@ const productSections = [
           </li>
           <li className="flex items-start gap-2">
             <span className="text-primary">•</span>
-            <span>Mental clarity sharpens slightly, consistently</span>
+            <span>Mental clarity sharpens gradually</span>
           </li>
           <li className="flex items-start gap-2">
             <span className="text-primary">•</span>
-            <span>Libido begins to return — not dramatic, but present</span>
+            <span>Libido begins to return — not dramatic, but consistent</span>
           </li>
           <li className="flex items-start gap-2">
             <span className="text-primary">•</span>
-            <span>Body composition shifts if training and diet are in place</span>
+            <span>Body composition shifts when training and diet support it</span>
           </li>
         </ul>
-        <p className="text-sm text-text-muted">These changes are subtle and progressive. They compound.</p>
+        <p className="text-sm text-text-muted">These changes are progressive. They compound with consistency.</p>
         <div className="bg-surface border border-border rounded-lg p-4 mt-4">
           <p className="text-sm text-text-secondary">
-            This formula is designed to support your body's natural response, not override it. If you're looking to feel something on day three, this will disappoint you. If you're looking to feel like yourself again by week six, this makes sense.
+            This formula supports your body's natural hormonal function — it doesn't override it. If you expect to feel something on day three, this will disappoint you. If you're looking to feel like yourself again by week six, this is a reasonable place to start.
           </p>
           <p className="text-sm text-text-primary font-medium mt-2">
-            Give it 30 days before deciding if it's working. Hormonal shifts don't happen overnight.
+            Allow 30 days before evaluating. Hormonal change doesn't happen overnight.
           </p>
         </div>
       </div>
@@ -140,20 +139,17 @@ const productSections = [
     content: (
       <div className="space-y-4 text-text-secondary text-left max-w-lg mx-auto">
         <div>
-          <p className="text-sm font-medium text-text-primary mb-1">Daily Dose</p>
           <p className="text-sm">Three capsules, once daily with food.</p>
         </div>
         <div>
-          <p className="text-sm font-medium text-text-primary mb-1">Best Timing</p>
           <p className="text-sm">Morning with breakfast or early afternoon. Consistency matters more than exact timing.</p>
         </div>
         <div>
-          <p className="text-sm font-medium text-text-primary mb-1">Commitment Window</p>
-          <p className="text-sm">Take it daily for at least 30 days before evaluating. Hormonal changes are gradual.</p>
+          <p className="text-sm">Minimum 30-day commitment before evaluating response.</p>
         </div>
         <div className="bg-surface border border-border rounded-lg p-4 mt-2">
           <p className="text-sm text-text-muted">
-            <strong className="text-text-secondary">Important:</strong> Do not combine with other testosterone support supplements or hormone-modulating compounds unless discussed with your doctor. More is not better.
+            Do not combine with other testosterone support supplements or hormone-modulating compounds without consulting your doctor.
           </p>
         </div>
       </div>
@@ -166,19 +162,19 @@ const productSections = [
         <div>
           <p className="text-sm font-medium text-text-primary mb-2">I've tried testosterone boosters before. Why would this be different?</p>
           <p className="text-sm">
-            Most test boosters are underdosed or use cheap ingredient forms that don't absorb well. Many hide behind proprietary blends. This formula uses clinically validated doses of bioavailable forms — the same doses used in the studies. If you've only tried generic boosters with 100mg of fenugreek or unspecified extracts, you haven't tried what actually works.
+            Most boosters fail for two reasons: underdosing and non-standardized extract forms. A product with 100mg of fenugreek from an unspecified extract is not the same as 500mg standardized to 50% saponins. Clinical dosing and standardized extract forms are what separate a functional formula from a label. If you've only used generic boosters, you haven't tested what the research actually supports.
           </p>
         </div>
         <div>
           <p className="text-sm font-medium text-text-primary mb-2">Is this just placebo?</p>
           <p className="text-sm">
-            The ingredients in this formula have been studied in randomized, placebo-controlled trials showing measurable increases in free testosterone, reductions in SHBG, and improvements in cortisol-to-testosterone ratios. Placebo doesn't change blood markers. That said, if you expect to feel something on day one, you'll be disappointed. This isn't designed to create a stimulant response.
+            The ingredients here have been studied in randomized, placebo-controlled trials showing measurable increases in free testosterone, reductions in SHBG, and improvements in cortisol-to-testosterone ratios. Placebo doesn't change blood markers. That said, this produces no immediate stimulant response. If that's what you're expecting, the mechanism is different.
           </p>
         </div>
         <div>
           <p className="text-sm font-medium text-text-primary mb-2">How long until I know if it's working?</p>
           <p className="text-sm">
-            Most men notice subtle shifts in energy and recovery within 2–3 weeks. Libido and body composition changes take longer — 4–6 weeks. If you see no change by 30 days, it's likely not the right fit, and you're covered by the guarantee.
+            Most men notice early shifts in energy and recovery within 2–3 weeks. Libido and body composition changes take longer — 4–6 weeks minimum. No change by 30 days likely means this isn't the right fit. The guarantee covers you either way.
           </p>
         </div>
       </div>
@@ -188,27 +184,24 @@ const productSections = [
     title: "Full Ingredient List",
     content: (
       <div className="space-y-6 text-text-secondary text-left max-w-lg mx-auto">
-        <p className="text-sm text-center">Seven ingredients. Fully disclosed dosing. No proprietary blends.</p>
+        <p className="text-sm text-center">Seven ingredients. Clinical dosing. Fully disclosed. No proprietary blends.</p>
         <div>
-          <h4 className="text-text-primary font-semibold mb-3 text-center">
-            Amount Per Serving
-          </h4>
           <ul className="space-y-2 text-sm">
-            <li>Vitamin D (as Cholecalciferol) — 75 mcg (3,000 IU)</li>
-            <li>Magnesium (as Magnesium Bisglycinate) — 300 mg</li>
-            <li>Zinc (as Zinc Citrate) — 30 mg</li>
+            <li>Vitamin D3 (Cholecalciferol) — 3,000 IU</li>
+            <li>Magnesium (Bisglycinate) — 300 mg</li>
+            <li>Zinc (Citrate) — 30 mg</li>
             <li>Fenugreek Seed Extract (50% saponins) — 500 mg</li>
             <li>Ashwagandha Root Extract (KSM-66) — 500 mg</li>
             <li>Tongkat Ali Root Extract (1% Eurycomanone) — 300 mg</li>
-            <li>Boron (as Boron Citrate) — 9 mg</li>
+            <li>Boron (Citrate) — 9 mg</li>
           </ul>
         </div>
         <p className="text-sm text-text-muted text-center">
-          Each dose matches or exceeds what's been validated in peer-reviewed research. No label dressing. No filler.
+          Each dose matches or exceeds what was used in peer-reviewed human studies. No label dressing. No filler.
         </p>
         <div className="text-center pt-2">
-          <Link href="/formula-v2" className="inline-flex items-center gap-1.5 text-primary text-sm font-medium hover:underline">
-            See the full breakdown and research
+          <Link href="/formula" className="inline-flex items-center gap-1.5 text-primary text-sm font-medium hover:underline">
+            See the full research breakdown
             <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
@@ -220,20 +213,17 @@ const productSections = [
     content: (
       <div className="space-y-4 text-text-secondary text-left max-w-lg mx-auto">
         <p className="text-sm">
-          Try Peak Performance for 30 days. If you don't feel a difference, contact us for a full refund.
-        </p>
-        <p className="text-sm">
-          No hassle. No questions designed to talk you out of it. We respect that this either works for you or it doesn't.
+          Try Peak Performance for 30 days. If you don't notice a difference, contact us for a full refund — no friction, no deflection.
         </p>
         <p className="text-sm text-text-muted">
-          The window is 30 days because real change takes consistency. We're not selling stimulants that work on day one and fade by week two.
+          The window is 30 days because real change requires consistency. This isn't a stimulant that works on day one and fades by week two.
         </p>
         <div className="pt-2">
           <p className="text-sm font-medium text-text-primary mb-2">Shipping</p>
           <ul className="space-y-1 text-sm">
             <li>• Ships within 2 business days</li>
             <li>• Free shipping on orders of 2+ bottles</li>
-            <li>• No subscriptions or recurring charges unless you opt in</li>
+            <li>• No automatic subscriptions unless you opt in</li>
           </ul>
         </div>
       </div>
@@ -295,7 +285,7 @@ function getPricing(qty: number) {
 }
 
 export default function ProductV2Page() {
-  const [quantity, setQuantity] = useState(1);
+  const [quantity, setQuantity] = useState(2);
   const [openSection, setOpenSection] = useState<number | null>(0);
   const [addedToCart, setAddedToCart] = useState(false);
   const { addToCart } = useCart();
@@ -390,7 +380,11 @@ export default function ProductV2Page() {
                       }`}
                     >
                       {bundle.badge && (
-                        <span className="absolute -top-2 sm:-top-2.5 right-2 sm:right-4 px-2 py-0.5 sm:px-2.5 sm:py-1 text-[10px] sm:text-xs font-semibold rounded bg-primary text-white">
+                        <span className={`absolute -top-2 sm:-top-2.5 right-2 sm:right-4 px-2 py-0.5 sm:px-2.5 sm:py-1 text-[10px] sm:text-xs font-medium rounded ${
+                          bundle.badge === "Best Value"
+                            ? "bg-primary text-white"
+                            : "bg-gray-100 text-gray-700 border border-gray-200"
+                        }`}>
                           {bundle.badge}
                         </span>
                       )}
@@ -407,13 +401,19 @@ export default function ProductV2Page() {
                           </div>
                           <div className="min-w-0">
                             <p className="font-semibold text-text-primary text-sm sm:text-base">{bundle.label}</p>
-                            <p className="text-xs sm:text-sm text-text-secondary truncate">{bundle.subtitle}</p>
+                            <p className="text-xs text-text-muted">{bundle.subtitle}</p>
                           </div>
                         </div>
                         <div className="text-right flex-shrink-0">
                           <p className="font-bold text-text-primary text-sm sm:text-base">${bundle.price.toFixed(2)}</p>
-                          {bundle.quantity > 1 && (
-                            <p className="text-[10px] sm:text-xs text-text-secondary">${bundle.perBottle.toFixed(2)}/bottle</p>
+                          {bundle.freeShipping && bundle.quantity === 2 && (
+                            <p className="text-[10px] sm:text-xs text-primary">Free Shipping</p>
+                          )}
+                          {bundle.quantity === 3 && (
+                            <p className="text-[10px] sm:text-xs text-primary">Save 10% + Free Shipping</p>
+                          )}
+                          {bundle.showPerBottle && (
+                            <p className="text-[10px] sm:text-xs text-text-muted">${bundle.perBottle.toFixed(2)}/bottle</p>
                           )}
                         </div>
                       </div>
@@ -422,28 +422,26 @@ export default function ProductV2Page() {
                 })}
               </div>
 
-              {/* Deal Status Indicator */}
-              <div className="flex flex-wrap gap-3 mb-6 text-sm justify-center sm:justify-start">
-                {pricing.freeShipping && (
-                  <span className="inline-flex items-center gap-1.5 text-primary">
-                    <Truck className="w-4 h-4" />
-                    Free shipping applied
-                  </span>
-                )}
-                {quantity >= 3 && (
-                  <span className="inline-flex items-center gap-1.5 text-primary">
-                    <Tag className="w-4 h-4" />
-                    ${pricing.perBottle.toFixed(2)}/bottle applied
-                  </span>
-                )}
+              {/* Risk Reversal */}
+              <div className="flex flex-wrap justify-center gap-x-4 gap-y-1 mb-6 text-xs text-text-muted">
+                <span className="flex items-center gap-1.5">
+                  <Check className="w-3.5 h-3.5 text-primary" />
+                  30-Day Money-Back Guarantee
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <Check className="w-3.5 h-3.5 text-primary" />
+                  No subscriptions
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <Check className="w-3.5 h-3.5 text-primary" />
+                  Ships in 2 business days
+                </span>
               </div>
 
               {/* Pre-CTA Context */}
               <div className="mb-4 text-center">
                 <p className="text-sm text-text-muted mb-3">
-                  If you've read this far, you understand what this is and what it isn't.
-                  <br />
-                  You know the mechanism. You've seen the dosing. You know the risk is controlled.
+                  If you've read this far, you understand what this is. You know the mechanism, the dosing, and what to expect. The risk is controlled.
                 </p>
               </div>
 
@@ -457,11 +455,6 @@ export default function ProductV2Page() {
                   {addedToCart ? "Added!" : "Start with Peak Performance"}
                 </Button>
               </div>
-
-              {/* Trust strip */}
-              <p className="text-xs text-text-muted text-center mb-8">
-                Ships within 2 business days • 30-day money-back guarantee • No subscriptions or tricks
-              </p>
 
               {/* Accordion Sections */}
               <div className="border-t border-border">

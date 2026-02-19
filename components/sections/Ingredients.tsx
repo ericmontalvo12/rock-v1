@@ -16,11 +16,14 @@ export function Ingredients() {
           <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-6">
             Our Philosophy
           </h2>
+          <p className="text-gray-900 font-medium text-lg leading-relaxed max-w-2xl mx-auto mb-4">
+            Most supplements are engineered to sell. We engineer for effect.
+          </p>
           <p className="text-gray-600 leading-relaxed max-w-2xl mx-auto mb-4">
-            We start with published research. Every ingredient is included because human studies link it to the outcome we're targeting—and doses match what was used in those studies.
+            Every ingredient in Peak Performance is included because published human research links it to a specific physiological outcome. Every dose matches what was actually used in those studies.
           </p>
           <p className="text-gray-600 leading-relaxed max-w-2xl mx-auto">
-            Labels are fully disclosed. You know exactly what you're getting and why it's there.
+            No proprietary blends. No label dressing. Fully disclosed, so you know exactly what you're taking and exactly why it's there.
           </p>
         </motion.div>
       </div>

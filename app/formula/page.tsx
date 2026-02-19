@@ -11,8 +11,8 @@ import { Check, ArrowRight, Shield } from "lucide-react";
 // Tab definitions
 const ingredientTabs = [
   { id: "foundational", label: "Foundational Support" },
-  { id: "stress", label: "Stress Hormone Balance" },
-  { id: "availability", label: "Testosterone Availability" },
+  { id: "stress", label: "Stress Balance" },
+  { id: "availability", label: "Free Testosterone Availability" },
 ] as const;
 
 type TabId = typeof ingredientTabs[number]["id"];
@@ -165,30 +165,7 @@ const ingredients = [
 
 const certifications = [
   "Heavy Metals Tested",
-  "Quality Tested",
-];
-
-const researchCards = [
-  {
-    title: "Vitamin D Supplementation and Testosterone Levels",
-    description: "Human trial examining vitamin D supplementation and testosterone levels in men with low vitamin D status.",
-    url: "https://pubmed.ncbi.nlm.nih.gov/21154195/",
-  },
-  {
-    title: "Ashwagandha (KSM-66) and Male Hormonal Health",
-    description: "Randomized study examining the association between ashwagandha, stress markers, and testosterone in men.",
-    url: "https://pubmed.ncbi.nlm.nih.gov/31517876/",
-  },
-  {
-    title: "Tongkat Ali and Free Testosterone Support",
-    description: "Human study examining tongkat ali in relation to androgen status and stress adaptation in men.",
-    url: "https://pubmed.ncbi.nlm.nih.gov/21671978/",
-  },
-  {
-    title: "Zinc Status and Testosterone Regulation",
-    description: "Human study examining the relationship between zinc status and testosterone levels in adult males.",
-    url: "https://pubmed.ncbi.nlm.nih.gov/8875519/",
-  },
+  "Quality Verified",
 ];
 
 export default function FormulaPage() {
@@ -214,18 +191,19 @@ export default function FormulaPage() {
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-3">
               Inside the Formula
             </h1>
-            <p className="text-gray-600 max-w-2xl mx-auto mb-2">
-              7 ingredients dosed based on published research
+            <p className="text-gray-600 max-w-2xl mx-auto mb-4">
+              7 ingredients. Clinical dosing. Based on published research.
             </p>
-            <div className="flex items-center justify-center gap-6 mb-5 text-gray-500 text-sm">
+            <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 mb-6 text-gray-500 text-sm">
               <span>✓ No fillers</span>
               <span>✓ No proprietary blends</span>
+              <span>✓ Standardized extract forms</span>
             </div>
             <Link
               href="/product"
               className="inline-flex items-center gap-2 text-primary hover:text-primary-hover text-sm font-medium transition-colors"
             >
-              View the product
+              Get Peak Performance
               <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
@@ -245,7 +223,7 @@ export default function FormulaPage() {
                 Three Problems. One Formula.
               </h2>
               <p className="text-gray-600 text-base sm:text-lg max-w-2xl mx-auto">
-                Every ingredient in Peak Performance addresses one of these limiting factors.
+                Every ingredient in Peak Performance targets one of the three limiting factors that determine functional testosterone availability.
               </p>
             </motion.div>
 
@@ -264,7 +242,7 @@ export default function FormulaPage() {
                   Nutrient Gaps
                 </h3>
                 <p className="text-gray-500 text-sm">
-                  Your body can't produce testosterone without the raw materials. We fill the gaps most men don't know they have.
+                  Your body can't produce testosterone without foundational raw materials. Most men are deficient without knowing it.
                 </p>
               </motion.div>
 
@@ -282,7 +260,7 @@ export default function FormulaPage() {
                   Cortisol Interference
                 </h3>
                 <p className="text-gray-500 text-sm">
-                  Chronic stress keeps cortisol elevated, which directly suppresses testosterone signaling. We address the interference.
+                  Chronic stress keeps cortisol elevated, which directly suppresses testosterone signaling. The interference has to be addressed, not ignored.
                 </p>
               </motion.div>
 
@@ -300,7 +278,7 @@ export default function FormulaPage() {
                   Bound Testosterone
                 </h3>
                 <p className="text-gray-500 text-sm">
-                  SHBG binds testosterone and makes it unavailable. We support free testosterone — the portion your body can actually use.
+                  SHBG binds testosterone and removes it from use. Supporting free testosterone availability means reducing that binding — not just raising total numbers.
                 </p>
               </motion.div>
             </div>
@@ -311,12 +289,9 @@ export default function FormulaPage() {
         <section id="ingredient-library" className="bg-white py-12 sm:py-16">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-8">
-              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">
-                Ingredient Library
+              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-8">
+                Ingredient Breakdown
               </h2>
-              <p className="text-gray-600 max-w-2xl mx-auto mb-8">
-                Below is a breakdown of the exact ingredients used in Peak Performance and why each one matters.
-              </p>
 
               {/* Pill Tabs */}
               <div className="flex flex-wrap justify-center gap-2">
@@ -337,16 +312,15 @@ export default function FormulaPage() {
             </div>
 
             {/* Library Card */}
-            <motion.div
-              key={activeTab}
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3 }}
-              className="bg-white rounded-2xl lg:rounded-3xl border border-gray-200 shadow-lg pt-6 lg:pt-8 px-6 lg:px-10 pb-8 lg:pb-10"
-            >
-              <div className="grid lg:grid-cols-12 gap-6 lg:gap-8 items-start">
+            <div className="bg-white rounded-2xl lg:rounded-3xl border border-gray-200 shadow-lg pt-6 lg:pt-8 px-6 lg:px-10 pb-8 lg:pb-10 overflow-hidden lg:min-h-[580px]">
+              <div className="grid lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
                 {/* Left: Ingredient List */}
-                <div className="lg:col-span-2 flex lg:flex-col gap-3 overflow-x-auto lg:overflow-visible pb-4 lg:pb-0 -mx-2 px-2 lg:mx-0 lg:px-0 scrollbar-hide snap-x snap-mandatory">
+                <motion.div
+                  key={activeTab}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.2 }}
+                  className="lg:col-span-2 flex lg:flex-col gap-3 overflow-x-auto lg:overflow-visible pb-4 lg:pb-0 -mx-2 px-2 lg:mx-0 lg:px-0 scrollbar-hide snap-x snap-mandatory">
                   {filteredIngredients.map((ingredient, index) => (
                     <button
                       key={ingredient.name}
@@ -360,7 +334,7 @@ export default function FormulaPage() {
                       {ingredient.name}
                     </button>
                   ))}
-                </div>
+                </motion.div>
 
                 {/* Center: Ingredient Image */}
                 <div className="lg:col-span-4 flex justify-center items-center">
@@ -456,7 +430,7 @@ export default function FormulaPage() {
                   </div>
                 </motion.div>
               </div>
-            </motion.div>
+            </div>
           </div>
         </section>
 
@@ -478,11 +452,7 @@ export default function FormulaPage() {
               <div className="grid sm:grid-cols-2 gap-3 max-w-xl mx-auto">
                 <div className="flex items-center gap-3 text-left p-3 sm:p-4 bg-white rounded-lg border border-gray-200 shadow-sm">
                   <span className="text-red-500 text-base">✕</span>
-                  <span className="text-gray-600 text-sm">Proprietary blends that hide real doses</span>
-                </div>
-                <div className="flex items-center gap-3 text-left p-3 sm:p-4 bg-white rounded-lg border border-gray-200 shadow-sm">
-                  <span className="text-red-500 text-base">✕</span>
-                  <span className="text-gray-600 text-sm">Stimulants that mask the real issue</span>
+                  <span className="text-gray-600 text-sm">Proprietary blends that conceal real doses</span>
                 </div>
                 <div className="flex items-center gap-3 text-left p-3 sm:p-4 bg-white rounded-lg border border-gray-200 shadow-sm">
                   <span className="text-red-500 text-base">✕</span>
@@ -490,7 +460,11 @@ export default function FormulaPage() {
                 </div>
                 <div className="flex items-center gap-3 text-left p-3 sm:p-4 bg-white rounded-lg border border-gray-200 shadow-sm">
                   <span className="text-red-500 text-base">✕</span>
-                  <span className="text-gray-600 text-sm">Cheap fillers to cut costs</span>
+                  <span className="text-gray-600 text-sm">Stimulants that mask the underlying issue</span>
+                </div>
+                <div className="flex items-center gap-3 text-left p-3 sm:p-4 bg-white rounded-lg border border-gray-200 shadow-sm">
+                  <span className="text-red-500 text-base">✕</span>
+                  <span className="text-gray-600 text-sm">Cheap fillers to reduce cost</span>
                 </div>
               </div>
             </motion.div>
@@ -504,7 +478,7 @@ export default function FormulaPage() {
               Batch Tested
             </h2>
             <p className="text-gray-600 mb-6">
-              Every batch is tested before it ships to confirm the label matches what's in the bottle.
+              Every batch is tested before shipment. What's on the label is what's in the bottle.
             </p>
             <div className="grid grid-cols-2 sm:flex sm:flex-wrap sm:justify-center gap-2 sm:gap-3">
               {certifications.map((cert) => (
@@ -520,42 +494,8 @@ export default function FormulaPage() {
           </div>
         </section>
 
-        {/* F) Research Section - LIGHT TINT */}
+        {/* F) Final CTA - LIGHT TINT */}
         <section className="bg-[#F7F9FC] py-12 sm:py-16">
-          <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-8">
-              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">
-                Research Behind the Formula
-              </h2>
-              <p className="text-gray-600">
-                Peer-reviewed evidence informing each ingredient choice.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-              {researchCards.map((card, index) => (
-                <div
-                  key={index}
-                  className="p-4 sm:p-5 rounded-xl bg-white border border-gray-200 shadow-sm"
-                >
-                  <h3 className="font-semibold text-gray-900 mb-2">{card.title}</h3>
-                  <p className="text-sm text-gray-600 mb-3">{card.description}</p>
-                  <a
-                    href={card.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center text-primary text-sm font-medium hover:underline"
-                  >
-                    View on PubMed →
-                  </a>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* G) Final CTA - WHITE */}
-        <section className="bg-white py-12 sm:py-16">
           <div className="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8 text-center">
             <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">
               Ready to run the full protocol?
@@ -567,7 +507,7 @@ export default function FormulaPage() {
               href="/product"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-white font-medium hover:bg-primary-hover transition-colors"
             >
-              View Peak Performance
+              Get Peak Performance
               <ArrowRight className="w-4 h-4" />
             </Link>
           </div>

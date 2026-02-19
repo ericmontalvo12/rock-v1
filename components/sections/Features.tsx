@@ -1,26 +1,26 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { FlaskConical, Dumbbell, Zap } from "lucide-react";
+import { FlaskConical, FileText, ShieldCheck } from "lucide-react";
 
 const features = [
   {
     icon: FlaskConical,
     title: "Research-Based Formulation",
     description:
-      "Ingredients dosed based on published human studies, not marketing trends or guesswork.",
+      "Every ingredient is dosed to match published human studies.",
   },
   {
-    icon: Zap,
+    icon: FileText,
     title: "Fully Disclosed Labels",
     description:
-      "Exact amounts and ingredient forms listed. No proprietary blends, no hidden doses.",
+      "Exact amounts and standardized extract forms listed.",
   },
   {
-    icon: Dumbbell,
+    icon: ShieldCheck,
     title: "Batch Tested",
     description:
-      "Each batch is tested for purity and heavy metals before release.",
+      "Each batch is tested for purity and heavy metals before it ships.",
   },
 ];
 

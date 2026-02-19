@@ -12,8 +12,6 @@ const navLinks = [
   { href: "/product", label: "Product" },
   { href: "/formula", label: "Inside The Formula" },
   { href: "/about", label: "About" },
-  { href: "/formula-v2", label: "Formula V2" },
-  { href: "/library-card-v2", label: "Library Card V2" },
 ];
 
 export function Header() {

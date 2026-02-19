@@ -147,7 +147,7 @@ export default function About() {
               We're coaches who got tired of recommending supplements we didn't actually trust. So we built what we wanted to exist: formulas that earn their place in your routine through results, not through marketing volume.
             </p>
             <p className="text-text-primary font-medium">
-              If it works, you'll know because you feel better and your labs improve. If it doesn't work after 60 days, we'll refund you. That's the deal.
+              If it works, you'll know because you feel better and your labs improve. If it doesn't work after 30 days, we'll refund you. That's the deal.
             </p>
           </div>
         </section>
@@ -173,7 +173,7 @@ export default function About() {
         <section className="mx-auto max-w-[700px] px-4 sm:px-6 lg:px-8 text-center">
           <Link href="/product">
             <Button size="lg" className="h-12 px-8 text-base">
-              View Peak Performance
+              Get Peak Performance
               <ArrowRight className="ml-2 w-4 h-4" />
             </Button>
           </Link>

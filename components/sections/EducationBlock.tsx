@@ -3,7 +3,6 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { Check, X } from "lucide-react";
-import { Button } from "@/components/ui/button";
 
 export function EducationBlock() {
   return (
@@ -35,14 +34,11 @@ export function EducationBlock() {
                 Normal Levels ≠ Normal Function
               </h2>
               <p className="text-gray-600 text-base sm:text-lg leading-relaxed mb-6">
-                You can have normal testosterone on paper and still feel tired, soft, and unmotivated.
-              </p>
-              <p className="text-gray-600 text-base sm:text-lg leading-relaxed mb-6">
-                If testosterone is bound up or blocked, raising the number on a lab test won't change how you feel.
+                You can have normal testosterone on paper and still feel tired, flat, and unmotivated. If testosterone is bound or cortisol is elevated, the number on a lab report won't change how you feel.
               </p>
               <div className="border-t border-gray-200 pt-6">
                 <p className="text-gray-900 text-lg sm:text-xl font-semibold">
-                  That's why most supplements don't work the way people expect.
+                  That's why most supplements fail — they chase total testosterone instead of supporting functional testosterone availability.
                 </p>
               </div>
             </motion.div>
@@ -93,54 +89,57 @@ export function EducationBlock() {
               The Real Issue
             </p>
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">
-              Free Testosterone Is What Actually Matters
+              Free Testosterone Availability
             </h2>
             <p className="text-gray-600 text-base sm:text-lg leading-relaxed max-w-2xl mx-auto">
-              The testosterone your body can actually use is called <span className="text-gray-900 font-medium">free testosterone</span>. In modern men, it's often limited by:
+              Three factors most formulas ignore.
             </p>
           </motion.div>
 
-          {/* Flow diagram */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 text-xs sm:text-sm font-mono mb-10"
-          >
-            <span className="px-3 sm:px-4 py-2 bg-white text-gray-700 rounded-lg border border-gray-200 shadow-sm">Stress</span>
-            <span className="text-gray-400">→</span>
-            <span className="px-3 sm:px-4 py-2 bg-white text-gray-700 rounded-lg border border-gray-200 shadow-sm">Deficiencies</span>
-            <span className="text-gray-400">→</span>
-            <span className="px-3 sm:px-4 py-2 bg-white text-gray-700 rounded-lg border border-gray-200 shadow-sm">Binding</span>
-            <span className="text-gray-400">→</span>
-            <span className="px-3 sm:px-4 py-2 bg-red-50 text-red-600 font-semibold rounded-lg border border-red-200">Low Free T</span>
-          </motion.div>
-
           {/* Three driver cards */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="grid sm:grid-cols-3 gap-4 sm:gap-6 mb-10"
-          >
-            <div className="bg-white p-6 rounded-xl border border-gray-200 border-t-2 border-t-primary shadow-sm text-center">
-              <span className="font-mono text-sm text-primary mb-2 block">①</span>
-              <p className="text-gray-900 font-semibold mb-2">Chronic Stress</p>
-              <p className="text-gray-500 text-sm">High cortisol blocks testosterone from doing its job</p>
-            </div>
-            <div className="bg-white p-6 rounded-xl border border-gray-200 border-t-2 border-t-primary shadow-sm text-center">
-              <span className="font-mono text-sm text-primary mb-2 block">②</span>
-              <p className="text-gray-900 font-semibold mb-2">Nutrient Gaps</p>
-              <p className="text-gray-500 text-sm">Missing zinc, magnesium, or D3 limits what your body can produce</p>
-            </div>
-            <div className="bg-white p-6 rounded-xl border border-gray-200 border-t-2 border-t-primary shadow-sm text-center">
-              <span className="font-mono text-sm text-primary mb-2 block">③</span>
-              <p className="text-gray-900 font-semibold mb-2">Binding Proteins</p>
-              <p className="text-gray-500 text-sm">SHBG locks testosterone up so your body can't use it</p>
-            </div>
-          </motion.div>
+          <div className="grid md:grid-cols-3 gap-4 sm:gap-6 mb-10">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0 }}
+              className="bg-white p-5 sm:p-6 rounded-xl border border-gray-200 shadow-sm text-center"
+            >
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-3">
+                <span className="text-primary font-bold text-base sm:text-lg">1</span>
+              </div>
+              <h3 className="text-gray-900 font-semibold text-base sm:text-lg mb-2">Chronic Stress</h3>
+              <p className="text-gray-500 text-sm">Elevated cortisol directly suppresses testosterone signaling. Most formulas don't address it.</p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="bg-white p-5 sm:p-6 rounded-xl border border-gray-200 shadow-sm text-center"
+            >
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-3">
+                <span className="text-primary font-bold text-base sm:text-lg">2</span>
+              </div>
+              <h3 className="text-gray-900 font-semibold text-base sm:text-lg mb-2">Nutrient Gaps</h3>
+              <p className="text-gray-500 text-sm">Without sufficient zinc, magnesium, and D3, your body lacks the raw materials to produce testosterone at all.</p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="bg-white p-5 sm:p-6 rounded-xl border border-gray-200 shadow-sm text-center"
+            >
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-3">
+                <span className="text-primary font-bold text-base sm:text-lg">3</span>
+              </div>
+              <h3 className="text-gray-900 font-semibold text-base sm:text-lg mb-2">Bound Testosterone</h3>
+              <p className="text-gray-500 text-sm">SHBG locks testosterone in circulation where it can't be used. Free testosterone availability is what matters.</p>
+            </motion.div>
+          </div>
 
           {/* Conclusion */}
           <motion.div
@@ -150,11 +149,8 @@ export function EducationBlock() {
             transition={{ duration: 0.5, delay: 0.3 }}
             className="text-center pt-8 border-t border-gray-200"
           >
-            <p className="text-gray-600 text-base leading-relaxed mb-3">
-              Most products try to force numbers higher instead of fixing the conditions that stop testosterone from working.
-            </p>
             <p className="text-gray-900 text-lg font-semibold">
-              So they disappoint, even when the label looks impressive.
+              Most products chase numbers. They don't fix the conditions that determine whether testosterone works.
             </p>
           </motion.div>
         </div>
@@ -175,7 +171,7 @@ export function EducationBlock() {
               Formula Overview
             </p>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#0F172A] mb-4">
-              What's Inside (and why)
+              What's Inside — and Why
             </h2>
             <p className="text-[#475569] text-base sm:text-lg max-w-lg mx-auto">
               7 research-backed ingredients. Fully disclosed. No proprietary blends.
@@ -205,7 +201,7 @@ export function EducationBlock() {
               <div className="bg-white border border-[#E6EAF0] rounded-2xl p-5 sm:p-6 shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:shadow-[0_4px_16px_rgba(0,0,0,0.08)] transition-shadow duration-300 relative overflow-hidden min-h-[100px] col-span-2 lg:col-span-1">
                 <div className="absolute top-0 left-0 right-0 h-[2px] bg-primary" />
                 <p className="text-[#0F172A] font-bold text-base sm:text-lg mb-1.5">Magnesium</p>
-                <p className="text-[#475569] text-sm leading-snug">Mineral support for recovery</p>
+                <p className="text-[#475569] text-sm leading-snug">Foundational mineral support</p>
               </div>
             </motion.div>
 
@@ -220,7 +216,7 @@ export function EducationBlock() {
               <div className="w-full max-w-[280px] sm:max-w-[300px] bg-white border border-[#E6EAF0] rounded-2xl p-5 sm:p-6 shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:shadow-[0_4px_16px_rgba(0,0,0,0.08)] transition-shadow duration-300 relative overflow-hidden min-h-[100px]">
                 <div className="absolute top-0 left-0 right-0 h-[2px] bg-primary" />
                 <p className="text-[#0F172A] font-bold text-base sm:text-lg mb-1.5">Ashwagandha</p>
-                <p className="text-[#475569] text-sm leading-snug">Cortisol and stress support</p>
+                <p className="text-[#475569] text-sm leading-snug">Cortisol and stress balance</p>
               </div>
             </motion.div>
 
@@ -235,17 +231,17 @@ export function EducationBlock() {
               <div className="bg-white border border-[#E6EAF0] rounded-2xl p-5 sm:p-6 shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:shadow-[0_4px_16px_rgba(0,0,0,0.08)] transition-shadow duration-300 relative overflow-hidden min-h-[100px]">
                 <div className="absolute top-0 left-0 right-0 h-[2px] bg-primary" />
                 <p className="text-[#0F172A] font-bold text-base sm:text-lg mb-1.5">Tongkat Ali</p>
-                <p className="text-[#475569] text-sm leading-snug">Supports free testosterone</p>
+                <p className="text-[#475569] text-sm leading-snug">Free testosterone availability</p>
               </div>
               <div className="bg-white border border-[#E6EAF0] rounded-2xl p-5 sm:p-6 shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:shadow-[0_4px_16px_rgba(0,0,0,0.08)] transition-shadow duration-300 relative overflow-hidden min-h-[100px]">
                 <div className="absolute top-0 left-0 right-0 h-[2px] bg-primary" />
                 <p className="text-[#0F172A] font-bold text-base sm:text-lg mb-1.5">Fenugreek</p>
-                <p className="text-[#475569] text-sm leading-snug">Metabolic support</p>
+                <p className="text-[#475569] text-sm leading-snug">SHBG reduction support</p>
               </div>
               <div className="bg-white border border-[#E6EAF0] rounded-2xl p-5 sm:p-6 shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:shadow-[0_4px_16px_rgba(0,0,0,0.08)] transition-shadow duration-300 relative overflow-hidden min-h-[100px] col-span-2 lg:col-span-1">
                 <div className="absolute top-0 left-0 right-0 h-[2px] bg-primary" />
                 <p className="text-[#0F172A] font-bold text-base sm:text-lg mb-1.5">Boron</p>
-                <p className="text-[#475569] text-sm leading-snug">Free T availability support</p>
+                <p className="text-[#475569] text-sm leading-snug">Free testosterone availability</p>
               </div>
             </motion.div>
           </div>
@@ -291,24 +287,30 @@ export function EducationBlock() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
-              className="bg-gray-50 p-6 sm:p-8 rounded-2xl border border-gray-200"
+              className="bg-gray-50 p-7 rounded-2xl border border-gray-200"
             >
-              <h3 className="text-base font-semibold text-gray-900 mb-6 flex items-center gap-2">
-                <X className="w-5 h-5 text-red-500" />
-                This is NOT for you if:
+              <h3 className="text-base font-semibold text-gray-900 mb-4 flex items-center gap-2.5">
+                <span className="w-5 shrink-0 flex justify-center">
+                  <X className="w-5 h-5 text-red-500" />
+                </span>
+                <span className="flex-1">This is NOT for you if:</span>
               </h3>
-              <ul className="space-y-4 text-gray-600">
-                <li className="flex items-start gap-3">
-                  <span className="text-gray-400 mt-0.5 text-sm">—</span>
-                  <span>You want a stimulant or overnight fix</span>
+              <ul className="space-y-3.5 text-gray-600 leading-normal">
+                <li className="flex items-start gap-2.5">
+                  <span className="w-5 shrink-0 flex justify-center text-gray-400 mt-0.5">—</span>
+                  <span className="flex-1">You want a stimulant buzz or overnight fix</span>
                 </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-gray-400 mt-0.5 text-sm">—</span>
-                  <span>You're looking for hype or exaggerated promises</span>
+                <li className="flex items-start gap-2.5">
+                  <span className="w-5 shrink-0 flex justify-center text-gray-400 mt-0.5">—</span>
+                  <span className="flex-1">You're looking for exaggerated promises</span>
                 </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-gray-400 mt-0.5 text-sm">—</span>
-                  <span>You're already committed to TRT and not open to optimization</span>
+                <li className="flex items-start gap-2.5">
+                  <span className="w-5 shrink-0 flex justify-center text-gray-400 mt-0.5">—</span>
+                  <span className="flex-1">You expect results without consistency</span>
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <span className="w-5 shrink-0 flex justify-center text-gray-400 mt-0.5">—</span>
+                  <span className="flex-1">You want something you can "feel" on day one</span>
                 </li>
               </ul>
             </motion.div>
@@ -319,47 +321,35 @@ export function EducationBlock() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
-              className="bg-primary/5 p-6 sm:p-8 rounded-2xl border-2 border-primary"
+              className="bg-primary/5 p-7 rounded-2xl border border-primary"
             >
-              <h3 className="text-lg font-bold text-gray-900 mb-6 flex items-center gap-2">
-                <Check className="w-5 h-5 text-primary" />
-                This IS for you if:
+              <h3 className="text-base font-semibold text-gray-900 mb-4 flex items-center gap-2.5">
+                <span className="w-5 shrink-0 flex justify-center">
+                  <Check className="w-5 h-5 text-primary" />
+                </span>
+                <span className="flex-1">This IS for you if:</span>
               </h3>
-              <ul className="space-y-4 text-gray-700">
-                <li className="flex items-start gap-3">
-                  <span className="text-primary mt-0.5 text-base">→</span>
-                  <span>You feel like yourself is still in there, just muted</span>
+              <ul className="space-y-3.5 text-gray-700 leading-normal">
+                <li className="flex items-start gap-2.5">
+                  <span className="w-5 shrink-0 flex justify-center text-primary mt-0.5">—</span>
+                  <span className="flex-1">You feel off — not broken</span>
                 </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-primary mt-0.5 text-base">→</span>
-                  <span>You value logic over marketing</span>
+                <li className="flex items-start gap-2.5">
+                  <span className="w-5 shrink-0 flex justify-center text-primary mt-0.5">—</span>
+                  <span className="flex-1">Energy, drive, and recovery have slipped</span>
                 </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-primary mt-0.5 text-base">→</span>
-                  <span>You want to exhaust smart options before injections</span>
+                <li className="flex items-start gap-2.5">
+                  <span className="w-5 shrink-0 flex justify-center text-primary mt-0.5">—</span>
+                  <span className="flex-1">Generic boosters haven't moved the needle</span>
                 </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-primary mt-0.5 text-base">→</span>
-                  <span>You're willing to be consistent for real results</span>
+                <li className="flex items-start gap-2.5">
+                  <span className="w-5 shrink-0 flex justify-center text-primary mt-0.5">—</span>
+                  <span className="flex-1">You value consistency over stimulation</span>
                 </li>
               </ul>
             </motion.div>
           </div>
 
-          {/* Single CTA Button */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center mt-12 sm:mt-16"
-          >
-            <Link href="/product">
-              <Button size="lg" className="h-12 text-base px-8 rounded-md">
-                View Peak Performance
-              </Button>
-            </Link>
-          </motion.div>
         </div>
       </section>
     </div>
