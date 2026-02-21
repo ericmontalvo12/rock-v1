@@ -89,7 +89,7 @@ export function EducationBlock() {
               The Real Issue
             </p>
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">
-              Free Testosterone Availability
+              What Actually Limits Testosterone Function
             </h2>
             <p className="text-gray-600 text-base sm:text-lg leading-relaxed max-w-2xl mx-auto">
               Three factors most formulas ignore.
