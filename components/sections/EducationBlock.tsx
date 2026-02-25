@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import Image from "next/image";
 import { Check, X, Brain, Sparkles, Lock } from "lucide-react";
 
 export function EducationBlock() {
@@ -120,14 +119,14 @@ export function EducationBlock() {
       </section>
 
       {/* SECTION C: Mechanism */}
-      <section className="py-16 sm:py-20 bg-gradient-to-b from-gray-50/80 to-white">
-        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+      <section className="py-14 sm:py-16 bg-gradient-to-b from-gray-50/80 to-white">
+        <div className="mx-auto max-w-[1140px] px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="text-center mb-10"
+            className="text-center mb-8"
           >
             <p className="text-primary font-semibold text-xs uppercase tracking-widest mb-3">
               The Real Issue
@@ -140,43 +139,43 @@ export function EducationBlock() {
             </p>
           </motion.div>
 
-          {/* Cards container with radial gradient background */}
-          <div className="relative rounded-[28px] p-5 sm:p-7 border border-gray-200/60 shadow-[0_4px_24px_rgba(0,0,0,0.03)] bg-gradient-to-br from-primary/[0.02] via-white to-primary/[0.03]">
+          {/* Cards container with radial gradient background - matching first section */}
+          <div className="relative rounded-[32px] p-5 sm:p-7 lg:p-8 border border-gray-200/40 shadow-[0_2px_16px_rgba(0,0,0,0.02)] bg-gradient-to-br from-primary/[0.015] via-white to-primary/[0.02]">
             {/* Subtle inner glow */}
-            <div className="absolute inset-0 rounded-[28px] bg-[radial-gradient(ellipse_at_top,_rgba(59,130,246,0.04)_0%,_transparent_60%)] pointer-events-none"></div>
+            <div className="absolute inset-0 rounded-[32px] bg-[radial-gradient(ellipse_at_top,_rgba(59,130,246,0.03)_0%,_transparent_50%)] pointer-events-none"></div>
 
-            <div className="relative grid md:grid-cols-3 gap-5">
+            <div className="relative grid md:grid-cols-3 gap-5 lg:gap-6">
               {/* Card 1: Chronic Stress */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0 }}
-                className="group bg-white p-5 sm:p-6 rounded-2xl border border-gray-200/80 shadow-[0_1px_3px_rgba(0,0,0,0.04)] hover:shadow-[0_12px_40px_rgba(59,130,246,0.12)] hover:border-primary/40 hover:-translate-y-0.5 transition-all duration-200"
+                className="group bg-white p-5 sm:p-6 lg:p-7 rounded-2xl border border-gray-200/80 shadow-[0_1px_4px_rgba(0,0,0,0.05)] hover:shadow-[0_12px_40px_rgba(59,130,246,0.12)] hover:border-primary/40 hover:-translate-y-0.5 transition-all duration-200"
               >
                 {/* Top row: Icon + Mini visual */}
-                <div className="flex items-center justify-between mb-4">
-                  <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-                    <Brain className="w-5 h-5 text-primary" />
+                <div className="flex items-center justify-between mb-5">
+                  <div className="w-11 h-11 lg:w-12 lg:h-12 rounded-xl bg-primary/10 flex items-center justify-center">
+                    <Brain className="w-5 h-5 lg:w-6 lg:h-6 text-primary" />
                   </div>
                   {/* Normalized visual container */}
-                  <div className="w-[72px] h-9 bg-gray-50 rounded-lg flex items-end justify-center gap-[3px] pb-1.5">
-                    <div className="w-1 bg-primary/30 rounded-sm h-1.5"></div>
-                    <div className="w-1 bg-primary/40 rounded-sm h-2.5"></div>
-                    <div className="w-1 bg-primary/60 rounded-sm h-4"></div>
-                    <div className="w-1 bg-primary/80 rounded-sm h-3"></div>
-                    <div className="w-1 bg-primary rounded-sm h-2"></div>
-                    <div className="w-1 bg-primary/50 rounded-sm h-2.5"></div>
+                  <div className="w-[80px] lg:w-[88px] h-10 lg:h-11 bg-gray-50 rounded-lg flex items-end justify-center gap-[3px] pb-2">
+                    <div className="w-1.5 bg-primary/30 rounded-sm h-2"></div>
+                    <div className="w-1.5 bg-primary/40 rounded-sm h-3"></div>
+                    <div className="w-1.5 bg-primary/60 rounded-sm h-5"></div>
+                    <div className="w-1.5 bg-primary/80 rounded-sm h-4"></div>
+                    <div className="w-1.5 bg-primary rounded-sm h-2.5"></div>
+                    <div className="w-1.5 bg-primary/50 rounded-sm h-3"></div>
                   </div>
                 </div>
 
-                {/* Label chip - smaller */}
-                <span className="inline-block text-[9px] font-semibold uppercase tracking-wider text-primary/70 bg-primary/[0.06] px-1.5 py-0.5 rounded mb-2.5">
+                {/* Label chip */}
+                <span className="inline-block text-[10px] lg:text-[11px] font-semibold uppercase tracking-wider text-primary/70 bg-primary/[0.06] px-2 py-0.5 rounded mb-3">
                   Stress
                 </span>
 
-                <h3 className="text-gray-900 font-bold text-base sm:text-[17px] mb-2">Chronic Stress</h3>
-                <p className="text-gray-500 text-[13px] leading-relaxed">Elevated cortisol directly suppresses testosterone signaling.</p>
+                <h3 className="text-gray-900 font-bold text-base sm:text-[17px] lg:text-lg mb-2 lg:mb-3">Chronic Stress</h3>
+                <p className="text-gray-600 text-sm lg:text-[15px] leading-[1.7]">Elevated cortisol directly suppresses testosterone signaling.</p>
               </motion.div>
 
               {/* Card 2: Nutrient Gaps */}
@@ -185,34 +184,34 @@ export function EducationBlock() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.1 }}
-                className="group bg-white p-5 sm:p-6 rounded-2xl border border-gray-200/80 shadow-[0_1px_3px_rgba(0,0,0,0.04)] hover:shadow-[0_12px_40px_rgba(59,130,246,0.12)] hover:border-primary/40 hover:-translate-y-0.5 transition-all duration-200"
+                className="group bg-white p-5 sm:p-6 lg:p-7 rounded-2xl border border-gray-200/80 shadow-[0_1px_4px_rgba(0,0,0,0.05)] hover:shadow-[0_12px_40px_rgba(59,130,246,0.12)] hover:border-primary/40 hover:-translate-y-0.5 transition-all duration-200"
               >
                 {/* Top row: Icon + Mini visual */}
-                <div className="flex items-center justify-between mb-4">
-                  <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-                    <Sparkles className="w-5 h-5 text-primary" />
+                <div className="flex items-center justify-between mb-5">
+                  <div className="w-11 h-11 lg:w-12 lg:h-12 rounded-xl bg-primary/10 flex items-center justify-center">
+                    <Sparkles className="w-5 h-5 lg:w-6 lg:h-6 text-primary" />
                   </div>
                   {/* Normalized visual container */}
-                  <div className="w-[72px] h-9 bg-gray-50 rounded-lg flex items-center justify-center gap-1">
-                    <div className="w-5 h-5 rounded-full bg-white border border-gray-200 flex items-center justify-center shadow-sm">
-                      <span className="text-[7px] font-bold text-gray-400">Zn</span>
+                  <div className="w-[80px] lg:w-[88px] h-10 lg:h-11 bg-gray-50 rounded-lg flex items-center justify-center gap-1.5">
+                    <div className="w-6 h-6 lg:w-7 lg:h-7 rounded-full bg-white border border-gray-200 flex items-center justify-center shadow-sm">
+                      <span className="text-[8px] lg:text-[9px] font-bold text-gray-400">Zn</span>
                     </div>
-                    <div className="w-5 h-5 rounded-full bg-white border border-gray-200 flex items-center justify-center shadow-sm">
-                      <span className="text-[7px] font-bold text-gray-400">Mg</span>
+                    <div className="w-6 h-6 lg:w-7 lg:h-7 rounded-full bg-white border border-gray-200 flex items-center justify-center shadow-sm">
+                      <span className="text-[8px] lg:text-[9px] font-bold text-gray-400">Mg</span>
                     </div>
-                    <div className="w-5 h-5 rounded-full bg-white border border-gray-200 flex items-center justify-center shadow-sm">
-                      <span className="text-[7px] font-bold text-gray-400">D3</span>
+                    <div className="w-6 h-6 lg:w-7 lg:h-7 rounded-full bg-white border border-gray-200 flex items-center justify-center shadow-sm">
+                      <span className="text-[8px] lg:text-[9px] font-bold text-gray-400">D3</span>
                     </div>
                   </div>
                 </div>
 
-                {/* Label chip - smaller */}
-                <span className="inline-block text-[9px] font-semibold uppercase tracking-wider text-primary/70 bg-primary/[0.06] px-1.5 py-0.5 rounded mb-2.5">
+                {/* Label chip */}
+                <span className="inline-block text-[10px] lg:text-[11px] font-semibold uppercase tracking-wider text-primary/70 bg-primary/[0.06] px-2 py-0.5 rounded mb-3">
                   Inputs
                 </span>
 
-                <h3 className="text-gray-900 font-bold text-base sm:text-[17px] mb-2">Nutrient Gaps</h3>
-                <p className="text-gray-500 text-[13px] leading-relaxed">Without zinc, magnesium, and D3, your body lacks the raw materials.</p>
+                <h3 className="text-gray-900 font-bold text-base sm:text-[17px] lg:text-lg mb-2 lg:mb-3">Nutrient Gaps</h3>
+                <p className="text-gray-600 text-sm lg:text-[15px] leading-[1.7]">Without zinc, magnesium, and D3, your body lacks the raw materials.</p>
               </motion.div>
 
               {/* Card 3: Bound Testosterone */}
@@ -221,43 +220,43 @@ export function EducationBlock() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="group bg-white p-5 sm:p-6 rounded-2xl border border-gray-200/80 shadow-[0_1px_3px_rgba(0,0,0,0.04)] hover:shadow-[0_12px_40px_rgba(59,130,246,0.12)] hover:border-primary/40 hover:-translate-y-0.5 transition-all duration-200"
+                className="group bg-white p-5 sm:p-6 lg:p-7 rounded-2xl border border-gray-200/80 shadow-[0_1px_4px_rgba(0,0,0,0.05)] hover:shadow-[0_12px_40px_rgba(59,130,246,0.12)] hover:border-primary/40 hover:-translate-y-0.5 transition-all duration-200"
               >
                 {/* Top row: Icon + Mini visual */}
-                <div className="flex items-center justify-between mb-4">
-                  <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-                    <Lock className="w-5 h-5 text-primary" />
+                <div className="flex items-center justify-between mb-5">
+                  <div className="w-11 h-11 lg:w-12 lg:h-12 rounded-xl bg-primary/10 flex items-center justify-center">
+                    <Lock className="w-5 h-5 lg:w-6 lg:h-6 text-primary" />
                   </div>
                   {/* Normalized visual container */}
-                  <div className="w-[72px] h-9 bg-gray-50 rounded-lg flex items-center justify-center gap-0.5">
-                    <div className="w-4 h-4 rounded-full bg-primary/20 border border-primary/30"></div>
-                    <div className="w-2 h-[2px] bg-gray-300 rounded-full"></div>
-                    <Lock className="w-3 h-3 text-gray-400" />
-                    <div className="w-2 h-[2px] bg-gray-300 rounded-full"></div>
-                    <div className="w-4 h-4 rounded-full bg-gray-200 border border-gray-300"></div>
+                  <div className="w-[80px] lg:w-[88px] h-10 lg:h-11 bg-gray-50 rounded-lg flex items-center justify-center gap-1">
+                    <div className="w-5 h-5 lg:w-6 lg:h-6 rounded-full bg-primary/20 border border-primary/30"></div>
+                    <div className="w-2.5 h-[2px] bg-gray-300 rounded-full"></div>
+                    <Lock className="w-3.5 h-3.5 lg:w-4 lg:h-4 text-gray-400" />
+                    <div className="w-2.5 h-[2px] bg-gray-300 rounded-full"></div>
+                    <div className="w-5 h-5 lg:w-6 lg:h-6 rounded-full bg-gray-200 border border-gray-300"></div>
                   </div>
                 </div>
 
-                {/* Label chip - smaller */}
-                <span className="inline-block text-[9px] font-semibold uppercase tracking-wider text-primary/70 bg-primary/[0.06] px-1.5 py-0.5 rounded mb-2.5">
+                {/* Label chip */}
+                <span className="inline-block text-[10px] lg:text-[11px] font-semibold uppercase tracking-wider text-primary/70 bg-primary/[0.06] px-2 py-0.5 rounded mb-3">
                   SHBG
                 </span>
 
-                <h3 className="text-gray-900 font-bold text-base sm:text-[17px] mb-2">Bound Testosterone</h3>
-                <p className="text-gray-500 text-[13px] leading-relaxed">SHBG locks testosterone where it can't be used. Free T is what matters.</p>
+                <h3 className="text-gray-900 font-bold text-base sm:text-[17px] lg:text-lg mb-2 lg:mb-3">Bound Testosterone</h3>
+                <p className="text-gray-600 text-sm lg:text-[15px] leading-[1.7]">SHBG locks testosterone where it can't be used. Free T is what matters.</p>
               </motion.div>
             </div>
           </div>
 
-          {/* Conclusion - tighter spacing, connected feel */}
+          {/* Conclusion - tighter spacing */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className="text-center mt-8 sm:mt-10 max-w-xl mx-auto"
+            className="text-center mt-6 sm:mt-8 max-w-2xl mx-auto"
           >
-            <p className="text-gray-600 text-sm sm:text-base leading-relaxed">
+            <p className="text-gray-600 text-sm sm:text-[15px] lg:text-base leading-relaxed">
               Most products chase numbers. They don't fix the conditions that determine whether testosterone actually works.
             </p>
           </motion.div>
@@ -265,105 +264,100 @@ export function EducationBlock() {
       </section>
 
       {/* SECTION: Ingredients Preview */}
-      <section className="py-20 sm:py-28 bg-white">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          {/* Header */}
+      <section className="py-16 sm:py-20 bg-gradient-to-b from-white to-gray-50/50">
+        <div className="mx-auto max-w-[1140px] px-4 sm:px-6 lg:px-8">
+          {/* Header - matching other sections */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="text-center mb-14 sm:mb-16"
+            className="text-center mb-10"
           >
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+            <p className="text-primary font-semibold text-xs uppercase tracking-widest mb-3">
+              The Formula
+            </p>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-3">
               What's Inside
             </h2>
-            <p className="text-gray-500 text-lg max-w-md mx-auto">
+            <p className="text-gray-500 text-base sm:text-lg max-w-lg mx-auto">
               7 ingredients. Clinical doses. Fully disclosed.
             </p>
           </motion.div>
 
-          {/* Ingredients Grid - Row 1: 4 items */}
-          <div className="max-w-4xl mx-auto mb-14">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 mb-4 sm:mb-5"
-            >
-              {[
-                { name: "Vitamin D3", dose: "3,000 IU", image: "/ingredients/vitamin-d3.jpg" },
-                { name: "Zinc", dose: "30 mg", image: "/ingredients/zinc.jpg" },
-                { name: "Magnesium", dose: "300 mg", image: "/ingredients/magnesium.jpg" },
-                { name: "Ashwagandha", dose: "500 mg", image: "/ingredients/ashwagandha.jpg" },
-              ].map((ingredient, index) => (
-                <motion.div
-                  key={ingredient.name}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: index * 0.05 }}
-                  className="bg-gray-50 rounded-2xl p-5 sm:p-6 hover:bg-gray-100 transition-colors"
-                >
-                  <div className="w-14 h-14 sm:w-16 sm:h-16 mb-4 rounded-xl bg-white border border-gray-200 overflow-hidden flex items-center justify-center shadow-sm">
-                    <Image
-                      src={ingredient.image}
-                      alt={ingredient.name}
-                      width={64}
-                      height={64}
-                      className="w-full h-full object-cover"
-                      onError={(e) => {
-                        e.currentTarget.style.display = 'none';
-                        e.currentTarget.parentElement!.innerHTML = `<span class="text-xl font-medium text-primary">${ingredient.name.charAt(0)}</span>`;
-                      }}
-                    />
-                  </div>
-                  <p className="text-gray-900 font-semibold text-base mb-1">{ingredient.name}</p>
-                  <p className="text-primary text-sm font-medium">{ingredient.dose}</p>
-                </motion.div>
-              ))}
-            </motion.div>
+          {/* Main container - matching other sections */}
+          <div className="relative rounded-[32px] p-5 sm:p-7 lg:p-8 border border-gray-200/40 shadow-[0_2px_16px_rgba(0,0,0,0.02)] bg-gradient-to-br from-primary/[0.015] via-white to-primary/[0.02]">
+            {/* Subtle inner glow */}
+            <div className="absolute inset-0 rounded-[32px] bg-[radial-gradient(ellipse_at_top,_rgba(59,130,246,0.03)_0%,_transparent_50%)] pointer-events-none"></div>
 
-            {/* Row 2: 3 items centered */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="grid grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 max-w-3xl mx-auto"
-            >
-              {[
-                { name: "Tongkat Ali", dose: "300 mg", image: "/ingredients/tongkat-ali.jpg" },
-                { name: "Fenugreek", dose: "500 mg", image: "/ingredients/fenugreek.jpg" },
-                { name: "Boron", dose: "9 mg", image: "/ingredients/boron.jpg" },
-              ].map((ingredient, index) => (
-                <motion.div
-                  key={ingredient.name}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: 0.2 + index * 0.05 }}
-                  className={`bg-gray-50 rounded-2xl p-5 sm:p-6 hover:bg-gray-100 transition-colors ${index === 2 ? 'col-span-2 lg:col-span-1' : ''}`}
-                >
-                  <div className="w-14 h-14 sm:w-16 sm:h-16 mb-4 rounded-xl bg-white border border-gray-200 overflow-hidden flex items-center justify-center shadow-sm">
-                    <Image
-                      src={ingredient.image}
-                      alt={ingredient.name}
-                      width={64}
-                      height={64}
-                      className="w-full h-full object-cover"
-                      onError={(e) => {
-                        e.currentTarget.style.display = 'none';
-                        e.currentTarget.parentElement!.innerHTML = `<span class="text-xl font-medium text-primary">${ingredient.name.charAt(0)}</span>`;
-                      }}
-                    />
-                  </div>
-                  <p className="text-gray-900 font-semibold text-base mb-1">{ingredient.name}</p>
-                  <p className="text-primary text-sm font-medium">{ingredient.dose}</p>
-                </motion.div>
-              ))}
-            </motion.div>
+            {/* Ingredients Grid - Row 1: 4 items */}
+            <div className="relative">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+                className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 lg:gap-6 mb-4 sm:mb-5 lg:mb-6"
+              >
+                {[
+                  { name: "Vitamin D3", dose: "3,000 IU", icon: "D3" },
+                  { name: "Zinc", dose: "30 mg", icon: "Zn" },
+                  { name: "Magnesium", dose: "300 mg", icon: "Mg" },
+                  { name: "Ashwagandha", dose: "500 mg", icon: "KSM" },
+                ].map((ingredient, index) => (
+                  <motion.div
+                    key={ingredient.name}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: index * 0.05 }}
+                    className="group bg-white p-5 sm:p-6 rounded-2xl border border-gray-200/80 shadow-[0_1px_4px_rgba(0,0,0,0.05)] hover:shadow-[0_12px_40px_rgba(59,130,246,0.12)] hover:border-primary/40 hover:-translate-y-0.5 transition-all duration-200 flex flex-col items-center text-center"
+                  >
+                    {/* Circular icon with glow */}
+                    <div className="w-14 h-14 sm:w-16 sm:h-16 mb-4 rounded-full bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 flex items-center justify-center shadow-[0_0_20px_rgba(59,130,246,0.1)] group-hover:shadow-[0_0_24px_rgba(59,130,246,0.2)] transition-shadow">
+                      <span className="text-base sm:text-lg font-bold text-primary">{ingredient.icon}</span>
+                    </div>
+                    <p className="text-gray-900 font-semibold text-sm sm:text-base mb-2">{ingredient.name}</p>
+                    <span className="inline-block text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-primary bg-primary/[0.08] px-2.5 py-1 rounded-full">
+                      {ingredient.dose}
+                    </span>
+                  </motion.div>
+                ))}
+              </motion.div>
+
+              {/* Row 2: 3 items centered */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="grid grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 lg:gap-6 max-w-[calc(75%-12px)] lg:max-w-none mx-auto lg:mx-0 lg:w-3/4 lg:mx-auto"
+              >
+                {[
+                  { name: "Tongkat Ali", dose: "300 mg", icon: "LJ" },
+                  { name: "Fenugreek", dose: "500 mg", icon: "FG" },
+                  { name: "Boron", dose: "9 mg", icon: "B" },
+                ].map((ingredient, index) => (
+                  <motion.div
+                    key={ingredient.name}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: 0.2 + index * 0.05 }}
+                    className={`group bg-white p-5 sm:p-6 rounded-2xl border border-gray-200/80 shadow-[0_1px_4px_rgba(0,0,0,0.05)] hover:shadow-[0_12px_40px_rgba(59,130,246,0.12)] hover:border-primary/40 hover:-translate-y-0.5 transition-all duration-200 flex flex-col items-center text-center ${index === 2 ? 'col-span-2 lg:col-span-1 max-w-[calc(50%-8px)] lg:max-w-none mx-auto lg:mx-0' : ''}`}
+                  >
+                    {/* Circular icon with glow */}
+                    <div className="w-14 h-14 sm:w-16 sm:h-16 mb-4 rounded-full bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 flex items-center justify-center shadow-[0_0_20px_rgba(59,130,246,0.1)] group-hover:shadow-[0_0_24px_rgba(59,130,246,0.2)] transition-shadow">
+                      <span className="text-base sm:text-lg font-bold text-primary">{ingredient.icon}</span>
+                    </div>
+                    <p className="text-gray-900 font-semibold text-sm sm:text-base mb-2">{ingredient.name}</p>
+                    <span className="inline-block text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-primary bg-primary/[0.08] px-2.5 py-1 rounded-full">
+                      {ingredient.dose}
+                    </span>
+                  </motion.div>
+                ))}
+              </motion.div>
+            </div>
           </div>
 
           {/* CTA Button */}
@@ -371,8 +365,8 @@ export function EducationBlock() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-center"
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="text-center mt-8"
           >
             <Link
               href="/formula"
@@ -386,8 +380,9 @@ export function EducationBlock() {
       </section>
 
       {/* SECTION D: Qualification */}
-      <section className="py-12 sm:py-16 bg-gray-50">
-        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+      <section className="py-16 sm:py-20 bg-gradient-to-b from-gray-50/50 to-white">
+        <div className="mx-auto max-w-[1140px] px-4 sm:px-6 lg:px-8">
+          {/* Section header - matching other sections */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -395,79 +390,105 @@ export function EducationBlock() {
             transition={{ duration: 0.5 }}
             className="text-center mb-10"
           >
-            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">
+            <p className="text-primary font-semibold text-xs uppercase tracking-widest mb-3">
+              Is This Right For You
+            </p>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-3">
               Who This Is (And Isn't) For
             </h2>
+            <p className="text-gray-500 text-base sm:text-lg max-w-lg mx-auto">
+              Honest expectations before you commit.
+            </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 gap-6 sm:gap-8">
-            {/* NOT for you */}
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              className="bg-gray-50 p-7 rounded-2xl border border-gray-200"
-            >
-              <h3 className="text-base font-semibold text-gray-900 mb-4 flex items-center gap-2.5">
-                <span className="w-5 shrink-0 flex justify-center">
-                  <X className="w-5 h-5 text-red-500" />
-                </span>
-                <span className="flex-1">This is NOT for you if:</span>
-              </h3>
-              <ul className="space-y-3.5 text-gray-600 leading-normal">
-                <li className="flex items-start gap-2.5">
-                  <span className="w-5 shrink-0 flex justify-center text-gray-400 mt-0.5">—</span>
-                  <span className="flex-1">You want a stimulant buzz or overnight fix</span>
-                </li>
-                <li className="flex items-start gap-2.5">
-                  <span className="w-5 shrink-0 flex justify-center text-gray-400 mt-0.5">—</span>
-                  <span className="flex-1">You're looking for exaggerated promises</span>
-                </li>
-                <li className="flex items-start gap-2.5">
-                  <span className="w-5 shrink-0 flex justify-center text-gray-400 mt-0.5">—</span>
-                  <span className="flex-1">You expect results without consistency</span>
-                </li>
-                <li className="flex items-start gap-2.5">
-                  <span className="w-5 shrink-0 flex justify-center text-gray-400 mt-0.5">—</span>
-                  <span className="flex-1">You want something you can "feel" on day one</span>
-                </li>
-              </ul>
-            </motion.div>
+          {/* Main container - matching other sections */}
+          <div className="relative rounded-[32px] p-5 sm:p-7 lg:p-8 border border-gray-200/40 shadow-[0_2px_16px_rgba(0,0,0,0.02)] bg-gradient-to-br from-primary/[0.015] via-white to-primary/[0.02]">
+            {/* Subtle inner glow */}
+            <div className="absolute inset-0 rounded-[32px] bg-[radial-gradient(ellipse_at_top,_rgba(59,130,246,0.03)_0%,_transparent_50%)] pointer-events-none"></div>
 
-            {/* IS for you */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              className="bg-primary/5 p-7 rounded-2xl border border-primary"
-            >
-              <h3 className="text-base font-semibold text-gray-900 mb-4 flex items-center gap-2.5">
-                <span className="w-5 shrink-0 flex justify-center">
-                  <Check className="w-5 h-5 text-primary" />
-                </span>
-                <span className="flex-1">This IS for you if:</span>
-              </h3>
-              <ul className="space-y-3.5 text-gray-700 leading-normal">
-                <li className="flex items-start gap-2.5">
-                  <span className="w-5 shrink-0 flex justify-center text-primary mt-0.5">—</span>
-                  <span className="flex-1">You feel off — not broken</span>
-                </li>
-                <li className="flex items-start gap-2.5">
-                  <span className="w-5 shrink-0 flex justify-center text-primary mt-0.5">—</span>
-                  <span className="flex-1">Energy, drive, and recovery have slipped</span>
-                </li>
-                <li className="flex items-start gap-2.5">
-                  <span className="w-5 shrink-0 flex justify-center text-primary mt-0.5">—</span>
-                  <span className="flex-1">Generic boosters haven't moved the needle</span>
-                </li>
-                <li className="flex items-start gap-2.5">
-                  <span className="w-5 shrink-0 flex justify-center text-primary mt-0.5">—</span>
-                  <span className="flex-1">You value consistency over stimulation</span>
-                </li>
-              </ul>
-            </motion.div>
+            <div className="relative grid md:grid-cols-2 gap-5 lg:gap-6">
+              {/* NOT for you */}
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+                className="bg-white p-5 sm:p-6 lg:p-7 rounded-2xl border border-gray-200/80 shadow-[0_1px_4px_rgba(0,0,0,0.05)]"
+              >
+                {/* Header with icon */}
+                <div className="flex items-center gap-3 mb-5">
+                  <div className="w-10 h-10 lg:w-11 lg:h-11 rounded-xl bg-red-50 flex items-center justify-center">
+                    <X className="w-5 h-5 lg:w-5 lg:h-5 text-red-500" />
+                  </div>
+                  <div>
+                    <span className="inline-block text-[10px] lg:text-[11px] font-semibold uppercase tracking-wider text-red-500/70 bg-red-50 px-2 py-0.5 rounded mb-1">
+                      Not Ideal
+                    </span>
+                    <h3 className="text-gray-900 font-bold text-base sm:text-[17px] lg:text-lg">This is NOT for you if:</h3>
+                  </div>
+                </div>
+
+                <ul className="space-y-3.5 text-gray-600 text-sm lg:text-[15px] leading-[1.7]">
+                  <li className="flex items-start gap-3">
+                    <span className="w-1.5 h-1.5 rounded-full bg-gray-300 mt-2 flex-shrink-0"></span>
+                    <span>You want a stimulant buzz or overnight fix</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="w-1.5 h-1.5 rounded-full bg-gray-300 mt-2 flex-shrink-0"></span>
+                    <span>You're looking for exaggerated promises</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="w-1.5 h-1.5 rounded-full bg-gray-300 mt-2 flex-shrink-0"></span>
+                    <span>You expect results without consistency</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="w-1.5 h-1.5 rounded-full bg-gray-300 mt-2 flex-shrink-0"></span>
+                    <span>You want something you can "feel" on day one</span>
+                  </li>
+                </ul>
+              </motion.div>
+
+              {/* IS for you */}
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+                className="bg-white p-5 sm:p-6 lg:p-7 rounded-2xl border border-primary/30 shadow-[0_1px_4px_rgba(0,0,0,0.05)] hover:shadow-[0_12px_40px_rgba(59,130,246,0.12)] hover:border-primary/50 transition-all duration-200"
+              >
+                {/* Header with icon */}
+                <div className="flex items-center gap-3 mb-5">
+                  <div className="w-10 h-10 lg:w-11 lg:h-11 rounded-xl bg-primary/10 flex items-center justify-center">
+                    <Check className="w-5 h-5 lg:w-5 lg:h-5 text-primary" />
+                  </div>
+                  <div>
+                    <span className="inline-block text-[10px] lg:text-[11px] font-semibold uppercase tracking-wider text-primary/70 bg-primary/[0.06] px-2 py-0.5 rounded mb-1">
+                      Good Fit
+                    </span>
+                    <h3 className="text-gray-900 font-bold text-base sm:text-[17px] lg:text-lg">This IS for you if:</h3>
+                  </div>
+                </div>
+
+                <ul className="space-y-3.5 text-gray-600 text-sm lg:text-[15px] leading-[1.7]">
+                  <li className="flex items-start gap-3">
+                    <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0"></span>
+                    <span>You feel off — not broken</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0"></span>
+                    <span>Energy, drive, and recovery have slipped</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0"></span>
+                    <span>Generic boosters haven't moved the needle</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0"></span>
+                    <span>You value consistency over stimulation</span>
+                  </li>
+                </ul>
+              </motion.div>
+            </div>
           </div>
 
         </div>

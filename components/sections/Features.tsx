@@ -45,8 +45,9 @@ const itemVariants = {
 
 export function Features() {
   return (
-    <section className="py-12 sm:py-16 lg:py-20 bg-gradient-to-b from-gray-50/80 to-white">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <section className="py-16 sm:py-20 bg-gradient-to-b from-gray-50/80 to-white">
+      <div className="mx-auto max-w-[1140px] px-4 sm:px-6 lg:px-8">
+        {/* Section header - matching other sections */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -54,41 +55,57 @@ export function Features() {
           transition={{ duration: 0.5 }}
           className="text-center mb-10"
         >
-          <h2 className="text-3xl sm:text-4xl font-bold text-text-primary mb-4">
+          <p className="text-primary font-semibold text-xs uppercase tracking-widest mb-3">
+            Built Different
+          </p>
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-3">
             What Makes This Different
           </h2>
-          <p className="text-text-secondary max-w-2xl mx-auto">
+          <p className="text-gray-500 text-base sm:text-lg max-w-lg mx-auto">
             Transparency and evidence, from formulation to final product.
           </p>
         </motion.div>
 
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
-        >
-          {features.map((feature) => (
-            <motion.div
-              key={feature.title}
-              variants={itemVariants}
-              className="relative group h-full"
-            >
-              <div className="h-full p-5 sm:p-8 rounded-2xl bg-background border border-black/[0.08] shadow-[0_12px_30px_rgba(15,23,42,0.06)] hover:border-primary/50 hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center">
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-6 flex-shrink-0">
-                  <feature.icon className="w-6 h-6 text-primary" />
+        {/* Main container - matching other sections */}
+        <div className="relative rounded-[32px] p-5 sm:p-7 lg:p-8 border border-gray-200/40 shadow-[0_2px_16px_rgba(0,0,0,0.02)] bg-gradient-to-br from-primary/[0.015] via-white to-primary/[0.02]">
+          {/* Subtle inner glow */}
+          <div className="absolute inset-0 rounded-[32px] bg-[radial-gradient(ellipse_at_top,_rgba(59,130,246,0.03)_0%,_transparent_50%)] pointer-events-none"></div>
+
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="relative grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-6"
+          >
+            {features.map((feature, index) => (
+              <motion.div
+                key={feature.title}
+                variants={itemVariants}
+                className="group bg-white p-5 sm:p-6 lg:p-7 rounded-2xl border border-gray-200/80 shadow-[0_1px_4px_rgba(0,0,0,0.05)] hover:shadow-[0_12px_40px_rgba(59,130,246,0.12)] hover:border-primary/40 hover:-translate-y-0.5 transition-all duration-200"
+              >
+                {/* Top row: Icon */}
+                <div className="flex items-center justify-between mb-5">
+                  <div className="w-11 h-11 lg:w-12 lg:h-12 rounded-xl bg-primary/10 flex items-center justify-center">
+                    <feature.icon className="w-5 h-5 lg:w-6 lg:h-6 text-primary" />
+                  </div>
                 </div>
-                <h3 className="text-xl font-semibold text-text-primary mb-3">
+
+                {/* Label chip */}
+                <span className="inline-block text-[10px] lg:text-[11px] font-semibold uppercase tracking-wider text-primary/70 bg-primary/[0.06] px-2 py-0.5 rounded mb-3">
+                  {index === 0 ? "Research" : index === 1 ? "Transparency" : "Quality"}
+                </span>
+
+                <h3 className="text-gray-900 font-bold text-base sm:text-[17px] lg:text-lg mb-2 lg:mb-3">
                   {feature.title}
                 </h3>
-                <p className="text-text-secondary leading-relaxed">
+                <p className="text-gray-600 text-sm lg:text-[15px] leading-[1.7]">
                   {feature.description}
                 </p>
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
       </div>
     </section>
   );

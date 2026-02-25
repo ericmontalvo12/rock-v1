@@ -9,16 +9,26 @@ import { Button } from "@/components/ui/button";
 export function Hero() {
   return (
     <section className="relative min-h-[92vh] sm:min-h-screen flex items-start md:items-center pt-[88px] pb-10 md:pt-24 md:pb-0 overflow-hidden">
-      {/* Background image - Mobile */}
-      <div
-        className="absolute inset-0 bg-cover bg-center md:hidden"
-        style={{ backgroundImage: "url('/hero.png')" }}
-      />
+      {/* Background image - Mobile (using Next Image for better positioning) */}
+      <div className="absolute top-[72px] left-0 right-0 bottom-0 md:hidden">
+        <Image
+          src="/hero-v3.jpg"
+          alt="Hero background"
+          fill
+          className="object-cover object-[center_85%]"
+          priority
+        />
+      </div>
       {/* Background image - Desktop */}
-      <div
-        className="absolute inset-0 bg-cover bg-center hidden md:block"
-        style={{ backgroundImage: "url('/hero.png')" }}
-      />
+      <div className="absolute top-[80px] left-0 right-0 bottom-0 hidden md:block">
+        <Image
+          src="/hero.png"
+          alt="Hero background"
+          fill
+          className="object-cover object-[center_35%]"
+          priority
+        />
+      </div>
 
       {/* Left gradient overlay for text readability */}
       <div className="absolute inset-0 bg-gradient-to-r from-black/55 via-black/30 to-transparent lg:to-60%" />
@@ -32,17 +42,12 @@ export function Hero() {
             transition={{ duration: 0.6 }}
             className="text-center max-w-[340px] sm:max-w-none mx-auto"
           >
-            <h1 className="text-3xl sm:text-4xl lg:text-6xl font-bold tracking-tight text-white mb-4 sm:mb-6 leading-tight">
+            <h1 className="text-3xl sm:text-4xl lg:text-6xl font-bold tracking-tight text-white mb-6 sm:mb-8 leading-tight">
               Testosterone Support<br />
               Built on Research
             </h1>
 
-            <p className="text-base sm:text-lg lg:text-xl text-white/90 mb-6 sm:mb-8 mx-auto lg:mx-0 leading-relaxed">
-              No proprietary blends. No underdosing.<br />
-              Just research-backed ingredients at effective amounts.
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center mt-6 sm:mt-0">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
               <Link href="/formula" className="w-full max-w-[320px] sm:max-w-none sm:w-auto mx-auto sm:mx-0">
                 <Button size="lg" className="w-full sm:w-auto h-11 text-sm rounded-lg sm:h-12 sm:text-base sm:px-8 sm:rounded-md">Inside the Formula</Button>
               </Link>

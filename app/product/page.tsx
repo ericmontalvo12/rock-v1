@@ -307,7 +307,7 @@ export default function ProductV2Page() {
         id: "peak-performance",
         name: "Peak Performance",
         price: pricing.perBottle,
-        image: "/product-v2.png",
+        image: "/product-v3.webp",
       },
       quantity
     );
@@ -326,11 +326,11 @@ export default function ProductV2Page() {
               <div className="lg:sticky lg:top-32">
                 <div className="aspect-square rounded-2xl border border-border overflow-hidden flex items-center justify-center max-w-[340px] lg:max-w-none mx-auto mb-6 lg:mb-0 lg:w-[446px] lg:h-[446px]">
                   <Image
-                    src="/product-v2.png"
+                    src="/product-v3.webp"
                     alt="Rock Mountain Peak Performance"
                     width={446}
                     height={446}
-                    className="object-contain scale-110"
+                    className="object-cover w-full h-full"
                     priority
                   />
                 </div>
