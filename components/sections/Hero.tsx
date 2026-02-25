@@ -12,12 +12,12 @@ export function Hero() {
       {/* Background image - Mobile */}
       <div
         className="absolute inset-0 bg-cover bg-center md:hidden"
-        style={{ backgroundImage: "url('/hero-mobile.png')" }}
+        style={{ backgroundImage: "url('/hero.png')" }}
       />
       {/* Background image - Desktop */}
       <div
         className="absolute inset-0 bg-cover bg-center hidden md:block"
-        style={{ backgroundImage: "url('/hero-bg-v3.jpg')" }}
+        style={{ backgroundImage: "url('/hero.png')" }}
       />
 
       {/* Left gradient overlay for text readability */}
