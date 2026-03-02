@@ -15,7 +15,7 @@ export function Hero() {
           src="/hero-v3.jpg"
           alt="Hero background"
           fill
-          className="object-cover object-[center_85%]"
+          className="object-cover object-[center_65%]"
           priority
         />
       </div>

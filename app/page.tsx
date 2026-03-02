@@ -3,8 +3,6 @@ import { Footer } from "@/components/Footer";
 import { Hero } from "@/components/sections/Hero";
 import { EducationBlock } from "@/components/sections/EducationBlock";
 import { Features } from "@/components/sections/Features";
-import { Ingredients } from "@/components/sections/Ingredients";
-import { Product } from "@/components/sections/Product";
 import { Testimonials } from "@/components/sections/Testimonials";
 
 export default function Home() {
@@ -15,8 +13,6 @@ export default function Home() {
         <Hero />
         <EducationBlock />
         <Features />
-        <Ingredients />
-        <Product />
         <Testimonials />
       </main>
       <Footer />
