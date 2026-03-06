@@ -20,7 +20,7 @@ const transformations = [
     name: "David, 24",
     verified: true,
     quote: "I was fat, my T was low, and I felt like I had no gas in the tank. I got serious with training and diet, and I started taking Peak Performance every day. I leaned out hard, my workouts got way better, and I honestly feel like myself again.",
-    beforeImage: "https://placehold.co/400x600/e2e8f0/64748b?text=BEFORE",
+    beforeImage: "/david-before.jpg",
     afterImage: "/david-after.jpg",
   },
   {
