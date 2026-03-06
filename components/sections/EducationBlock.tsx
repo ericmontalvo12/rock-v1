@@ -257,8 +257,8 @@ export function EducationBlock() {
             <div
               ref={carouselRef}
               onScroll={handleScroll}
-              className="flex gap-4 overflow-x-auto scroll-snap-x-mandatory scrollbar-hide pb-4"
-              style={{ scrollSnapType: "x mandatory" }}
+              className="flex gap-4 overflow-x-auto scroll-snap-x-mandatory scrollbar-hide pb-4 overscroll-x-contain"
+              style={{ scrollSnapType: "x mandatory", touchAction: "pan-x pinch-zoom" }}
             >
               {ingredients.map((ingredient, index) => (
                 <motion.div

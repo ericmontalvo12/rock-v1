@@ -119,8 +119,8 @@ export function Testimonials() {
           <div
             ref={carouselRef}
             onScroll={handleScroll}
-            className="flex gap-6 overflow-x-auto scroll-snap-x-mandatory scrollbar-hide pb-4"
-            style={{ scrollSnapType: "x mandatory" }}
+            className="flex gap-6 overflow-x-auto scroll-snap-x-mandatory scrollbar-hide pb-4 overscroll-x-contain"
+            style={{ scrollSnapType: "x mandatory", touchAction: "pan-x pinch-zoom" }}
           >
             {transformations.map((transformation, index) => (
               <motion.div
