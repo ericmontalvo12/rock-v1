@@ -16,7 +16,7 @@ const ingredients = [
   { name: "Magnesium", dose: "300mg", benefit: "Enzymatic cofactor", image: "/magnesium-new.jpg" },
   { name: "Zinc", dose: "30mg", benefit: "T synthesis support", image: "/ingredients/zinc.png" },
   { name: "Vitamin D3", dose: "3,000 IU", benefit: "Hormone precursor", image: "/ingredients/vitamin-d3.jpg" },
-  { name: "Boron", dose: "9mg", benefit: "Reduces SHBG binding", image: "/boron.png" },
+  { name: "Boron", dose: "9mg", benefit: "Reduces SHBG binding", image: "/food-ingredients.jpg" },
 ];
 
 export function EducationBlock() {

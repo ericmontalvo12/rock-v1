@@ -75,7 +75,7 @@ const ingredients = [
     category: "foundational" as TabId,
     form: "Citrate",
     dosage: "9 mg",
-    image: "/boron.png",
+    image: "/food-ingredients.jpg",
     shortDesc: "Influences SHBG, freeing more testosterone for use.",
     fullDesc: "Also improves how the body utilizes Vitamin D and magnesium — amplifying their effects.",
     benefits: [
