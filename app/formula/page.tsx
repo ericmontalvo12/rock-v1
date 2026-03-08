@@ -41,7 +41,7 @@ const ingredients = [
     category: "foundational" as TabId,
     form: "Bisglycinate",
     dosage: "300 mg",
-    image: "/magnesium-new.png",
+    image: "/magnesium.png",
     shortDesc: "Required for over 300 enzymatic reactions, including testosterone production.",
     fullDesc: "Bisglycinate is used for superior absorption without digestive issues. Lost daily through sweat during training.",
     benefits: [
@@ -58,7 +58,7 @@ const ingredients = [
     category: "foundational" as TabId,
     form: "Citrate",
     dosage: "30 mg",
-    image: "/ingredients/zinc.png",
+    image: "/zinc.png",
     shortDesc: "Directly involved in testosterone synthesis at the cellular level.",
     fullDesc: "Research shows deficiency suppresses testosterone — and active men lose zinc through sweat faster than they replace it.",
     benefits: [
@@ -93,7 +93,7 @@ const ingredients = [
     category: "stress" as TabId,
     form: "KSM-66 Root Extract",
     dosage: "500 mg",
-    image: "/ashwagandha-new.png",
+    image: "/ashwagandha.png",
     shortDesc: "KSM-66 is backed by 24+ human studies for stress and testosterone.",
     fullDesc: "Research associates it with reduced cortisol, improved recovery, and better testosterone levels in men under physical and mental stress. When cortisol stays elevated, testosterone signaling gets suppressed — this helps restore the balance.",
     benefits: [
@@ -128,7 +128,7 @@ const ingredients = [
     category: "availability" as TabId,
     form: "50% Saponins Extract",
     dosage: "500 mg",
-    image: "/fenugreek-new.png",
+    image: "/fenugreek.png",
     shortDesc: "Standardized for furostanolic saponins that influence testosterone metabolism.",
     fullDesc: "Research in resistance-trained men links it to improvements in free testosterone and strength output.",
     benefits: [
