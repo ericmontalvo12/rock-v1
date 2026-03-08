@@ -24,7 +24,7 @@ const ingredients = [
     category: "foundational" as TabId,
     form: "Cholecalciferol",
     dosage: "3,000 IU",
-    image: "/ingredients/vitamin-d3.png",
+    image: "/vitamin-d3.png",
     shortDesc: "Functions as a hormone precursor essential for testosterone synthesis.",
     fullDesc: "Research links low Vitamin D to lower testosterone — and most men who train indoors are deficient without knowing it.",
     benefits: [

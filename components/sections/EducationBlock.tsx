@@ -15,7 +15,7 @@ const ingredients = [
   { name: "Fenugreek", dose: "500mg", benefit: "Influences T metabolism", image: "/fenugreek.png" },
   { name: "Magnesium", dose: "300mg", benefit: "Enzymatic cofactor", image: "/magnesium.png" },
   { name: "Zinc", dose: "30mg", benefit: "T synthesis support", image: "/zinc.png" },
-  { name: "Vitamin D3", dose: "3,000 IU", benefit: "Hormone precursor", image: "/ingredients/vitamin-d3.jpg" },
+  { name: "Vitamin D3", dose: "3,000 IU", benefit: "Hormone precursor", image: "/vitamin-d3.png" },
   { name: "Boron", dose: "9mg", benefit: "Reduces SHBG binding", image: "/boron.png" },
 ];
 
