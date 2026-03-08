@@ -11,20 +11,15 @@ export function EmailPopup() {
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   useEffect(() => {
-    // Check if user has already seen/dismissed the popup
-    const hasSeenPopup = localStorage.getItem("hasSeenEmailPopup");
-    if (!hasSeenPopup) {
-      // Show popup after a short delay
-      const timer = setTimeout(() => {
-        setIsOpen(true);
-      }, 1500);
-      return () => clearTimeout(timer);
-    }
+    // Show popup after a short delay on every visit
+    const timer = setTimeout(() => {
+      setIsOpen(true);
+    }, 1500);
+    return () => clearTimeout(timer);
   }, []);
 
   const handleClose = () => {
     setIsOpen(false);
-    localStorage.setItem("hasSeenEmailPopup", "true");
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -32,7 +27,6 @@ export function EmailPopup() {
     if (email) {
       console.log("Email submitted:", email);
       setIsSubmitted(true);
-      localStorage.setItem("hasSeenEmailPopup", "true");
       setTimeout(() => {
         setIsOpen(false);
       }, 2000);
