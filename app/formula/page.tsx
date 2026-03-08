@@ -418,7 +418,7 @@ export default function FormulaPage() {
                         alt={filteredIngredients[selectedIngredientIndex]?.name || "Ingredient"}
                         width={256}
                         height={256}
-                        className="w-full h-full object-contain p-4"
+                        className="w-full h-full object-cover"
                       />
                     </div>
                     <div className="absolute inset-0 rounded-full bg-primary/5 blur-2xl -z-10" />

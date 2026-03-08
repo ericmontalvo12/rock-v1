@@ -267,7 +267,7 @@ export function EducationBlock() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: index * 0.05 }}
-                  className="flex-shrink-0 w-[260px] sm:w-[300px]"
+                  className="flex-shrink-0 w-[calc(50%-8px)] sm:w-[calc(33.333%-11px)] lg:w-[calc(33.333%-11px)]"
                   style={{ scrollSnapAlign: "start" }}
                 >
                   {/* Image */}
