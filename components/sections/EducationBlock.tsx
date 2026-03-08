@@ -11,7 +11,7 @@ import { Accordion, AccordionItem } from "@/components/ui/accordion";
 // Ingredient data for carousel
 const ingredients = [
   { name: "Ashwagandha", dose: "500mg KSM-66", benefit: "Manages cortisol response", image: "/ashwagandha.png" },
-  { name: "Tongkat Ali", dose: "300mg 100:1", benefit: "Supports free testosterone", image: "/tongkat-ali-new.jpg" },
+  { name: "Tongkat Ali", dose: "300mg 200:1", benefit: "Supports free testosterone", image: "/tongkat-ali-new.jpg" },
   { name: "Fenugreek", dose: "500mg", benefit: "Influences T metabolism", image: "/fenugreek.png" },
   { name: "Magnesium", dose: "300mg", benefit: "Enzymatic cofactor", image: "/magnesium.png" },
   { name: "Zinc", dose: "30mg", benefit: "T synthesis support", image: "/zinc.png" },

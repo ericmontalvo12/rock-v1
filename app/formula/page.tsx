@@ -109,9 +109,9 @@ const ingredients = [
   {
     name: "Tongkat Ali",
     category: "availability" as TabId,
-    form: "100:1 Extract (1% Eurycomanone)",
+    form: "200:1 Extract (1% Eurycomanone)",
     dosage: "300 mg",
-    image: "/tongkat-ali-new.png",
+    image: "/tongkat-ali.png",
     shortDesc: "Human studies link it to increased free testosterone via SHBG modulation.",
     fullDesc: "Works with what your body already produces — not by forcing production artificially. Supports the HPG axis.",
     benefits: [
