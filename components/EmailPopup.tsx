@@ -68,9 +68,9 @@ export function EmailPopup() {
                     <Image
                       src="/logo.png"
                       alt="Rock Mountain Performance"
-                      width={280}
-                      height={60}
-                      className="mx-auto h-16 w-auto"
+                      width={200}
+                      height={200}
+                      className="mx-auto w-[200px] h-[200px] object-contain"
                     />
                   </div>
 
