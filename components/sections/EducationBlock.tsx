@@ -10,13 +10,13 @@ import { Accordion, AccordionItem } from "@/components/ui/accordion";
 
 // Ingredient data for carousel
 const ingredients = [
-  { name: "Ashwagandha", dose: "500mg KSM-66", benefit: "Manages cortisol response", image: "/ashwagandha.png" },
-  { name: "Tongkat Ali", dose: "300mg 200:1", benefit: "Supports free testosterone", image: "/tongkat-ali-new.jpg" },
-  { name: "Fenugreek", dose: "500mg", benefit: "Influences T metabolism", image: "/fenugreek.png" },
-  { name: "Magnesium", dose: "30mg", benefit: "Enzymatic cofactor", image: "/magnesium.png" },
-  { name: "Zinc", dose: "20mg", benefit: "T synthesis support", image: "/zinc.png" },
-  { name: "Vitamin D3", dose: "3,000 IU", benefit: "Hormone precursor", image: "/vitamin-d3.png" },
-  { name: "Boron", dose: "9mg", benefit: "Reduces SHBG binding", image: "/boron.png" },
+  { name: "Ashwagandha", dose: "500mg KSM-66", benefit: "Supports healthy stress response", image: "/ashwagandha.png" },
+  { name: "Tongkat Ali", dose: "300mg 200:1", benefit: "Supports energy and free testosterone", image: "/tongkat-ali.png" },
+  { name: "Fenugreek", dose: "500mg", benefit: "Supports free testosterone function", image: "/fenugreek.png" },
+  { name: "Magnesium", dose: "30mg", benefit: "Supports recovery and stress balance", image: "/magnesium.png" },
+  { name: "Zinc", dose: "20mg", benefit: "Key mineral for testosterone support", image: "/zinc.png" },
+  { name: "Vitamin D3", dose: "3,000 IU", benefit: "Supports hormonal foundation", image: "/vitamin-d3.png" },
+  { name: "Boron", dose: "9mg", benefit: "Supports free testosterone availability", image: "/boron.png" },
 ];
 
 export function EducationBlock() {

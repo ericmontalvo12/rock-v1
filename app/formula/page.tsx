@@ -25,12 +25,12 @@ const ingredients = [
     form: "Cholecalciferol",
     dosage: "3,000 IU",
     image: "/vitamin-d3.png",
-    shortDesc: "Functions as a hormone precursor essential for testosterone synthesis.",
-    fullDesc: "Research links low Vitamin D to lower testosterone — and most men who train indoors are deficient without knowing it.",
+    shortDesc: "Supports the hormonal foundation behind energy, recovery, and performance.",
+    fullDesc: "Many men who train indoors unknowingly run low in Vitamin D — and research consistently links low Vitamin D levels with lower testosterone. This ingredient helps support the hormonal baseline your body relies on to perform.",
     benefits: [
       "Supports healthy testosterone levels",
-      "Supports calcium absorption",
-      "Supports muscle function and recovery",
+      "Supports calcium absorption and muscle function",
+      "Helps support recovery and overall performance",
     ],
     research: [
       { title: "Effect of vitamin D supplementation on testosterone levels in men", url: "https://pubmed.ncbi.nlm.nih.gov/21154195/" },
@@ -42,11 +42,11 @@ const ingredients = [
     form: "Bisglycinate",
     dosage: "30 mg",
     image: "/magnesium.png",
-    shortDesc: "Required for over 300 enzymatic reactions, including testosterone production.",
-    fullDesc: "Bisglycinate is used for superior absorption without digestive issues. Lost daily through sweat during training.",
+    shortDesc: "Supports recovery, stress balance, and the daily processes your body relies on to perform.",
+    fullDesc: "Magnesium is involved in hundreds of biological processes, including testosterone production and energy metabolism. Active men lose magnesium through sweat during training, making consistent intake important.",
     benefits: [
       "Supports testosterone production",
-      "Supports sleep quality",
+      "Helps support sleep quality and recovery",
       "Supports energy metabolism",
     ],
     research: [
@@ -59,12 +59,12 @@ const ingredients = [
     form: "Citrate",
     dosage: "20 mg",
     image: "/zinc.png",
-    shortDesc: "Directly involved in testosterone synthesis at the cellular level.",
-    fullDesc: "Research shows deficiency suppresses testosterone — and active men lose zinc through sweat faster than they replace it.",
+    shortDesc: "A key mineral your body relies on for testosterone support and recovery.",
+    fullDesc: "Zinc plays a direct role in testosterone production at the cellular level. Training, sweating, and intense activity can deplete zinc levels faster than many men replace it.",
     benefits: [
-      "Plays a role in testosterone synthesis",
-      "Supports protein synthesis",
-      "Supports recovery",
+      "Supports healthy testosterone production",
+      "Supports protein synthesis and recovery",
+      "Helps maintain optimal hormonal function",
     ],
     research: [
       { title: "Zinc status and serum testosterone levels in adult males", url: "https://pubmed.ncbi.nlm.nih.gov/8875519/" },
@@ -76,12 +76,12 @@ const ingredients = [
     form: "Citrate",
     dosage: "9 mg",
     image: "/boron.png",
-    shortDesc: "Influences SHBG, freeing more testosterone for use.",
-    fullDesc: "Also improves how the body utilizes Vitamin D and magnesium — amplifying their effects.",
+    shortDesc: "Helps support free testosterone availability.",
+    fullDesc: "Testosterone circulating in the body isn't always usable. Boron helps influence SHBG — a protein that binds testosterone — allowing more of it to remain available for the body to use.",
     benefits: [
-      "Supports free testosterone",
-      "Supports Vitamin D utilization",
-      "Works with other minerals",
+      "Supports free testosterone availability",
+      "Helps support Vitamin D utilization",
+      "Works alongside other key minerals in the formula",
     ],
     research: [
       { title: "Comparative effects of daily boron supplementation on plasma steroid hormones", url: "https://pubmed.ncbi.nlm.nih.gov/21129941/" },
@@ -94,12 +94,12 @@ const ingredients = [
     form: "KSM-66 Root Extract",
     dosage: "500 mg",
     image: "/ashwagandha.png",
-    shortDesc: "KSM-66 is backed by 24+ human studies for stress and testosterone.",
-    fullDesc: "Research associates it with reduced cortisol, improved recovery, and better testosterone levels in men under physical and mental stress. When cortisol stays elevated, testosterone signaling gets suppressed — this helps restore the balance.",
+    shortDesc: "Supports a healthier stress response so recovery and performance don't take the hit.",
+    fullDesc: "Chronic stress elevates cortisol, which can interfere with hormonal balance and recovery. KSM-66 is one of the most studied forms of ashwagandha and is included to support stress resilience and overall performance.",
     benefits: [
-      "Associated with lower cortisol",
-      "Supports healthy testosterone",
-      "Supports muscle recovery",
+      "Helps support a balanced cortisol response",
+      "Supports healthy testosterone levels",
+      "Helps support recovery and resilience under stress",
     ],
     research: [
       { title: "Ashwagandha supplementation and testosterone in overweight men", url: "https://pubmed.ncbi.nlm.nih.gov/31517876/" },
@@ -112,12 +112,12 @@ const ingredients = [
     form: "200:1 Extract (1% Eurycomanone)",
     dosage: "300 mg",
     image: "/tongkat-ali.png",
-    shortDesc: "Human studies link it to increased free testosterone via SHBG modulation.",
-    fullDesc: "Works with what your body already produces — not by forcing production artificially. Supports the HPG axis.",
+    shortDesc: "Supports energy, drive, and healthy free testosterone levels.",
+    fullDesc: "Tongkat Ali is widely studied for its ability to support free testosterone by influencing SHBG levels. It works with the testosterone your body naturally produces rather than artificially forcing production.",
     benefits: [
-      "Supports free testosterone",
-      "Supports energy levels",
-      "Supports training drive",
+      "Supports free testosterone levels",
+      "Helps support energy and drive",
+      "Supports training performance",
     ],
     research: [
       { title: "Eurycoma longifolia and androgenic status in moderately stressed males", url: "https://pubmed.ncbi.nlm.nih.gov/21671978/" },
@@ -129,11 +129,11 @@ const ingredients = [
     form: "50% Saponins Extract",
     dosage: "500 mg",
     image: "/fenugreek.png",
-    shortDesc: "Standardized for furostanolic saponins that influence testosterone metabolism.",
-    fullDesc: "Research in resistance-trained men links it to improvements in free testosterone and strength output.",
+    shortDesc: "Rounds out the formula's free testosterone support.",
+    fullDesc: "Fenugreek extract standardized for saponins has been studied in resistance-trained men for its role in supporting testosterone function and strength output.",
     benefits: [
-      "Supports free testosterone",
-      "Supports strength output",
+      "Supports free testosterone function",
+      "Helps support strength output",
       "May support body composition",
     ],
     research: [
@@ -336,7 +336,7 @@ export default function FormulaPage() {
             {/* Navigator */}
             <div className="text-center mb-6">
               <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">
-                Ingredient Breakdown
+                Built Around 3 Key Support Areas
               </h2>
 
               {/* Pill Tabs */}
@@ -438,13 +438,13 @@ export default function FormulaPage() {
 
                     {/* Short Description + Read More */}
                     <div className="mb-4">
-                      <p className="text-white/80 text-sm leading-relaxed">
+                      <p className="text-white text-base leading-relaxed">
                         {filteredIngredients[selectedIngredientIndex]?.shortDesc}
                       </p>
                       {!showFullDesc ? (
                         <button
                           onClick={() => setShowFullDesc(true)}
-                          className="inline-flex items-center gap-1 text-white/60 text-xs mt-1 hover:text-white/90 transition-colors"
+                          className="inline-flex items-center gap-1 text-white/80 text-sm mt-2 hover:text-white transition-colors"
                         >
                           Read more
                           <ChevronDown className="w-3 h-3" />
@@ -453,7 +453,7 @@ export default function FormulaPage() {
                         <motion.p
                           initial={{ opacity: 0, height: 0 }}
                           animate={{ opacity: 1, height: "auto" }}
-                          className="text-white/70 text-sm leading-relaxed mt-1"
+                          className="text-white/90 text-base leading-relaxed mt-2"
                         >
                           {filteredIngredients[selectedIngredientIndex]?.fullDesc}
                         </motion.p>
@@ -463,14 +463,14 @@ export default function FormulaPage() {
                     {/* Dose & Form Row */}
                     <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3 mb-4 border border-white/10">
                       <div className="flex justify-between items-center border-b border-white/15 pb-2 mb-2">
-                        <span className="text-white/60 text-sm">Dose</span>
+                        <span className="text-white/90 text-sm">Dose</span>
                         <span className="text-white font-semibold text-sm">
                           {filteredIngredients[selectedIngredientIndex]?.dosage}
                         </span>
                       </div>
                       <div className="flex justify-between items-center">
-                        <span className="text-white/60 text-sm">Form</span>
-                        <span className="text-white/90 text-sm text-right max-w-[65%]">
+                        <span className="text-white/90 text-sm">Form</span>
+                        <span className="text-white text-sm text-right max-w-[65%]">
                           {filteredIngredients[selectedIngredientIndex]?.form}
                         </span>
                       </div>
@@ -478,16 +478,16 @@ export default function FormulaPage() {
 
                     {/* Key Benefits */}
                     <div className="mb-4">
-                      <h4 className="text-white/70 font-medium text-xs mb-2 uppercase tracking-wide">
+                      <h4 className="text-white font-medium text-xs mb-2 uppercase tracking-wide">
                         Key Benefits
                       </h4>
                       <ul className="space-y-1.5">
                         {filteredIngredients[selectedIngredientIndex]?.benefits.map((benefit, i) => (
                           <li key={i} className="flex items-start gap-2">
-                            <div className="w-4 h-4 rounded-full bg-white/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <div className="w-4 h-4 rounded-full bg-white/30 flex items-center justify-center flex-shrink-0 mt-0.5">
                               <Check className="w-2.5 h-2.5 text-white" />
                             </div>
-                            <span className="text-white/85 text-sm leading-snug">{benefit}</span>
+                            <span className="text-white text-sm leading-snug">{benefit}</span>
                           </li>
                         ))}
                       </ul>
@@ -600,30 +600,30 @@ export default function FormulaPage() {
                 <thead>
                   <tr className="bg-gray-50 border-b border-gray-200">
                     <th className="text-left px-4 py-3 font-semibold text-gray-500"></th>
-                    <th className="text-center px-4 py-3 font-semibold text-gray-500">Typical Booster</th>
+                    <th className="text-center px-4 py-3 font-semibold text-gray-500">Typical Testosterone Booster</th>
                     <th className="text-center px-4 py-3 font-semibold text-primary bg-primary/5">Peak Performance</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr className="border-b border-gray-100">
-                    <td className="px-4 py-3 text-gray-700">Label transparency</td>
+                    <td className="px-4 py-3 text-gray-700">Formula transparency</td>
                     <td className="px-4 py-3 text-center text-gray-500">Proprietary blends</td>
-                    <td className="px-4 py-3 text-center font-medium text-gray-900 bg-primary/5">Fully disclosed</td>
+                    <td className="px-4 py-3 text-center font-medium text-gray-900 bg-primary/5">Fully disclosed formula</td>
                   </tr>
                   <tr className="border-b border-gray-100">
                     <td className="px-4 py-3 text-gray-700">Dosing</td>
-                    <td className="px-4 py-3 text-center text-gray-500">Marketing doses</td>
-                    <td className="px-4 py-3 text-center font-medium text-gray-900 bg-primary/5">Clinical doses</td>
+                    <td className="px-4 py-3 text-center text-gray-500">Underdosed ingredients</td>
+                    <td className="px-4 py-3 text-center font-medium text-gray-900 bg-primary/5">Research-backed doses</td>
                   </tr>
                   <tr className="border-b border-gray-100">
-                    <td className="px-4 py-3 text-gray-700">Energy approach</td>
-                    <td className="px-4 py-3 text-center text-gray-500">Stimulant energy</td>
-                    <td className="px-4 py-3 text-center font-medium text-gray-900 bg-primary/5">Non-stimulant</td>
+                    <td className="px-4 py-3 text-gray-700">Ingredient quality</td>
+                    <td className="px-4 py-3 text-center text-gray-500">Ineffective ingredients</td>
+                    <td className="px-4 py-3 text-center font-medium text-gray-900 bg-primary/5">Effective ingredients</td>
                   </tr>
                   <tr>
-                    <td className="px-4 py-3 text-gray-700">Mechanism</td>
-                    <td className="px-4 py-3 text-center text-gray-500">Temporary buzz</td>
-                    <td className="px-4 py-3 text-center font-medium text-gray-900 bg-primary/5">Hormonal support</td>
+                    <td className="px-4 py-3 text-gray-700">Outcome</td>
+                    <td className="px-4 py-3 text-center text-gray-500">No long-lasting effect</td>
+                    <td className="px-4 py-3 text-center font-medium text-gray-900 bg-primary/5">Long-term hormonal support</td>
                   </tr>
                 </tbody>
               </table>
