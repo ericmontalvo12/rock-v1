@@ -5,9 +5,9 @@ import { X, Check } from "lucide-react";
 
 const rows = [
   { typical: "Proprietary blends", peak: "Fully disclosed formula" },
-  { typical: "Marketing doses", peak: "Clinical research-backed doses" },
-  { typical: "Stimulant energy", peak: "Non-stimulant support" },
-  { typical: "Temporary buzz", peak: "Long-term hormonal support" },
+  { typical: "Underdosed ingredients", peak: "Research-backed doses" },
+  { typical: "Ineffective ingredients", peak: "Effective ingredients" },
+  { typical: "No long-lasting effect", peak: "Long-term hormonal support" },
 ];
 
 export function ComparisonTable() {

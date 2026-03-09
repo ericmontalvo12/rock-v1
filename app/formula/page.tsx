@@ -10,8 +10,8 @@ import { Check, ArrowRight, Shield, X, ChevronDown, FlaskConical, FileText, Chev
 
 // Tab definitions
 const ingredientTabs = [
-  { id: "foundational", label: "Foundational Support" },
-  { id: "stress", label: "Stress Balance" },
+  { id: "foundational", label: "Foundational Hormone Support" },
+  { id: "stress", label: "Stress & Cortisol Balance" },
   { id: "availability", label: "Free Testosterone Availability" },
 ] as const;
 
@@ -143,9 +143,9 @@ const ingredients = [
 ];
 
 const whatsNotItems = [
-  { text: "Proprietary blends that conceal real doses" },
+  { text: "Proprietary blends that hide real doses" },
   { text: "Underdosed ingredients for label appeal" },
-  { text: "Stimulants that mask the underlying issue" },
+  { text: "Ingredients with no evidence behind them" },
   { text: "Cheap fillers to reduce cost" },
 ];
 
@@ -227,24 +227,21 @@ export default function FormulaPage() {
             <div className="grid lg:grid-cols-2 gap-6 lg:gap-10 items-center">
               {/* Left: Text */}
               <div className="text-center lg:text-left">
-                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-3">
-                  Inside the Formula
+                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+                  Every Ingredient. Every Dose. Fully Transparent.
                 </h1>
-                <p className="text-gray-600 max-w-lg mx-auto lg:mx-0 mb-4">
-                  7 ingredients. Clinical dosing. Based on published research.
-                </p>
-                <div className="flex flex-wrap items-center justify-center lg:justify-start gap-x-4 gap-y-2 mb-5 text-gray-500 text-sm">
+                <div className="flex flex-col items-center lg:items-start gap-2 mb-5 text-gray-500 text-sm">
                   <span className="flex items-center gap-1.5">
                     <Check className="w-4 h-4 text-primary" />
-                    No fillers
+                    Backed by human studies
                   </span>
                   <span className="flex items-center gap-1.5">
                     <Check className="w-4 h-4 text-primary" />
-                    No proprietary blends
+                    Standardized extracts, nothing hidden
                   </span>
                   <span className="flex items-center gap-1.5">
                     <Check className="w-4 h-4 text-primary" />
-                    Standardized extracts
+                    Third-party tested for quality
                   </span>
                 </div>
                 <Link
@@ -496,7 +493,7 @@ export default function FormulaPage() {
                       </ul>
                     </div>
 
-                    {/* View Study CTA */}
+                    {/* See the Research CTA */}
                     {filteredIngredients[selectedIngredientIndex]?.research?.[0] && (
                       <a
                         href={filteredIngredients[selectedIngredientIndex].research[0].url}
@@ -504,7 +501,7 @@ export default function FormulaPage() {
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-white text-[#4A8BC9] font-semibold text-sm hover:bg-white/95 transition-colors shadow-sm"
                       >
-                        View Study
+                        See the Research
                         <ArrowRight className="w-3.5 h-3.5" />
                       </a>
                     )}
@@ -583,6 +580,89 @@ export default function FormulaPage() {
           </div>
         </section>
 
+        {/* Comparison Table */}
+        <section className="bg-white py-10 sm:py-12">
+          <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="text-center mb-6"
+            >
+              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
+                How We Compare
+              </h2>
+            </motion.div>
+
+            <div className="overflow-hidden rounded-xl border border-gray-200">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="bg-gray-50 border-b border-gray-200">
+                    <th className="text-left px-4 py-3 font-semibold text-gray-500"></th>
+                    <th className="text-center px-4 py-3 font-semibold text-gray-500">Typical Booster</th>
+                    <th className="text-center px-4 py-3 font-semibold text-primary bg-primary/5">Peak Performance</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr className="border-b border-gray-100">
+                    <td className="px-4 py-3 text-gray-700">Label transparency</td>
+                    <td className="px-4 py-3 text-center text-gray-500">Proprietary blends</td>
+                    <td className="px-4 py-3 text-center font-medium text-gray-900 bg-primary/5">Fully disclosed</td>
+                  </tr>
+                  <tr className="border-b border-gray-100">
+                    <td className="px-4 py-3 text-gray-700">Dosing</td>
+                    <td className="px-4 py-3 text-center text-gray-500">Marketing doses</td>
+                    <td className="px-4 py-3 text-center font-medium text-gray-900 bg-primary/5">Clinical doses</td>
+                  </tr>
+                  <tr className="border-b border-gray-100">
+                    <td className="px-4 py-3 text-gray-700">Energy approach</td>
+                    <td className="px-4 py-3 text-center text-gray-500">Stimulant energy</td>
+                    <td className="px-4 py-3 text-center font-medium text-gray-900 bg-primary/5">Non-stimulant</td>
+                  </tr>
+                  <tr>
+                    <td className="px-4 py-3 text-gray-700">Mechanism</td>
+                    <td className="px-4 py-3 text-center text-gray-500">Temporary buzz</td>
+                    <td className="px-4 py-3 text-center font-medium text-gray-900 bg-primary/5">Hormonal support</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        {/* Mid-page Product CTA */}
+        <section className="bg-[#F7F9FC] py-10 sm:py-12 border-y border-gray-200">
+          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-10">
+              <div className="w-32 sm:w-40">
+                <Image
+                  src="/bottle-formula.webp"
+                  alt="Peak Performance Bottle"
+                  width={160}
+                  height={210}
+                  className="w-full h-auto"
+                />
+              </div>
+              <div className="text-center sm:text-left">
+                <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">
+                  Peak Performance
+                </h3>
+                <p className="text-gray-600 text-sm mb-4">
+                  7 ingredients. Clinical doses. 30-day supply.
+                </p>
+                <Link
+                  href="/product"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-white font-medium hover:bg-primary-hover transition-colors"
+                >
+                  Get Peak Performance
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Batch Tested - Trust Cards */}
         <section className="bg-white py-10 sm:py-12">
           <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
@@ -650,7 +730,7 @@ export default function FormulaPage() {
               href="/product"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-white font-medium hover:bg-primary-hover transition-colors"
             >
-              Get Peak Performance
+              Start Peak Performance
               <ArrowRight className="w-4 h-4" />
             </Link>
           </div>

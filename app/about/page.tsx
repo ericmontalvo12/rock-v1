@@ -299,10 +299,6 @@ export default function About() {
                   </li>
                   <li className="flex items-start gap-2.5 text-gray-600 text-sm">
                     <span className="w-1 h-1 rounded-full bg-primary mt-2 flex-shrink-0"></span>
-                    Understand free T matters more than total T
-                  </li>
-                  <li className="flex items-start gap-2.5 text-gray-600 text-sm">
-                    <span className="w-1 h-1 rounded-full bg-primary mt-2 flex-shrink-0"></span>
                     Value clinical dosing over marketing hype
                   </li>
                   <li className="flex items-start gap-2.5 text-gray-600 text-sm">

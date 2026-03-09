@@ -7,22 +7,22 @@ const trustIndicators = [
   {
     icon: FlaskConical,
     label: "Clinical Dosing",
-    description: "Ingredients matched to doses used in published human studies",
+    description: "Each ingredient matches doses used in published human studies — no underdosing, no label dressing.",
   },
   {
     icon: ClipboardList,
     label: "Fully Disclosed Label",
-    description: "No proprietary blends — every ingredient and dose shown",
+    description: "No proprietary blends. Every ingredient and dose is shown exactly as it appears in the formula.",
   },
   {
     icon: ShieldCheck,
     label: "Third-Party Tested",
-    description: "Each batch independently verified for purity and potency",
+    description: "Every batch is independently verified for purity and potency before it ships.",
   },
   {
     icon: BookOpen,
     label: "Research-Backed Ingredients",
-    description: "Only ingredients with human clinical trial support included",
+    description: "We only include compounds supported by human clinical trials — nothing speculative, nothing unproven.",
   },
 ];
 
@@ -51,15 +51,13 @@ export function ResearchTrust() {
           className="text-center mb-10"
         >
           <p className="text-primary font-semibold text-xs uppercase tracking-widest mb-3">
-            Our Standards
+            Built Different
           </p>
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-            Our Research Standard
+            Our Standard
           </h2>
           <p className="text-gray-600 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
-            Every ingredient in Peak Performance is included at doses supported by published human
-            research. We avoid proprietary blends, underdosed ingredients, and label dressing.
-            Transparency and physiological effectiveness guide every formulation decision.
+            Peak Performance is formulated with one rule: every decision is backed by research, not marketing.
           </p>
         </motion.div>
 

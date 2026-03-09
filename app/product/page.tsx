@@ -49,7 +49,7 @@ const bundleOptions = [
 
 const corePrinciples = [
   {
-    title: "Free testosterone availability over total numbers",
+    title: "Free testosterone availability",
     description: "Fenugreek and boron reduce SHBG to unlock testosterone already present in your system.",
   },
   {
