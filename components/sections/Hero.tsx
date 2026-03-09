@@ -42,18 +42,21 @@ export function Hero() {
             transition={{ duration: 0.6 }}
             className="text-center max-w-[340px] sm:max-w-none mx-auto"
           >
-            <h1 className="text-3xl sm:text-4xl lg:text-6xl font-bold tracking-tight text-white mb-6 sm:mb-8 leading-tight">
-              Testosterone Support<br />
-              Built on Research
+            <h1 className="text-3xl sm:text-4xl lg:text-6xl font-bold tracking-tight text-white mb-4 sm:mb-5 leading-tight">
+              Built for Men Who Read Labels
             </h1>
 
+            <p className="text-white/85 text-base sm:text-lg mb-6 sm:mb-8 leading-relaxed max-w-sm sm:max-w-md">
+              Clinical-dose testosterone support designed to restore energy, drive, and recovery.
+            </p>
+
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-              <Link href="/formula" className="w-full max-w-[320px] sm:max-w-none sm:w-auto mx-auto sm:mx-0">
-                <Button size="lg" className="w-full sm:w-auto h-11 text-sm rounded-lg sm:h-12 sm:text-base sm:px-8 sm:rounded-md">Inside the Formula</Button>
-              </Link>
               <Link href="/product" className="w-full max-w-[320px] sm:max-w-none sm:w-auto mx-auto sm:mx-0">
+                <Button size="lg" className="w-full sm:w-auto h-11 text-sm rounded-lg sm:h-12 sm:text-base sm:px-8 sm:rounded-md">Get Peak Performance</Button>
+              </Link>
+              <Link href="/formula" className="w-full max-w-[320px] sm:max-w-none sm:w-auto mx-auto sm:mx-0">
                 <Button size="lg" variant="outline" className="w-full sm:w-auto h-11 text-sm rounded-lg sm:h-12 sm:text-base sm:px-8 sm:rounded-md border-white text-white hover:bg-white/10">
-                  View Peak Performance
+                  Inside the Formula
                 </Button>
               </Link>
             </div>
