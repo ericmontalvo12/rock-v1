@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { X, Check } from "lucide-react";
+import Image from "next/image";
 
 const rows = [
   { typical: "Proprietary blends", peak: "Fully disclosed formula" },
@@ -36,6 +37,26 @@ export function ComparisonTable() {
           transition={{ duration: 0.5, delay: 0.1 }}
           className="max-w-2xl mx-auto"
         >
+          {/* Product Images */}
+          <div className="grid grid-cols-2 gap-3 mb-4">
+            {/* Placeholder for typical products */}
+            <div className="flex justify-center items-end h-[200px] sm:h-[240px]">
+              <div className="w-full h-full bg-gray-100 rounded-xl flex items-center justify-center">
+                <span className="text-gray-400 text-sm">Image placeholder</span>
+              </div>
+            </div>
+            {/* Peak Performance bottle */}
+            <div className="flex justify-center items-end h-[200px] sm:h-[240px]">
+              <Image
+                src="/difference-peak.jpg"
+                alt="Peak Performance"
+                width={300}
+                height={240}
+                className="w-full h-full object-contain rounded-xl"
+              />
+            </div>
+          </div>
+
           {/* Table header */}
           <div className="grid grid-cols-2 gap-3 mb-3">
             <div className="bg-gray-100 rounded-xl px-4 py-3 text-center">
