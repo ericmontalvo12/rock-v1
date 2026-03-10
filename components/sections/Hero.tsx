@@ -12,20 +12,20 @@ export function Hero() {
       {/* Background image - Mobile (using Next Image for better positioning) */}
       <div className="absolute top-[72px] left-0 right-0 bottom-0 md:hidden">
         <Image
-          src="/hero-v3.jpg"
+          src="/hero-bottle.jpg"
           alt="Hero background"
           fill
-          className="object-cover object-[center_65%]"
+          className="object-cover object-[center_50%]"
           priority
         />
       </div>
       {/* Background image - Desktop */}
       <div className="absolute top-[80px] left-0 right-0 bottom-0 hidden md:block">
         <Image
-          src="/hero.png"
+          src="/hero-bottle.jpg"
           alt="Hero background"
           fill
-          className="object-cover object-[center_35%]"
+          className="object-cover object-center"
           priority
         />
       </div>
