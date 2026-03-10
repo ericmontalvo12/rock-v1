@@ -121,12 +121,6 @@ const reviews = [
   },
 ];
 
-const trustItems = [
-  { icon: Shield, title: "30-Day Guarantee", desc: "Full refund if you don't notice a difference" },
-  { icon: FlaskConical, title: "Batch Tested", desc: "Every batch verified for purity" },
-  { icon: FileText, title: "Research-Backed", desc: "Doses match published studies" },
-  { icon: Lock, title: "No Auto-Ship", desc: "One-time purchase, no tricks" },
-];
 
 const productSections = [
   {
@@ -450,11 +444,6 @@ export default function ProductV2Page() {
                 >
                   127 reviews
                 </button>
-                <span className="text-gray-300">|</span>
-                <span className="flex items-center gap-1 text-gray-600">
-                  <Check className="w-4 h-4 text-primary" />
-                  2,847+ sold
-                </span>
               </div>
 
               <p className="text-sm sm:text-base text-text-secondary mb-6">
@@ -681,28 +670,6 @@ export default function ProductV2Page() {
                   <h4 className="font-bold text-gray-900 mb-2">{review.title}</h4>
                   <p className="text-gray-600 text-sm mb-4 line-clamp-4">{review.text}</p>
                   <p className="text-gray-500 text-sm font-medium">{review.name}, {review.age}</p>
-                </motion.div>
-              ))}
-            </div>
-          </section>
-
-          {/* Trust Grid */}
-          <section className="mt-16 sm:mt-24">
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-              {trustItems.map((item, index) => (
-                <motion.div
-                  key={item.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: index * 0.1 }}
-                  className="bg-white rounded-xl border border-gray-200 p-5 text-center"
-                >
-                  <div className="w-12 h-12 rounded-full bg-primary/10 mx-auto mb-3 flex items-center justify-center">
-                    <item.icon className="w-6 h-6 text-primary" />
-                  </div>
-                  <h3 className="font-semibold text-gray-900 text-sm">{item.title}</h3>
-                  <p className="text-gray-500 text-xs mt-1">{item.desc}</p>
                 </motion.div>
               ))}
             </div>
