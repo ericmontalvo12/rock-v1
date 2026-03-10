@@ -63,7 +63,7 @@ const corePrinciples = [
 ];
 
 const galleryImages = [
-  { src: "/product-v3.webp", alt: "Peak Performance Bottle" },
+  { src: "/product-main-new.jpg", alt: "Peak Performance Bottle" },
   { src: "/image-2.jpg", alt: "Targets 3 Key Testosterone Limiters" },
 ];
 
