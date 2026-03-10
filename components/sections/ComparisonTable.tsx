@@ -39,11 +39,15 @@ export function ComparisonTable() {
         >
           {/* Product Images */}
           <div className="grid grid-cols-2 gap-3 mb-4">
-            {/* Placeholder for typical products */}
+            {/* Typical testosterone boosters */}
             <div className="flex justify-center items-end h-[200px] sm:h-[240px]">
-              <div className="w-full h-full bg-gray-100 rounded-xl flex items-center justify-center">
-                <span className="text-gray-400 text-sm">Image placeholder</span>
-              </div>
+              <Image
+                src="/typical-boosters.jpg"
+                alt="Typical Testosterone Boosters"
+                width={300}
+                height={240}
+                className="w-full h-full object-contain rounded-xl"
+              />
             </div>
             {/* Peak Performance bottle */}
             <div className="flex justify-center items-end h-[200px] sm:h-[240px]">
