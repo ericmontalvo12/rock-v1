@@ -64,7 +64,9 @@ const corePrinciples = [
 
 const galleryImages = [
   { src: "/product-bottle.png", alt: "Peak Performance Bottle" },
+  { src: "/product-lifestyle.jpg", alt: "Higher Testosterone & Free Testosterone Availability" },
   { src: "/supplement-facts-new.jpg", alt: "Supplement Facts" },
+  { src: "/how-to-use.jpg", alt: "How to Use" },
 ];
 
 const ingredients = [
@@ -371,7 +373,7 @@ export default function ProductV2Page() {
             <div className="relative order-1 lg:order-1">
               <div className="lg:sticky lg:top-32">
                 {/* Main Image */}
-                <div className="rounded-2xl border border-border overflow-hidden flex items-center justify-center max-w-[500px] lg:max-w-none mx-auto mb-4 lg:w-[550px] lg:h-[650px] bg-neutral-100">
+                <div className="rounded-2xl border border-border overflow-hidden flex items-center justify-center max-w-[500px] lg:max-w-none mx-auto mb-4 lg:w-[550px] bg-neutral-100">
                   <AnimatePresence mode="wait">
                     <motion.div
                       key={activeImage}
@@ -386,7 +388,7 @@ export default function ProductV2Page() {
                         alt={galleryImages[activeImage].alt}
                         width={550}
                         height={650}
-                        className="object-contain w-full h-full scale-[1.1]"
+                        className="w-full h-auto"
                         priority
                       />
                     </motion.div>
