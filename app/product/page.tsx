@@ -63,7 +63,7 @@ const corePrinciples = [
 ];
 
 const galleryImages = [
-  { src: "/product-main-new.jpg", alt: "Peak Performance Bottle" },
+  { src: "/product-bottle.png", alt: "Peak Performance Bottle" },
   { src: "/image-2.jpg", alt: "Targets 3 Key Testosterone Limiters" },
 ];
 
@@ -371,7 +371,7 @@ export default function ProductV2Page() {
             <div className="relative order-1 lg:order-1">
               <div className="lg:sticky lg:top-32">
                 {/* Main Image */}
-                <div className="aspect-square rounded-2xl border border-border overflow-hidden flex items-center justify-center max-w-[400px] lg:max-w-none mx-auto mb-4 lg:w-[446px] lg:h-[446px] bg-white">
+                <div className="rounded-2xl border border-border overflow-hidden flex items-center justify-center max-w-[500px] lg:max-w-none mx-auto mb-4 lg:w-[550px] lg:h-[650px] bg-neutral-100">
                   <AnimatePresence mode="wait">
                     <motion.div
                       key={activeImage}
@@ -384,9 +384,9 @@ export default function ProductV2Page() {
                       <Image
                         src={galleryImages[activeImage].src}
                         alt={galleryImages[activeImage].alt}
-                        width={446}
-                        height={446}
-                        className="object-contain w-full h-full p-4"
+                        width={550}
+                        height={650}
+                        className="object-contain w-full h-full p-6"
                         priority
                       />
                     </motion.div>
