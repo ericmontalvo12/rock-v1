@@ -35,20 +35,20 @@ export function Header() {
       >
         {/* Desktop: static text */}
         <p className="hidden sm:block text-sm font-medium text-white whitespace-nowrap">
-          Free shipping on 2+ bottles <span className="text-text-muted mx-2">•</span> Best value bundles        </p>
+          30-DAY MONEY BACK GUARANTEE <span className="text-text-muted mx-2">•</span> FREE SHIPPING ON 2+ BOTTLES        </p>
         {/* Mobile: scrolling marquee */}
         <div className="sm:hidden announceTrack">
           <span className="text-xs font-medium text-white whitespace-nowrap">
-            Free shipping on 2+ bottles <span className="text-text-muted mx-2">•</span> Best value bundles <span className="text-text-muted mx-2">•</span> 30-day guarantee <span className="text-text-muted mx-2">•</span>
+            30-DAY MONEY BACK GUARANTEE <span className="text-text-muted mx-2">•</span> FREE SHIPPING ON 2+ BOTTLES <span className="text-text-muted mx-2">•</span>
           </span>
           <span className="text-xs font-medium text-white whitespace-nowrap">
-            Free shipping on 2+ bottles <span className="text-text-muted mx-2">•</span> Best value bundles <span className="text-text-muted mx-2">•</span> 30-day guarantee <span className="text-text-muted mx-2">•</span>
+            30-DAY MONEY BACK GUARANTEE <span className="text-text-muted mx-2">•</span> FREE SHIPPING ON 2+ BOTTLES <span className="text-text-muted mx-2">•</span>
           </span>
           <span className="text-xs font-medium text-white whitespace-nowrap">
-            Free shipping on 2+ bottles <span className="text-text-muted mx-2">•</span> Best value bundles <span className="text-text-muted mx-2">•</span> 30-day guarantee <span className="text-text-muted mx-2">•</span>
+            30-DAY MONEY BACK GUARANTEE <span className="text-text-muted mx-2">•</span> FREE SHIPPING ON 2+ BOTTLES <span className="text-text-muted mx-2">•</span>
           </span>
           <span className="text-xs font-medium text-white whitespace-nowrap">
-            Free shipping on 2+ bottles <span className="text-text-muted mx-2">•</span> Best value bundles <span className="text-text-muted mx-2">•</span> 30-day guarantee <span className="text-text-muted mx-2">•</span>
+            30-DAY MONEY BACK GUARANTEE <span className="text-text-muted mx-2">•</span> FREE SHIPPING ON 2+ BOTTLES <span className="text-text-muted mx-2">•</span>
           </span>
         </div>
       </div>

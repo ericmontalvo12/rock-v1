@@ -33,7 +33,7 @@ const ingredients = [
       "Helps support recovery and overall performance",
     ],
     research: [
-      { title: "Effect of vitamin D supplementation on testosterone levels in men", url: "https://pubmed.ncbi.nlm.nih.gov/21154195/" },
+      { title: "Effect of vitamin D supplementation on testosterone levels in men", url: "https://www.thieme-connect.de/products/ejournals/abstract/10.1055/s-0030-1269854" },
     ],
   },
   {
@@ -72,7 +72,7 @@ const ingredients = [
   },
   {
     name: "Boron",
-    category: "foundational" as TabId,
+    category: "availability" as TabId,
     form: "Citrate",
     dosage: "9 mg",
     image: "/boron.png",
@@ -108,24 +108,24 @@ const ingredients = [
   // TESTOSTERONE AVAILABILITY
   {
     name: "Tongkat Ali",
-    category: "availability" as TabId,
+    category: "stress" as TabId,
     form: "200:1 Extract (1% Eurycomanone)",
     dosage: "300 mg",
     image: "/tongkat-ali.png",
-    shortDesc: "Supports energy, drive, and healthy free testosterone levels.",
-    fullDesc: "Tongkat Ali is widely studied for its ability to support free testosterone by influencing SHBG levels. It works with the testosterone your body naturally produces rather than artificially forcing production.",
+    shortDesc: "Supports stress balance, testosterone support, and daily performance.",
+    fullDesc: "In a 4-week study on moderately stressed adults, Tongkat Ali significantly improved the cortisol-to-testosterone ratio — reducing cortisol by 16% while increasing testosterone by 37%. Participants also showed improvements in tension, anger, and confusion.",
     benefits: [
-      "Supports free testosterone levels",
-      "Helps support energy and drive",
-      "Supports training performance",
+      "Supports healthy cortisol balance",
+      "Supports healthy testosterone levels",
+      "Supports mood, drive, and resilience",
     ],
     research: [
-      { title: "Eurycoma longifolia and androgenic status in moderately stressed males", url: "https://pubmed.ncbi.nlm.nih.gov/21671978/" },
+      { title: "Eurycoma longifolia and androgenic status in moderately stressed males", url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC3669033/" },
     ],
   },
   {
     name: "Fenugreek",
-    category: "availability" as TabId,
+    category: "foundational" as TabId,
     form: "50% Saponins Extract",
     dosage: "500 mg",
     image: "/fenugreek.png",
@@ -580,137 +580,63 @@ export default function FormulaPage() {
           </div>
         </section>
 
-        {/* Comparison Table */}
-        <section className="bg-white py-10 sm:py-12">
-          <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              className="text-center mb-6"
-            >
-              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
-                How We Compare
-              </h2>
-            </motion.div>
-
-            <div className="overflow-hidden rounded-xl border border-gray-200">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="bg-gray-50 border-b border-gray-200">
-                    <th className="text-left px-4 py-3 font-semibold text-gray-500"></th>
-                    <th className="text-center px-4 py-3 font-semibold text-gray-500">Typical Testosterone Booster</th>
-                    <th className="text-center px-4 py-3 font-semibold text-primary bg-primary/5">Peak Performance</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr className="border-b border-gray-100">
-                    <td className="px-4 py-3 text-gray-700">Formula transparency</td>
-                    <td className="px-4 py-3 text-center text-gray-500">Proprietary blends</td>
-                    <td className="px-4 py-3 text-center font-medium text-gray-900 bg-primary/5">Fully disclosed formula</td>
-                  </tr>
-                  <tr className="border-b border-gray-100">
-                    <td className="px-4 py-3 text-gray-700">Dosing</td>
-                    <td className="px-4 py-3 text-center text-gray-500">Underdosed ingredients</td>
-                    <td className="px-4 py-3 text-center font-medium text-gray-900 bg-primary/5">Research-backed doses</td>
-                  </tr>
-                  <tr className="border-b border-gray-100">
-                    <td className="px-4 py-3 text-gray-700">Ingredient quality</td>
-                    <td className="px-4 py-3 text-center text-gray-500">Ineffective ingredients</td>
-                    <td className="px-4 py-3 text-center font-medium text-gray-900 bg-primary/5">Effective ingredients</td>
-                  </tr>
-                  <tr>
-                    <td className="px-4 py-3 text-gray-700">Outcome</td>
-                    <td className="px-4 py-3 text-center text-gray-500">No long-lasting effect</td>
-                    <td className="px-4 py-3 text-center font-medium text-gray-900 bg-primary/5">Long-term hormonal support</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </section>
-
-        {/* Mid-page Product CTA */}
-        <section className="bg-[#F7F9FC] py-10 sm:py-12 border-y border-gray-200">
-          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-10">
-              <div className="w-32 sm:w-40">
-                <Image
-                  src="/bottle-formula.webp"
-                  alt="Peak Performance Bottle"
-                  width={160}
-                  height={210}
-                  className="w-full h-auto"
-                />
-              </div>
-              <div className="text-center sm:text-left">
-                <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">
-                  Peak Performance
-                </h3>
-                <p className="text-gray-600 text-sm mb-4">
-                  7 ingredients. Clinical doses. 30-day supply.
-                </p>
-                <Link
-                  href="/product"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-white font-medium hover:bg-primary-hover transition-colors"
-                >
-                  Get Peak Performance
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-              </div>
-            </div>
-          </div>
-        </section>
-
         {/* Batch Tested - Trust Cards */}
         <section className="bg-white py-10 sm:py-12">
-          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              className="text-center mb-6"
-            >
-              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
-                Quality You Can Trust
-              </h2>
-              <p className="text-gray-600 text-sm">
-                Every batch tested. What's on the label is what's in the bottle.
-              </p>
-            </motion.div>
-
-            <div className="grid sm:grid-cols-2 gap-3 max-w-2xl mx-auto">
+          <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+            <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+              {/* Left: Bottle Image */}
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.4 }}
-                className="flex items-center gap-4 p-4 bg-gray-50 rounded-xl border border-gray-200"
+                transition={{ duration: 0.5 }}
+                className="flex justify-center"
               >
-                <div className="w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                  <FlaskConical className="w-5 h-5 text-primary" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900 text-sm">Heavy Metals Tested</h3>
-                  <p className="text-xs text-gray-500">Lead, mercury, arsenic screened</p>
+                <div className="relative w-[280px] sm:w-[320px] lg:w-[360px]">
+                  <Image
+                    src="/quality-bottle.jpg"
+                    alt="Peak Performance Bottle"
+                    width={360}
+                    height={450}
+                    className="w-full h-auto rounded-2xl"
+                  />
                 </div>
               </motion.div>
 
+              {/* Right: Content */}
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: 0.1 }}
-                className="flex items-center gap-4 p-4 bg-gray-50 rounded-xl border border-gray-200"
+                transition={{ duration: 0.5, delay: 0.1 }}
               >
-                <div className="w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                  <Shield className="w-5 h-5 text-primary" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900 text-sm">Quality Verified</h3>
-                  <p className="text-xs text-gray-500">Third-party lab analysis</p>
+                <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
+                  Quality You Can Trust
+                </h2>
+                <p className="text-gray-600 text-sm mb-6">
+                  Every batch tested. What's on the label is what's in the bottle.
+                </p>
+
+                <div className="space-y-3">
+                  <div className="flex items-center gap-4 p-4 bg-gray-50 rounded-xl border border-gray-200">
+                    <div className="w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                      <FlaskConical className="w-5 h-5 text-primary" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-gray-900 text-sm">Heavy Metals Tested</h3>
+                      <p className="text-xs text-gray-500">Lead, mercury, arsenic screened</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-4 p-4 bg-gray-50 rounded-xl border border-gray-200">
+                    <div className="w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                      <Shield className="w-5 h-5 text-primary" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-gray-900 text-sm">Quality Verified</h3>
+                      <p className="text-xs text-gray-500">Third-party lab analysis</p>
+                    </div>
+                  </div>
                 </div>
               </motion.div>
             </div>
