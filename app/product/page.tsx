@@ -64,7 +64,7 @@ const corePrinciples = [
 
 const galleryImages = [
   { src: "/product-bottle.png", alt: "Peak Performance Bottle" },
-  { src: "/image-2.jpg", alt: "Targets 3 Key Testosterone Limiters" },
+  { src: "/supplement-facts-new.jpg", alt: "Supplement Facts" },
 ];
 
 const ingredients = [
@@ -386,7 +386,7 @@ export default function ProductV2Page() {
                         alt={galleryImages[activeImage].alt}
                         width={550}
                         height={650}
-                        className="object-contain w-full h-full p-6"
+                        className="object-contain w-full h-full scale-[1.1]"
                         priority
                       />
                     </motion.div>
