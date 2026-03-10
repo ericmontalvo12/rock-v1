@@ -25,7 +25,7 @@ export function Hero() {
           src="/hero-bottle.jpg"
           alt="Hero background"
           fill
-          className="object-cover object-center"
+          className="object-cover object-[calc(50%+40px)_center]"
           priority
         />
       </div>
