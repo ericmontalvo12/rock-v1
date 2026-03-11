@@ -535,7 +535,7 @@ export default function FormulaPage() {
                 </div>
                 <div>
                   <h3 className="font-semibold text-gray-900 text-sm">Batch Tested</h3>
-                  <p className="text-xs text-gray-500">Third-party verified</p>
+                  <p className="text-xs text-gray-500">Batch Tested</p>
                 </div>
               </div>
             </div>
@@ -634,7 +634,7 @@ export default function FormulaPage() {
                     </div>
                     <div>
                       <h3 className="font-semibold text-gray-900 text-sm">Quality Verified</h3>
-                      <p className="text-xs text-gray-500">Third-party lab analysis</p>
+                      <p className="text-xs text-gray-500">Batch Tested</p>
                     </div>
                   </div>
                 </div>

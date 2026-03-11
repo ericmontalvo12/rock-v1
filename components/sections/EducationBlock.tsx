@@ -55,7 +55,7 @@ export function EducationBlock() {
               The Formula
             </p>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-3">
-              7 Ingredients. Clinical Doses.
+              7 Ingredients. Research-Backed Doses.
             </h2>
           </motion.div>
 

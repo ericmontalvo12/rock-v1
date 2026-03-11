@@ -18,7 +18,7 @@ export function CTA() {
           className="text-center"
         >
           <h2 className="text-2xl sm:text-3xl lg:text-5xl font-bold text-text-primary mb-4 sm:mb-6">
-            Ready to Optimize Your Performance?
+            Ready to Feel the Difference?
           </h2>
 
           <p className="text-base sm:text-lg text-text-secondary max-w-2xl mx-auto mb-8 sm:mb-10">

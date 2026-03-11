@@ -6,8 +6,8 @@ import { FlaskConical, ClipboardList, ShieldCheck, BookOpen } from "lucide-react
 const trustIndicators = [
   {
     icon: FlaskConical,
-    label: "Clinical Dosing",
-    description: "Each ingredient matches doses used in published human studies — no underdosing, no label dressing.",
+    label: "Research-Backed Doses",
+    description: "Each ingredient dosed at levels shown effective in human studies — no underdosing, no label dressing.",
   },
   {
     icon: ClipboardList,
