@@ -452,16 +452,29 @@ export default function ProductV2Page() {
                   ))}
                 </div>
 
-                {/* Trust Badges on Desktop */}
-                <div className="hidden lg:flex justify-center gap-4 mt-6">
-                  <div className="flex items-center gap-2 text-sm text-gray-600">
-                    <Shield className="w-4 h-4 text-primary" />
-                    <span>30-Day Guarantee</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-sm text-gray-600">
-                    <FlaskConical className="w-4 h-4 text-primary" />
-                    <span>Batch Tested</span>
-                  </div>
+                {/* Trust Badges */}
+                <div className="flex justify-center items-center gap-4 sm:gap-6 mt-6">
+                  <Image
+                    src="/gmp-certified.png"
+                    alt="GMP Certified"
+                    width={70}
+                    height={70}
+                    className="w-14 h-14 sm:w-[70px] sm:h-[70px] object-contain"
+                  />
+                  <Image
+                    src="/made-in-usa.png"
+                    alt="Made in USA"
+                    width={70}
+                    height={70}
+                    className="w-14 h-14 sm:w-[70px] sm:h-[70px] object-contain"
+                  />
+                  <Image
+                    src="/lab-tested.png"
+                    alt="Lab Tested"
+                    width={70}
+                    height={70}
+                    className="w-14 h-14 sm:w-[70px] sm:h-[70px] object-contain"
+                  />
                 </div>
               </div>
             </div>
