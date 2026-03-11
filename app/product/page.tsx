@@ -453,27 +453,27 @@ export default function ProductV2Page() {
                 </div>
 
                 {/* Trust Badges */}
-                <div className="flex justify-center items-center gap-4 sm:gap-6 mt-6">
+                <div className="flex justify-center items-center -space-x-20 lg:-space-x-32 -mt-[30px]">
                   <Image
                     src="/gmp-certified.png"
                     alt="GMP Certified"
-                    width={70}
-                    height={70}
-                    className="w-14 h-14 sm:w-[70px] sm:h-[70px] object-contain"
+                    width={300}
+                    height={300}
+                    className="w-24 h-24 sm:w-32 sm:h-32 lg:w-[300px] lg:h-[300px] object-contain"
                   />
                   <Image
                     src="/made-in-usa.png"
                     alt="Made in USA"
-                    width={70}
-                    height={70}
-                    className="w-14 h-14 sm:w-[70px] sm:h-[70px] object-contain"
+                    width={300}
+                    height={300}
+                    className="w-24 h-24 sm:w-32 sm:h-32 lg:w-[300px] lg:h-[300px] object-contain"
                   />
                   <Image
                     src="/lab-tested.png"
                     alt="Lab Tested"
-                    width={70}
-                    height={70}
-                    className="w-14 h-14 sm:w-[70px] sm:h-[70px] object-contain"
+                    width={300}
+                    height={300}
+                    className="w-24 h-24 sm:w-32 sm:h-32 lg:w-[300px] lg:h-[300px] object-contain"
                   />
                 </div>
               </div>

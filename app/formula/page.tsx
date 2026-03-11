@@ -59,11 +59,11 @@ const ingredients = [
     form: "Citrate",
     dosage: "20 mg",
     image: "/zinc.png",
-    shortDesc: "A key mineral your body relies on for testosterone support and recovery.",
-    fullDesc: "Zinc plays a direct role in testosterone production at the cellular level. Training, sweating, and intense activity can deplete zinc levels faster than many men replace it.",
+    shortDesc: "Supports testosterone production, recovery, and the core processes that keep you performing at your best.",
+    fullDesc: "Zinc is a foundational mineral involved in testosterone production and broader male function. In human research, lower zinc status has been linked with lower serum testosterone, making consistent intake especially important for active men.",
     benefits: [
       "Supports healthy testosterone production",
-      "Supports protein synthesis and recovery",
+      "Supports recovery and protein synthesis",
       "Helps maintain optimal hormonal function",
     ],
     research: [
@@ -129,15 +129,15 @@ const ingredients = [
     form: "50% Saponins Extract",
     dosage: "500 mg",
     image: "/fenugreek.png",
-    shortDesc: "Rounds out the formula's free testosterone support.",
-    fullDesc: "Fenugreek extract standardized for saponins has been studied in resistance-trained men for its role in supporting testosterone function and strength output.",
+    shortDesc: "Supports the formula's testosterone support profile.",
+    fullDesc: "Fenugreek extract standardized for saponins has been studied in men for its role in supporting healthy testosterone levels, helping round out the formula's broader hormonal support stack.",
     benefits: [
-      "Supports free testosterone function",
-      "Helps support strength output",
-      "May support body composition",
+      "Supports healthy testosterone levels",
+      "Helps round out the formula's hormonal support",
+      "Complements the full-stack formula",
     ],
     research: [
-      { title: "Fenugreek extract and testosterone in resistance-trained men", url: "https://pubmed.ncbi.nlm.nih.gov/32048383/" },
+      { title: "Effect of fenugreek extract supplement on testosterone levels in male: A meta-analysis of clinical trials", url: "https://pubmed.ncbi.nlm.nih.gov/32048383/" },
     ],
   },
 ];
@@ -617,28 +617,26 @@ export default function FormulaPage() {
                   Every batch tested. What's on the label is what's in the bottle.
                 </p>
 
-                <div className="flex items-center justify-center gap-6 sm:gap-8">
-                  <Image
-                    src="/gmp-certified.png"
-                    alt="GMP Certified"
-                    width={80}
-                    height={80}
-                    className="w-16 h-16 sm:w-20 sm:h-20 object-contain"
-                  />
-                  <Image
-                    src="/made-in-usa.png"
-                    alt="Made in USA"
-                    width={80}
-                    height={80}
-                    className="w-16 h-16 sm:w-20 sm:h-20 object-contain"
-                  />
-                  <Image
-                    src="/lab-tested.png"
-                    alt="Lab Tested"
-                    width={80}
-                    height={80}
-                    className="w-16 h-16 sm:w-20 sm:h-20 object-contain"
-                  />
+                <div className="space-y-3">
+                  <div className="flex items-center gap-4 p-4 bg-gray-50 rounded-xl border border-gray-200">
+                    <div className="w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                      <FlaskConical className="w-5 h-5 text-primary" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-gray-900 text-sm">Heavy Metals Tested</h3>
+                      <p className="text-xs text-gray-500">Lead, mercury, arsenic screened</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-4 p-4 bg-gray-50 rounded-xl border border-gray-200">
+                    <div className="w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                      <Shield className="w-5 h-5 text-primary" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-gray-900 text-sm">Quality Verified</h3>
+                      <p className="text-xs text-gray-500">Batch Tested</p>
+                    </div>
+                  </div>
                 </div>
               </motion.div>
             </div>

@@ -143,9 +143,9 @@ export default function About() {
                 <div className="w-10 h-10 rounded-lg bg-red-50 flex items-center justify-center mb-3">
                   <Beaker className="w-5 h-5 text-red-500" />
                 </div>
-                <h3 className="font-semibold text-gray-900 mb-1.5 text-sm">Stimulant Cover-Ups</h3>
+                <h3 className="font-semibold text-gray-900 mb-1.5 text-sm">Ingredients With No Evidence</h3>
                 <p className="text-gray-500 text-sm leading-relaxed">
-                  Bundled with caffeine to create the illusion of "working" while doing nothing for optimization.
+                  Fillers and unproven compounds added for label appeal, not results.
                 </p>
               </motion.div>
             </div>
