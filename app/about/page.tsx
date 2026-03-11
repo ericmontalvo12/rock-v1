@@ -197,9 +197,9 @@ export default function About() {
                 <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-3">
                   <Shield className="w-6 h-6 text-primary" />
                 </div>
-                <h3 className="font-semibold text-gray-900 mb-1.5">Clinical Doses</h3>
+                <h3 className="font-semibold text-gray-900 mb-1.5">Research-Backed Doses</h3>
                 <p className="text-gray-500 text-sm leading-relaxed">
-                  What worked in the study is what goes in the bottle. Not reduced for cost.
+                  Every ingredient dosed at levels shown effective in human studies. Not reduced for cost.
                 </p>
               </motion.div>
 
@@ -227,7 +227,7 @@ export default function About() {
               transition={{ duration: 0.5, delay: 0.3 }}
               className="text-center text-gray-500 text-sm mt-6 max-w-2xl mx-auto"
             >
-              We built this for optimization that compounds over months — the kind you measure in bloodwork, not in how you feel on day one.
+              We built this for real, lasting change — the kind you measure in how you recover, perform, and feel over time.
             </motion.p>
           </div>
         </section>
@@ -299,7 +299,7 @@ export default function About() {
                   </li>
                   <li className="flex items-start gap-2.5 text-gray-600 text-sm">
                     <span className="w-1 h-1 rounded-full bg-primary mt-2 flex-shrink-0"></span>
-                    Value clinical dosing over marketing hype
+                    Value research-backed doses over marketing hype
                   </li>
                   <li className="flex items-start gap-2.5 text-gray-600 text-sm">
                     <span className="w-1 h-1 rounded-full bg-primary mt-2 flex-shrink-0"></span>
@@ -327,7 +327,7 @@ export default function About() {
                 Not a lifestyle brand. Not influencer-founded. Not built on hype. We're coaches who got tired of recommending supplements we didn't trust — so we built what should exist.
               </p>
               <p className="text-gray-900 font-medium text-sm">
-                If it works, you'll know from how you feel and your labs. If not, we refund you. Simple.
+                If it works, you'll know from how you feel. If not, we refund you. Simple.
               </p>
             </motion.div>
           </div>
@@ -359,7 +359,7 @@ export default function About() {
                 Co-Founders, Rock Mountain Performance
               </p>
               <p className="text-gray-600 text-sm leading-relaxed max-w-xl mx-auto">
-                Coaches who work with men focused on performance without shortcuts. We built this when we couldn't find supplements that matched that standard.
+                Coaches who work with men on training, nutrition, and performance. We built Peak Performance when we couldn't find a testosterone support formula we'd actually recommend.
               </p>
             </motion.div>
           </div>
@@ -375,10 +375,10 @@ export default function About() {
               transition={{ duration: 0.5 }}
             >
               <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">
-                Ready to Optimize?
+                Ready to Feel the Difference?
               </h2>
               <p className="text-gray-600 text-sm mb-6">
-                See exactly what's in Peak Performance and why.
+                See the full formula and try it risk-free.
               </p>
               <div className="flex flex-wrap gap-3 justify-center">
                 <Link

@@ -49,7 +49,7 @@ export function CTA() {
               Made in USA
             </div>
             <div className="px-4 sm:px-6 py-2 sm:py-3 rounded-lg border border-border bg-surface/50 text-text-muted text-xs sm:text-sm">
-              Third-Party Tested
+              Batch Tested
             </div>
           </motion.div>
         </motion.div>

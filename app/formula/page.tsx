@@ -241,7 +241,7 @@ export default function FormulaPage() {
                   </span>
                   <span className="flex items-center gap-1.5">
                     <Check className="w-4 h-4 text-primary" />
-                    Third-party tested for quality
+                    Batch tested for quality
                   </span>
                 </div>
                 <Link

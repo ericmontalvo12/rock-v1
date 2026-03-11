@@ -16,7 +16,7 @@ const trustIndicators = [
   },
   {
     icon: ShieldCheck,
-    label: "Third-Party Tested",
+    label: "Batch Tested",
     description: "Every batch is independently verified for purity and potency before it ships.",
   },
   {
