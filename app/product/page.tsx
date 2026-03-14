@@ -86,6 +86,10 @@ const timeline = [
   { week: "Week 6-8", title: "Full Effect", description: "Libido returns, body composition shifts", icon: Target },
 ];
 
+// =============================================================================
+// ORIGINAL REVIEWS DATA (uncomment after launch)
+// =============================================================================
+/*
 const reviews = [
   {
     name: "Mike T.",
@@ -160,6 +164,7 @@ const reviews = [
     verified: true,
   },
 ];
+*/
 
 
 const productSections = [
@@ -487,6 +492,8 @@ export default function ProductV2Page() {
 
               {/* Social Proof Bar */}
               <div className="flex flex-wrap items-center justify-center gap-3 mb-4 text-sm">
+                {/* Reviews link - uncomment after launch when reviews are available */}
+                {/*
                 <div className="flex items-center gap-1">
                   <StarRating rating={5} />
                 </div>
@@ -497,6 +504,7 @@ export default function ProductV2Page() {
                 >
                   9 reviews
                 </button>
+                */}
               </div>
 
               <p className="text-sm sm:text-base text-text-secondary mb-6">
@@ -691,7 +699,40 @@ export default function ProductV2Page() {
             </div>
           </section>
 
-          {/* Customer Reviews */}
+          {/* Customer Reviews - Placeholder for Pre-Launch */}
+          <section id="reviews" className="mt-16 sm:mt-24 scroll-mt-32">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="text-center"
+            >
+              <p className="text-[#0981e3] font-semibold text-xs uppercase tracking-widest mb-2">Customer Reviews</p>
+              <h2 className="text-2xl sm:text-3xl font-bold text-[#0b1320] mb-4">What Men Are Saying</h2>
+
+              {/* Empty State Card */}
+              <div className="max-w-md mx-auto mt-8">
+                <div className="bg-[#f8f9fa] border border-[#0b1320]/10 rounded-2xl p-10 sm:p-12">
+                  {/* Icon */}
+                  <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-[#0981e3]/10 mb-5">
+                    <Star className="w-7 h-7 text-[#0981e3]" />
+                  </div>
+
+                  <h3 className="text-lg font-bold text-[#0b1320] mb-2">
+                    No reviews yet
+                  </h3>
+                  <p className="text-[#0b1320]/60 text-sm leading-relaxed max-w-xs mx-auto">
+                    We're just getting started. Be one of the first to try Peak Performance and leave a review after launch.
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+          </section>
+
+          {/* =============================================================================
+              ORIGINAL REVIEWS SECTION (uncomment after launch)
+              =============================================================================
           <section id="reviews" className="mt-16 sm:mt-24 scroll-mt-32">
             <div className="text-center mb-10">
               <p className="text-primary font-semibold text-xs uppercase tracking-widest mb-2">Customer Reviews</p>
@@ -727,6 +768,7 @@ export default function ProductV2Page() {
               ))}
             </div>
           </section>
+          ============================================================================= */}
 
           {/* Final CTA */}
           <section className="mt-16 sm:mt-24 text-center">
