@@ -8,19 +8,19 @@ import { Button } from "@/components/ui/button";
 
 export function Hero() {
   return (
-    <section className="relative min-h-[92vh] sm:min-h-screen flex items-start md:items-center pt-[88px] pb-10 md:pt-24 md:pb-0 overflow-hidden">
+    <section className="relative min-h-[85vh] sm:min-h-screen flex items-end sm:items-center pt-[72px] sm:pt-[88px] pb-8 sm:pb-0 overflow-hidden">
       {/* Background image - Mobile */}
-      <div className="absolute inset-0 top-[72px] md:hidden">
+      <div className="absolute inset-0 top-[72px] sm:hidden">
         <Image
           src="/hero-mountain.jpg"
           alt="Hero background"
           fill
-          className="object-cover object-center"
+          className="object-cover object-[70%_center]"
           priority
         />
       </div>
       {/* Background image - Desktop */}
-      <div className="absolute inset-0 top-[80px] hidden md:block">
+      <div className="absolute inset-0 top-[80px] hidden sm:block">
         <Image
           src="/hero-mountain.jpg"
           alt="Hero background"
@@ -30,28 +30,30 @@ export function Hero() {
         />
       </div>
 
-      {/* Left gradient overlay for text readability */}
-      <div className="absolute inset-0 bg-gradient-to-r from-black/55 via-black/30 to-transparent lg:to-60%" />
+      {/* Gradient overlay - Mobile: bottom gradient, Desktop: left gradient */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent sm:bg-gradient-to-r sm:from-black/55 sm:via-black/30 sm:to-transparent lg:to-60%" />
 
-      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6 sm:py-24 lg:py-32">
+      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-0 sm:py-24 lg:py-32 w-full">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
           {/* Content */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-center max-w-[340px] sm:max-w-none mx-auto"
+            className="text-center sm:text-center lg:text-left max-w-[340px] sm:max-w-none mx-auto"
           >
-<h1 className="text-3xl sm:text-4xl lg:text-6xl font-bold tracking-tight text-white mb-4 sm:mb-5 leading-tight">
+            {/* Headline */}
+            <h1 className="text-[28px] sm:text-4xl lg:text-6xl font-bold tracking-tight text-white mb-3 sm:mb-5 leading-[1.15]">
               Built for Men Who Read Labels
             </h1>
 
-            <p className="text-white/85 text-base sm:text-lg mb-6 sm:mb-8 leading-relaxed max-w-sm sm:max-w-md">
-              Research-backed testosterone support designed to restore energy, drive, and recovery.
+            {/* Subheadline - shorter on mobile */}
+            <p className="text-white/85 text-[15px] sm:text-lg mb-5 sm:mb-8 leading-relaxed max-w-[300px] sm:max-w-md mx-auto lg:mx-0">
+              Research-backed testosterone support for energy, drive, and recovery.
             </p>
 
-            {/* Trust indicators */}
-            <div className="grid grid-cols-2 gap-y-3 gap-x-4 text-sm text-white/80 max-w-sm mx-auto mb-8 sm:mb-10">
+            {/* Trust indicators - HIDDEN on mobile, shown on sm+ */}
+            <div className="hidden sm:grid grid-cols-2 gap-y-3 gap-x-4 text-sm text-white/80 max-w-sm mx-auto lg:mx-0 mb-8 sm:mb-10">
               <div className="flex items-start gap-2">
                 <Check className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
                 <span className="leading-snug">Research-Backed</span>
@@ -70,19 +72,23 @@ export function Hero() {
               </div>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-              <Link href="/product" className="w-full max-w-[320px] sm:max-w-none sm:w-auto mx-auto sm:mx-0">
-                <Button size="lg" className="w-full sm:w-auto h-11 text-sm rounded-lg sm:h-12 sm:text-base sm:px-8 sm:rounded-md">Pre-Order Now</Button>
+            {/* CTAs */}
+            <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-4 justify-center lg:justify-start">
+              <Link href="/product" className="w-full sm:w-auto">
+                <Button size="lg" className="w-full sm:w-auto h-12 text-[15px] rounded-lg sm:h-12 sm:text-base sm:px-8">
+                  Pre-Order Now
+                </Button>
               </Link>
-              <Link href="/formula" className="w-full max-w-[320px] sm:max-w-none sm:w-auto mx-auto sm:mx-0">
-                <Button size="lg" variant="outline" className="w-full sm:w-auto h-11 text-sm rounded-lg sm:h-12 sm:text-base sm:px-8 sm:rounded-md border-white text-white hover:bg-white/10">
+              <Link href="/formula" className="w-full sm:w-auto">
+                <Button size="lg" variant="outline" className="w-full sm:w-auto h-12 text-[15px] rounded-lg sm:h-12 sm:text-base sm:px-8 border-white/80 text-white hover:bg-white/10">
                   Inside the Formula
                 </Button>
               </Link>
             </div>
 
-            <p className="text-white/60 text-sm mt-4">
-              Now accepting pre-orders. Ships once production is complete.
+            {/* Pre-order note */}
+            <p className="text-white/50 text-xs sm:text-sm mt-4">
+              Pre-orders now open. Ships once production is complete.
             </p>
 
           </motion.div>

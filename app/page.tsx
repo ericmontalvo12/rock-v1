@@ -1,6 +1,7 @@
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Hero } from "@/components/sections/Hero";
+import { TrustBar } from "@/components/sections/TrustBar";
 import { WhyMostFail } from "@/components/sections/WhyMostFail";
 import { HowFormulaWorks } from "@/components/sections/HowFormulaWorks";
 import { ComparisonTable } from "@/components/sections/ComparisonTable";
@@ -15,6 +16,7 @@ export default function Home() {
       <Header />
       <main>
         <Hero />
+        <TrustBar />
         <WhyMostFail />
         <HowFormulaWorks />
         <ComparisonTable />
