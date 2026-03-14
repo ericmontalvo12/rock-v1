@@ -288,7 +288,7 @@ export default function About() {
                 What We're Not
               </h2>
               <p className="text-gray-600 text-sm leading-relaxed max-w-2xl mx-auto mb-4">
-                Not a lifestyle brand. Not influencer-founded. Not built on hype. We're athletes who got tired of taking supplements we didn't trust — so we built what should exist.
+                Not a lifestyle brand. Not influencer-founded. We're athletes who got tired of taking supplements we didn't trust — so we built what should exist.
               </p>
               <p className="text-gray-900 font-medium text-sm">
                 If it works, you'll know from how you feel. If not, we refund you. Simple.
