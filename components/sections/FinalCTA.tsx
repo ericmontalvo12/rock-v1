@@ -31,7 +31,7 @@ export function FinalCTA() {
             </Link>
             <Link href="/product">
               <Button size="lg" variant="outline" className="h-12 text-base px-8 rounded-md border-primary text-primary hover:bg-primary/5">
-                View Peak Performance
+                Pre-Order Peak Performance
               </Button>
             </Link>
           </div>

@@ -9,23 +9,23 @@ import { Button } from "@/components/ui/button";
 export function Hero() {
   return (
     <section className="relative min-h-[92vh] sm:min-h-screen flex items-start md:items-center pt-[88px] pb-10 md:pt-24 md:pb-0 overflow-hidden">
-      {/* Background image - Mobile (using Next Image for better positioning) */}
-      <div className="absolute top-[72px] left-0 right-0 bottom-0 md:hidden">
+      {/* Background image - Mobile */}
+      <div className="absolute inset-0 top-[72px] md:hidden">
         <Image
-          src="/hero-bottle.jpg"
+          src="/hero-mountain.jpg"
           alt="Hero background"
           fill
-          className="object-cover object-[center_50%]"
+          className="object-cover object-center"
           priority
         />
       </div>
       {/* Background image - Desktop */}
-      <div className="absolute top-[80px] left-0 right-0 bottom-0 hidden md:block">
+      <div className="absolute inset-0 top-[80px] hidden md:block">
         <Image
-          src="/hero-bottle.jpg"
+          src="/hero-mountain.jpg"
           alt="Hero background"
           fill
-          className="object-cover object-[calc(50%+40px)_center]"
+          className="object-cover object-center"
           priority
         />
       </div>
@@ -72,7 +72,7 @@ export function Hero() {
 
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
               <Link href="/product" className="w-full max-w-[320px] sm:max-w-none sm:w-auto mx-auto sm:mx-0">
-                <Button size="lg" className="w-full sm:w-auto h-11 text-sm rounded-lg sm:h-12 sm:text-base sm:px-8 sm:rounded-md">Get Peak Performance</Button>
+                <Button size="lg" className="w-full sm:w-auto h-11 text-sm rounded-lg sm:h-12 sm:text-base sm:px-8 sm:rounded-md">Pre-Order Now</Button>
               </Link>
               <Link href="/formula" className="w-full max-w-[320px] sm:max-w-none sm:w-auto mx-auto sm:mx-0">
                 <Button size="lg" variant="outline" className="w-full sm:w-auto h-11 text-sm rounded-lg sm:h-12 sm:text-base sm:px-8 sm:rounded-md border-white text-white hover:bg-white/10">
@@ -80,6 +80,10 @@ export function Hero() {
                 </Button>
               </Link>
             </div>
+
+            <p className="text-white/60 text-sm mt-4">
+              Now accepting pre-orders. Ships once production is complete.
+            </p>
 
           </motion.div>
 

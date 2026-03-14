@@ -60,7 +60,7 @@ export function CheckoutButton({ cartItems, className, disabled }: CheckoutButto
         onClick={handleCheckout}
         disabled={isLoading || disabled || cartItems.length === 0}
       >
-        {isLoading ? "Redirecting to Checkout..." : "Proceed to Checkout"}
+        {isLoading ? "Redirecting to Checkout..." : "Complete Pre-Order"}
       </Button>
       {error && (
         <p className="text-red-500 text-sm mt-2 text-center">{error}</p>

@@ -95,7 +95,7 @@ export function EmailPopup() {
                     Get 20% Off Your First Order
                   </h2>
                   <p className="text-[17px] text-[#0b1320]/60 mb-8 leading-relaxed max-w-md mx-auto">
-                    Join the launch list to get your 20% code instantly — plus early access when we go live.
+                    Pre-orders are now open. Claim your code and be one of the first to try Peak Performance.
                   </p>
 
                   {/* Form */}

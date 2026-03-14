@@ -291,11 +291,11 @@ const productSections = [
           We give you 30 days because that's the window where real, consistent support starts to show.
         </p>
         <div className="pt-2">
-          <p className="text-sm font-medium text-text-primary mb-2">Shipping</p>
+          <p className="text-sm font-medium text-text-primary mb-2">Pre-Order Shipping</p>
           <ul className="space-y-1 text-sm">
-            <li>• Ships within 2 business days</li>
+            <li>• Ships as soon as production is complete</li>
             <li>• Free shipping on orders of 2+ bottles</li>
-            <li>• No automatic subscriptions unless you opt in</li>
+            <li>• You'll receive tracking once your order ships</li>
           </ul>
         </div>
       </div>
@@ -587,7 +587,7 @@ export default function ProductV2Page() {
               </div>
 
               {/* Risk Reversal */}
-              <div className="flex flex-wrap justify-center gap-x-4 gap-y-1 mb-6 text-xs text-text-muted">
+              <div className="flex flex-wrap justify-center gap-x-4 gap-y-1 mb-4 text-xs text-text-muted">
                 <span className="flex items-center gap-1.5">
                   <Check className="w-3.5 h-3.5 text-primary" />
                   30-Day Money-Back Guarantee
@@ -598,20 +598,25 @@ export default function ProductV2Page() {
                 </span>
                 <span className="flex items-center gap-1.5">
                   <Check className="w-3.5 h-3.5 text-primary" />
-                  Ships in 2 business days
+                  First Production Run
                 </span>
               </div>
 
-              {/* Add to Cart */}
-              <div className="mb-8">
+              {/* Pre-Order CTA */}
+              <div className="mb-4">
                 <Button
                   size="lg"
                   className="w-full"
                   onClick={handleAddToCart}
                 >
-                  {addedToCart ? "Added!" : "Add to Cart"}
+                  {addedToCart ? "Added!" : "Pre-Order Now"}
                 </Button>
               </div>
+
+              {/* Pre-order disclaimer */}
+              <p className="text-xs text-center text-text-muted mb-8">
+                This is a pre-order. Ships when production is complete. 30-day guarantee starts on arrival.
+              </p>
 
               {/* Accordion Sections */}
               <div className="border-t border-border">
@@ -775,12 +780,12 @@ export default function ProductV2Page() {
             <div className="bg-gradient-to-br from-primary/5 to-primary/10 rounded-2xl p-8 sm:p-12">
               <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">Ready to Feel Like Yourself Again?</h2>
               <p className="text-gray-600 mb-6 max-w-xl mx-auto">
-                Start with the 60-day supply. Give it time to work. If you don't notice a difference, get your money back.
+                Reserve your spot in the first production run. If you don't notice a difference, get your money back.
               </p>
               <Button size="lg" onClick={handleAddToCart} className="px-12">
-                {addedToCart ? "Added!" : "Get Started"}
+                {addedToCart ? "Added!" : "Pre-Order Now"}
               </Button>
-              <p className="text-sm text-gray-500 mt-4">30-day money-back guarantee • Free shipping on 2+ bottles</p>
+              <p className="text-sm text-gray-500 mt-4">Ships when production is complete • 30-day guarantee starts on arrival</p>
             </div>
           </section>
 
@@ -792,10 +797,10 @@ export default function ProductV2Page() {
         <div className="flex items-center justify-between gap-4">
           <div>
             <p className="font-bold text-gray-900">${totalPrice.toFixed(2)}</p>
-            <p className="text-xs text-gray-500">{quantity} bottle{quantity > 1 ? 's' : ''}</p>
+            <p className="text-xs text-gray-500">{quantity} bottle{quantity > 1 ? 's' : ''} • Pre-order</p>
           </div>
           <Button className="flex-1" onClick={handleAddToCart}>
-            {addedToCart ? "Added!" : "Add to Cart"}
+            {addedToCart ? "Added!" : "Pre-Order"}
           </Button>
         </div>
       </div>
