@@ -333,23 +333,136 @@ export default function FormulaPage() {
               </div>
             </div>
 
-            {/* Library Card - Tightened */}
-            <div className="bg-white rounded-2xl lg:rounded-3xl border border-gray-200 shadow-lg pt-4 lg:pt-5 px-4 lg:px-6 pb-6 lg:pb-8 overflow-hidden">
-              <div className="grid lg:grid-cols-12 gap-4 lg:gap-5 items-stretch">
+            {/* ==================== MOBILE: Unified Premium Module ==================== */}
+            <div className="lg:hidden bg-white rounded-2xl border border-gray-200 shadow-lg p-4 overflow-hidden">
+              {/* Ingredient Selector Pills */}
+              <motion.div
+                key={activeTab}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.2 }}
+                className="flex gap-2 overflow-x-auto pb-3 -mx-1 px-1 scrollbar-hide"
+                style={{ touchAction: "pan-x pinch-zoom" }}
+              >
+                {filteredIngredients.map((ingredient, index) => (
+                  <button
+                    key={ingredient.name}
+                    onClick={() => handleIngredientSelect(index)}
+                    className={`flex-shrink-0 px-3 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+                      selectedIngredientIndex === index
+                        ? "bg-primary text-white shadow-md"
+                        : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                    }`}
+                  >
+                    {ingredient.name}
+                  </button>
+                ))}
+              </motion.div>
+
+              {/* Ingredient Image - Centered */}
+              <div className="flex justify-center py-3">
+                <motion.div
+                  key={filteredIngredients[selectedIngredientIndex]?.name}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.3 }}
+                  className="relative"
+                >
+                  <div className="w-36 h-36 rounded-full bg-gradient-to-br from-gray-50 to-white border-3 border-primary/10 shadow-lg flex items-center justify-center overflow-hidden">
+                    <Image
+                      src={
+                        filteredIngredients[selectedIngredientIndex]?.image ||
+                        `https://placehold.co/144x144/f8fafc/2d94ff?text=${encodeURIComponent(
+                          filteredIngredients[selectedIngredientIndex]?.name || "Ingredient"
+                        )}`
+                      }
+                      alt={filteredIngredients[selectedIngredientIndex]?.name || "Ingredient"}
+                      width={144}
+                      height={144}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                </motion.div>
+              </div>
+
+              {/* Blue Detail Card - Dominant */}
+              <motion.div
+                key={`panel-mobile-${filteredIngredients[selectedIngredientIndex]?.name}`}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3 }}
+                className="rounded-xl bg-gradient-to-b from-[#5B9BD5] to-[#4A8BC9] overflow-hidden shadow-lg border border-white/[0.18] -mx-1"
+              >
+                <div className="p-4 border border-white/[0.08] rounded-xl m-[1px]">
+                  {/* Name + Dose Badge */}
+                  <div className="flex items-center justify-between mb-2">
+                    <h3 className="text-lg font-bold text-white">
+                      {filteredIngredients[selectedIngredientIndex]?.name}
+                    </h3>
+                    <span className="text-xs font-bold px-2 py-1 rounded-full bg-white/20 text-white">
+                      {filteredIngredients[selectedIngredientIndex]?.dosage}
+                    </span>
+                  </div>
+
+                  {/* Form */}
+                  <p className="text-white/70 text-xs mb-3">
+                    {filteredIngredients[selectedIngredientIndex]?.form}
+                  </p>
+
+                  {/* Short Description */}
+                  <p className="text-white text-sm leading-relaxed mb-3">
+                    {filteredIngredients[selectedIngredientIndex]?.shortDesc}
+                  </p>
+
+                  {/* Key Benefits - Compact */}
+                  <div className="mb-3">
+                    <h4 className="text-white/80 font-medium text-[10px] mb-1.5 uppercase tracking-wide">
+                      Key Benefits
+                    </h4>
+                    <ul className="space-y-1">
+                      {filteredIngredients[selectedIngredientIndex]?.benefits.slice(0, 3).map((benefit, i) => (
+                        <li key={i} className="flex items-start gap-1.5">
+                          <div className="w-3.5 h-3.5 rounded-full bg-white/25 flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <Check className="w-2 h-2 text-white" />
+                          </div>
+                          <span className="text-white text-xs leading-snug">{benefit}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* See the Research CTA */}
+                  {filteredIngredients[selectedIngredientIndex]?.research?.[0] && (
+                    <a
+                      href={filteredIngredients[selectedIngredientIndex].research[0].url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white text-[#4A8BC9] font-semibold text-xs hover:bg-white/95 transition-colors shadow-sm"
+                    >
+                      See the Research
+                      <ArrowRight className="w-3 h-3" />
+                    </a>
+                  )}
+                </div>
+              </motion.div>
+            </div>
+
+            {/* ==================== DESKTOP: Original 3-Column Layout ==================== */}
+            <div className="hidden lg:block bg-white rounded-3xl border border-gray-200 shadow-lg pt-5 px-6 pb-8 overflow-hidden">
+              <div className="grid lg:grid-cols-12 gap-5 items-stretch">
                 {/* Left: Ingredient List with Dose Badges */}
                 <motion.div
                   key={activeTab}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.2 }}
-                  className="lg:col-span-3 flex lg:flex-col gap-1.5 overflow-x-auto lg:overflow-visible pb-3 lg:pb-0 -mx-1 px-1 lg:mx-0 lg:px-0 scrollbar-hide snap-x snap-mandatory"
-                  style={{ touchAction: "pan-x pinch-zoom" }}
+                  className="lg:col-span-3 flex flex-col gap-1.5"
                 >
                   {filteredIngredients.map((ingredient, index) => (
                     <button
                       key={ingredient.name}
                       onClick={() => handleIngredientSelect(index)}
-                      className={`text-left px-3 py-2.5 rounded-xl whitespace-nowrap lg:whitespace-normal transition-all duration-200 snap-start flex-shrink-0 ${
+                      className={`text-left px-3 py-2.5 rounded-xl transition-all duration-200 ${
                         selectedIngredientIndex === index
                           ? "bg-primary/10 border-l-4 border-primary"
                           : "hover:bg-gray-50 border-l-4 border-transparent"
@@ -371,7 +484,7 @@ export default function FormulaPage() {
                   ))}
                 </motion.div>
 
-                {/* Center: Ingredient Image - Enlarged */}
+                {/* Center: Ingredient Image */}
                 <div className="lg:col-span-3 flex justify-center items-center py-2">
                   <motion.div
                     key={filteredIngredients[selectedIngredientIndex]?.name}
@@ -380,7 +493,7 @@ export default function FormulaPage() {
                     transition={{ duration: 0.3 }}
                     className="relative"
                   >
-                    <div className="w-52 h-52 sm:w-60 sm:h-60 lg:w-64 lg:h-64 rounded-full bg-gradient-to-br from-gray-50 to-white border-4 border-primary/10 shadow-lg flex items-center justify-center overflow-hidden">
+                    <div className="w-64 h-64 rounded-full bg-gradient-to-br from-gray-50 to-white border-4 border-primary/10 shadow-lg flex items-center justify-center overflow-hidden">
                       <Image
                         src={
                           filteredIngredients[selectedIngredientIndex]?.image ||
@@ -406,9 +519,9 @@ export default function FormulaPage() {
                   transition={{ duration: 0.3 }}
                   className="lg:col-span-6 rounded-2xl bg-gradient-to-b from-[#5B9BD5] to-[#4A8BC9] overflow-hidden shadow-xl border border-white/[0.18]"
                 >
-                  <div className="p-5 lg:p-6 border border-white/[0.08] rounded-2xl m-[1px]">
+                  <div className="p-6 border border-white/[0.08] rounded-2xl m-[1px]">
                     {/* Ingredient Name */}
-                    <h3 className="text-xl lg:text-2xl font-bold text-white mb-1.5">
+                    <h3 className="text-2xl font-bold text-white mb-1.5">
                       {filteredIngredients[selectedIngredientIndex]?.name}
                     </h3>
 
