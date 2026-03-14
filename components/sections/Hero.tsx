@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 
 export function Hero() {
   return (
-    <section className="relative min-h-[85vh] sm:min-h-screen flex items-end sm:items-center pt-[72px] sm:pt-[88px] pb-8 sm:pb-0 overflow-hidden">
+    <section className="relative min-h-[85vh] sm:min-h-screen flex items-start sm:items-center pt-[72px] sm:pt-[88px] pb-8 sm:pb-0 overflow-hidden">
       {/* Background image - Mobile */}
       <div className="absolute inset-0 top-[72px] sm:hidden">
         <Image
@@ -30,10 +30,10 @@ export function Hero() {
         />
       </div>
 
-      {/* Gradient overlay - Mobile: bottom gradient, Desktop: left gradient */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent sm:bg-gradient-to-r sm:from-black/55 sm:via-black/30 sm:to-transparent lg:to-60%" />
+      {/* Gradient overlay - Mobile: top gradient, Desktop: left gradient */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/30 to-transparent sm:bg-gradient-to-r sm:from-black/55 sm:via-black/30 sm:to-transparent lg:to-60%" />
 
-      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-0 sm:py-24 lg:py-32 w-full">
+      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-6 pb-0 sm:py-24 lg:py-32 w-full">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
           {/* Content */}
           <motion.div
@@ -93,6 +93,28 @@ export function Hero() {
 
           </motion.div>
 
+        </div>
+      </div>
+
+      {/* Mobile Trust Bar - positioned at bottom of hero */}
+      <div className="sm:hidden absolute bottom-0 left-0 right-0 z-10 bg-gradient-to-t from-black/90 via-black/70 to-transparent pt-8 pb-4">
+        <div className="flex flex-wrap justify-center gap-x-5 gap-y-2 px-4">
+          <div className="flex items-center gap-1.5">
+            <Check className="w-3.5 h-3.5 text-primary flex-shrink-0" />
+            <span className="text-white/80 text-xs font-medium">Research-Backed</span>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <Check className="w-3.5 h-3.5 text-primary flex-shrink-0" />
+            <span className="text-white/80 text-xs font-medium">Fully Disclosed</span>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <Check className="w-3.5 h-3.5 text-primary flex-shrink-0" />
+            <span className="text-white/80 text-xs font-medium">Batch Tested</span>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <Check className="w-3.5 h-3.5 text-primary flex-shrink-0" />
+            <span className="text-white/80 text-xs font-medium">30-Day Guarantee</span>
+          </div>
         </div>
       </div>
     </section>
