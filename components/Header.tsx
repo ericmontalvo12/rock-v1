@@ -35,20 +35,20 @@ export function Header() {
       >
         {/* Desktop: static text */}
         <p className="hidden sm:block text-sm font-medium text-white whitespace-nowrap">
-          PRE-ORDERS NOW OPEN <span className="text-text-muted mx-2">•</span> FIRST PRODUCTION RUN <span className="text-text-muted mx-2">•</span> 30-DAY GUARANTEE        </p>
+          PRE-ORDERS NOW OPEN <span className="text-text-muted mx-2">•</span> 30-DAY GUARANTEE        </p>
         {/* Mobile: scrolling marquee */}
         <div className="sm:hidden announceTrack">
           <span className="text-xs font-medium text-white whitespace-nowrap">
-            PRE-ORDERS NOW OPEN <span className="text-text-muted mx-2">•</span> FIRST PRODUCTION RUN <span className="text-text-muted mx-2">•</span> 30-DAY GUARANTEE <span className="text-text-muted mx-2">•</span>
+            PRE-ORDERS NOW OPEN <span className="text-text-muted mx-2">•</span> 30-DAY GUARANTEE <span className="text-text-muted mx-2">•</span>
           </span>
           <span className="text-xs font-medium text-white whitespace-nowrap">
-            PRE-ORDERS NOW OPEN <span className="text-text-muted mx-2">•</span> FIRST PRODUCTION RUN <span className="text-text-muted mx-2">•</span> 30-DAY GUARANTEE <span className="text-text-muted mx-2">•</span>
+            PRE-ORDERS NOW OPEN <span className="text-text-muted mx-2">•</span> 30-DAY GUARANTEE <span className="text-text-muted mx-2">•</span>
           </span>
           <span className="text-xs font-medium text-white whitespace-nowrap">
-            PRE-ORDERS NOW OPEN <span className="text-text-muted mx-2">•</span> FIRST PRODUCTION RUN <span className="text-text-muted mx-2">•</span> 30-DAY GUARANTEE <span className="text-text-muted mx-2">•</span>
+            PRE-ORDERS NOW OPEN <span className="text-text-muted mx-2">•</span> 30-DAY GUARANTEE <span className="text-text-muted mx-2">•</span>
           </span>
           <span className="text-xs font-medium text-white whitespace-nowrap">
-            PRE-ORDERS NOW OPEN <span className="text-text-muted mx-2">•</span> FIRST PRODUCTION RUN <span className="text-text-muted mx-2">•</span> 30-DAY GUARANTEE <span className="text-text-muted mx-2">•</span>
+            PRE-ORDERS NOW OPEN <span className="text-text-muted mx-2">•</span> 30-DAY GUARANTEE <span className="text-text-muted mx-2">•</span>
           </span>
         </div>
       </div>
