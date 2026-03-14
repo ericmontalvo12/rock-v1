@@ -5,10 +5,10 @@ import { X, Check } from "lucide-react";
 import Image from "next/image";
 
 const rows = [
-  { typical: "Proprietary blends", peak: "Fully disclosed formula" },
-  { typical: "Underdosed ingredients", peak: "Research-backed doses" },
-  { typical: "Ineffective ingredients", peak: "Effective ingredients" },
-  { typical: "No long-lasting effect", peak: "Long-term hormonal support" },
+  { typical: "Hidden dosages", peak: "Full label transparency" },
+  { typical: "Underdosed ingredients", peak: "Human-study dosing" },
+  { typical: "Hype-driven ingredient selection", peak: "Purpose-built formulation" },
+  { typical: "Short-term marketing claims", peak: "Support for energy, recovery, and drive" },
 ];
 
 export function ComparisonTable() {

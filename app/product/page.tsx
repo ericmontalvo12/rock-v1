@@ -148,7 +148,7 @@ const reviews = [
     age: 33,
     rating: 4,
     title: "Good results, takes consistency",
-    text: "Works as advertised but you need to be patient. Took about 5 weeks before I noticed real changes. Energy is better, mood is more stable, and workouts feel stronger. Just don't expect overnight results.",
+    text: "Works as advertised. Took about 5 weeks before I noticed real changes. Energy is better, mood is more stable, and workouts feel stronger. Consistency pays off.",
     verified: true,
   },
   {
@@ -183,11 +183,11 @@ const productSections = [
           </li>
           <li className="flex items-start gap-2">
             <Check className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
-            <span>Are committed to consistency, not stimulation</span>
+            <span>Are ready to commit to consistent daily support</span>
           </li>
         </ul>
         <p className="text-sm text-text-muted pt-2 text-center">
-          If you want an immediate effect, this isn't it. If you want to restore function over time, the approach is here.
+          Designed to support energy, drive, and recovery — the way your body is meant to function.
         </p>
       </div>
     ),
@@ -197,9 +197,9 @@ const productSections = [
     content: (
       <div className="space-y-4 text-text-secondary text-left max-w-lg mx-auto">
         <p className="text-sm">
-          This is not a stimulant. There is no immediate response on day one.
+          Peak Performance is designed for consistent, foundational support.
         </p>
-        <p className="text-sm font-medium text-text-primary">Over 4–8 weeks of consistent use, most men notice:</p>
+        <p className="text-sm font-medium text-text-primary">Over 4–8 weeks of daily use, most men notice:</p>
         <ul className="space-y-2 text-sm">
           <li className="flex items-start gap-2">
             <span className="text-primary">•</span>
@@ -283,7 +283,7 @@ const productSections = [
           Try Peak Performance for 30 days. If you don't notice a difference, contact us for a full refund — no friction, no deflection.
         </p>
         <p className="text-sm text-text-muted">
-          The window is 30 days because real change requires consistency. This isn't a stimulant that works on day one and fades by week two.
+          We give you 30 days because that's the window where real, consistent support starts to show.
         </p>
         <div className="pt-2">
           <p className="text-sm font-medium text-text-primary mb-2">Shipping</p>
@@ -668,7 +668,7 @@ export default function ProductV2Page() {
             <div className="text-center mb-10">
               <p className="text-primary font-semibold text-xs uppercase tracking-widest mb-2">What To Expect</p>
               <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">Results Over Time</h2>
-              <p className="text-gray-600 mt-2">This is not a stimulant. Real change takes consistency.</p>
+              <p className="text-gray-600 mt-2">Designed for consistent, foundational support that builds over time.</p>
             </div>
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {timeline.map((item, index) => (

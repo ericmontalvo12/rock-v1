@@ -37,12 +37,9 @@ export default function About() {
                 <p className="text-primary font-semibold text-xs uppercase tracking-widest mb-3">
                   About Rock Mountain Performance
                 </p>
-                <h1 className="text-3xl sm:text-4xl lg:text-[42px] font-bold text-gray-900 mb-4 leading-tight">
-                  Built for Men Who<br className="hidden sm:block" /> Do Their Homework
+                <h1 className="text-3xl sm:text-4xl lg:text-[42px] font-bold text-gray-900 mb-6 leading-tight max-w-xl mx-auto lg:mx-0">
+                  Finally, a formula backed by human studies.
                 </h1>
-                <p className="text-gray-600 text-lg max-w-lg mx-auto lg:mx-0 mb-6 leading-relaxed">
-                  We couldn't find testosterone support formulas that matched the research. So we built one.
-                </p>
                 <div className="flex flex-wrap gap-3 justify-center lg:justify-start">
                   <Link
                     href="/product"
@@ -247,67 +244,34 @@ export default function About() {
               </h2>
             </motion.div>
 
-            <div className="grid sm:grid-cols-2 gap-4">
-              {/* Not For */}
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4 }}
-                className="bg-white p-5 rounded-xl border border-gray-200 shadow-sm"
-              >
-                <div className="flex items-center gap-2 mb-4">
-                  <div className="w-8 h-8 rounded-lg bg-red-50 flex items-center justify-center">
-                    <X className="w-4 h-4 text-red-500" />
-                  </div>
-                  <h3 className="font-semibold text-gray-900 text-sm">Not ideal if you:</h3>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4 }}
+              className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm max-w-lg mx-auto"
+            >
+              <div className="flex items-center gap-2 mb-4">
+                <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
+                  <Check className="w-4 h-4 text-primary" />
                 </div>
-                <ul className="space-y-2.5">
-                  <li className="flex items-start gap-2.5 text-gray-600 text-sm">
-                    <span className="w-1 h-1 rounded-full bg-gray-300 mt-2 flex-shrink-0"></span>
-                    Want overnight transformations
-                  </li>
-                  <li className="flex items-start gap-2.5 text-gray-600 text-sm">
-                    <span className="w-1 h-1 rounded-full bg-gray-300 mt-2 flex-shrink-0"></span>
-                    Looking for a stimulant buzz
-                  </li>
-                  <li className="flex items-start gap-2.5 text-gray-600 text-sm">
-                    <span className="w-1 h-1 rounded-full bg-gray-300 mt-2 flex-shrink-0"></span>
-                    Expect results without consistency
-                  </li>
-                </ul>
-              </motion.div>
-
-              {/* Good Fit */}
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: 0.1 }}
-                className="bg-white p-5 rounded-xl border border-gray-200 shadow-sm"
-              >
-                <div className="flex items-center gap-2 mb-4">
-                  <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
-                    <Check className="w-4 h-4 text-primary" />
-                  </div>
-                  <h3 className="font-semibold text-gray-900 text-sm">Good fit if you:</h3>
-                </div>
-                <ul className="space-y-2.5">
-                  <li className="flex items-start gap-2.5 text-gray-600 text-sm">
-                    <span className="w-1 h-1 rounded-full bg-primary mt-2 flex-shrink-0"></span>
-                    Research what you put in your body
-                  </li>
-                  <li className="flex items-start gap-2.5 text-gray-600 text-sm">
-                    <span className="w-1 h-1 rounded-full bg-primary mt-2 flex-shrink-0"></span>
-                    Value research-backed doses over marketing hype
-                  </li>
-                  <li className="flex items-start gap-2.5 text-gray-600 text-sm">
-                    <span className="w-1 h-1 rounded-full bg-primary mt-2 flex-shrink-0"></span>
-                    Commit to consistency over quick fixes
-                  </li>
-                </ul>
-              </motion.div>
-            </div>
+                <h3 className="font-semibold text-gray-900 text-sm">Built for men who:</h3>
+              </div>
+              <ul className="space-y-2.5">
+                <li className="flex items-start gap-2.5 text-gray-600 text-sm">
+                  <span className="w-1 h-1 rounded-full bg-primary mt-2 flex-shrink-0"></span>
+                  Want real hormonal support backed by research
+                </li>
+                <li className="flex items-start gap-2.5 text-gray-600 text-sm">
+                  <span className="w-1 h-1 rounded-full bg-primary mt-2 flex-shrink-0"></span>
+                  Value fully disclosed ingredients at effective doses
+                </li>
+                <li className="flex items-start gap-2.5 text-gray-600 text-sm">
+                  <span className="w-1 h-1 rounded-full bg-primary mt-2 flex-shrink-0"></span>
+                  Are ready to support energy, drive, and recovery
+                </li>
+              </ul>
+            </motion.div>
           </div>
         </section>
 
@@ -324,7 +288,7 @@ export default function About() {
                 What We're Not
               </h2>
               <p className="text-gray-600 text-sm leading-relaxed max-w-2xl mx-auto mb-4">
-                Not a lifestyle brand. Not influencer-founded. Not built on hype. We're coaches who got tired of recommending supplements we didn't trust — so we built what should exist.
+                Not a lifestyle brand. Not influencer-founded. Not built on hype. We're athletes who got tired of taking supplements we didn't trust — so we built what should exist.
               </p>
               <p className="text-gray-900 font-medium text-sm">
                 If it works, you'll know from how you feel. If not, we refund you. Simple.
@@ -359,7 +323,7 @@ export default function About() {
                 Co-Founders, Rock Mountain Performance
               </p>
               <p className="text-gray-600 text-sm leading-relaxed max-w-xl mx-auto">
-                Coaches who work with men on training, nutrition, and performance. We built Peak Performance when we couldn't find a testosterone support formula we'd actually recommend.
+                We've been training for years and got tired of supplements that didn't deliver. So we made one that does.
               </p>
             </motion.div>
           </div>
