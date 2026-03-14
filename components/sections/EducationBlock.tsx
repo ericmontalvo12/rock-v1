@@ -41,8 +41,8 @@ export function EducationBlock() {
             </p>
           </motion.div>
 
-          {/* Ingredients Grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-3 sm:gap-4">
+          {/* Ingredients Horizontal Scroll */}
+          <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide">
             {ingredients.map((ingredient, index) => (
               <motion.div
                 key={ingredient.name}
@@ -50,24 +50,19 @@ export function EducationBlock() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: index * 0.05 }}
-                className="group"
+                className="flex-shrink-0 w-[140px] sm:w-[160px] bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm"
               >
-                <div className="bg-[#f8f9fa] border border-[#0b1320]/10 rounded-xl p-4 hover:border-primary/30 hover:shadow-md transition-all">
-                  {/* Image */}
-                  <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-3 rounded-full bg-white border border-[#0b1320]/5 flex items-center justify-center overflow-hidden">
-                    <Image
-                      src={ingredient.image}
-                      alt={ingredient.name}
-                      width={80}
-                      height={80}
-                      className="w-full h-full object-contain p-2"
-                    />
-                  </div>
-                  {/* Content */}
-                  <div className="text-center">
-                    <p className="font-semibold text-[#0b1320] text-sm">{ingredient.name}</p>
-                    <p className="text-primary text-xs font-medium mt-1">{ingredient.dose}</p>
-                  </div>
+                <div className="aspect-square bg-gray-50 relative">
+                  <Image
+                    src={ingredient.image}
+                    alt={ingredient.name}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div className="p-3 text-center">
+                  <p className="font-bold text-gray-900 text-sm">{ingredient.name}</p>
+                  <p className="text-primary text-xs font-medium">{ingredient.dose}</p>
                 </div>
               </motion.div>
             ))}

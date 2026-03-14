@@ -23,15 +23,15 @@ export function FinalCTA() {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/formula">
-              <Button size="lg" className="h-12 text-base px-8 rounded-md">
-                Inside the Formula
+            <Link href="/product" className="w-full sm:w-auto">
+              <Button size="lg" className="w-full sm:w-auto h-12 text-base px-8 rounded-md">
+                Pre-Order Peak Performance
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </Link>
-            <Link href="/product">
-              <Button size="lg" variant="outline" className="h-12 text-base px-8 rounded-md border-primary text-primary hover:bg-primary/5">
-                Pre-Order Peak Performance
+            <Link href="/formula" className="w-full sm:w-auto">
+              <Button size="lg" variant="outline" className="w-full sm:w-auto h-12 text-base px-8 rounded-md border-primary text-primary hover:bg-primary/5">
+                Inside the Formula
               </Button>
             </Link>
           </div>

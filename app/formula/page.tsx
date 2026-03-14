@@ -656,7 +656,7 @@ export default function FormulaPage() {
               href="/product"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-white font-medium hover:bg-primary-hover transition-colors"
             >
-              Start Peak Performance
+              Pre-Order Peak Performance
               <ArrowRight className="w-4 h-4" />
             </Link>
           </div>

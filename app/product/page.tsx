@@ -458,7 +458,7 @@ export default function ProductV2Page() {
                 </div>
 
                 {/* Trust Badges */}
-                <div className="flex justify-center items-center -space-x-20 lg:-space-x-32 -mt-[30px]">
+                <div className="flex justify-center items-center -space-x-6 sm:-space-x-20 lg:-space-x-32 -mt-[30px]">
                   <Image
                     src="/gmp-certified.png"
                     alt="GMP Certified"
