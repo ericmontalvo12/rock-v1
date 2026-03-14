@@ -9,7 +9,7 @@ import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/lib/cart-context";
 import { motion, AnimatePresence } from "framer-motion";
-import { Check, ChevronDown, ArrowRight, Star, Shield, FlaskConical, FileText, Lock, Zap, TrendingUp, Target, Layers } from "lucide-react";
+import { Check, ChevronDown, ArrowRight, Star, Shield, FlaskConical, FileText, Lock, Zap, TrendingUp, Target, Layers, X } from "lucide-react";
 
 const bundleOptions = [
   {
@@ -84,6 +84,13 @@ const timeline = [
   { week: "Week 2-4", title: "Energy Stabilizes", description: "More consistent energy through the day", icon: Zap },
   { week: "Week 4-6", title: "Recovery Improves", description: "Better training recovery and mental clarity", icon: TrendingUp },
   { week: "Week 6-8", title: "Full Effect", description: "Libido returns, body composition shifts", icon: Target },
+];
+
+const comparisonRows = [
+  { typical: "Hidden dosages", peak: "Full label transparency" },
+  { typical: "Underdosed ingredients", peak: "Human-study dosing" },
+  { typical: "Hype-driven ingredient selection", peak: "Purpose-built formulation" },
+  { typical: "Short-term marketing claims", peak: "Support for energy, recovery, and drive" },
 ];
 
 // =============================================================================
@@ -676,6 +683,84 @@ export default function ProductV2Page() {
             </div>
           </section>
 
+          {/* The Difference */}
+          <section className="mt-16 sm:mt-24">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="text-center mb-10"
+            >
+              <p className="text-primary font-semibold text-xs uppercase tracking-widest mb-2">
+                The Difference
+              </p>
+              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">
+                Why Peak Performance Is Different
+              </h2>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="max-w-2xl mx-auto"
+            >
+              {/* Product Images */}
+              <div className="grid grid-cols-2 gap-3 mb-4">
+                <div className="flex justify-center items-end h-[200px] sm:h-[240px]">
+                  <Image
+                    src="/typical-boosters.jpg"
+                    alt="Typical Testosterone Boosters"
+                    width={300}
+                    height={240}
+                    className="w-full h-full object-contain rounded-xl"
+                  />
+                </div>
+                <div className="flex justify-center items-end h-[200px] sm:h-[240px]">
+                  <Image
+                    src="/difference-peak.jpg"
+                    alt="Peak Performance"
+                    width={300}
+                    height={240}
+                    className="w-full h-full object-contain rounded-xl"
+                  />
+                </div>
+              </div>
+
+              {/* Table header */}
+              <div className="grid grid-cols-2 gap-3 mb-3">
+                <div className="bg-gray-100 rounded-xl px-4 py-3 text-center">
+                  <span className="text-xs font-semibold uppercase tracking-wider text-gray-500">
+                    Typical Testosterone Booster
+                  </span>
+                </div>
+                <div className="bg-primary rounded-xl px-4 py-3 text-center">
+                  <span className="text-xs font-semibold uppercase tracking-wider text-white">
+                    Peak Performance
+                  </span>
+                </div>
+              </div>
+
+              {/* Rows */}
+              <div className="space-y-2">
+                {comparisonRows.map((row, index) => (
+                  <div key={index} className="grid grid-cols-2 gap-3">
+                    <div className="flex items-center gap-3 bg-gray-50 border border-gray-200/80 rounded-xl px-4 py-3">
+                      <X className="w-4 h-4 text-red-400 flex-shrink-0" />
+                      <span className="text-gray-600 text-sm leading-snug">{row.typical}</span>
+                    </div>
+                    <div className="flex items-center gap-3 bg-primary/[0.05] border border-primary/20 rounded-xl px-4 py-3">
+                      <Check className="w-4 h-4 text-primary flex-shrink-0" />
+                      <span className="text-gray-800 text-sm font-medium leading-snug">{row.peak}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          </section>
+
           {/* Benefits Timeline */}
           <section className="mt-16 sm:mt-24">
             <div className="text-center mb-10">
@@ -703,77 +788,6 @@ export default function ProductV2Page() {
               ))}
             </div>
           </section>
-
-          {/* Customer Reviews - Placeholder for Pre-Launch */}
-          <section id="reviews" className="mt-16 sm:mt-24 scroll-mt-32">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              className="text-center"
-            >
-              <p className="text-[#0981e3] font-semibold text-xs uppercase tracking-widest mb-2">Customer Reviews</p>
-              <h2 className="text-2xl sm:text-3xl font-bold text-[#0b1320] mb-4">What Men Are Saying</h2>
-
-              {/* Empty State Card */}
-              <div className="max-w-md mx-auto mt-8">
-                <div className="bg-[#f8f9fa] border border-[#0b1320]/10 rounded-2xl p-10 sm:p-12">
-                  {/* Icon */}
-                  <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-[#0981e3]/10 mb-5">
-                    <Star className="w-7 h-7 text-[#0981e3]" />
-                  </div>
-
-                  <h3 className="text-lg font-bold text-[#0b1320] mb-2">
-                    No reviews yet
-                  </h3>
-                  <p className="text-[#0b1320]/60 text-sm leading-relaxed max-w-xs mx-auto">
-                    We're just getting started. Be one of the first to try Peak Performance and leave a review after launch.
-                  </p>
-                </div>
-              </div>
-            </motion.div>
-          </section>
-
-          {/* =============================================================================
-              ORIGINAL REVIEWS SECTION (uncomment after launch)
-              =============================================================================
-          <section id="reviews" className="mt-16 sm:mt-24 scroll-mt-32">
-            <div className="text-center mb-10">
-              <p className="text-primary font-semibold text-xs uppercase tracking-widest mb-2">Customer Reviews</p>
-              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">What Men Are Saying</h2>
-              <div className="flex items-center justify-center gap-2 mt-3">
-                <StarRating rating={5} />
-                <span className="text-gray-500">9 verified reviews</span>
-              </div>
-            </div>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {reviews.map((review, index) => (
-                <motion.div
-                  key={review.name}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: index * 0.1 }}
-                  className="bg-white rounded-xl border border-gray-200 p-5"
-                >
-                  <div className="flex items-center justify-between mb-3">
-                    <StarRating rating={review.rating} />
-                    {review.verified && (
-                      <span className="text-xs text-green-600 flex items-center gap-1">
-                        <Check className="w-3 h-3" />
-                        Verified
-                      </span>
-                    )}
-                  </div>
-                  <h4 className="font-bold text-gray-900 mb-2">{review.title}</h4>
-                  <p className="text-gray-600 text-sm mb-4 line-clamp-4">{review.text}</p>
-                  <p className="text-gray-500 text-sm font-medium">{review.name}, {review.age}</p>
-                </motion.div>
-              ))}
-            </div>
-          </section>
-          ============================================================================= */}
 
           {/* Final CTA */}
           <section className="mt-16 sm:mt-24 text-center">
