@@ -224,47 +224,23 @@ export default function FormulaPage() {
         {/* Hero Section */}
         <section ref={heroRef} className="bg-white py-8 sm:py-10">
           <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-            <div className="grid lg:grid-cols-2 gap-6 lg:gap-10 items-center">
-              {/* Left: Text */}
-              <div className="text-center lg:text-left">
-                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
-                  Every Ingredient. Every Dose. Fully Transparent.
-                </h1>
-                <div className="flex flex-col items-center lg:items-start gap-2 mb-5 text-gray-500 text-sm">
-                  <span className="flex items-center gap-1.5">
-                    <Check className="w-4 h-4 text-primary" />
-                    Backed by human studies
-                  </span>
-                  <span className="flex items-center gap-1.5">
-                    <Check className="w-4 h-4 text-primary" />
-                    Standardized extracts, nothing hidden
-                  </span>
-                  <span className="flex items-center gap-1.5">
-                    <Check className="w-4 h-4 text-primary" />
-                    Batch tested for quality
-                  </span>
-                </div>
-                <Link
-                  href="/product"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-white font-medium hover:bg-primary-hover transition-colors"
-                >
-                  Get Peak Performance
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-              </div>
-
-              {/* Right: Bottle Image */}
-              <div className="flex justify-center lg:justify-end">
-                <div className="relative w-[240px] sm:w-[280px] lg:w-[340px]">
-                  <Image
-                    src="/bottle-formula.webp"
-                    alt="Peak Performance Bottle"
-                    width={340}
-                    height={450}
-                    className="w-full h-auto"
-                    priority
-                  />
-                </div>
+            <div className="text-center">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+                Every Ingredient. Every Dose. Fully Transparent.
+              </h1>
+              <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-gray-500 text-sm">
+                <span className="flex items-center gap-1.5">
+                  <Check className="w-4 h-4 text-primary" />
+                  Backed by human studies
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <Check className="w-4 h-4 text-primary" />
+                  Standardized extracts, nothing hidden
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <Check className="w-4 h-4 text-primary" />
+                  Batch tested for quality
+                </span>
               </div>
             </div>
           </div>
@@ -643,22 +619,40 @@ export default function FormulaPage() {
           </div>
         </section>
 
-        {/* Final CTA */}
+        {/* Final CTA with Product Image */}
         <section className="bg-[#F7F9FC] py-10 sm:py-12 border-t border-gray-200">
-          <div className="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">
-              Ready to run the full protocol?
-            </h2>
-            <p className="text-gray-600 text-sm mb-5">
-              See Peak Performance and the full Supplement Facts.
-            </p>
-            <Link
-              href="/product"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-white font-medium hover:bg-primary-hover transition-colors"
-            >
-              Pre-Order Peak Performance
-              <ArrowRight className="w-4 h-4" />
-            </Link>
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+            <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+              {/* Left: Text and CTA */}
+              <div className="text-center lg:text-left order-2 lg:order-1">
+                <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">
+                  Ready to run the full protocol?
+                </h2>
+                <p className="text-gray-600 text-sm mb-5">
+                  See Peak Performance and the full Supplement Facts.
+                </p>
+                <Link
+                  href="/product"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-white font-medium hover:bg-primary-hover transition-colors"
+                >
+                  Pre-Order Peak Performance
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
+
+              {/* Right: Bottle Image */}
+              <div className="flex justify-center lg:justify-end order-1 lg:order-2">
+                <div className="relative w-[240px] sm:w-[280px] lg:w-[340px]">
+                  <Image
+                    src="/bottle-formula.webp"
+                    alt="Peak Performance Bottle"
+                    width={340}
+                    height={450}
+                    className="w-full h-auto"
+                  />
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
