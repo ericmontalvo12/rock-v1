@@ -17,7 +17,12 @@ export default function CartPage() {
   const [promoError, setPromoError] = useState("");
   const [appliedPromo, setAppliedPromo] = useState<{ code: string; percentOff: number | null; amountOff: number | null; promotionCodeId: string } | null>(null);
 
+  const BEST_VALUE_THRESHOLD = 3;
+
   const applyPromoCode = async (code: string) => {
+    if (totalItems >= BEST_VALUE_THRESHOLD) {
+      return; // silently skip auto-apply for best value pack
+    }
     setPromoLoading(true);
     setPromoError("");
     setAppliedPromo(null);
@@ -30,8 +35,11 @@ export default function CartPage() {
       const data = await res.json();
       if (res.ok) {
         setAppliedPromo({ code, promotionCodeId: data.promotionCodeId, percentOff: data.percentOff, amountOff: data.amountOff });
-        localStorage.removeItem("promoCode");
+      } else {
+        setPromoError(data.error || "Invalid code.");
       }
+    } catch {
+      setPromoError("Something went wrong. Try again.");
     } finally {
       setPromoLoading(false);
     }
@@ -45,8 +53,20 @@ export default function CartPage() {
     }
   }, []);
 
+  // Clear promo if cart reaches Best Value threshold
+  useEffect(() => {
+    if (totalItems >= BEST_VALUE_THRESHOLD && appliedPromo) {
+      setAppliedPromo(null);
+      setPromoError("");
+    }
+  }, [totalItems]);
+
   const handleApplyPromo = async () => {
     if (!promoInput.trim()) return;
+    if (totalItems >= BEST_VALUE_THRESHOLD) {
+      setPromoError("Discount codes can't be combined with the Best Value pack.");
+      return;
+    }
     setPromoLoading(true);
     setPromoError("");
     setAppliedPromo(null);
@@ -251,20 +271,30 @@ export default function CartPage() {
                 {/* Promo Code */}
                 <div className="mb-6">
                   <p className="text-sm text-text-secondary mb-2">Discount Code</p>
-                  <div className="flex gap-2">
-                    <input
-                      type="text"
-                      placeholder="Enter code"
-                      value={promoInput}
-                      onChange={(e) => { setPromoInput(e.target.value.toUpperCase()); setPromoError(""); }}
-                      className="flex-1 px-3 py-2 rounded-lg bg-background border border-border text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-sm"
-                    />
-                    <Button variant="outline" className="px-4 py-2 h-auto text-sm" onClick={handleApplyPromo} disabled={promoLoading}>
-                      {promoLoading ? "..." : "Apply"}
-                    </Button>
-                  </div>
-                  {promoError && <p className="text-red-500 text-xs mt-1">{promoError}</p>}
-                  {appliedPromo && <p className="text-green-500 text-xs mt-1">✓ {appliedPromo.percentOff}% off applied!</p>}
+                  {totalItems >= BEST_VALUE_THRESHOLD ? (
+                    <p className="text-xs text-text-muted">Discount codes don&apos;t apply to the Best Value pack — you&apos;re already getting our best price.</p>
+                  ) : (
+                    <>
+                      <div className="flex gap-2">
+                        <input
+                          type="text"
+                          placeholder="Enter code"
+                          value={promoInput}
+                          onChange={(e) => { setPromoInput(e.target.value.toUpperCase()); setPromoError(""); }}
+                          className="flex-1 px-3 py-2 rounded-lg bg-background border border-border text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-sm"
+                        />
+                        <Button variant="outline" className="px-4 py-2 h-auto text-sm" onClick={handleApplyPromo} disabled={promoLoading}>
+                          {promoLoading ? "..." : "Apply"}
+                        </Button>
+                      </div>
+                      {promoError && <p className="text-red-500 text-xs mt-1">{promoError}</p>}
+                      {appliedPromo && (
+                        <p className="text-green-500 text-xs mt-1">
+                          ✓ {appliedPromo.percentOff ? `${appliedPromo.percentOff}% off` : `$${((appliedPromo.amountOff ?? 0) / 100).toFixed(2)} off`} applied!
+                        </p>
+                      )}
+                    </>
+                  )}
                 </div>
 
                 <CheckoutButton cartItems={checkoutItems} promotionCodeId={appliedPromo?.promotionCodeId} />
