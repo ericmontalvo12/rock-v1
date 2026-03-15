@@ -14,10 +14,10 @@ interface CheckoutButtonProps {
   cartItems: CartItem[];
   className?: string;
   disabled?: boolean;
-  promoCode?: string;
+  promotionCodeId?: string;
 }
 
-export function CheckoutButton({ cartItems, className, disabled, promoCode }: CheckoutButtonProps) {
+export function CheckoutButton({ cartItems, className, disabled, promotionCodeId }: CheckoutButtonProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -31,7 +31,7 @@ export function CheckoutButton({ cartItems, className, disabled, promoCode }: Ch
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ cartItems, promoCode }),
+        body: JSON.stringify({ cartItems, promotionCodeId }),
       });
 
       const data = await response.json();

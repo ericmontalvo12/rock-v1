@@ -10,6 +10,10 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
+  icons: {
+    icon: "/logo-new.png",
+    apple: "/logo-new.png",
+  },
   title: "Rock Mountain Performance | Research-Aligned Testosterone Support",
   description:
     "Science-backed testosterone support formula designed to support healthy testosterone levels, improve training performance, and optimize daily vitality.",

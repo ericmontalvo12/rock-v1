@@ -12,8 +12,71 @@ import { Minus, Plus, Trash2, ShoppingBag } from "lucide-react";
 
 export default function CartPage() {
   const { items, updateQuantity, removeFromCart, totalPrice, totalItems, clearCart } = useCart();
-  const [promoCode, setPromoCode] = useState("");
-  const [appliedCode, setAppliedCode] = useState("");
+  const [promoInput, setPromoInput] = useState("");
+  const [promoLoading, setPromoLoading] = useState(false);
+  const [promoError, setPromoError] = useState("");
+  const [appliedPromo, setAppliedPromo] = useState<{ code: string; percentOff: number | null; amountOff: number | null; promotionCodeId: string } | null>(null);
+
+  const applyPromoCode = async (code: string) => {
+    setPromoLoading(true);
+    setPromoError("");
+    setAppliedPromo(null);
+    try {
+      const res = await fetch("/api/validate-promo", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ code }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setAppliedPromo({ code, promotionCodeId: data.promotionCodeId, percentOff: data.percentOff, amountOff: data.amountOff });
+        localStorage.removeItem("promoCode");
+      }
+    } finally {
+      setPromoLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    const saved = localStorage.getItem("promoCode");
+    if (saved) {
+      setPromoInput(saved);
+      applyPromoCode(saved);
+    }
+  }, []);
+
+  const handleApplyPromo = async () => {
+    if (!promoInput.trim()) return;
+    setPromoLoading(true);
+    setPromoError("");
+    setAppliedPromo(null);
+    try {
+      const res = await fetch("/api/validate-promo", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ code: promoInput.trim().toUpperCase() }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setPromoError(data.error || "Invalid code.");
+      } else {
+        setAppliedPromo({ code: promoInput.trim().toUpperCase(), promotionCodeId: data.promotionCodeId, percentOff: data.percentOff, amountOff: data.amountOff });
+      }
+    } catch {
+      setPromoError("Something went wrong. Try again.");
+    } finally {
+      setPromoLoading(false);
+    }
+  };
+
+
+  const discountAmount = appliedPromo
+    ? appliedPromo.percentOff
+      ? totalPrice * (appliedPromo.percentOff / 100)
+      : (appliedPromo.amountOff ?? 0) / 100
+    : 0;
+
+  const discountedSubtotal = totalPrice - discountAmount;
 
   // Free shipping for 2+ bottles
   const qualifiesForFreeShipping = totalItems >= 2;
@@ -158,6 +221,12 @@ export default function CartPage() {
                     <span>Subtotal</span>
                     <span className="text-text-primary">${totalPrice.toFixed(2)}</span>
                   </div>
+                  {appliedPromo && (
+                    <div className="flex justify-between text-green-500">
+                      <span>Discount ({appliedPromo.code})</span>
+                      <span>-${discountAmount.toFixed(2)}</span>
+                    </div>
+                  )}
                   <div className="flex justify-between text-text-secondary">
                     <span>Shipping</span>
                     <span className="text-text-primary">
@@ -166,41 +235,39 @@ export default function CartPage() {
                   </div>
                   <div className="pt-4 border-t border-border flex justify-between">
                     <span className="font-semibold text-text-primary">Total</span>
-                    <span className="font-bold text-primary text-xl">
-                      ${(totalPrice + (qualifiesForFreeShipping ? 0 : 9.99)).toFixed(2)}
-                    </span>
+                    <div className="text-right">
+                      {appliedPromo && (
+                        <p className="text-text-muted line-through text-sm">
+                          ${(totalPrice + (qualifiesForFreeShipping ? 0 : 9.99)).toFixed(2)}
+                        </p>
+                      )}
+                      <span className="font-bold text-primary text-xl">
+                        ${(discountedSubtotal + (qualifiesForFreeShipping ? 0 : 9.99)).toFixed(2)}
+                      </span>
+                    </div>
                   </div>
                 </div>
 
-                {/* Discount Code */}
+                {/* Promo Code */}
                 <div className="mb-6">
-                  <label className="block text-sm text-text-secondary mb-2 text-center">
-                    Discount Code
-                  </label>
-                  <div className="flex gap-2 justify-center">
+                  <p className="text-sm text-text-secondary mb-2">Discount Code</p>
+                  <div className="flex gap-2">
                     <input
                       type="text"
                       placeholder="Enter code"
-                      value={promoCode}
-                      onChange={(e) => setPromoCode(e.target.value.toUpperCase())}
-                      className="w-40 px-4 py-2 rounded-lg bg-background border border-border text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                      value={promoInput}
+                      onChange={(e) => { setPromoInput(e.target.value.toUpperCase()); setPromoError(""); }}
+                      className="flex-1 px-3 py-2 rounded-lg bg-background border border-border text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-sm"
                     />
-                    <Button
-                      variant="outline"
-                      className="px-4 py-2 h-auto"
-                      onClick={() => setAppliedCode(promoCode.trim())}
-                    >
-                      Apply
+                    <Button variant="outline" className="px-4 py-2 h-auto text-sm" onClick={handleApplyPromo} disabled={promoLoading}>
+                      {promoLoading ? "..." : "Apply"}
                     </Button>
                   </div>
-                  {appliedCode && (
-                    <p className="text-green-500 text-xs text-center mt-2">
-                      Code <strong>{appliedCode}</strong> will be applied at checkout.
-                    </p>
-                  )}
+                  {promoError && <p className="text-red-500 text-xs mt-1">{promoError}</p>}
+                  {appliedPromo && <p className="text-green-500 text-xs mt-1">✓ {appliedPromo.percentOff}% off applied!</p>}
                 </div>
 
-                <CheckoutButton cartItems={checkoutItems} promoCode={appliedCode} />
+                <CheckoutButton cartItems={checkoutItems} promotionCodeId={appliedPromo?.promotionCodeId} />
 
                 <p className="text-xs text-text-muted text-center mt-4">
                   Secure checkout powered by Stripe
