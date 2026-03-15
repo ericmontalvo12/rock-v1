@@ -30,8 +30,11 @@ export default function CartPage() {
       const data = await res.json();
       if (res.ok) {
         setAppliedPromo({ code, promotionCodeId: data.promotionCodeId, percentOff: data.percentOff, amountOff: data.amountOff });
-        localStorage.removeItem("promoCode");
+      } else {
+        setPromoError(data.error || "Invalid code.");
       }
+    } catch {
+      setPromoError("Something went wrong. Try again.");
     } finally {
       setPromoLoading(false);
     }
@@ -264,7 +267,11 @@ export default function CartPage() {
                     </Button>
                   </div>
                   {promoError && <p className="text-red-500 text-xs mt-1">{promoError}</p>}
-                  {appliedPromo && <p className="text-green-500 text-xs mt-1">✓ {appliedPromo.percentOff}% off applied!</p>}
+                  {appliedPromo && (
+                    <p className="text-green-500 text-xs mt-1">
+                      ✓ {appliedPromo.percentOff ? `${appliedPromo.percentOff}% off` : `$${((appliedPromo.amountOff ?? 0) / 100).toFixed(2)} off`} applied!
+                    </p>
+                  )}
                 </div>
 
                 <CheckoutButton cartItems={checkoutItems} promotionCodeId={appliedPromo?.promotionCodeId} />
