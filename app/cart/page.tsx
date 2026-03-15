@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -11,6 +12,8 @@ import { Minus, Plus, Trash2, ShoppingBag } from "lucide-react";
 
 export default function CartPage() {
   const { items, updateQuantity, removeFromCart, totalPrice, totalItems, clearCart } = useCart();
+  const [promoCode, setPromoCode] = useState("");
+  const [appliedCode, setAppliedCode] = useState("");
 
   // Free shipping for 2+ bottles
   const qualifiesForFreeShipping = totalItems >= 2;
@@ -178,15 +181,26 @@ export default function CartPage() {
                     <input
                       type="text"
                       placeholder="Enter code"
+                      value={promoCode}
+                      onChange={(e) => setPromoCode(e.target.value.toUpperCase())}
                       className="w-40 px-4 py-2 rounded-lg bg-background border border-border text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                     />
-                    <Button variant="outline" className="px-4 py-2 h-auto">
+                    <Button
+                      variant="outline"
+                      className="px-4 py-2 h-auto"
+                      onClick={() => setAppliedCode(promoCode.trim())}
+                    >
                       Apply
                     </Button>
                   </div>
+                  {appliedCode && (
+                    <p className="text-green-500 text-xs text-center mt-2">
+                      Code <strong>{appliedCode}</strong> will be applied at checkout.
+                    </p>
+                  )}
                 </div>
 
-                <CheckoutButton cartItems={checkoutItems} />
+                <CheckoutButton cartItems={checkoutItems} promoCode={appliedCode} />
 
                 <p className="text-xs text-text-muted text-center mt-4">
                   Secure checkout powered by Stripe
