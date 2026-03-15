@@ -260,38 +260,6 @@ export default function About() {
           </div>
         </section>
 
-        {/* Founders Section */}
-        <section className="bg-[#F7F9FC] py-12 sm:py-14 border-y border-gray-200">
-          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              className="text-center"
-            >
-              {/* Founder Avatars Placeholder */}
-              <div className="flex justify-center gap-4 mb-5">
-                <div className="w-16 h-16 rounded-full bg-gray-200 border-2 border-white shadow-sm flex items-center justify-center text-gray-400 text-xs font-medium">
-                  NH
-                </div>
-                <div className="w-16 h-16 rounded-full bg-gray-200 border-2 border-white shadow-sm flex items-center justify-center text-gray-400 text-xs font-medium">
-                  EM
-                </div>
-              </div>
-              <h3 className="text-lg font-bold text-gray-900 mb-1">
-                Nikolas Hrach & Eric Montalvo
-              </h3>
-              <p className="text-primary text-sm font-medium mb-4">
-                Co-Founders, Rock Mountain Performance
-              </p>
-              <p className="text-gray-600 text-sm leading-relaxed max-w-xl mx-auto">
-                We've been training for years and got tired of supplements that didn't deliver. So we made one that does.
-              </p>
-            </motion.div>
-          </div>
-        </section>
-
         {/* Final CTA with Product Image */}
         <section className="bg-white py-12 sm:py-14">
           <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
