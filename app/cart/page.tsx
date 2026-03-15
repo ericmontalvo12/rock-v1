@@ -12,9 +12,6 @@ import { Minus, Plus, Trash2, ShoppingBag } from "lucide-react";
 
 export default function CartPage() {
   const { items, updateQuantity, removeFromCart, totalPrice, totalItems, clearCart } = useCart();
-  const [promoCode, setPromoCode] = useState("");
-  const [appliedCode, setAppliedCode] = useState("");
-  const [promoError, setPromoError] = useState("");
 
   // Free shipping for 2+ bottles
   const qualifiesForFreeShipping = totalItems >= 2;
@@ -173,41 +170,7 @@ export default function CartPage() {
                   </div>
                 </div>
 
-                {/* Discount Code */}
-                <div className="mb-6">
-                  <label className="block text-sm text-text-secondary mb-2 text-center">
-                    Discount Code
-                  </label>
-                  <div className="flex gap-2 justify-center">
-                    <input
-                      type="text"
-                      placeholder="Enter code"
-                      value={promoCode}
-                      onChange={(e) => setPromoCode(e.target.value.toUpperCase())}
-                      className="w-40 px-4 py-2 rounded-lg bg-background border border-border text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                    />
-                    <Button
-                      variant="outline"
-                      className="px-4 py-2 h-auto"
-                      onClick={() => {
-                        setPromoError("");
-                        setAppliedCode(promoCode.trim());
-                      }}
-                    >
-                      Apply
-                    </Button>
-                  </div>
-                  {appliedCode && !promoError && (
-                    <p className="text-green-500 text-xs text-center mt-2">
-                      Code <strong>{appliedCode}</strong> will be applied at checkout.
-                    </p>
-                  )}
-                  {promoError && (
-                    <p className="text-red-500 text-xs text-center mt-2">{promoError}</p>
-                  )}
-                </div>
-
-                <CheckoutButton cartItems={checkoutItems} promoCode={appliedCode} onPromoError={(msg) => { setPromoError(msg); setAppliedCode(""); }} />
+                <CheckoutButton cartItems={checkoutItems} />
 
                 <p className="text-xs text-text-muted text-center mt-4">
                   Secure checkout powered by Stripe

@@ -14,11 +14,9 @@ interface CheckoutButtonProps {
   cartItems: CartItem[];
   className?: string;
   disabled?: boolean;
-  promoCode?: string;
-  onPromoError?: (msg: string) => void;
 }
 
-export function CheckoutButton({ cartItems, className, disabled, promoCode, onPromoError }: CheckoutButtonProps) {
+export function CheckoutButton({ cartItems, className, disabled }: CheckoutButtonProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -32,19 +30,13 @@ export function CheckoutButton({ cartItems, className, disabled, promoCode, onPr
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ cartItems, promoCode }),
+        body: JSON.stringify({ cartItems }),
       });
 
       const data = await response.json();
 
       if (!response.ok) {
-        const msg = data.error || "Failed to create checkout session";
-        if (promoCode && data.error?.toLowerCase().includes("discount") && onPromoError) {
-          onPromoError(msg);
-          setIsLoading(false);
-          return;
-        }
-        throw new Error(msg);
+        throw new Error(data.error || "Failed to create checkout session");
       }
 
       if (data.url) {
