@@ -50,15 +50,15 @@ const bundleOptions = [
 const corePrinciples = [
   {
     title: "Free testosterone availability",
-    description: "Fenugreek and boron reduce SHBG to unlock testosterone already present in your system.",
+    description: "Boron reduces SHBG to make more of your existing testosterone available for use.",
   },
   {
     title: "Stress balance restores hormonal function",
-    description: "Ashwagandha and magnesium lower cortisol, allowing testosterone to work as intended.",
+    description: "Ashwagandha and Tongkat Ali lower cortisol, removing a barrier that suppresses natural testosterone production.",
   },
   {
     title: "Foundational nutrients enable natural production",
-    description: "Zinc, magnesium, and vitamin D3 provide the raw materials testosterone synthesis requires.",
+    description: "Zinc, magnesium, vitamin D3, and fenugreek provide the raw materials and enzymatic support testosterone synthesis requires.",
   },
 ];
 
