@@ -6,7 +6,7 @@ import { X } from "lucide-react";
 const failReasons = [
   "Underdosed ingredients that never reach effective levels",
   "Proprietary blends that hide real ingredient amounts",
-  "Stimulant energy used to disguise weak formulas",
+  "Ingredients with no evidence to raise testosterone",
 ];
 
 export function WhyMostFail() {

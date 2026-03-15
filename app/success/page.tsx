@@ -32,12 +32,11 @@ function SuccessContent() {
             </div>
 
             <h1 className="text-3xl sm:text-4xl font-bold text-text-primary mb-4">
-              Order Confirmed!
+              Pre-Order Confirmed!
             </h1>
 
             <p className="text-text-secondary mb-2">
-              Thank you for your purchase. Your order has been successfully
-              placed.
+              Thanks for being one of the first. Your order is secured and will ship as soon as production is complete.
             </p>
 
             {sessionId && (
@@ -65,8 +64,7 @@ function SuccessContent() {
                     2
                   </span>
                   <span>
-                    Your order will be processed and shipped within 1 business
-                    day.
+                    Your order will ship as soon as the first production run is complete.
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
@@ -74,14 +72,14 @@ function SuccessContent() {
                     3
                   </span>
                   <span>
-                    You'll receive tracking information via email once shipped.
+                    We'll send you tracking information the moment your order ships.
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="w-6 h-6 rounded-full bg-primary/10 text-primary text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">
                     4
                   </span>
-                  <span>Delivery typically takes 4-7 business days.</span>
+                  <span>Your 30-day guarantee starts when your order arrives.</span>
                 </li>
               </ul>
             </div>
@@ -92,7 +90,7 @@ function SuccessContent() {
               </Link>
               <Link href="/product">
                 <Button size="lg" variant="outline">
-                  Continue Shopping
+                  View Product
                 </Button>
               </Link>
             </div>

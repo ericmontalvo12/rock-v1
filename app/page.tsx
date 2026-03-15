@@ -3,11 +3,8 @@ import { Footer } from "@/components/Footer";
 import { Hero } from "@/components/sections/Hero";
 import { WhyMostFail } from "@/components/sections/WhyMostFail";
 import { HowFormulaWorks } from "@/components/sections/HowFormulaWorks";
-import { ComparisonTable } from "@/components/sections/ComparisonTable";
 import { EducationBlock } from "@/components/sections/EducationBlock";
-import { Features } from "@/components/sections/Features";
 import { ResearchTrust } from "@/components/sections/ResearchTrust";
-import { Testimonials } from "@/components/sections/Testimonials";
 import { FinalCTA } from "@/components/sections/FinalCTA";
 
 export default function Home() {
@@ -18,11 +15,8 @@ export default function Home() {
         <Hero />
         <WhyMostFail />
         <HowFormulaWorks />
-        <ComparisonTable />
         <EducationBlock />
-        <Features />
         <ResearchTrust />
-        <Testimonials />
         <FinalCTA />
       </main>
       <Footer />

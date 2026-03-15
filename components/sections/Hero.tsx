@@ -8,62 +8,52 @@ import { Button } from "@/components/ui/button";
 
 export function Hero() {
   return (
-    <section className="relative min-h-[92vh] sm:min-h-screen flex items-start md:items-center pt-[88px] pb-10 md:pt-24 md:pb-0 overflow-hidden">
-      {/* Background image - Mobile (using Next Image for better positioning) */}
-      <div className="absolute top-[72px] left-0 right-0 bottom-0 md:hidden">
+    <section className="relative min-h-[100vh] sm:min-h-screen flex items-start sm:items-center pt-[72px] sm:pt-[88px] pb-0 sm:pb-0 overflow-hidden">
+      {/* Background image - Mobile */}
+      <div className="absolute inset-0 top-[92px] sm:hidden">
         <Image
-          src="/hero-v3.jpg"
+          src="/hero-mobile.jpg"
           alt="Hero background"
           fill
-          className="object-cover object-[center_65%]"
+          className="object-cover object-center"
           priority
         />
       </div>
       {/* Background image - Desktop */}
-      <div className="absolute top-[80px] left-0 right-0 bottom-0 hidden md:block">
+      <div className="absolute inset-0 top-[80px] hidden sm:block">
         <Image
-          src="/hero.png"
+          src="/hero-mountain.jpg"
           alt="Hero background"
           fill
-          className="object-cover object-[center_35%]"
+          className="object-cover object-center"
           priority
         />
       </div>
 
-      {/* Left gradient overlay for text readability */}
-      <div className="absolute inset-0 bg-gradient-to-r from-black/55 via-black/30 to-transparent lg:to-60%" />
+      {/* Gradient overlay - Mobile: top gradient, Desktop: left gradient */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/20 to-transparent sm:bg-gradient-to-r sm:from-black/55 sm:via-black/30 sm:to-transparent lg:to-60%" />
 
-      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6 sm:py-24 lg:py-32">
+      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-6 sm:py-24 lg:py-32 w-full">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
           {/* Content */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-center max-w-[340px] sm:max-w-none mx-auto"
+            className="text-center sm:text-center lg:text-left max-w-[320px] sm:max-w-none mx-auto"
           >
-            <h1 className="text-3xl sm:text-4xl lg:text-6xl font-bold tracking-tight text-white mb-4 sm:mb-5 leading-tight">
+            {/* Headline */}
+            <h1 className="text-[26px] sm:text-4xl lg:text-6xl font-bold tracking-tight text-white mb-2 sm:mb-5 leading-[1.15]">
               Built for Men Who Read Labels
             </h1>
 
-            <p className="text-white/85 text-base sm:text-lg mb-6 sm:mb-8 leading-relaxed max-w-sm sm:max-w-md">
-              Clinical-dose testosterone support designed to restore energy, drive, and recovery.
+            {/* Subheadline */}
+            <p className="text-white/85 text-[14px] sm:text-lg mb-4 sm:mb-8 leading-relaxed max-w-[280px] sm:max-w-md mx-auto lg:mx-0">
+              Research-backed testosterone support for energy, drive, and recovery.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-              <Link href="/product" className="w-full max-w-[320px] sm:max-w-none sm:w-auto mx-auto sm:mx-0">
-                <Button size="lg" className="w-full sm:w-auto h-11 text-sm rounded-lg sm:h-12 sm:text-base sm:px-8 sm:rounded-md">Get Peak Performance</Button>
-              </Link>
-              <Link href="/formula" className="w-full max-w-[320px] sm:max-w-none sm:w-auto mx-auto sm:mx-0">
-                <Button size="lg" variant="outline" className="w-full sm:w-auto h-11 text-sm rounded-lg sm:h-12 sm:text-base sm:px-8 sm:rounded-md border-white text-white hover:bg-white/10">
-                  Inside the Formula
-                </Button>
-              </Link>
-            </div>
-
-
-            {/* Trust indicators */}
-            <div className="mt-8 sm:mt-10 grid grid-cols-2 gap-y-3 gap-x-4 text-sm text-white/80 max-w-sm mx-auto">
+            {/* Trust indicators - HIDDEN on mobile, shown on sm+ */}
+            <div className="hidden sm:grid grid-cols-2 gap-y-3 gap-x-4 text-sm text-white/80 max-w-sm mx-auto lg:mx-0 mb-8 sm:mb-10">
               <div className="flex items-start gap-2">
                 <Check className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
                 <span className="leading-snug">Research-Backed</span>
@@ -82,8 +72,50 @@ export function Hero() {
               </div>
             </div>
 
+            {/* CTAs - Single CTA on mobile, both on desktop */}
+            <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-4 justify-center lg:justify-start">
+              <Link href="/product" className="w-full max-w-[280px] sm:max-w-none sm:w-auto mx-auto sm:mx-0">
+                <Button size="lg" className="w-full sm:w-auto h-12 sm:h-12 text-[15px] sm:text-base rounded-lg sm:px-8">
+                  Pre-Order Now
+                </Button>
+              </Link>
+              {/* Secondary CTA - hidden on mobile */}
+              <Link href="/formula" className="hidden sm:block sm:w-auto">
+                <Button size="lg" variant="outline" className="w-full sm:w-auto h-12 text-base rounded-lg sm:px-8 border-white/80 text-white hover:bg-white/10">
+                  Inside the Formula
+                </Button>
+              </Link>
+            </div>
+
+            {/* Pre-order note */}
+            <p className="text-white/50 text-[11px] sm:text-sm mt-3 sm:mt-4">
+              Pre-orders open. Ships when production is complete.
+            </p>
+
           </motion.div>
 
+        </div>
+      </div>
+
+      {/* Mobile trust indicators - Bottom of hero */}
+      <div className="sm:hidden absolute bottom-4 left-0 right-0 z-10 px-4">
+        <div className="grid grid-cols-2 gap-x-6 gap-y-1.5 max-w-[280px] mx-auto">
+          <div className="flex items-center gap-1.5">
+            <Check className="w-3 h-3 text-primary flex-shrink-0" />
+            <span className="text-white/70 text-[11px] font-medium">Research-Backed</span>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <Check className="w-3 h-3 text-primary flex-shrink-0" />
+            <span className="text-white/70 text-[11px] font-medium">Fully Disclosed</span>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <Check className="w-3 h-3 text-primary flex-shrink-0" />
+            <span className="text-white/70 text-[11px] font-medium">Batch Tested</span>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <Check className="w-3 h-3 text-primary flex-shrink-0" />
+            <span className="text-white/70 text-[11px] font-medium">30-Day Guarantee</span>
+          </div>
         </div>
       </div>
     </section>

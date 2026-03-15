@@ -35,20 +35,20 @@ export function Header() {
       >
         {/* Desktop: static text */}
         <p className="hidden sm:block text-sm font-medium text-white whitespace-nowrap">
-          Free shipping on 2+ bottles <span className="text-text-muted mx-2">•</span> Best value bundles        </p>
+          PRE-ORDERS NOW OPEN <span className="text-text-muted mx-2">•</span> 30-DAY GUARANTEE        </p>
         {/* Mobile: scrolling marquee */}
         <div className="sm:hidden announceTrack">
           <span className="text-xs font-medium text-white whitespace-nowrap">
-            Free shipping on 2+ bottles <span className="text-text-muted mx-2">•</span> Best value bundles <span className="text-text-muted mx-2">•</span> 30-day guarantee <span className="text-text-muted mx-2">•</span>
+            PRE-ORDERS NOW OPEN <span className="text-text-muted mx-2">•</span> 30-DAY GUARANTEE <span className="text-text-muted mx-2">•</span>
           </span>
           <span className="text-xs font-medium text-white whitespace-nowrap">
-            Free shipping on 2+ bottles <span className="text-text-muted mx-2">•</span> Best value bundles <span className="text-text-muted mx-2">•</span> 30-day guarantee <span className="text-text-muted mx-2">•</span>
+            PRE-ORDERS NOW OPEN <span className="text-text-muted mx-2">•</span> 30-DAY GUARANTEE <span className="text-text-muted mx-2">•</span>
           </span>
           <span className="text-xs font-medium text-white whitespace-nowrap">
-            Free shipping on 2+ bottles <span className="text-text-muted mx-2">•</span> Best value bundles <span className="text-text-muted mx-2">•</span> 30-day guarantee <span className="text-text-muted mx-2">•</span>
+            PRE-ORDERS NOW OPEN <span className="text-text-muted mx-2">•</span> 30-DAY GUARANTEE <span className="text-text-muted mx-2">•</span>
           </span>
           <span className="text-xs font-medium text-white whitespace-nowrap">
-            Free shipping on 2+ bottles <span className="text-text-muted mx-2">•</span> Best value bundles <span className="text-text-muted mx-2">•</span> 30-day guarantee <span className="text-text-muted mx-2">•</span>
+            PRE-ORDERS NOW OPEN <span className="text-text-muted mx-2">•</span> 30-DAY GUARANTEE <span className="text-text-muted mx-2">•</span>
           </span>
         </div>
       </div>
@@ -95,7 +95,7 @@ export function Header() {
               </Button>
             </Link>
             <Link href="/product">
-              <Button size="sm">Shop Now</Button>
+              <Button size="sm">Pre-Order</Button>
             </Link>
           </div>
         </div>
@@ -169,7 +169,7 @@ export function Header() {
               ))}
               <div className="pt-4 border-t border-border-subtle">
                 <Link href="/product" onClick={() => setMobileMenuOpen(false)}>
-                  <Button className="w-full">Shop Now</Button>
+                  <Button className="w-full">Pre-Order Now</Button>
                 </Link>
               </div>
             </nav>

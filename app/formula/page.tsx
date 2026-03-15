@@ -6,7 +6,7 @@ import Link from "next/link";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { motion } from "framer-motion";
-import { Check, ArrowRight, Shield, X, ChevronDown, FlaskConical, FileText, ChevronUp, Activity, Zap, TrendingUp } from "lucide-react";
+import { Check, ArrowRight, Shield, X, ChevronDown, FlaskConical, FileText, ChevronUp } from "lucide-react";
 
 // Tab definitions
 const ingredientTabs = [
@@ -25,15 +25,15 @@ const ingredients = [
     form: "Cholecalciferol",
     dosage: "3,000 IU",
     image: "/vitamin-d3.png",
-    shortDesc: "Supports testosterone production, muscle function, and recovery.",
-    fullDesc: "Low vitamin D levels are strongly associated with reduced testosterone in men. Most men who train indoors are deficient without knowing it.",
+    shortDesc: "Clinically shown to increase testosterone levels in men with low vitamin D status.",
+    fullDesc: "A 12-month randomized controlled trial found that men supplementing with vitamin D experienced a significant increase in total testosterone, free testosterone, and bioactive testosterone compared to placebo. Most men training indoors are deficient without knowing it.",
     benefits: [
-      "Supports healthy testosterone levels",
-      "Supports calcium absorption",
-      "Supports muscle function and recovery",
+      "Increased total testosterone in clinical trials",
+      "Supports free and bioactive testosterone levels",
+      "Corrects a deficiency linked to low T",
     ],
     research: [
-      { title: "Effect of vitamin D supplementation on testosterone levels in men", url: "https://pubmed.ncbi.nlm.nih.gov/21154195/" },
+      { title: "Effect of vitamin D supplementation on testosterone levels in men", url: "https://www.thieme-connect.de/products/ejournals/abstract/10.1055/s-0030-1269854" },
     ],
   },
   {
@@ -42,12 +42,12 @@ const ingredients = [
     form: "Bisglycinate",
     dosage: "30 mg",
     image: "/magnesium.png",
-    shortDesc: "Supports testosterone synthesis, sleep quality, and energy metabolism.",
-    fullDesc: "Required for over 300 enzymatic reactions. Bisglycinate is used for superior absorption — and magnesium is lost daily through sweat during training.",
+    shortDesc: "Directly correlated with testosterone levels — higher magnesium means higher T.",
+    fullDesc: "Research shows a strong positive correlation between magnesium levels and testosterone in men. Athletes lose magnesium through sweat, and studies confirm that supplementation supports both total and free testosterone, especially in active men.",
     benefits: [
-      "Supports testosterone production",
-      "Supports sleep quality",
-      "Supports energy metabolism",
+      "Positively correlated with testosterone levels",
+      "Supports both total and free testosterone",
+      "Essential mineral depleted by training",
     ],
     research: [
       { title: "Magnesium and testosterone in men", url: "https://pubmed.ncbi.nlm.nih.gov/20352370/" },
@@ -59,12 +59,12 @@ const ingredients = [
     form: "Citrate",
     dosage: "20 mg",
     image: "/zinc.png",
-    shortDesc: "Directly involved in testosterone synthesis, protein synthesis, and recovery.",
-    fullDesc: "Zinc deficiency suppresses testosterone — and active men lose zinc through sweat faster than they replace it through diet.",
+    shortDesc: "Essential for testosterone synthesis — zinc deficiency directly lowers T levels.",
+    fullDesc: "Zinc is required for testosterone production at the cellular level. Clinical research shows that zinc-deficient men have significantly lower testosterone, and supplementation restores levels. It's one of the most well-established testosterone support nutrients.",
     benefits: [
-      "Plays a role in testosterone synthesis",
-      "Supports protein synthesis",
-      "Supports recovery",
+      "Required for testosterone synthesis",
+      "Restores T levels in deficient men",
+      "One of the most studied T-support minerals",
     ],
     research: [
       { title: "Zinc status and serum testosterone levels in adult males", url: "https://pubmed.ncbi.nlm.nih.gov/8875519/" },
@@ -72,16 +72,16 @@ const ingredients = [
   },
   {
     name: "Boron",
-    category: "foundational" as TabId,
+    category: "availability" as TabId,
     form: "Citrate",
     dosage: "9 mg",
     image: "/boron.png",
-    shortDesc: "Supports free testosterone availability by influencing SHBG binding.",
-    fullDesc: "Boron also improves how the body utilizes Vitamin D and magnesium — amplifying the effect of the other foundational ingredients in this formula.",
+    shortDesc: "Shown to increase free testosterone by reducing SHBG in just one week.",
+    fullDesc: "A study found that just 10mg of boron daily significantly increased free testosterone and DHT while decreasing estradiol and SHBG after only 7 days. Boron doesn't just support T — it makes more of it available for your body to use.",
     benefits: [
-      "Supports free testosterone",
-      "Supports Vitamin D utilization",
-      "Works synergistically with other minerals",
+      "Increases free testosterone levels",
+      "Reduces SHBG (testosterone-binding protein)",
+      "Effects observed in just 7 days",
     ],
     research: [
       { title: "Comparative effects of daily boron supplementation on plasma steroid hormones", url: "https://pubmed.ncbi.nlm.nih.gov/21129941/" },
@@ -94,12 +94,12 @@ const ingredients = [
     form: "KSM-66 Root Extract",
     dosage: "500 mg",
     image: "/ashwagandha.png",
-    shortDesc: "Supports cortisol balance, stress resilience, and hormonal recovery.",
-    fullDesc: "KSM-66 Ashwagandha is backed by 24+ human studies. When cortisol stays chronically elevated, testosterone signaling gets suppressed — this helps restore the balance.",
+    shortDesc: "Clinically proven to increase testosterone by 14-17% while lowering cortisol.",
+    fullDesc: "Multiple studies on KSM-66 show significant testosterone increases (14-17%) alongside cortisol reductions. High cortisol suppresses testosterone production — by managing stress hormones, ashwagandha indirectly unlocks your body's natural T production.",
     benefits: [
-      "Associated with lower cortisol",
-      "Supports healthy testosterone",
-      "Supports muscle recovery",
+      "14-17% testosterone increase in studies",
+      "Reduces cortisol (which suppresses T)",
+      "Dual-action: direct and indirect T support",
     ],
     research: [
       { title: "Ashwagandha supplementation and testosterone in overweight men", url: "https://pubmed.ncbi.nlm.nih.gov/31517876/" },
@@ -108,70 +108,45 @@ const ingredients = [
   // TESTOSTERONE AVAILABILITY
   {
     name: "Tongkat Ali",
-    category: "availability" as TabId,
+    category: "stress" as TabId,
     form: "200:1 Extract (1% Eurycomanone)",
     dosage: "300 mg",
     image: "/tongkat-ali.png",
-    shortDesc: "Supports free testosterone levels and drive via SHBG modulation.",
-    fullDesc: "Human studies link Tongkat Ali to increased free testosterone. It works with what your body already produces — not by forcing production artificially.",
+    shortDesc: "Shown to increase testosterone by 37% in a 4-week clinical study.",
+    fullDesc: "In a controlled 4-week study, Tongkat Ali increased testosterone by 37% while reducing cortisol by 16%. It works by stimulating the release of free testosterone from SHBG and supporting the hypothalamic-pituitary-gonadal axis.",
     benefits: [
-      "Supports free testosterone",
-      "Supports energy levels",
-      "Supports training drive",
+      "37% testosterone increase in 4 weeks",
+      "Reduces cortisol by 16%",
+      "Releases bound testosterone from SHBG",
     ],
     research: [
-      { title: "Eurycoma longifolia and androgenic status in moderately stressed males", url: "https://pubmed.ncbi.nlm.nih.gov/21671978/" },
+      { title: "Eurycoma longifolia and androgenic status in moderately stressed males", url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC3669033/" },
     ],
   },
   {
     name: "Fenugreek",
-    category: "availability" as TabId,
+    category: "foundational" as TabId,
     form: "50% Saponins Extract",
     dosage: "500 mg",
     image: "/fenugreek.png",
-    shortDesc: "Supports free testosterone and strength output via furostanolic saponins.",
-    fullDesc: "Research in resistance-trained men links standardized fenugreek extract to improvements in free testosterone and training performance.",
+    shortDesc: "Meta-analysis confirms significant testosterone increases across multiple trials.",
+    fullDesc: "A 2020 meta-analysis of clinical trials found that fenugreek extract significantly increases total testosterone levels in men. It works by inhibiting enzymes that convert testosterone to estrogen, keeping more T in circulation.",
     benefits: [
-      "Supports free testosterone",
-      "Supports strength output",
-      "May support body composition",
+      "Significant T increase across multiple studies",
+      "Inhibits testosterone-to-estrogen conversion",
+      "Meta-analysis confirmed effectiveness",
     ],
     research: [
-      { title: "Fenugreek extract and testosterone in resistance-trained men", url: "https://pubmed.ncbi.nlm.nih.gov/32048383/" },
+      { title: "Effect of fenugreek extract supplement on testosterone levels in male: A meta-analysis of clinical trials", url: "https://pubmed.ncbi.nlm.nih.gov/32048383/" },
     ],
   },
 ];
 
 const whatsNotItems = [
   { text: "Proprietary blends that hide real doses" },
-  { text: "Underdosed ingredients" },
-  { text: "Stimulant energy" },
-  { text: "Cheap filler ingredients" },
-];
-
-const formulaSystemCards = [
-  {
-    icon: Activity,
-    title: "Stress Balance",
-    text: "Chronic stress elevates cortisol, which can interfere with hormonal balance and recovery. KSM-66 Ashwagandha supports cortisol balance and resilience.",
-  },
-  {
-    icon: Zap,
-    title: "Foundational Hormone Inputs",
-    text: "Vitamin D3, zinc, and magnesium provide essential nutrients the body relies on to support testosterone production.",
-  },
-  {
-    icon: TrendingUp,
-    title: "Free Testosterone Availability",
-    text: "Tongkat Ali, boron, and fenugreek support lower SHBG binding, helping make testosterone more available for the body to use.",
-  },
-];
-
-const comparisonRows = [
-  { left: "Proprietary blends", right: "Fully disclosed formula" },
-  { left: "Marketing doses", right: "Clinical doses" },
-  { left: "Stimulant energy", right: "Non-stimulant support" },
-  { left: "Temporary buzz", right: "Long-term hormonal support" },
+  { text: "Underdosed ingredients for label appeal" },
+  { text: "Ingredients with no evidence behind them" },
+  { text: "Cheap fillers to reduce cost" },
 ];
 
 export default function FormulaPage() {
@@ -185,6 +160,7 @@ export default function FormulaPage() {
   const filteredIngredients = ingredients.filter(ing => ing.category === activeTab);
 
   // Handle sticky jump bar - triggers when hero is passed
+  // Uses 68px (desktop navbar height) as threshold since announcement hides on scroll
   useEffect(() => {
     const handleScroll = () => {
       if (heroRef.current) {
@@ -219,6 +195,7 @@ export default function FormulaPage() {
     setSelectedIngredientIndex(newIndex);
     setShowFullDesc(false);
 
+    // Smooth scroll to ingredient library
     document.getElementById('ingredient-library')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
@@ -226,6 +203,11 @@ export default function FormulaPage() {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+
+  // CSS variable heights for consistent spacing
+  // Mobile: navbar 56px + announcement 36px = 92px (but announcement hides on scroll)
+  // Desktop: navbar 68px + announcement 36px = 104px (but announcement hides on scroll)
+  // When sticky: just navbar height (56px mobile, 68px desktop)
 
   return (
     <div
@@ -237,105 +219,34 @@ export default function FormulaPage() {
       } as React.CSSProperties}
     >
       <Header />
+      {/* pt accounts for full header with announcement bar */}
       <main className="pt-[92px] sm:pt-[104px]">
-
-        {/* ── Hero Section ── */}
+        {/* Hero Section */}
         <section ref={heroRef} className="bg-white py-8 sm:py-10">
           <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-            <div className="grid lg:grid-cols-2 gap-6 lg:gap-10 items-center">
-              {/* Left: Text */}
-              <div className="text-center lg:text-left">
-                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-3">
-                  Every Ingredient. Every Dose. Fully Transparent.
-                </h1>
-                <p className="text-gray-600 max-w-lg mx-auto lg:mx-0 mb-4">
-                  7 ingredients. Clinical doses. Nothing hidden.
-                </p>
-                <Link
-                  href="/product"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-white font-medium hover:bg-primary-hover transition-colors"
-                >
-                  Get Peak Performance
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-              </div>
-
-              {/* Right: Bottle Image */}
-              <div className="flex justify-center lg:justify-end">
-                <div className="relative w-[240px] sm:w-[280px] lg:w-[340px]">
-                  <Image
-                    src="/bottle-formula.webp"
-                    alt="Peak Performance Bottle"
-                    width={340}
-                    height={450}
-                    className="w-full h-auto"
-                    priority
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ── Trust Strip ── */}
-        <section className="bg-[#F7F9FC] border-y border-gray-200 py-4">
-          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-wrap justify-center gap-x-6 gap-y-2">
-              {[
-                "Clinical doses used in human studies",
-                "Fully disclosed label",
-                "Standardized extracts",
-                "Third-party tested",
-              ].map((item) => (
-                <span key={item} className="flex items-center gap-1.5 text-sm text-gray-600 font-medium">
-                  <Check className="w-4 h-4 text-primary flex-shrink-0" />
-                  {item}
+            <div className="text-center">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+                Every Ingredient. Every Dose. Fully Transparent.
+              </h1>
+              <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-gray-500 text-sm">
+                <span className="flex items-center gap-1.5">
+                  <Check className="w-4 h-4 text-primary" />
+                  Backed by human studies
                 </span>
-              ))}
+                <span className="flex items-center gap-1.5">
+                  <Check className="w-4 h-4 text-primary" />
+                  Standardized extracts, nothing hidden
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <Check className="w-4 h-4 text-primary" />
+                  Batch tested for quality
+                </span>
+              </div>
             </div>
           </div>
         </section>
 
-        {/* ── How the Formula Works Together ── */}
-        <section className="bg-white py-10 sm:py-14">
-          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              className="text-center mb-8"
-            >
-              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">
-                How the Formula Works Together
-              </h2>
-              <p className="text-gray-600 max-w-2xl mx-auto">
-                Peak Performance targets three biological limiters that commonly affect testosterone function and performance in men.
-              </p>
-            </motion.div>
-
-            <div className="grid sm:grid-cols-3 gap-4">
-              {formulaSystemCards.map((card, index) => (
-                <motion.div
-                  key={card.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: index * 0.1 }}
-                  className="bg-[#F7F9FC] rounded-2xl border border-gray-200 p-6"
-                >
-                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                    <card.icon className="w-5 h-5 text-primary" />
-                  </div>
-                  <h3 className="font-bold text-gray-900 mb-2">{card.title}</h3>
-                  <p className="text-gray-600 text-sm leading-relaxed">{card.text}</p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ── Sticky Jump Bar ── */}
+        {/* Sticky Jump Bar - docks directly under navbar */}
         <div
           className={`transition-all duration-300 ${
             isJumpBarSticky
@@ -374,6 +285,7 @@ export default function FormulaPage() {
                   </button>
                 ))}
               </div>
+              {/* Back to top - desktop only */}
               {isJumpBarSticky && (
                 <button
                   onClick={scrollToTop}
@@ -387,19 +299,20 @@ export default function FormulaPage() {
           </div>
         </div>
 
-        {/* Spacer when sticky */}
+        {/* Spacer when sticky - matches Jump Bar height */}
         {isJumpBarSticky && <div className="h-[52px]" />}
 
-        {/* ── Ingredient Library ── */}
+        {/* Ingredient Library */}
         <section
           id="ingredient-library"
           className="bg-white pt-8 pb-12 sm:pt-10 sm:pb-14"
           style={{ scrollMarginTop: '120px' }}
         >
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            {/* Navigator */}
             <div className="text-center mb-6">
               <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">
-                Ingredient Breakdown
+                Built Around 3 Key Support Areas
               </h2>
 
               {/* Pill Tabs */}
@@ -420,23 +333,136 @@ export default function FormulaPage() {
               </div>
             </div>
 
-            {/* Library Card */}
-            <div className="bg-white rounded-2xl lg:rounded-3xl border border-gray-200 shadow-lg pt-4 lg:pt-5 px-4 lg:px-6 pb-6 lg:pb-8 overflow-hidden">
-              <div className="grid lg:grid-cols-12 gap-4 lg:gap-5 items-stretch">
-                {/* Left: Ingredient List */}
+            {/* ==================== MOBILE: Unified Premium Module ==================== */}
+            <div className="lg:hidden bg-white rounded-2xl border border-gray-200 shadow-lg p-4 overflow-hidden">
+              {/* Ingredient Selector Pills */}
+              <motion.div
+                key={activeTab}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.2 }}
+                className="flex gap-2 overflow-x-auto pb-3 -mx-1 px-1 scrollbar-hide"
+                style={{ touchAction: "pan-x pinch-zoom" }}
+              >
+                {filteredIngredients.map((ingredient, index) => (
+                  <button
+                    key={ingredient.name}
+                    onClick={() => handleIngredientSelect(index)}
+                    className={`flex-shrink-0 px-3 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+                      selectedIngredientIndex === index
+                        ? "bg-primary text-white shadow-md"
+                        : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                    }`}
+                  >
+                    {ingredient.name}
+                  </button>
+                ))}
+              </motion.div>
+
+              {/* Ingredient Image - Centered */}
+              <div className="flex justify-center py-3">
+                <motion.div
+                  key={filteredIngredients[selectedIngredientIndex]?.name}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.3 }}
+                  className="relative"
+                >
+                  <div className="w-36 h-36 rounded-full bg-gradient-to-br from-gray-50 to-white border-3 border-primary/10 shadow-lg flex items-center justify-center overflow-hidden">
+                    <Image
+                      src={
+                        filteredIngredients[selectedIngredientIndex]?.image ||
+                        `https://placehold.co/144x144/f8fafc/2d94ff?text=${encodeURIComponent(
+                          filteredIngredients[selectedIngredientIndex]?.name || "Ingredient"
+                        )}`
+                      }
+                      alt={filteredIngredients[selectedIngredientIndex]?.name || "Ingredient"}
+                      width={144}
+                      height={144}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                </motion.div>
+              </div>
+
+              {/* Blue Detail Card - Dominant */}
+              <motion.div
+                key={`panel-mobile-${filteredIngredients[selectedIngredientIndex]?.name}`}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3 }}
+                className="rounded-xl bg-gradient-to-b from-[#5B9BD5] to-[#4A8BC9] overflow-hidden shadow-lg border border-white/[0.18] -mx-1"
+              >
+                <div className="p-4 border border-white/[0.08] rounded-xl m-[1px]">
+                  {/* Name + Dose Badge */}
+                  <div className="flex items-center justify-between mb-2">
+                    <h3 className="text-lg font-bold text-white">
+                      {filteredIngredients[selectedIngredientIndex]?.name}
+                    </h3>
+                    <span className="text-xs font-bold px-2 py-1 rounded-full bg-white/20 text-white">
+                      {filteredIngredients[selectedIngredientIndex]?.dosage}
+                    </span>
+                  </div>
+
+                  {/* Form */}
+                  <p className="text-white/70 text-xs mb-3">
+                    {filteredIngredients[selectedIngredientIndex]?.form}
+                  </p>
+
+                  {/* Short Description */}
+                  <p className="text-white text-sm leading-relaxed mb-3">
+                    {filteredIngredients[selectedIngredientIndex]?.shortDesc}
+                  </p>
+
+                  {/* Key Benefits - Compact */}
+                  <div className="mb-3">
+                    <h4 className="text-white/80 font-medium text-[10px] mb-1.5 uppercase tracking-wide">
+                      Key Benefits
+                    </h4>
+                    <ul className="space-y-1">
+                      {filteredIngredients[selectedIngredientIndex]?.benefits.slice(0, 3).map((benefit, i) => (
+                        <li key={i} className="flex items-start gap-1.5">
+                          <div className="w-3.5 h-3.5 rounded-full bg-white/25 flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <Check className="w-2 h-2 text-white" />
+                          </div>
+                          <span className="text-white text-xs leading-snug">{benefit}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* See the Research CTA */}
+                  {filteredIngredients[selectedIngredientIndex]?.research?.[0] && (
+                    <a
+                      href={filteredIngredients[selectedIngredientIndex].research[0].url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white text-[#4A8BC9] font-semibold text-xs hover:bg-white/95 transition-colors shadow-sm"
+                    >
+                      See the Research
+                      <ArrowRight className="w-3 h-3" />
+                    </a>
+                  )}
+                </div>
+              </motion.div>
+            </div>
+
+            {/* ==================== DESKTOP: Original 3-Column Layout ==================== */}
+            <div className="hidden lg:block bg-white rounded-3xl border border-gray-200 shadow-lg pt-5 px-6 pb-8 overflow-hidden">
+              <div className="grid lg:grid-cols-12 gap-5 items-stretch">
+                {/* Left: Ingredient List with Dose Badges */}
                 <motion.div
                   key={activeTab}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.2 }}
-                  className="lg:col-span-3 flex lg:flex-col gap-1.5 overflow-x-auto lg:overflow-visible pb-3 lg:pb-0 -mx-1 px-1 lg:mx-0 lg:px-0 scrollbar-hide snap-x snap-mandatory"
-                  style={{ touchAction: "pan-x pinch-zoom" }}
+                  className="lg:col-span-3 flex flex-col gap-1.5"
                 >
                   {filteredIngredients.map((ingredient, index) => (
                     <button
                       key={ingredient.name}
                       onClick={() => handleIngredientSelect(index)}
-                      className={`text-left px-3 py-2.5 rounded-xl whitespace-nowrap lg:whitespace-normal transition-all duration-200 snap-start flex-shrink-0 ${
+                      className={`text-left px-3 py-2.5 rounded-xl transition-all duration-200 ${
                         selectedIngredientIndex === index
                           ? "bg-primary/10 border-l-4 border-primary"
                           : "hover:bg-gray-50 border-l-4 border-transparent"
@@ -467,7 +493,7 @@ export default function FormulaPage() {
                     transition={{ duration: 0.3 }}
                     className="relative"
                   >
-                    <div className="w-52 h-52 sm:w-60 sm:h-60 lg:w-64 lg:h-64 rounded-full bg-gradient-to-br from-gray-50 to-white border-4 border-primary/10 shadow-lg flex items-center justify-center overflow-hidden">
+                    <div className="w-64 h-64 rounded-full bg-gradient-to-br from-gray-50 to-white border-4 border-primary/10 shadow-lg flex items-center justify-center overflow-hidden">
                       <Image
                         src={
                           filteredIngredients[selectedIngredientIndex]?.image ||
@@ -485,7 +511,7 @@ export default function FormulaPage() {
                   </motion.div>
                 </div>
 
-                {/* Right: Detail Panel */}
+                {/* Right: Premium Blue Detail Panel */}
                 <motion.div
                   key={`panel-${filteredIngredients[selectedIngredientIndex]?.name}`}
                   initial={{ opacity: 0, x: 12 }}
@@ -493,24 +519,21 @@ export default function FormulaPage() {
                   transition={{ duration: 0.3 }}
                   className="lg:col-span-6 rounded-2xl bg-gradient-to-b from-[#5B9BD5] to-[#4A8BC9] overflow-hidden shadow-xl border border-white/[0.18]"
                 >
-                  <div className="p-5 lg:p-6 border border-white/[0.08] rounded-2xl m-[1px]">
-                    {/* Ingredient Name — Dose */}
-                    <h3 className="text-xl lg:text-2xl font-bold text-white mb-1.5">
+                  <div className="p-6 border border-white/[0.08] rounded-2xl m-[1px]">
+                    {/* Ingredient Name */}
+                    <h3 className="text-2xl font-bold text-white mb-1.5">
                       {filteredIngredients[selectedIngredientIndex]?.name}
-                      <span className="text-white/60 font-normal text-base ml-2">
-                        — {filteredIngredients[selectedIngredientIndex]?.dosage}
-                      </span>
                     </h3>
 
                     {/* Short Description + Read More */}
                     <div className="mb-4">
-                      <p className="text-white/80 text-sm leading-relaxed">
+                      <p className="text-white text-base leading-relaxed">
                         {filteredIngredients[selectedIngredientIndex]?.shortDesc}
                       </p>
                       {!showFullDesc ? (
                         <button
                           onClick={() => setShowFullDesc(true)}
-                          className="inline-flex items-center gap-1 text-white/60 text-xs mt-1 hover:text-white/90 transition-colors"
+                          className="inline-flex items-center gap-1 text-white/80 text-sm mt-2 hover:text-white transition-colors"
                         >
                           Read more
                           <ChevronDown className="w-3 h-3" />
@@ -519,7 +542,7 @@ export default function FormulaPage() {
                         <motion.p
                           initial={{ opacity: 0, height: 0 }}
                           animate={{ opacity: 1, height: "auto" }}
-                          className="text-white/70 text-sm leading-relaxed mt-1"
+                          className="text-white/90 text-base leading-relaxed mt-2"
                         >
                           {filteredIngredients[selectedIngredientIndex]?.fullDesc}
                         </motion.p>
@@ -529,14 +552,14 @@ export default function FormulaPage() {
                     {/* Dose & Form Row */}
                     <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3 mb-4 border border-white/10">
                       <div className="flex justify-between items-center border-b border-white/15 pb-2 mb-2">
-                        <span className="text-white/60 text-sm">Dose</span>
+                        <span className="text-white/90 text-sm">Dose</span>
                         <span className="text-white font-semibold text-sm">
                           {filteredIngredients[selectedIngredientIndex]?.dosage}
                         </span>
                       </div>
                       <div className="flex justify-between items-center">
-                        <span className="text-white/60 text-sm">Form</span>
-                        <span className="text-white/90 text-sm text-right max-w-[65%]">
+                        <span className="text-white/90 text-sm">Form</span>
+                        <span className="text-white text-sm text-right max-w-[65%]">
                           {filteredIngredients[selectedIngredientIndex]?.form}
                         </span>
                       </div>
@@ -544,16 +567,16 @@ export default function FormulaPage() {
 
                     {/* Key Benefits */}
                     <div className="mb-4">
-                      <h4 className="text-white/70 font-medium text-xs mb-2 uppercase tracking-wide">
+                      <h4 className="text-white font-medium text-xs mb-2 uppercase tracking-wide">
                         Key Benefits
                       </h4>
                       <ul className="space-y-1.5">
                         {filteredIngredients[selectedIngredientIndex]?.benefits.map((benefit, i) => (
                           <li key={i} className="flex items-start gap-2">
-                            <div className="w-4 h-4 rounded-full bg-white/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <div className="w-4 h-4 rounded-full bg-white/30 flex items-center justify-center flex-shrink-0 mt-0.5">
                               <Check className="w-2.5 h-2.5 text-white" />
                             </div>
-                            <span className="text-white/85 text-sm leading-snug">{benefit}</span>
+                            <span className="text-white text-sm leading-snug">{benefit}</span>
                           </li>
                         ))}
                       </ul>
@@ -578,30 +601,8 @@ export default function FormulaPage() {
           </div>
         </section>
 
-        {/* ── Mid-page Product Image + CTA ── */}
-        <section className="bg-[#F7F9FC] py-10 sm:py-14 border-t border-gray-200">
-          <div className="mx-auto max-w-md px-4 sm:px-6 lg:px-8 text-center">
-            <div className="flex justify-center mb-6">
-              <Image
-                src="/bottle-formula.webp"
-                alt="Peak Performance Bottle"
-                width={220}
-                height={290}
-                className="w-[180px] sm:w-[220px] h-auto drop-shadow-xl"
-              />
-            </div>
-            <Link
-              href="/product"
-              className="inline-flex items-center gap-2 px-8 py-3.5 rounded-lg bg-primary text-white font-semibold text-base hover:bg-primary-hover transition-colors shadow-md"
-            >
-              Start Peak Performance
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
-        </section>
-
-        {/* ── Proof Tiles ── */}
-        <section className="bg-white py-10 sm:py-12">
+        {/* Proof Tiles - Below Ingredient Module */}
+        <section className="bg-white pb-10 sm:pb-12">
           <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
             <div className="grid sm:grid-cols-2 gap-3">
               <Link
@@ -623,14 +624,14 @@ export default function FormulaPage() {
                 </div>
                 <div>
                   <h3 className="font-semibold text-gray-900 text-sm">Batch Tested</h3>
-                  <p className="text-xs text-gray-500">Third-party verified</p>
+                  <p className="text-xs text-gray-500">Batch Tested</p>
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* ── What's Not in the Formula ── */}
+        {/* What's Not in the Formula - Tighter spacing */}
         <section className="bg-[#F7F9FC] py-10 sm:py-12 border-t border-gray-200">
           <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
             <motion.div
@@ -668,135 +669,102 @@ export default function FormulaPage() {
           </div>
         </section>
 
-        {/* ── Comparison Table ── */}
-        <section className="bg-white py-10 sm:py-14 border-t border-gray-200">
-          <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              className="text-center mb-8"
-            >
-              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">
-                Why Peak Performance Is Different
-              </h2>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="rounded-2xl border border-gray-200 overflow-hidden shadow-sm"
-            >
-              {/* Table Header */}
-              <div className="grid grid-cols-2">
-                <div className="bg-gray-100 px-5 py-3 text-center">
-                  <span className="text-sm font-semibold text-gray-500 uppercase tracking-wide">Typical Testosterone Booster</span>
-                </div>
-                <div className="bg-primary px-5 py-3 text-center">
-                  <span className="text-sm font-semibold text-white uppercase tracking-wide">Peak Performance</span>
-                </div>
-              </div>
-
-              {/* Table Rows */}
-              {comparisonRows.map((row, index) => (
-                <div
-                  key={index}
-                  className={`grid grid-cols-2 border-t border-gray-200 ${index % 2 === 0 ? "bg-white" : "bg-gray-50"}`}
-                >
-                  <div className="px-5 py-4 flex items-center gap-2.5 border-r border-gray-200">
-                    <X className="w-4 h-4 text-red-400 flex-shrink-0" />
-                    <span className="text-sm text-gray-500">{row.left}</span>
-                  </div>
-                  <div className="px-5 py-4 flex items-center gap-2.5">
-                    <Check className="w-4 h-4 text-primary flex-shrink-0" />
-                    <span className="text-sm text-gray-800 font-medium">{row.right}</span>
-                  </div>
-                </div>
-              ))}
-            </motion.div>
-          </div>
-        </section>
-
-        {/* ── Quality Trust Cards ── */}
-        <section className="bg-[#F7F9FC] py-10 sm:py-12 border-t border-gray-200">
-          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              className="text-center mb-6"
-            >
-              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
-                Quality You Can Trust
-              </h2>
-              <p className="text-gray-600 text-sm">
-                Every batch tested. What's on the label is what's in the bottle.
-              </p>
-            </motion.div>
-
-            <div className="grid sm:grid-cols-2 gap-3 max-w-2xl mx-auto">
+        {/* Batch Tested - Trust Cards */}
+        <section className="bg-white py-10 sm:py-12">
+          <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+            <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+              {/* Left: Bottle Image */}
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.4 }}
-                className="flex items-center gap-4 p-4 bg-white rounded-xl border border-gray-200"
+                transition={{ duration: 0.5 }}
+                className="flex justify-center"
               >
-                <div className="w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                  <FlaskConical className="w-5 h-5 text-primary" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900 text-sm">Heavy Metals Tested</h3>
-                  <p className="text-xs text-gray-500">Lead, mercury, arsenic screened</p>
+                <div className="relative w-[280px] sm:w-[320px] lg:w-[360px]">
+                  <Image
+                    src="/quality-bottle.jpg"
+                    alt="Peak Performance Bottle"
+                    width={360}
+                    height={450}
+                    className="w-full h-auto rounded-2xl"
+                  />
                 </div>
               </motion.div>
 
+              {/* Right: Content */}
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: 0.1 }}
-                className="flex items-center gap-4 p-4 bg-white rounded-xl border border-gray-200"
+                transition={{ duration: 0.5, delay: 0.1 }}
               >
-                <div className="w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                  <Shield className="w-5 h-5 text-primary" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900 text-sm">Quality Verified</h3>
-                  <p className="text-xs text-gray-500">Third-party lab analysis</p>
+                <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
+                  Quality You Can Trust
+                </h2>
+                <p className="text-gray-600 text-sm mb-6">
+                  Every batch tested. What's on the label is what's in the bottle.
+                </p>
+
+                <div className="space-y-3">
+                  <div className="flex items-center gap-4 p-4 bg-gray-50 rounded-xl border border-gray-200">
+                    <div className="w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                      <FlaskConical className="w-5 h-5 text-primary" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-gray-900 text-sm">Heavy Metals Tested</h3>
+                      <p className="text-xs text-gray-500">Lead, mercury, arsenic screened</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-4 p-4 bg-gray-50 rounded-xl border border-gray-200">
+                    <div className="w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                      <Shield className="w-5 h-5 text-primary" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-gray-900 text-sm">Quality Verified</h3>
+                      <p className="text-xs text-gray-500">Batch Tested</p>
+                    </div>
+                  </div>
                 </div>
               </motion.div>
             </div>
           </div>
         </section>
 
-        {/* ── Final CTA ── */}
-        <section className="bg-white py-12 sm:py-16 border-t border-gray-200">
-          <div className="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">
-              Ready to run the full protocol?
-            </h2>
-            <p className="text-gray-600 text-sm mb-7">
-              See Peak Performance and the full Supplement Facts.
-            </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
-              <Link
-                href="/product"
-                className="inline-flex items-center gap-2 px-8 py-3.5 rounded-lg bg-primary text-white font-semibold text-base hover:bg-primary-hover transition-colors shadow-md w-full sm:w-auto justify-center"
-              >
-                Start Peak Performance
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-              <Link
-                href="/product"
-                className="text-sm text-gray-500 hover:text-primary underline underline-offset-2 transition-colors"
-              >
-                View the Full Protocol
-              </Link>
+        {/* Final CTA with Product Image */}
+        <section className="bg-[#F7F9FC] py-10 sm:py-12 border-t border-gray-200">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+            <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+              {/* Left: Text and CTA */}
+              <div className="text-center lg:text-left order-2 lg:order-1">
+                <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">
+                  Ready to run the full protocol?
+                </h2>
+                <p className="text-gray-600 text-sm mb-5">
+                  See Peak Performance and the full Supplement Facts.
+                </p>
+                <Link
+                  href="/product"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-white font-medium hover:bg-primary-hover transition-colors"
+                >
+                  Pre-Order Peak Performance
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
+
+              {/* Right: Bottle Image */}
+              <div className="flex justify-center lg:justify-end order-1 lg:order-2">
+                <div className="relative w-[240px] sm:w-[280px] lg:w-[340px]">
+                  <Image
+                    src="/bottle-formula.webp"
+                    alt="Peak Performance Bottle"
+                    width={340}
+                    height={450}
+                    className="w-full h-auto"
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </section>

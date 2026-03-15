@@ -15,8 +15,8 @@ export default function CartPage() {
   const [promoCode, setPromoCode] = useState("");
   const [appliedCode, setAppliedCode] = useState("");
 
-  // Free shipping for 2+ bottles or orders over $100
-  const qualifiesForFreeShipping = totalItems >= 2 || totalPrice >= 100;
+  // Free shipping for 2+ bottles
+  const qualifiesForFreeShipping = totalItems >= 2;
 
   // Map cart items to the format expected by CheckoutButton
   const checkoutItems = items.map((item) => ({
@@ -43,7 +43,7 @@ export default function CartPage() {
                 Looks like you haven't added anything to your cart yet.
               </p>
               <Link href="/product">
-                <Button size="lg">Shop Now</Button>
+                <Button size="lg">Pre-Order Now</Button>
               </Link>
             </div>
           </div>
@@ -58,9 +58,12 @@ export default function CartPage() {
       <Header />
       <main className="pt-32 pb-16 sm:pb-24">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <h1 className="text-3xl sm:text-4xl font-bold text-text-primary mb-8">
-            Your Cart
+          <h1 className="text-3xl sm:text-4xl font-bold text-text-primary mb-2">
+            Your Pre-Order
           </h1>
+          <p className="text-text-muted text-sm mb-8">
+            You're reserving from the first production run. Ships when manufacturing is complete.
+          </p>
 
           <div className="grid lg:grid-cols-3 gap-8">
             {/* Cart Items */}
@@ -147,7 +150,7 @@ export default function CartPage() {
             <div className="lg:col-span-1">
               <div className="sticky top-32 p-6 rounded-2xl bg-surface border border-border">
                 <h2 className="text-xl font-semibold text-text-primary mb-6">
-                  Order Summary
+                  Pre-Order Summary
                 </h2>
 
                 <div className="space-y-4 mb-6">

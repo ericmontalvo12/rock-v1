@@ -2,12 +2,13 @@
 
 import { motion } from "framer-motion";
 import { X, Check } from "lucide-react";
+import Image from "next/image";
 
 const rows = [
-  { typical: "Proprietary blends", peak: "Fully disclosed formula" },
-  { typical: "Marketing doses", peak: "Clinical research-backed doses" },
-  { typical: "Stimulant energy", peak: "Non-stimulant support" },
-  { typical: "Temporary buzz", peak: "Long-term hormonal support" },
+  { typical: "Hidden dosages", peak: "Full label transparency" },
+  { typical: "Underdosed ingredients", peak: "Human-study dosing" },
+  { typical: "Hype-driven ingredient selection", peak: "Purpose-built formulation" },
+  { typical: "Short-term marketing claims", peak: "Support for energy, recovery, and drive" },
 ];
 
 export function ComparisonTable() {
@@ -36,6 +37,30 @@ export function ComparisonTable() {
           transition={{ duration: 0.5, delay: 0.1 }}
           className="max-w-2xl mx-auto"
         >
+          {/* Product Images */}
+          <div className="grid grid-cols-2 gap-3 mb-4">
+            {/* Typical testosterone boosters */}
+            <div className="flex justify-center items-end h-[200px] sm:h-[240px]">
+              <Image
+                src="/typical-boosters.jpg"
+                alt="Typical Testosterone Boosters"
+                width={300}
+                height={240}
+                className="w-full h-full object-contain rounded-xl"
+              />
+            </div>
+            {/* Peak Performance bottle */}
+            <div className="flex justify-center items-end h-[200px] sm:h-[240px]">
+              <Image
+                src="/difference-peak.jpg"
+                alt="Peak Performance"
+                width={300}
+                height={240}
+                className="w-full h-full object-contain rounded-xl"
+              />
+            </div>
+          </div>
+
           {/* Table header */}
           <div className="grid grid-cols-2 gap-3 mb-3">
             <div className="bg-gray-100 rounded-xl px-4 py-3 text-center">

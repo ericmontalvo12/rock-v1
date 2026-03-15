@@ -42,12 +42,12 @@ export async function POST(req: Request) {
         },
       }));
 
-    // Shipping: free over $100, otherwise $9.99
-    const subtotal = cartItems.reduce(
-      (sum, item) => sum + item.price * item.quantity,
+    // Shipping: free for 2+ bottles, otherwise $9.99
+    const totalQuantity = cartItems.reduce(
+      (sum, item) => sum + item.quantity,
       0
     );
-    const shippingCost = subtotal >= 100 ? 0 : 999; // cents
+    const shippingCost = totalQuantity >= 2 ? 0 : 999; // cents
 
     // Look up promo code if provided
     let discounts: Stripe.Checkout.SessionCreateParams.Discount[] = [];
