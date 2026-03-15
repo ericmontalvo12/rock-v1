@@ -55,6 +55,8 @@ export async function POST(req: Request) {
       const promoCodes = await stripe.promotionCodes.list({ code: promoCode, active: true, limit: 1 });
       if (promoCodes.data.length > 0) {
         discounts = [{ promotion_code: promoCodes.data[0].id }];
+      } else {
+        return NextResponse.json({ error: "Invalid or expired discount code." }, { status: 400 });
       }
     }
 

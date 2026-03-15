@@ -15,9 +15,10 @@ interface CheckoutButtonProps {
   className?: string;
   disabled?: boolean;
   promoCode?: string;
+  onPromoError?: (msg: string) => void;
 }
 
-export function CheckoutButton({ cartItems, className, disabled, promoCode }: CheckoutButtonProps) {
+export function CheckoutButton({ cartItems, className, disabled, promoCode, onPromoError }: CheckoutButtonProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -37,7 +38,13 @@ export function CheckoutButton({ cartItems, className, disabled, promoCode }: Ch
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || "Failed to create checkout session");
+        const msg = data.error || "Failed to create checkout session";
+        if (promoCode && data.error?.toLowerCase().includes("discount") && onPromoError) {
+          onPromoError(msg);
+          setIsLoading(false);
+          return;
+        }
+        throw new Error(msg);
       }
 
       if (data.url) {

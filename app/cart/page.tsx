@@ -14,6 +14,7 @@ export default function CartPage() {
   const { items, updateQuantity, removeFromCart, totalPrice, totalItems, clearCart } = useCart();
   const [promoCode, setPromoCode] = useState("");
   const [appliedCode, setAppliedCode] = useState("");
+  const [promoError, setPromoError] = useState("");
 
   // Free shipping for 2+ bottles
   const qualifiesForFreeShipping = totalItems >= 2;
@@ -188,19 +189,25 @@ export default function CartPage() {
                     <Button
                       variant="outline"
                       className="px-4 py-2 h-auto"
-                      onClick={() => setAppliedCode(promoCode.trim())}
+                      onClick={() => {
+                        setPromoError("");
+                        setAppliedCode(promoCode.trim());
+                      }}
                     >
                       Apply
                     </Button>
                   </div>
-                  {appliedCode && (
+                  {appliedCode && !promoError && (
                     <p className="text-green-500 text-xs text-center mt-2">
                       Code <strong>{appliedCode}</strong> will be applied at checkout.
                     </p>
                   )}
+                  {promoError && (
+                    <p className="text-red-500 text-xs text-center mt-2">{promoError}</p>
+                  )}
                 </div>
 
-                <CheckoutButton cartItems={checkoutItems} promoCode={appliedCode} />
+                <CheckoutButton cartItems={checkoutItems} promoCode={appliedCode} onPromoError={(msg) => { setPromoError(msg); setAppliedCode(""); }} />
 
                 <p className="text-xs text-text-muted text-center mt-4">
                   Secure checkout powered by Stripe
