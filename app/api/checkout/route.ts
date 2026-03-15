@@ -22,7 +22,7 @@ const stripe = new Stripe(secretKey);
 
 export async function POST(req: Request) {
   try {
-    const { cartItems } = (await req.json()) as { cartItems: CartItem[] };
+    const { cartItems, promotionCodeId } = (await req.json()) as { cartItems: CartItem[]; promotionCodeId?: string };
 
     if (!Array.isArray(cartItems) || cartItems.length === 0) {
       return NextResponse.json({ error: "Cart is empty" }, { status: 400 });
@@ -52,7 +52,9 @@ export async function POST(req: Request) {
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
       line_items,
-      allow_promotion_codes: true,
+      ...(promotionCodeId
+        ? { discounts: [{ promotion_code: promotionCodeId }] }
+        : { allow_promotion_codes: true }),
       shipping_options: [
         {
           shipping_rate_data: {
