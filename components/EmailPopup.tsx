@@ -22,15 +22,21 @@ export function EmailPopup() {
     setIsOpen(false);
   };
 
+  const [copied, setCopied] = useState(false);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (email) {
       console.log("Email submitted:", email);
+      localStorage.setItem("promoCode", "WELCOME20");
       setIsSubmitted(true);
-      setTimeout(() => {
-        setIsOpen(false);
-      }, 2000);
     }
+  };
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText("WELCOME20");
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
 
   return (
@@ -127,17 +133,32 @@ export function EmailPopup() {
               ) : (
                 /* Success State */
                 <div className="py-4">
-                  <div className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-[#0981e3]/10 mb-5">
-                    <svg className="w-12 h-12 text-[#0981e3]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-[#0981e3]/10 mb-5">
+                    <svg className="w-10 h-10 text-[#0981e3]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                   </div>
                   <h2 className="text-[32px] font-bold text-[#0b1320] mb-2">
-                    You're on the list
+                    Here's your code!
                   </h2>
-                  <p className="text-[17px] text-[#0b1320]/60">
-                    Check your inbox for your 20% off code.
+                  <p className="text-[16px] text-[#0b1320]/60 mb-6">
+                    Apply it at checkout for 20% off your first order.
                   </p>
+                  <button
+                    onClick={handleCopy}
+                    className="w-full max-w-xs mx-auto flex items-center justify-between px-5 py-4 rounded-xl border-2 border-dashed border-[#0981e3] bg-[#0981e3]/5 hover:bg-[#0981e3]/10 transition-colors group"
+                  >
+                    <span className="text-[26px] font-bold text-[#0981e3] tracking-widest">WELCOME20</span>
+                    <span className="text-sm text-[#0981e3]/70 group-hover:text-[#0981e3] transition-colors ml-3">
+                      {copied ? "Copied!" : "Copy"}
+                    </span>
+                  </button>
+                  <button
+                    onClick={handleClose}
+                    className="mt-6 w-full max-w-xs mx-auto h-[52px] rounded-lg bg-[#0981e3] text-white font-semibold text-[16px] hover:bg-[#0770c9] transition-colors"
+                  >
+                    Shop Now
+                  </button>
                 </div>
               )}
             </div>

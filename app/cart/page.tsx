@@ -17,6 +17,34 @@ export default function CartPage() {
   const [promoError, setPromoError] = useState("");
   const [appliedPromo, setAppliedPromo] = useState<{ code: string; percentOff: number | null; amountOff: number | null; promotionCodeId: string } | null>(null);
 
+  const applyPromoCode = async (code: string) => {
+    setPromoLoading(true);
+    setPromoError("");
+    setAppliedPromo(null);
+    try {
+      const res = await fetch("/api/validate-promo", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ code }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setAppliedPromo({ code, promotionCodeId: data.promotionCodeId, percentOff: data.percentOff, amountOff: data.amountOff });
+        localStorage.removeItem("promoCode");
+      }
+    } finally {
+      setPromoLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    const saved = localStorage.getItem("promoCode");
+    if (saved) {
+      setPromoInput(saved);
+      applyPromoCode(saved);
+    }
+  }, []);
+
   const handleApplyPromo = async () => {
     if (!promoInput.trim()) return;
     setPromoLoading(true);
@@ -40,6 +68,7 @@ export default function CartPage() {
       setPromoLoading(false);
     }
   };
+
 
   const discountAmount = appliedPromo
     ? appliedPromo.percentOff
