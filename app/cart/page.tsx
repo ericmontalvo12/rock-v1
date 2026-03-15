@@ -12,8 +12,8 @@ import { Minus, Plus, Trash2, ShoppingBag } from "lucide-react";
 export default function CartPage() {
   const { items, updateQuantity, removeFromCart, totalPrice, totalItems, clearCart } = useCart();
 
-  // Free shipping for 2+ bottles or orders over $100
-  const qualifiesForFreeShipping = totalItems >= 2 || totalPrice >= 100;
+  // Free shipping for 2+ bottles
+  const qualifiesForFreeShipping = totalItems >= 2;
 
   // Map cart items to the format expected by CheckoutButton
   const checkoutItems = items.map((item) => ({
