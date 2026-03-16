@@ -24,12 +24,21 @@ export function EmailPopup() {
 
   const [copied, setCopied] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (email) {
-      console.log("Email submitted:", email);
       localStorage.setItem("promoCode", "WELCOME20");
       setIsSubmitted(true);
+
+      try {
+        await fetch("https://services.leadconnectorhq.com/hooks/EakYnXEQy1hvVFmdShYB/webhook-trigger/wFhzPl8SglWPsW3BeDsh", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email }),
+        });
+      } catch (err) {
+        console.error("Failed to send to HighLevel:", err);
+      }
     }
   };
 
