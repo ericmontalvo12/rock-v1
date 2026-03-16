@@ -17,7 +17,17 @@ export async function POST(req: Request) {
   }
 
   const promo = promoCodes.data[0];
-  const coupon = promo.promotion.coupon as Stripe.Coupon;
+  const rawCoupon = promo.promotion.coupon;
+
+  // If coupon is a string ID (not expanded), fetch the full coupon object
+  let coupon: Stripe.Coupon;
+  if (typeof rawCoupon === "string") {
+    coupon = await stripe.coupons.retrieve(rawCoupon);
+  } else if (rawCoupon && typeof rawCoupon === "object") {
+    coupon = rawCoupon;
+  } else {
+    return NextResponse.json({ error: "Could not resolve coupon." }, { status: 400 });
+  }
 
   return NextResponse.json({
     promotionCodeId: promo.id,
