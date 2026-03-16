@@ -401,7 +401,7 @@ export default function ProductV2Page() {
         id: "peak-performance",
         name: "Peak Performance",
         price: pricing.perBottle,
-        image: "/product-v3.webp",
+        image: "/product-bottle.png",
       },
       quantity
     );

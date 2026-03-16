@@ -757,7 +757,7 @@ export default function FormulaPage() {
               <div className="flex justify-center lg:justify-end order-1 lg:order-2">
                 <div className="relative w-[240px] sm:w-[280px] lg:w-[340px]">
                   <Image
-                    src="/bottle-formula.webp"
+                    src="/product-bottle.png"
                     alt="Peak Performance Bottle"
                     width={340}
                     height={450}
