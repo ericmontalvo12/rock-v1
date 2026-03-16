@@ -53,22 +53,30 @@ export function Hero() {
             </p>
 
             {/* Trust indicators - HIDDEN on mobile, shown on sm+ */}
-            <div className="hidden sm:grid grid-cols-2 gap-y-3 gap-x-4 text-sm text-white/80 max-w-sm mx-auto lg:mx-0 mb-8 sm:mb-10">
-              <div className="flex items-start gap-2">
-                <Check className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
-                <span className="leading-snug">Research-Backed</span>
+            <div className="hidden sm:grid grid-cols-2 gap-y-3 gap-x-5 text-sm text-white max-w-sm mx-auto lg:mx-0 mb-8 sm:mb-10">
+              <div className="flex items-center gap-2.5">
+                <div className="w-5 h-5 rounded-full bg-primary flex items-center justify-center flex-shrink-0">
+                  <Check className="w-3 h-3 text-white" />
+                </div>
+                <span className="font-medium">Research-Backed</span>
               </div>
-              <div className="flex items-start gap-2">
-                <Check className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
-                <span className="leading-snug">Fully Disclosed Labels</span>
+              <div className="flex items-center gap-2.5">
+                <div className="w-5 h-5 rounded-full bg-primary flex items-center justify-center flex-shrink-0">
+                  <Check className="w-3 h-3 text-white" />
+                </div>
+                <span className="font-medium">Fully Disclosed Labels</span>
               </div>
-              <div className="flex items-start gap-2">
-                <Check className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
-                <span className="leading-snug">Batch Tested</span>
+              <div className="flex items-center gap-2.5">
+                <div className="w-5 h-5 rounded-full bg-primary flex items-center justify-center flex-shrink-0">
+                  <Check className="w-3 h-3 text-white" />
+                </div>
+                <span className="font-medium">Batch Tested</span>
               </div>
-              <div className="flex items-start gap-2">
-                <Check className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
-                <span className="leading-snug">30-Day Guarantee</span>
+              <div className="flex items-center gap-2.5">
+                <div className="w-5 h-5 rounded-full bg-primary flex items-center justify-center flex-shrink-0">
+                  <Check className="w-3 h-3 text-white" />
+                </div>
+                <span className="font-medium">30-Day Guarantee</span>
               </div>
             </div>
 
@@ -99,22 +107,30 @@ export function Hero() {
 
       {/* Mobile trust indicators - Bottom of hero */}
       <div className="sm:hidden absolute bottom-4 left-0 right-0 z-10 px-4">
-        <div className="grid grid-cols-2 gap-x-6 gap-y-1.5 max-w-[280px] mx-auto">
+        <div className="grid grid-cols-2 gap-x-6 gap-y-2 max-w-[280px] mx-auto">
           <div className="flex items-center gap-1.5">
-            <Check className="w-3 h-3 text-primary flex-shrink-0" />
-            <span className="text-white/70 text-[11px] font-medium">Research-Backed</span>
+            <div className="w-4 h-4 rounded-full bg-primary flex items-center justify-center flex-shrink-0">
+              <Check className="w-2.5 h-2.5 text-white" />
+            </div>
+            <span className="text-white text-[11px] font-medium">Research-Backed</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <Check className="w-3 h-3 text-primary flex-shrink-0" />
-            <span className="text-white/70 text-[11px] font-medium">Fully Disclosed</span>
+            <div className="w-4 h-4 rounded-full bg-primary flex items-center justify-center flex-shrink-0">
+              <Check className="w-2.5 h-2.5 text-white" />
+            </div>
+            <span className="text-white text-[11px] font-medium">Fully Disclosed</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <Check className="w-3 h-3 text-primary flex-shrink-0" />
-            <span className="text-white/70 text-[11px] font-medium">Batch Tested</span>
+            <div className="w-4 h-4 rounded-full bg-primary flex items-center justify-center flex-shrink-0">
+              <Check className="w-2.5 h-2.5 text-white" />
+            </div>
+            <span className="text-white text-[11px] font-medium">Batch Tested</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <Check className="w-3 h-3 text-primary flex-shrink-0" />
-            <span className="text-white/70 text-[11px] font-medium">30-Day Guarantee</span>
+            <div className="w-4 h-4 rounded-full bg-primary flex items-center justify-center flex-shrink-0">
+              <Check className="w-2.5 h-2.5 text-white" />
+            </div>
+            <span className="text-white text-[11px] font-medium">30-Day Guarantee</span>
           </div>
         </div>
       </div>
