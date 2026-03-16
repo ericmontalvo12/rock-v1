@@ -17,7 +17,7 @@ export async function POST(req: Request) {
   }
 
   const promo = promoCodes.data[0];
-  const coupon = promo.coupon as Stripe.Coupon;
+  const coupon = promo.promotion.coupon as Stripe.Coupon;
 
   return NextResponse.json({
     promotionCodeId: promo.id,
