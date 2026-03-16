@@ -49,16 +49,16 @@ const bundleOptions = [
 
 const corePrinciples = [
   {
-    title: "Free testosterone availability",
-    description: "Boron reduces SHBG to make more of your existing testosterone available for use.",
+    title: "Foundational nutrients enable natural production",
+    description: "Zinc, magnesium, vitamin D3, and fenugreek provide the raw materials and enzymatic support testosterone synthesis requires.",
   },
   {
     title: "Stress balance restores hormonal function",
     description: "Ashwagandha and Tongkat Ali lower cortisol, removing a barrier that suppresses natural testosterone production.",
   },
   {
-    title: "Foundational nutrients enable natural production",
-    description: "Zinc, magnesium, vitamin D3, and fenugreek provide the raw materials and enzymatic support testosterone synthesis requires.",
+    title: "Free testosterone availability",
+    description: "Boron reduces SHBG to make more of your existing testosterone available for use.",
   },
 ];
 
@@ -401,7 +401,7 @@ export default function ProductV2Page() {
         id: "peak-performance",
         name: "Peak Performance",
         price: pricing.perBottle,
-        image: "/product-v3.webp",
+        image: "/product-bottle.png",
       },
       quantity
     );

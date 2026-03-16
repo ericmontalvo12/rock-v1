@@ -10,7 +10,12 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "No code provided" }, { status: 400 });
   }
 
-  const promoCodes = await stripe.promotionCodes.list({ code, active: true, limit: 1 });
+  const promoCodes = await stripe.promotionCodes.list({
+    code,
+    active: true,
+    limit: 1,
+    expand: ["data.promotion.coupon"],
+  });
 
   if (promoCodes.data.length === 0) {
     return NextResponse.json({ error: "Invalid or expired discount code." }, { status: 400 });
