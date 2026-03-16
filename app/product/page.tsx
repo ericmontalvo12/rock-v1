@@ -292,7 +292,7 @@ const productSections = [
     content: (
       <div className="space-y-4 text-text-secondary text-left max-w-lg mx-auto">
         <p className="text-sm">
-          Try Peak Performance for 30 days. If you don't notice a difference, contact us for a full refund — no friction, no deflection.
+          Try Peak Performance for 30 days. If you don't notice a difference, contact us for a full refund.
         </p>
         <p className="text-sm text-text-muted">
           We give you 30 days because that's the window where real, consistent support starts to show.
