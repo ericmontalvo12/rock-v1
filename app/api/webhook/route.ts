@@ -47,6 +47,25 @@ export async function POST(req: NextRequest) {
       // TODO: Send confirmation email
       // TODO: Update inventory
 
+      // Forward to HighLevel
+      try {
+        await fetch("https://services.leadconnectorhq.com/hooks/EakYnXEQy1hvVFmdShYB/webhook-trigger/wFhzPl8SglWPsW3BeDsh", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            event: event.type,
+            session_id: session.id,
+            email: session.customer_details?.email || null,
+            name: session.customer_details?.name || null,
+            amount_total: session.amount_total ? session.amount_total / 100 : null,
+            currency: session.currency,
+            payment_status: session.payment_status,
+          }),
+        });
+      } catch (err) {
+        console.error("Failed to forward to HighLevel:", err);
+      }
+
       break;
     }
 
