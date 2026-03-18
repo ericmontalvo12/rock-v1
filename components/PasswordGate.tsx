@@ -53,9 +53,9 @@ export function PasswordGate({ children }: { children: React.ReactNode }) {
               height={60}
               className="mx-auto h-12 w-auto mb-6"
             />
-            <h1 className="text-2xl font-bold text-gray-900 mb-2">Coming Soon</h1>
+            <h1 className="text-2xl font-bold text-gray-900 mb-2">Website Under Maintenance</h1>
             <p className="text-gray-600 text-sm">
-              Enter the password to preview the site.
+              We&apos;re making some updates. Enter the password to access the site.
             </p>
           </div>
 
@@ -89,7 +89,7 @@ export function PasswordGate({ children }: { children: React.ReactNode }) {
           </form>
 
           <p className="text-center text-xs text-gray-400 mt-8">
-            This site is currently in preview mode.
+            We&apos;ll be back shortly. Thank you for your patience.
           </p>
         </div>
       </div>

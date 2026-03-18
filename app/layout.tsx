@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import { Providers } from "@/components/Providers";
+import { PasswordGate } from "@/components/PasswordGate";
 import "./globals.css";
 
 const montserrat = Montserrat({
@@ -38,7 +39,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={montserrat.variable}>
       <body className="min-h-screen bg-background antialiased overflow-x-hidden">
-          <Providers>{children}</Providers>
+          <Providers><PasswordGate>{children}</PasswordGate></Providers>
         </body>
     </html>
   );
