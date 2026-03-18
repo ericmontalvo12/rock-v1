@@ -20,6 +20,8 @@ interface CartItem {
   price: number;
   quantity: number;
   image?: string;
+  isSubscription?: boolean;
+  subscriptionIntervalCount?: number;
 }
 
 interface EmbeddedCheckoutModalProps {

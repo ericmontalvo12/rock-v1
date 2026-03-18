@@ -8,42 +8,48 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/lib/cart-context";
+import { EmbeddedCheckoutModal } from "@/components/EmbeddedCheckout";
 import { motion, AnimatePresence } from "framer-motion";
-import { Check, ChevronDown, ArrowRight, Star, Shield, FlaskConical, FileText, Lock, Zap, TrendingUp, Target, Layers, X } from "lucide-react";
+import { Check, ChevronDown, ArrowRight, Star, Shield, FlaskConical, FileText, Lock, Zap, TrendingUp, Target, Layers, X, RefreshCw, Truck } from "lucide-react";
 
-const bundleOptions = [
+const RETAIL_PRICE = 49.99;
+
+const subscribeOptions = [
   {
-    id: "1-bottle",
-    quantity: 1,
-    label: "Starter — 30 Days",
-    subtitle: "Minimum window to evaluate response.",
-    price: 49.99,
-    perBottle: 49.99,
-    badge: null,
-    freeShipping: false,
-    showPerBottle: false,
+    id: "1mo",
+    label: "1 Month Supply",
+    billing: "every month",
+    priceTotal: 42.49,
+    perMonth: 42.49,
+    originalTotal: 49.99,
+    savePercent: 15,
+    bottles: 1,
+    intervalCount: 1,
+    badge: null as string | null,
   },
   {
-    id: "2-bottles",
-    quantity: 2,
-    label: "Recommended — 60 Days",
-    subtitle: "Sufficient time for measurable functional changes.",
-    price: 99.98,
-    perBottle: 49.99,
-    badge: "Recommended",
-    freeShipping: true,
-    showPerBottle: false,
+    id: "3mo",
+    label: "3 Month Supply",
+    billing: "every 3 months",
+    priceTotal: 104.97,
+    perMonth: 34.99,
+    originalTotal: 149.97,
+    savePercent: 30,
+    bottles: 3,
+    intervalCount: 3,
+    badge: "Most Popular" as string | null,
   },
   {
-    id: "3-bottles",
-    quantity: 3,
-    label: "Best Value — 90 Days",
-    subtitle: "Maximum consistency. Best long-term value.",
-    price: 134.97,
-    perBottle: 44.99,
-    badge: "Best Value",
-    freeShipping: true,
-    showPerBottle: true,
+    id: "6mo",
+    label: "6 Month Supply",
+    billing: "every 6 months",
+    priceTotal: 179.96,
+    perMonth: 29.99,
+    originalTotal: 299.94,
+    savePercent: 40,
+    bottles: 6,
+    intervalCount: 6,
+    badge: null as string | null,
   },
 ];
 
@@ -365,34 +371,19 @@ function StarRating({ rating }: { rating: number }) {
   );
 }
 
-// Pricing logic helper
-function getPricing(qty: number) {
-  if (qty >= 3) {
-    return { perBottle: 44.99, freeShipping: true, dealName: "Best Value" };
-  } else if (qty === 2) {
-    return { perBottle: 49.99, freeShipping: true, dealName: "Free Shipping" };
-  } else {
-    return { perBottle: 49.99, freeShipping: false, dealName: null };
-  }
-}
-
 export default function ProductV2Page() {
-  const [quantity, setQuantity] = useState(2);
+  const [purchaseType, setPurchaseType] = useState<"subscribe" | "one-time">("subscribe");
+  const [selectedSubscribeId, setSelectedSubscribeId] = useState("3mo");
+  const [showSubscribeCheckout, setShowSubscribeCheckout] = useState(false);
   const [openSection, setOpenSection] = useState<number | null>(null);
   const [addedToCart, setAddedToCart] = useState(false);
   const [activeImage, setActiveImage] = useState(0);
-  const [activeReview, setActiveReview] = useState(0);
   const { addToCart } = useCart();
-  const router = useRouter();
 
-  const pricing = getPricing(quantity);
-  const totalPrice = pricing.perBottle * quantity;
+  const selectedSub = subscribeOptions.find((o) => o.id === selectedSubscribeId)!;
 
-  // Determine which bundle option matches the current quantity (if any)
-  const matchingBundle = bundleOptions.find((b) => b.quantity === quantity);
-
-  const handleBundleSelect = (bundleQty: number) => {
-    setQuantity(bundleQty);
+  const handleSubscribeNow = () => {
+    setShowSubscribeCheckout(true);
   };
 
   const handleAddToCart = () => {
@@ -400,14 +391,23 @@ export default function ProductV2Page() {
       {
         id: "peak-performance",
         name: "Peak Performance",
-        price: pricing.perBottle,
+        price: RETAIL_PRICE,
         image: "/product-v3.webp",
       },
-      quantity
+      1
     );
     setAddedToCart(true);
     setTimeout(() => setAddedToCart(false), 2000);
   };
+
+  const subscribeCheckoutItems = [{
+    name: `Peak Performance — ${selectedSub.label}`,
+    price: selectedSub.priceTotal,
+    quantity: 1,
+    image: `${typeof window !== "undefined" ? window.location.origin : ""}/product-v3.webp`,
+    isSubscription: true,
+    subscriptionIntervalCount: selectedSub.intervalCount,
+  }];
 
   return (
     <div className="w-full max-w-full overflow-x-hidden">
@@ -536,94 +536,136 @@ export default function ProductV2Page() {
                 </div>
               </div>
 
-              {/* Bundle Selector */}
-              <div className="space-y-3 mb-4">
-                {bundleOptions.map((bundle) => {
-                  const isSelected = matchingBundle?.id === bundle.id;
-                  return (
-                    <button
-                      key={bundle.id}
-                      onClick={() => handleBundleSelect(bundle.quantity)}
-                      className={`w-full p-3 sm:p-4 rounded-lg border-2 transition-all text-left relative ${
-                        isSelected
-                          ? "border-primary bg-primary/5"
-                          : "border-border hover:border-border-subtle"
-                      }`}
-                    >
-                      {bundle.badge && (
-                        <span className={`absolute -top-2 sm:-top-2.5 right-2 sm:right-4 px-2 py-0.5 sm:px-2.5 sm:py-1 text-[10px] sm:text-xs font-medium rounded ${
-                          bundle.badge === "Best Value"
-                            ? "bg-primary text-white"
-                            : "bg-gray-100 text-gray-700 border border-gray-200"
-                        }`}>
-                          {bundle.badge}
-                        </span>
-                      )}
-                      <div className="flex items-center justify-between gap-2">
-                        <div className="flex items-center gap-2 sm:gap-3 min-w-0">
-                          <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
-                            isSelected
-                              ? "border-primary"
-                              : "border-text-secondary"
-                          }`}>
-                            {isSelected && (
-                              <div className="w-2.5 h-2.5 rounded-full bg-primary" />
-                            )}
-                          </div>
-                          <div className="min-w-0">
-                            <p className="font-semibold text-text-primary text-sm sm:text-base">{bundle.label}</p>
-                            <p className="text-xs text-text-muted">{bundle.subtitle}</p>
-                          </div>
-                        </div>
-                        <div className="text-right flex-shrink-0">
-                          <p className="font-bold text-text-primary text-sm sm:text-base">${bundle.price.toFixed(2)}</p>
-                          {bundle.freeShipping && bundle.quantity === 2 && (
-                            <p className="text-[10px] sm:text-xs text-primary">Free Shipping</p>
-                          )}
-                          {bundle.quantity === 3 && (
-                            <p className="text-[10px] sm:text-xs text-primary">Save 10% + Free Shipping</p>
-                          )}
-                          {bundle.showPerBottle && (
-                            <p className="text-[10px] sm:text-xs text-text-muted">${bundle.perBottle.toFixed(2)}/bottle</p>
-                          )}
-                        </div>
-                      </div>
-                    </button>
-                  );
-                })}
-              </div>
-
-              {/* Risk Reversal */}
-              <div className="flex flex-wrap justify-center gap-x-4 gap-y-1 mb-4 text-xs text-text-muted">
-                <span className="flex items-center gap-1.5">
-                  <Check className="w-3.5 h-3.5 text-primary" />
-                  30-Day Money-Back Guarantee
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <Check className="w-3.5 h-3.5 text-primary" />
-                  No subscriptions
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <Check className="w-3.5 h-3.5 text-primary" />
-                  First Production Run
-                </span>
-              </div>
-
-              {/* Pre-Order CTA */}
-              <div className="mb-4">
-                <Button
-                  size="lg"
-                  className="w-full"
-                  onClick={handleAddToCart}
+              {/* Purchase Type Toggle */}
+              <div className="flex rounded-lg border border-border overflow-hidden mb-4">
+                <button
+                  onClick={() => setPurchaseType("subscribe")}
+                  className={`flex-1 py-2.5 text-sm font-semibold transition-all ${
+                    purchaseType === "subscribe"
+                      ? "bg-primary text-white"
+                      : "bg-surface text-text-secondary hover:text-text-primary"
+                  }`}
                 >
-                  {addedToCart ? "Added!" : "Pre-Order Now"}
-                </Button>
+                  Subscribe &amp; Save
+                </button>
+                <button
+                  onClick={() => setPurchaseType("one-time")}
+                  className={`flex-1 py-2.5 text-sm font-semibold transition-all ${
+                    purchaseType === "one-time"
+                      ? "bg-primary text-white"
+                      : "bg-surface text-text-secondary hover:text-text-primary"
+                  }`}
+                >
+                  One Time Purchase
+                </button>
               </div>
 
-              {/* Pre-order disclaimer */}
-              <p className="text-xs text-center text-text-muted mb-8">
-                This is a pre-order. Ships when production is complete. 30-day guarantee starts on arrival.
-              </p>
+              {purchaseType === "subscribe" ? (
+                <>
+                  {/* Subscribe & Save badges */}
+                  <div className="flex items-center justify-center gap-3 mb-3 text-xs text-text-secondary">
+                    <span className="flex items-center gap-1">
+                      <Truck className="w-3.5 h-3.5 text-primary" />
+                      Free shipping on 3 &amp; 6 month
+                    </span>
+                    <span className="text-border">|</span>
+                    <span className="flex items-center gap-1">
+                      <RefreshCw className="w-3.5 h-3.5 text-primary" />
+                      Cancel anytime
+                    </span>
+                  </div>
+
+                  {/* Subscribe Options */}
+                  <div className="space-y-3 mb-4">
+                    {subscribeOptions.map((opt) => {
+                      const isSelected = selectedSubscribeId === opt.id;
+                      return (
+                        <button
+                          key={opt.id}
+                          onClick={() => setSelectedSubscribeId(opt.id)}
+                          className={`w-full p-3 sm:p-4 rounded-lg border-2 transition-all text-left relative ${
+                            isSelected
+                              ? "border-primary bg-primary/5"
+                              : "border-border hover:border-primary/40"
+                          }`}
+                        >
+                          {opt.badge && (
+                            <span className="absolute -top-2.5 right-3 px-2.5 py-0.5 text-[10px] sm:text-xs font-bold rounded bg-primary text-white">
+                              {opt.badge}
+                            </span>
+                          )}
+                          <div className="flex items-center justify-between gap-2">
+                            <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+                              <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
+                                isSelected ? "border-primary" : "border-text-muted"
+                              }`}>
+                                {isSelected && <div className="w-2.5 h-2.5 rounded-full bg-primary" />}
+                              </div>
+                              <div className="min-w-0">
+                                <p className="font-semibold text-text-primary text-sm sm:text-base">{opt.label}</p>
+                                <p className="text-xs text-text-muted">{opt.billing}</p>
+                              </div>
+                            </div>
+                            <div className="text-right flex-shrink-0">
+                              <p className="font-bold text-text-primary text-sm sm:text-base">${opt.priceTotal.toFixed(2)}</p>
+                              <p className="text-[10px] sm:text-xs text-green-600 font-medium">
+                                SAVE {opt.savePercent}%&nbsp;
+                                <span className="text-text-muted line-through font-normal">${opt.originalTotal.toFixed(2)}</span>
+                              </p>
+                              <p className="text-[10px] sm:text-xs text-text-muted">${opt.perMonth.toFixed(2)}/mo</p>
+                            </div>
+                          </div>
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  {/* Subscribe CTA */}
+                  <div className="mb-4">
+                    <Button size="lg" className="w-full" onClick={handleSubscribeNow}>
+                      Subscribe Now — ${selectedSub.priceTotal.toFixed(2)}/{selectedSub.id === "1mo" ? "mo" : selectedSub.id === "3mo" ? "3 mo" : "6 mo"}
+                    </Button>
+                  </div>
+                  <div className="flex flex-wrap justify-center gap-x-4 gap-y-1 mb-8 text-xs text-text-muted">
+                    <span className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-primary" />Cancel anytime</span>
+                    <span className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-primary" />30-Day Guarantee</span>
+                    <span className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-primary" />Secure checkout</span>
+                  </div>
+                </>
+              ) : (
+                <>
+                  {/* One Time Purchase */}
+                  <div className="p-4 sm:p-5 rounded-lg border-2 border-border mb-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="font-semibold text-text-primary">1 Month Supply</p>
+                        <p className="text-xs text-text-muted mt-0.5">One-time purchase, no commitment</p>
+                      </div>
+                      <p className="font-bold text-text-primary text-lg">${RETAIL_PRICE.toFixed(2)}</p>
+                    </div>
+                  </div>
+
+                  {/* One Time CTA */}
+                  <div className="mb-4">
+                    <Button size="lg" className="w-full" onClick={handleAddToCart}>
+                      {addedToCart ? "Added to Cart!" : "Add to Cart"}
+                    </Button>
+                  </div>
+                  <div className="flex flex-wrap justify-center gap-x-4 gap-y-1 mb-8 text-xs text-text-muted">
+                    <span className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-primary" />30-Day Guarantee</span>
+                    <span className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-primary" />No commitment</span>
+                    <span className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-primary" />First Production Run</span>
+                  </div>
+                </>
+              )}
+
+              {/* Subscribe checkout modal (subscription flow) */}
+              {showSubscribeCheckout && (
+                <EmbeddedCheckoutModal
+                  cartItems={subscribeCheckoutItems}
+                  onClose={() => setShowSubscribeCheckout(false)}
+                />
+              )}
 
               {/* Accordion Sections */}
               <div className="border-t border-border">
@@ -794,12 +836,12 @@ export default function ProductV2Page() {
             <div className="bg-gradient-to-br from-primary/5 to-primary/10 rounded-2xl p-8 sm:p-12">
               <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">Ready to Feel Like Yourself Again?</h2>
               <p className="text-gray-600 mb-6 max-w-xl mx-auto">
-                Reserve your spot in the first production run. If you don't notice a difference, get your money back.
+                Subscribe and save up to 40%, or try a single bottle risk-free.
               </p>
-              <Button size="lg" onClick={handleAddToCart} className="px-12">
-                {addedToCart ? "Added!" : "Pre-Order Now"}
+              <Button size="lg" onClick={handleSubscribeNow} className="px-12">
+                Subscribe &amp; Save
               </Button>
-              <p className="text-sm text-gray-500 mt-4">Ships when production is complete • 30-day guarantee starts on arrival</p>
+              <p className="text-sm text-gray-500 mt-4">Cancel anytime • 30-day guarantee</p>
             </div>
           </section>
 
@@ -810,11 +852,20 @@ export default function ProductV2Page() {
       <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 md:hidden z-40">
         <div className="flex items-center justify-between gap-4">
           <div>
-            <p className="font-bold text-gray-900">${totalPrice.toFixed(2)}</p>
-            <p className="text-xs text-gray-500">{quantity} bottle{quantity > 1 ? 's' : ''} • Pre-order</p>
+            {purchaseType === "subscribe" ? (
+              <>
+                <p className="font-bold text-gray-900">${selectedSub.priceTotal.toFixed(2)}</p>
+                <p className="text-xs text-gray-500">{selectedSub.label} • Subscribe</p>
+              </>
+            ) : (
+              <>
+                <p className="font-bold text-gray-900">${RETAIL_PRICE.toFixed(2)}</p>
+                <p className="text-xs text-gray-500">1 bottle • One-time</p>
+              </>
+            )}
           </div>
-          <Button className="flex-1" onClick={handleAddToCart}>
-            {addedToCart ? "Added!" : "Pre-Order"}
+          <Button className="flex-1" onClick={purchaseType === "subscribe" ? handleSubscribeNow : handleAddToCart}>
+            {purchaseType === "subscribe" ? "Subscribe" : addedToCart ? "Added!" : "Add to Cart"}
           </Button>
         </div>
       </div>

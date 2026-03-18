@@ -6,6 +6,8 @@ type CartItem = {
   price: number; // dollars
   quantity: number;
   image?: string;
+  isSubscription?: boolean;
+  subscriptionIntervalCount?: number; // billing every N months
 };
 
 export async function POST(req: Request) {
@@ -30,6 +32,39 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Cart is empty" }, { status: 400 });
     }
 
+    const isSubscription = cartItems.some((item) => item.isSubscription);
+
+    if (isSubscription) {
+      // Subscription checkout
+      const line_items: Stripe.Checkout.SessionCreateParams.LineItem[] =
+        cartItems.map((item) => ({
+          quantity: item.quantity,
+          price_data: {
+            currency: "usd",
+            unit_amount: Math.round(item.price * 100),
+            product_data: {
+              name: item.name,
+              ...(item.image ? { images: [item.image] } : {}),
+            },
+            recurring: {
+              interval: "month" as const,
+              interval_count: item.subscriptionIntervalCount ?? 1,
+            },
+          },
+        }));
+
+      const session = await stripe.checkout.sessions.create({
+        ui_mode: "embedded",
+        mode: "subscription",
+        line_items,
+        shipping_address_collection: { allowed_countries: ["US"] },
+        return_url: `${siteUrl}/success?session_id={CHECKOUT_SESSION_ID}`,
+      });
+
+      return NextResponse.json({ clientSecret: session.client_secret });
+    }
+
+    // One-time payment checkout
     const line_items: Stripe.Checkout.SessionCreateParams.LineItem[] =
       cartItems.map((item) => ({
         quantity: item.quantity,
