@@ -6,6 +6,8 @@ type CartItem = {
   price: number; // dollars
   quantity: number;
   image?: string;
+  isSubscription?: boolean;
+  subscriptionIntervalCount?: number; // billing every N months
 };
 
 export async function POST(req: Request) {
@@ -21,13 +23,48 @@ export async function POST(req: Request) {
     }
 
     const stripe = new Stripe(secretKey);
-    const { cartItems, promotionCodeId } = (await req.json()) as { cartItems: CartItem[]; promotionCodeId?: string };
+    const { cartItems, promotionCodeId } = (await req.json()) as {
+      cartItems: CartItem[];
+      promotionCodeId?: string;
+    };
 
     if (!Array.isArray(cartItems) || cartItems.length === 0) {
       return NextResponse.json({ error: "Cart is empty" }, { status: 400 });
     }
 
-    // Build line items for Stripe (convert dollars -> cents)
+    const isSubscription = cartItems.some((item) => item.isSubscription);
+
+    if (isSubscription) {
+      // Subscription checkout
+      const line_items: Stripe.Checkout.SessionCreateParams.LineItem[] =
+        cartItems.map((item) => ({
+          quantity: item.quantity,
+          price_data: {
+            currency: "usd",
+            unit_amount: Math.round(item.price * 100),
+            product_data: {
+              name: item.name,
+              ...(item.image ? { images: [item.image] } : {}),
+            },
+            recurring: {
+              interval: "month" as const,
+              interval_count: item.subscriptionIntervalCount ?? 1,
+            },
+          },
+        }));
+
+      const session = await stripe.checkout.sessions.create({
+        ui_mode: "embedded",
+        mode: "subscription",
+        line_items,
+        shipping_address_collection: { allowed_countries: ["US"] },
+        return_url: `${siteUrl}/success?session_id={CHECKOUT_SESSION_ID}`,
+      });
+
+      return NextResponse.json({ clientSecret: session.client_secret });
+    }
+
+    // One-time payment checkout
     const line_items: Stripe.Checkout.SessionCreateParams.LineItem[] =
       cartItems.map((item) => ({
         quantity: item.quantity,
@@ -41,14 +78,11 @@ export async function POST(req: Request) {
         },
       }));
 
-    // Shipping: free for 2+ bottles, otherwise $9.99
-    const totalQuantity = cartItems.reduce(
-      (sum, item) => sum + item.quantity,
-      0
-    );
-    const shippingCost = totalQuantity >= 2 ? 0 : 999; // cents
+    const totalQuantity = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+    const shippingCost = totalQuantity >= 2 ? 0 : 999;
 
     const session = await stripe.checkout.sessions.create({
+      ui_mode: "embedded",
       mode: "payment",
       line_items,
       ...(promotionCodeId
@@ -67,13 +101,12 @@ export async function POST(req: Request) {
           },
         },
       ],
-      success_url: `${siteUrl}/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${siteUrl}/cart`,
+      return_url: `${siteUrl}/success?session_id={CHECKOUT_SESSION_ID}`,
     });
 
-    return NextResponse.json({ url: session.url });
+    return NextResponse.json({ clientSecret: session.client_secret });
   } catch (err: any) {
-    console.error("Stripe checkout error:", err);
+    console.error("Stripe embedded checkout error:", err);
     return NextResponse.json(
       { error: err?.message ?? "Failed to create checkout session" },
       { status: 500 }
