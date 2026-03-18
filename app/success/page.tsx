@@ -5,7 +5,7 @@ import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { CheckCircle } from "lucide-react";
 import { useCart } from "@/lib/cart-context";
 
@@ -85,13 +85,11 @@ function SuccessContent() {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/">
-                <Button size="lg">Return Home</Button>
+              <Link href="/" className={buttonVariants({ size: "lg" })}>
+                Return Home
               </Link>
-              <Link href="/product">
-                <Button size="lg" variant="outline">
-                  View Product
-                </Button>
+              <Link href="/product" className={buttonVariants({ size: "lg", variant: "outline" })}>
+                View Product
               </Link>
             </div>
           </div>

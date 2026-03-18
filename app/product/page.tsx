@@ -55,16 +55,16 @@ const subscribeOptions = [
 
 const corePrinciples = [
   {
-    title: "Free testosterone availability",
-    description: "Fenugreek and boron reduce SHBG to unlock testosterone already present in your system.",
+    title: "Foundational nutrients enable natural production",
+    description: "Zinc, magnesium, vitamin D3, and fenugreek provide the raw materials and enzymatic support testosterone synthesis requires.",
   },
   {
     title: "Stress balance restores hormonal function",
-    description: "Ashwagandha and magnesium lower cortisol, allowing testosterone to work as intended.",
+    description: "Ashwagandha and Tongkat Ali lower cortisol, removing a barrier that suppresses natural testosterone production.",
   },
   {
-    title: "Foundational nutrients enable natural production",
-    description: "Zinc, magnesium, and vitamin D3 provide the raw materials testosterone synthesis requires.",
+    title: "Free testosterone availability",
+    description: "Boron reduces SHBG to make more of your existing testosterone available for use.",
   },
 ];
 
@@ -298,7 +298,7 @@ const productSections = [
     content: (
       <div className="space-y-4 text-text-secondary text-left max-w-lg mx-auto">
         <p className="text-sm">
-          Try Peak Performance for 30 days. If you don't notice a difference, contact us for a full refund — no friction, no deflection.
+          Try Peak Performance for 30 days. If you don't notice a difference, contact us for a full refund.
         </p>
         <p className="text-sm text-text-muted">
           We give you 30 days because that's the window where real, consistent support starts to show.
@@ -392,7 +392,7 @@ export default function ProductV2Page() {
         id: "peak-performance",
         name: "Peak Performance",
         price: RETAIL_PRICE,
-        image: "/product-v3.webp",
+        image: "/product-bottle.png",
       },
       1
     );

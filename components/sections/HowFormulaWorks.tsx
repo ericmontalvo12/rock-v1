@@ -5,22 +5,22 @@ import { Brain, Sparkles, Lock } from "lucide-react";
 
 const cards = [
   {
-    icon: Brain,
+    icon: Sparkles,
     tag: "Step 1",
-    title: "Stress Balance",
-    text: "Chronic stress elevates cortisol, which can interfere with hormonal balance and recovery. KSM-66 Ashwagandha and magnesium help support cortisol regulation.",
+    title: "Foundational Hormone Inputs",
+    text: "Vitamin D3, zinc, magnesium, and fenugreek provide the essential nutrients and enzymatic support your body relies on for testosterone synthesis.",
   },
   {
-    icon: Sparkles,
+    icon: Brain,
     tag: "Step 2",
-    title: "Foundational Hormone Inputs",
-    text: "Vitamin D3, zinc, and magnesium provide the key nutrients your body relies on for hormone production.",
+    title: "Stress Balance",
+    text: "Chronic stress elevates cortisol, which suppresses testosterone production. KSM-66 Ashwagandha and Tongkat Ali help lower cortisol, removing a key barrier to hormonal balance.",
   },
   {
     icon: Lock,
     tag: "Step 3",
     title: "Free Testosterone Availability",
-    text: "Tongkat Ali, boron, and fenugreek support lower SHBG binding, helping make more testosterone available for the body to use.",
+    text: "Boron reduces SHBG, the protein that binds testosterone and limits its use — helping make more of your natural T available for the body.",
   },
 ];
 

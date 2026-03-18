@@ -5,8 +5,11 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   icons: {
-    icon: "/logo-new.png",
-    apple: "/logo-new.png",
+    icon: [
+      { url: "/logo-new.png", sizes: "32x32", type: "image/png" },
+      { url: "/logo-new.png", sizes: "192x192", type: "image/png" },
+    ],
+    apple: { url: "/logo-new.png", sizes: "180x180" },
   },
   title: "Rock Mountain Performance | Research-Aligned Testosterone Support",
   description:
@@ -29,9 +32,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="min-h-screen bg-background antialiased overflow-x-hidden">
-          <Providers>
-          <PasswordGate>{children}</PasswordGate>
-        </Providers>
+          <Providers><PasswordGate>{children}</PasswordGate></Providers>
         </body>
     </html>
   );
