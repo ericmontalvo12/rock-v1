@@ -8,20 +8,19 @@ type CartItem = {
   image?: string;
 };
 
-const secretKey = process.env.STRIPE_SECRET_KEY;
-if (!secretKey) {
-  throw new Error("Missing STRIPE_SECRET_KEY in environment (.env.local)");
-}
-
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
-if (!siteUrl) {
-  throw new Error("Missing NEXT_PUBLIC_SITE_URL in environment (.env.local)");
-}
-
-const stripe = new Stripe(secretKey);
-
 export async function POST(req: Request) {
   try {
+    const secretKey = process.env.STRIPE_SECRET_KEY;
+    if (!secretKey) {
+      throw new Error("Missing STRIPE_SECRET_KEY in environment (.env.local)");
+    }
+
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
+    if (!siteUrl) {
+      throw new Error("Missing NEXT_PUBLIC_SITE_URL in environment (.env.local)");
+    }
+
+    const stripe = new Stripe(secretKey);
     const { cartItems, promotionCodeId } = (await req.json()) as { cartItems: CartItem[]; promotionCodeId?: string };
 
     if (!Array.isArray(cartItems) || cartItems.length === 0) {

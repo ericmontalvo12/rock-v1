@@ -1,14 +1,7 @@
 import type { Metadata } from "next";
-import { Montserrat } from "next/font/google";
 import { Providers } from "@/components/Providers";
 import { PasswordGate } from "@/components/PasswordGate";
 import "./globals.css";
-
-const montserrat = Montserrat({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-montserrat",
-});
 
 export const metadata: Metadata = {
   icons: {
@@ -34,7 +27,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={montserrat.variable}>
+    <html lang="en">
       <body className="min-h-screen bg-background antialiased overflow-x-hidden">
           <Providers>
           <PasswordGate>{children}</PasswordGate>
