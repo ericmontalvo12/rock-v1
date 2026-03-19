@@ -277,7 +277,7 @@ export default function CartPage() {
                 <CheckoutButton cartItems={checkoutItems} promotionCodeId={appliedPromo?.promotionCodeId} />
 
                 <p className="text-xs text-text-muted text-center mt-4">
-                  Secure checkout powered by Stripe
+                  Secure checkout powered by Square
                 </p>
               </div>
             </div>
