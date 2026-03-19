@@ -1,11 +1,11 @@
-import { Client, Environment } from "square";
+import { SquareClient, SquareEnvironment } from "square";
 import { NextResponse } from "next/server";
 import { randomUUID } from "crypto";
 import { lookupPromoCode } from "@/lib/promo-codes";
 
-const client = new Client({
-  accessToken: process.env.SQUARE_ACCESS_TOKEN!,
-  environment: Environment.Production,
+const client = new SquareClient({
+  token: process.env.SQUARE_ACCESS_TOKEN!,
+  environment: SquareEnvironment.Production,
 });
 
 type CartItem = {
@@ -70,7 +70,7 @@ export async function POST(req: Request) {
 
     if (isSubscription) {
       // 1. Create Square customer
-      const { result: customerResult } = await client.customersApi.createCustomer({
+      const { customer } = await client.customers.create({
         idempotencyKey: randomUUID(),
         givenName: customerInfo.firstName,
         familyName: customerInfo.lastName,
@@ -84,10 +84,10 @@ export async function POST(req: Request) {
         },
       });
 
-      const customerId = customerResult.customer!.id!;
+      const customerId = customer!.id!;
 
       // 2. Save card on file
-      const { result: cardResult } = await client.cardsApi.createCard({
+      const { card } = await client.cards.create({
         idempotencyKey: randomUUID(),
         sourceId: token,
         card: {
@@ -96,10 +96,10 @@ export async function POST(req: Request) {
         },
       });
 
-      const cardId = cardResult.card!.id!;
+      const cardId = card!.id!;
 
       // 3. Pick subscription plan variation ID
-      // These must be created in your Square Dashboard → Items → Subscriptions
+      // Create these in Square Dashboard → Items → Subscriptions
       const intervalCount =
         cartItems.find((i) => i.isSubscription)?.subscriptionIntervalCount ?? 1;
       const planVarId =
@@ -111,17 +111,14 @@ export async function POST(req: Request) {
 
       if (!planVarId) {
         return NextResponse.json(
-          {
-            error:
-              "Subscription plans are not configured yet. Please contact support.",
-          },
+          { error: "Subscription plans are not configured yet. Please contact support." },
           { status: 500 }
         );
       }
 
       // 4. Create subscription
       const today = new Date().toISOString().split("T")[0];
-      const { result: subResult } = await client.subscriptionsApi.createSubscription({
+      const { subscription } = await client.subscriptions.create({
         idempotencyKey: randomUUID(),
         locationId,
         planVariationId: planVarId,
@@ -134,19 +131,16 @@ export async function POST(req: Request) {
         email: customerInfo.email,
         firstName: customerInfo.firstName,
         lastName: customerInfo.lastName,
-        orderId: subResult.subscription!.id!,
+        orderId: subscription!.id!,
         amountTotal: (totalCents / 100).toFixed(2),
         paymentStatus: "SUBSCRIPTION_CREATED",
       });
 
-      return NextResponse.json({
-        success: true,
-        subscriptionId: subResult.subscription!.id,
-      });
+      return NextResponse.json({ success: true, subscriptionId: subscription!.id });
     }
 
     // One-time payment
-    const { result } = await client.paymentsApi.createPayment({
+    const { payment } = await client.payments.create({
       sourceId: token,
       idempotencyKey: randomUUID(),
       amountMoney: {
@@ -166,18 +160,16 @@ export async function POST(req: Request) {
       },
     });
 
-    const payment = result.payment!;
-
     await notifyHighLevel({
       email: customerInfo.email,
       firstName: customerInfo.firstName,
       lastName: customerInfo.lastName,
-      orderId: payment.id!,
+      orderId: payment!.id!,
       amountTotal: (totalCents / 100).toFixed(2),
-      paymentStatus: payment.status ?? "COMPLETED",
+      paymentStatus: payment!.status ?? "COMPLETED",
     });
 
-    return NextResponse.json({ success: true, paymentId: payment.id });
+    return NextResponse.json({ success: true, paymentId: payment!.id });
   } catch (err: any) {
     console.error("Square checkout error:", err);
     const message =
