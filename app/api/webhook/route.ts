@@ -1,78 +1,79 @@
 import { NextRequest, NextResponse } from "next/server";
-import crypto from "crypto";
-
-function verifySquareSignature(
-  body: string,
-  signature: string,
-  signatureKey: string,
-  notificationUrl: string
-): boolean {
-  const hash = crypto
-    .createHmac("sha256", signatureKey)
-    .update(notificationUrl + body)
-    .digest("base64");
-  return hash === signature;
-}
+import Stripe from "stripe";
 
 export async function POST(req: NextRequest) {
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+  const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
   const body = await req.text();
-  const signature = req.headers.get("x-square-hmacsha256-signature");
-  const signatureKey = process.env.SQUARE_WEBHOOK_SIGNATURE_KEY;
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "";
-  const notificationUrl = `${siteUrl}/api/webhook`;
+  const signature = req.headers.get("stripe-signature");
 
-  if (!signature || !signatureKey) {
-    return NextResponse.json({ error: "Missing signature" }, { status: 400 });
+  if (!signature) {
+    return NextResponse.json(
+      { error: "Missing stripe-signature header" },
+      { status: 400 }
+    );
   }
 
-  if (!verifySquareSignature(body, signature, signatureKey, notificationUrl)) {
-    console.error("Square webhook signature verification failed");
-    return NextResponse.json({ error: "Invalid signature" }, { status: 400 });
-  }
+  let event: Stripe.Event;
 
-  let event: any;
   try {
-    event = JSON.parse(body);
-  } catch {
-    return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
+    event = stripe.webhooks.constructEvent(body, signature, webhookSecret);
+  } catch (err) {
+    const errorMessage = err instanceof Error ? err.message : "Unknown error";
+    console.error(`Webhook signature verification failed: ${errorMessage}`);
+    return NextResponse.json(
+      { error: `Webhook Error: ${errorMessage}` },
+      { status: 400 }
+    );
   }
 
-  console.log("=== SQUARE WEBHOOK ===");
-  console.log("Event type:", event.type);
-
+  // Handle the event
   switch (event.type) {
-    case "payment.completed": {
-      const payment = event.data?.object?.payment;
-      console.log("Payment ID:", payment?.id);
-      console.log("Status:", payment?.status);
-      console.log("Buyer email:", payment?.buyer_email_address);
-      console.log(
-        "Amount:",
-        payment?.amount_money?.amount,
-        payment?.amount_money?.currency
-      );
+    case "checkout.session.completed": {
+      const session = event.data.object as Stripe.Checkout.Session;
+
+      // Log order details (replace with database save in production)
+      console.log("=== ORDER COMPLETED ===");
+      console.log("Session ID:", session.id);
+      console.log("Payment Status:", session.payment_status);
+      console.log("Amount Total:", session.amount_total ? `$${(session.amount_total / 100).toFixed(2)}` : "N/A");
+      console.log("Customer Email:", session.customer_details?.email || "N/A");
+      console.log("=======================");
+
+      // TODO: Save order to database
+      // TODO: Update inventory
+
+      // Forward order to HighLevel for confirmation email
+      try {
+        await fetch("https://services.leadconnectorhq.com/hooks/EakYnXEQy1hvVFmdShYB/webhook-trigger/7VJ6AHSjoT5le9ZcK4WZ", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email: session.customer_details?.email || null,
+            first_name: session.customer_details?.name?.split(" ")[0] || null,
+            last_name: session.customer_details?.name?.split(" ").slice(1).join(" ") || null,
+            order_id: session.id,
+            amount_total: session.amount_total ? (session.amount_total / 100).toFixed(2) : null,
+            currency: session.currency,
+            payment_status: session.payment_status,
+          }),
+        });
+      } catch (err) {
+        console.error("Failed to send order confirmation to HighLevel:", err);
+      }
+
       break;
     }
 
-    case "subscription.created": {
-      const sub = event.data?.object?.subscription;
-      console.log("Subscription ID:", sub?.id);
-      console.log("Customer ID:", sub?.customer_id);
-      console.log("Plan variation ID:", sub?.plan_variation_id);
-      break;
-    }
-
-    case "subscription.updated": {
-      const sub = event.data?.object?.subscription;
-      console.log("Subscription updated:", sub?.id, "Status:", sub?.status);
+    case "payment_intent.succeeded": {
+      const paymentIntent = event.data.object as Stripe.PaymentIntent;
+      console.log(`PaymentIntent ${paymentIntent.id} succeeded`);
       break;
     }
 
     default:
-      console.log("Unhandled event:", event.type);
+      console.log(`Unhandled event type: ${event.type}`);
   }
-
-  console.log("======================");
 
   return NextResponse.json({ received: true });
 }
