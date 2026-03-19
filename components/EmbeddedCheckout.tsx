@@ -161,10 +161,10 @@ export function EmbeddedCheckoutModal({
     "w-full px-3 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent";
 
   return (
-    <div className="fixed inset-0 z-[200] flex items-center justify-center">
+    <div className="fixed inset-0 z-[200] flex">
       <div className="absolute inset-0 bg-black/50" onClick={onClose} />
 
-      <div className="relative z-10 w-full max-w-2xl mx-4 bg-white rounded-2xl shadow-2xl overflow-hidden max-h-[90vh] flex flex-col">
+      <div className="relative z-10 w-full h-full bg-white flex flex-col overflow-hidden">
         {/* Header */}
         <div className="flex items-center justify-between px-5 py-4 border-b border-gray-200 flex-shrink-0">
           <div className="flex items-center gap-2">
@@ -181,7 +181,8 @@ export function EmbeddedCheckoutModal({
         </div>
 
         {/* Scrollable form */}
-        <div className="overflow-y-auto flex-1 p-5">
+        <div className="overflow-y-auto flex-1 p-5 flex justify-center">
+          <div className="w-full max-w-2xl">
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Order Summary */}
             <div className="bg-gray-50 rounded-xl p-4">
@@ -311,6 +312,7 @@ export function EmbeddedCheckoutModal({
               )}
             </Button>
           </form>
+          </div>
         </div>
 
         <div className="px-5 py-3 border-t border-gray-200 flex-shrink-0">
