@@ -5,9 +5,9 @@ import { createContext, useContext, useState, useEffect, ReactNode } from "react
 // Pricing logic: price per bottle based on quantity
 function getPricePerBottle(quantity: number): number {
   if (quantity >= 3) {
-    return 44.99;
+    return 54.00;
   }
-  return 49.99;
+  return 60.00;
 }
 
 export interface CartItem {
