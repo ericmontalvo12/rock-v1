@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, Suspense } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { Header } from "@/components/Header";
@@ -13,6 +13,7 @@ function SuccessContent() {
   const searchParams = useSearchParams();
   const sessionId = searchParams.get("session_id");
   const { clearCart } = useCart();
+  const [portalUrl, setPortalUrl] = useState<string | null>(null);
 
   // Clear the cart after successful purchase
   useEffect(() => {
@@ -20,6 +21,21 @@ function SuccessContent() {
       clearCart();
     }
   }, [sessionId, clearCart]);
+
+  // Check if this was a subscription and fetch portal URL
+  useEffect(() => {
+    if (!sessionId) return;
+    fetch("/api/portal", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ sessionId }),
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.isSubscription && data.url) setPortalUrl(data.url);
+      })
+      .catch(() => {});
+  }, [sessionId]);
 
   return (
     <div className="w-full max-w-full overflow-x-hidden">
@@ -88,9 +104,15 @@ function SuccessContent() {
               <Link href="/" className={buttonVariants({ size: "lg" })}>
                 Return Home
               </Link>
-              <Link href="/product" className={buttonVariants({ size: "lg", variant: "outline" })}>
-                View Product
-              </Link>
+              {portalUrl ? (
+                <a href={portalUrl} className={buttonVariants({ size: "lg", variant: "outline" })}>
+                  Manage Subscription
+                </a>
+              ) : (
+                <Link href="/product" className={buttonVariants({ size: "lg", variant: "outline" })}>
+                  View Product
+                </Link>
+              )}
             </div>
           </div>
         </div>
