@@ -12,16 +12,16 @@ import { EmbeddedCheckoutModal } from "@/components/EmbeddedCheckout";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check, ChevronDown, ArrowRight, Star, Shield, FlaskConical, FileText, Lock, Zap, TrendingUp, Target, Layers, X, RefreshCw, Truck } from "lucide-react";
 
-const RETAIL_PRICE = 49.99;
+const RETAIL_PRICE = 60.00;
 
 const subscribeOptions = [
   {
     id: "1mo",
     label: "1 Month Supply",
     billing: "every month",
-    priceTotal: 44.99,
-    perMonth: 44.99,
-    originalTotal: 49.99,
+    priceTotal: 54.00,
+    perMonth: 54.00,
+    originalTotal: 60.00,
     savePercent: 10,
     bottles: 1,
     intervalCount: 1,
@@ -31,9 +31,9 @@ const subscribeOptions = [
     id: "3mo",
     label: "3 Month Supply",
     billing: "every 3 months",
-    priceTotal: 119.97,
-    perMonth: 39.99,
-    originalTotal: 149.97,
+    priceTotal: 144.00,
+    perMonth: 48.00,
+    originalTotal: 180.00,
     savePercent: 20,
     bottles: 3,
     intervalCount: 3,
@@ -43,9 +43,9 @@ const subscribeOptions = [
     id: "6mo",
     label: "6 Month Supply",
     billing: "every 6 months",
-    priceTotal: 209.96,
-    perMonth: 34.99,
-    originalTotal: 299.94,
+    priceTotal: 252.00,
+    perMonth: 42.00,
+    originalTotal: 360.00,
     savePercent: 30,
     bottles: 6,
     intervalCount: 6,
