@@ -96,7 +96,7 @@ export default function CartPage() {
     return (
       <div className="w-full max-w-full overflow-x-hidden">
         <Header />
-        <main className="pt-32 pb-16 sm:pb-24">
+        <main className="pt-32 pb-16 sm:pb-24 min-h-screen">
           <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
             <div className="text-center py-16">
               <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-surface border border-border flex items-center justify-center">
@@ -122,7 +122,7 @@ export default function CartPage() {
   return (
     <div className="w-full max-w-full overflow-x-hidden">
       <Header />
-      <main className="pt-32 pb-16 sm:pb-24">
+      <main className="pt-32 pb-16 sm:pb-24 min-h-screen">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <h1 className="text-3xl sm:text-4xl font-bold text-text-primary mb-2">
             Your Pre-Order
@@ -133,7 +133,7 @@ export default function CartPage() {
 
           <div className="grid lg:grid-cols-3 gap-8">
             {/* Cart Items */}
-            <div className="lg:col-span-2 space-y-4">
+            <div className="lg:col-span-2 space-y-4 min-h-[300px]">
               {items.map((item) => (
                 <div
                   key={item.id}
