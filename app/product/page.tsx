@@ -3,55 +3,14 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/lib/cart-context";
-import { EmbeddedCheckoutModal } from "@/components/EmbeddedCheckout";
 import { motion, AnimatePresence } from "framer-motion";
-import { Check, ChevronDown, ArrowRight, Star, Shield, FlaskConical, FileText, Lock, Zap, TrendingUp, Target, Layers, X, RefreshCw, Truck } from "lucide-react";
+import { Check, ChevronDown, ArrowRight, Star, Shield, FlaskConical, FileText, Lock, Zap, TrendingUp, Target, Layers } from "lucide-react";
 
 const RETAIL_PRICE = 60.00;
-
-const subscribeOptions = [
-  {
-    id: "1mo",
-    label: "1 Month Supply",
-    billing: "every month",
-    priceTotal: 54.00,
-    perMonth: 54.00,
-    originalTotal: 60.00,
-    savePercent: 10,
-    bottles: 1,
-    intervalCount: 1,
-    badge: null as string | null,
-  },
-  {
-    id: "3mo",
-    label: "3 Month Supply",
-    billing: "every 3 months",
-    priceTotal: 144.00,
-    perMonth: 48.00,
-    originalTotal: 180.00,
-    savePercent: 20,
-    bottles: 3,
-    intervalCount: 3,
-    badge: "Most Popular" as string | null,
-  },
-  {
-    id: "6mo",
-    label: "6 Month Supply",
-    billing: "every 6 months",
-    priceTotal: 252.00,
-    perMonth: 42.00,
-    originalTotal: 360.00,
-    savePercent: 30,
-    bottles: 6,
-    intervalCount: 6,
-    badge: null as string | null,
-  },
-];
 
 const corePrinciples = [
   {
@@ -372,19 +331,10 @@ function StarRating({ rating }: { rating: number }) {
 }
 
 export default function ProductV2Page() {
-  const [purchaseType, setPurchaseType] = useState<"subscribe" | "one-time">("subscribe");
-  const [selectedSubscribeId, setSelectedSubscribeId] = useState("3mo");
-  const [showSubscribeCheckout, setShowSubscribeCheckout] = useState(false);
   const [openSection, setOpenSection] = useState<number | null>(null);
   const [addedToCart, setAddedToCart] = useState(false);
   const [activeImage, setActiveImage] = useState(0);
   const { addToCart } = useCart();
-
-  const selectedSub = subscribeOptions.find((o) => o.id === selectedSubscribeId)!;
-
-  const handleSubscribeNow = () => {
-    setShowSubscribeCheckout(true);
-  };
 
   const handleAddToCart = () => {
     addToCart(
@@ -399,15 +349,6 @@ export default function ProductV2Page() {
     setAddedToCart(true);
     setTimeout(() => setAddedToCart(false), 2000);
   };
-
-  const subscribeCheckoutItems = [{
-    name: `Peak Performance — ${selectedSub.label}`,
-    price: selectedSub.priceTotal,
-    quantity: 1,
-    image: `${typeof window !== "undefined" ? window.location.origin : ""}/product-v3.webp`,
-    isSubscription: true,
-    subscriptionIntervalCount: selectedSub.intervalCount,
-  }];
 
   return (
     <div className="w-full max-w-full overflow-x-hidden">
@@ -536,136 +477,28 @@ export default function ProductV2Page() {
                 </div>
               </div>
 
-              {/* Purchase Type Toggle */}
-              <div className="flex rounded-lg border border-border overflow-hidden mb-4">
-                <button
-                  onClick={() => setPurchaseType("subscribe")}
-                  className={`flex-1 py-2.5 text-sm font-semibold transition-all ${
-                    purchaseType === "subscribe"
-                      ? "bg-primary text-white"
-                      : "bg-surface text-text-secondary hover:text-text-primary"
-                  }`}
-                >
-                  Subscribe &amp; Save
-                </button>
-                <button
-                  onClick={() => setPurchaseType("one-time")}
-                  className={`flex-1 py-2.5 text-sm font-semibold transition-all ${
-                    purchaseType === "one-time"
-                      ? "bg-primary text-white"
-                      : "bg-surface text-text-secondary hover:text-text-primary"
-                  }`}
-                >
-                  One Time Purchase
-                </button>
+              {/* One Time Purchase */}
+              <div className="p-4 sm:p-5 rounded-lg border-2 border-border mb-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="font-semibold text-text-primary">1 Month Supply</p>
+                    <p className="text-xs text-text-muted mt-0.5">One-time purchase, no commitment</p>
+                  </div>
+                  <p className="font-bold text-text-primary text-lg">${RETAIL_PRICE.toFixed(2)}</p>
+                </div>
               </div>
 
-              {purchaseType === "subscribe" ? (
-                <>
-                  {/* Subscribe & Save badges */}
-                  <div className="flex items-center justify-center gap-3 mb-3 text-xs text-text-secondary">
-                    <span className="flex items-center gap-1">
-                      <Truck className="w-3.5 h-3.5 text-primary" />
-                      Free shipping on 3 &amp; 6 month
-                    </span>
-                    <span className="text-border">|</span>
-                    <span className="flex items-center gap-1">
-                      <RefreshCw className="w-3.5 h-3.5 text-primary" />
-                      Cancel anytime
-                    </span>
-                  </div>
-
-                  {/* Subscribe Options */}
-                  <div className="space-y-3 mb-4">
-                    {subscribeOptions.map((opt) => {
-                      const isSelected = selectedSubscribeId === opt.id;
-                      return (
-                        <button
-                          key={opt.id}
-                          onClick={() => setSelectedSubscribeId(opt.id)}
-                          className={`w-full p-3 sm:p-4 rounded-lg border-2 transition-all text-left relative ${
-                            isSelected
-                              ? "border-primary bg-primary/5"
-                              : "border-border hover:border-primary/40"
-                          }`}
-                        >
-                          {opt.badge && (
-                            <span className="absolute -top-2.5 right-3 px-2.5 py-0.5 text-[10px] sm:text-xs font-bold rounded bg-primary text-white">
-                              {opt.badge}
-                            </span>
-                          )}
-                          <div className="flex items-center justify-between gap-2">
-                            <div className="flex items-center gap-2 sm:gap-3 min-w-0">
-                              <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
-                                isSelected ? "border-primary" : "border-text-muted"
-                              }`}>
-                                {isSelected && <div className="w-2.5 h-2.5 rounded-full bg-primary" />}
-                              </div>
-                              <div className="min-w-0">
-                                <p className="font-semibold text-text-primary text-sm sm:text-base">{opt.label}</p>
-                                <p className="text-xs text-text-muted">{opt.billing}</p>
-                              </div>
-                            </div>
-                            <div className="text-right flex-shrink-0">
-                              <p className="font-bold text-text-primary text-sm sm:text-base">${opt.priceTotal.toFixed(2)}</p>
-                              <p className="text-[10px] sm:text-xs text-green-600 font-medium">
-                                SAVE {opt.savePercent}%&nbsp;
-                                <span className="text-text-muted line-through font-normal">${opt.originalTotal.toFixed(2)}</span>
-                              </p>
-                              <p className="text-[10px] sm:text-xs text-text-muted">${opt.perMonth.toFixed(2)}/mo</p>
-                            </div>
-                          </div>
-                        </button>
-                      );
-                    })}
-                  </div>
-
-                  {/* Subscribe CTA */}
-                  <div className="mb-4">
-                    <Button size="lg" className="w-full" onClick={handleSubscribeNow}>
-                      Subscribe Now — ${selectedSub.priceTotal.toFixed(2)}/{selectedSub.id === "1mo" ? "mo" : selectedSub.id === "3mo" ? "3 mo" : "6 mo"}
-                    </Button>
-                  </div>
-                  <div className="flex flex-wrap justify-center gap-x-4 gap-y-1 mb-8 text-xs text-text-muted">
-                    <span className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-primary" />Cancel anytime</span>
-                    <span className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-primary" />30-Day Guarantee</span>
-                    <span className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-primary" />Secure checkout</span>
-                  </div>
-                </>
-              ) : (
-                <>
-                  {/* One Time Purchase */}
-                  <div className="p-4 sm:p-5 rounded-lg border-2 border-border mb-4">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <p className="font-semibold text-text-primary">1 Month Supply</p>
-                        <p className="text-xs text-text-muted mt-0.5">One-time purchase, no commitment</p>
-                      </div>
-                      <p className="font-bold text-text-primary text-lg">${RETAIL_PRICE.toFixed(2)}</p>
-                    </div>
-                  </div>
-
-                  {/* One Time CTA */}
-                  <div className="mb-4">
-                    <Button size="lg" className="w-full" onClick={handleAddToCart}>
-                      {addedToCart ? "Added to Cart!" : "Add to Cart"}
-                    </Button>
-                  </div>
-                  <div className="flex flex-wrap justify-center gap-x-4 gap-y-1 mb-8 text-xs text-text-muted">
-                    <span className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-primary" />30-Day Guarantee</span>
-                    <span className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-primary" />No commitment</span>
-                    <span className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-primary" />First Production Run</span>
-                  </div>
-                </>
-              )}
-
-              {/* Subscribe checkout modal (subscription flow) */}
-              {showSubscribeCheckout && (
-                <EmbeddedCheckoutModal
-                  cartItems={subscribeCheckoutItems}
-                  onClose={() => setShowSubscribeCheckout(false)}
-                />
-              )}
+              {/* One Time CTA */}
+              <div className="mb-4">
+                <Button size="lg" className="w-full" onClick={handleAddToCart}>
+                  {addedToCart ? "Added to Cart!" : "Add to Cart"}
+                </Button>
+              </div>
+              <div className="flex flex-wrap justify-center gap-x-4 gap-y-1 mb-8 text-xs text-text-muted">
+                <span className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-primary" />30-Day Guarantee</span>
+                <span className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-primary" />No commitment</span>
+                <span className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-primary" />First Production Run</span>
+              </div>
 
               {/* Accordion Sections */}
               <div className="border-t border-border">
