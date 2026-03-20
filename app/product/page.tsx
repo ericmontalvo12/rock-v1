@@ -8,7 +8,7 @@ import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/lib/cart-context";
 import { motion, AnimatePresence } from "framer-motion";
-import { Check, ChevronDown, ArrowRight, Star, Shield, FlaskConical, FileText, Lock, Zap, TrendingUp, Target, Layers } from "lucide-react";
+import { Check, ChevronDown, ArrowRight, Star, Shield, FlaskConical, FileText, Lock, Zap, TrendingUp, Target, Layers, X } from "lucide-react";
 
 const RETAIL_PRICE = 60.00;
 
@@ -669,12 +669,12 @@ export default function ProductV2Page() {
             <div className="bg-gradient-to-br from-primary/5 to-primary/10 rounded-2xl p-8 sm:p-12">
               <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">Ready to Feel Like Yourself Again?</h2>
               <p className="text-gray-600 mb-6 max-w-xl mx-auto">
-                Subscribe and save up to 40%, or try a single bottle risk-free.
+                Pre-order now and be first in line when production is complete.
               </p>
-              <Button size="lg" onClick={handleSubscribeNow} className="px-12">
-                Subscribe &amp; Save
+              <Button size="lg" onClick={handleAddToCart} className="px-12">
+                {addedToCart ? "Added to Cart!" : "Pre-Order Now"}
               </Button>
-              <p className="text-sm text-gray-500 mt-4">Cancel anytime • 30-day guarantee</p>
+              <p className="text-sm text-gray-500 mt-4">30-day guarantee • No commitment</p>
             </div>
           </section>
 
@@ -685,20 +685,11 @@ export default function ProductV2Page() {
       <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 md:hidden z-40">
         <div className="flex items-center justify-between gap-4">
           <div>
-            {purchaseType === "subscribe" ? (
-              <>
-                <p className="font-bold text-gray-900">${selectedSub.priceTotal.toFixed(2)}</p>
-                <p className="text-xs text-gray-500">{selectedSub.label} • Subscribe</p>
-              </>
-            ) : (
-              <>
-                <p className="font-bold text-gray-900">${RETAIL_PRICE.toFixed(2)}</p>
-                <p className="text-xs text-gray-500">1 bottle • One-time</p>
-              </>
-            )}
+            <p className="font-bold text-gray-900">${RETAIL_PRICE.toFixed(2)}</p>
+            <p className="text-xs text-gray-500">1 bottle • One-time</p>
           </div>
-          <Button className="flex-1" onClick={purchaseType === "subscribe" ? handleSubscribeNow : handleAddToCart}>
-            {purchaseType === "subscribe" ? "Subscribe" : addedToCart ? "Added!" : "Add to Cart"}
+          <Button className="flex-1" onClick={handleAddToCart}>
+            {addedToCart ? "Added!" : "Add to Cart"}
           </Button>
         </div>
       </div>
