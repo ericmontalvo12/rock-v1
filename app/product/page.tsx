@@ -10,7 +10,34 @@ import { useCart } from "@/lib/cart-context";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check, ChevronDown, ArrowRight, Star, Shield, FlaskConical, FileText, Lock, Zap, TrendingUp, Target, Layers, X } from "lucide-react";
 
-const RETAIL_PRICE = 60.00;
+const RETAIL_PRICE = 49.99;
+
+const BUNDLES = [
+  {
+    qty: 1,
+    label: "Buy 1 Bottle",
+    pricePerBottle: 49.99,
+    total: 49.99,
+    badge: null,
+    perks: ["$9.99 shipping", "30-day guarantee"],
+  },
+  {
+    qty: 2,
+    label: "Buy 2 Bottles",
+    pricePerBottle: 49.99,
+    total: 99.98,
+    badge: "FREE SHIPPING",
+    perks: ["Free shipping", "30-day guarantee"],
+  },
+  {
+    qty: 3,
+    label: "Buy 3 Bottles",
+    pricePerBottle: parseFloat((49.99 * 0.85).toFixed(2)),
+    total: parseFloat((49.99 * 3 * 0.85).toFixed(2)),
+    badge: "BEST VALUE",
+    perks: ["15% off", "Free shipping", "30-day guarantee"],
+  },
+];
 
 const corePrinciples = [
   {
@@ -334,17 +361,19 @@ export default function ProductV2Page() {
   const [openSection, setOpenSection] = useState<number | null>(null);
   const [addedToCart, setAddedToCart] = useState(false);
   const [activeImage, setActiveImage] = useState(0);
+  const [selectedBundle, setSelectedBundle] = useState(1);
   const { addToCart } = useCart();
 
   const handleAddToCart = () => {
+    const bundle = BUNDLES.find((b) => b.qty === selectedBundle)!;
     addToCart(
       {
         id: "peak-performance",
         name: "Peak Performance",
-        price: RETAIL_PRICE,
+        price: bundle.pricePerBottle,
         image: "/product-bottle.png",
       },
-      1
+      bundle.qty
     );
     setAddedToCart(true);
     setTimeout(() => setAddedToCart(false), 2000);
@@ -477,18 +506,53 @@ export default function ProductV2Page() {
                 </div>
               </div>
 
-              {/* One Time Purchase */}
-              <div className="p-4 sm:p-5 rounded-lg border-2 border-border mb-4">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="font-semibold text-text-primary">1 Month Supply</p>
-                    <p className="text-xs text-text-muted mt-0.5">One-time purchase, no commitment</p>
-                  </div>
-                  <p className="font-bold text-text-primary text-lg">${RETAIL_PRICE.toFixed(2)}</p>
-                </div>
+              {/* Bundle Options */}
+              <div className="space-y-3 mb-4">
+                {BUNDLES.map((bundle) => (
+                  <button
+                    key={bundle.qty}
+                    onClick={() => setSelectedBundle(bundle.qty)}
+                    className={`w-full p-4 rounded-lg border-2 text-left transition-all ${
+                      selectedBundle === bundle.qty
+                        ? "border-primary bg-primary/5"
+                        : "border-border hover:border-gray-300"
+                    }`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
+                          selectedBundle === bundle.qty ? "border-primary" : "border-gray-300"
+                        }`}>
+                          {selectedBundle === bundle.qty && (
+                            <div className="w-2 h-2 rounded-full bg-primary" />
+                          )}
+                        </div>
+                        <div>
+                          <div className="flex items-center gap-2">
+                            <p className="font-semibold text-text-primary text-sm">{bundle.label}</p>
+                            {bundle.badge && (
+                              <span className="text-xs font-bold text-primary bg-primary/10 px-2 py-0.5 rounded-full">
+                                {bundle.badge}
+                              </span>
+                            )}
+                          </div>
+                          <p className="text-xs text-text-muted mt-0.5">
+                            {bundle.perks.join(" • ")}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <p className="font-bold text-text-primary">${bundle.total.toFixed(2)}</p>
+                        {bundle.qty > 1 && (
+                          <p className="text-xs text-text-muted">${bundle.pricePerBottle.toFixed(2)}/bottle</p>
+                        )}
+                      </div>
+                    </div>
+                  </button>
+                ))}
               </div>
 
-              {/* One Time CTA */}
+              {/* CTA */}
               <div className="mb-4">
                 <Button size="lg" className="w-full" onClick={handleAddToCart}>
                   {addedToCart ? "Added to Cart!" : "Add to Cart"}
@@ -685,8 +749,12 @@ export default function ProductV2Page() {
       <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 md:hidden z-40">
         <div className="flex items-center justify-between gap-4">
           <div>
-            <p className="font-bold text-gray-900">${RETAIL_PRICE.toFixed(2)}</p>
-            <p className="text-xs text-gray-500">1 bottle • One-time</p>
+            <p className="font-bold text-gray-900">
+              ${BUNDLES.find((b) => b.qty === selectedBundle)!.total.toFixed(2)}
+            </p>
+            <p className="text-xs text-gray-500">
+              {selectedBundle} bottle{selectedBundle > 1 ? "s" : ""} • One-time
+            </p>
           </div>
           <Button className="flex-1" onClick={handleAddToCart}>
             {addedToCart ? "Added!" : "Add to Cart"}
