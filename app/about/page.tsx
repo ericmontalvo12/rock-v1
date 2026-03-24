@@ -260,62 +260,6 @@ export default function About() {
           </div>
         </section>
 
-        {/* Final CTA with Product Image */}
-        <section className="bg-white py-12 sm:py-14">
-          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-            <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-              {/* Left: Text and CTAs */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5 }}
-                className="text-center lg:text-left order-2 lg:order-1"
-              >
-                <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">
-                  Ready to Feel the Difference?
-                </h2>
-                <p className="text-gray-600 text-sm mb-6">
-                  See the full formula and try it risk-free.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
-                  <Link
-                    href="/product"
-                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-primary text-white font-medium hover:bg-primary-hover transition-colors"
-                  >
-                    Pre-Order Peak Performance
-                    <ArrowRight className="w-4 h-4" />
-                  </Link>
-                  <Link
-                    href="/formula"
-                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg border border-gray-300 text-gray-700 font-medium hover:bg-gray-50 transition-colors"
-                  >
-                    Inside the Formula
-                  </Link>
-                </div>
-              </motion.div>
-
-              {/* Right: Bottle Image */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.1 }}
-                className="flex justify-center lg:justify-end order-1 lg:order-2"
-              >
-                <div className="relative w-[260px] sm:w-[300px] lg:w-[340px]">
-                  <Image
-                    src="/bottle-formula.webp"
-                    alt="Peak Performance Bottle"
-                    width={340}
-                    height={450}
-                    className="w-full h-auto"
-                  />
-                </div>
-              </motion.div>
-            </div>
-          </div>
-        </section>
 
       </main>
       <Footer />
