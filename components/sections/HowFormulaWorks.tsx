@@ -39,7 +39,7 @@ const itemVariants = {
 
 export function HowFormulaWorks() {
   return (
-    <section className="py-16 sm:py-20 bg-gradient-to-b from-gray-50/50 to-white">
+    <section className="py-16 sm:py-20 bg-gray-50">
       <div className="mx-auto max-w-[1140px] px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -73,7 +73,7 @@ export function HowFormulaWorks() {
               <motion.div
                 key={card.title}
                 variants={itemVariants}
-                className="bg-white p-5 sm:p-6 rounded-2xl border border-gray-200/80 shadow-[0_1px_4px_rgba(0,0,0,0.05)] hover:shadow-[0_12px_40px_rgba(45,148,255,0.10)] hover:border-primary/30 hover:-translate-y-0.5 transition-all duration-200"
+                className="bg-gray-50 p-5 sm:p-6 rounded-2xl border border-gray-200 hover:shadow-[0_12px_40px_rgba(45,148,255,0.10)] hover:border-primary/30 hover:-translate-y-0.5 transition-all duration-200"
               >
                 <div className="w-11 h-11 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
                   <Icon className="w-5 h-5 text-primary" />

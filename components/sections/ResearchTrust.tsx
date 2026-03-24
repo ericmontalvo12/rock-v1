@@ -41,7 +41,7 @@ const itemVariants = {
 
 export function ResearchTrust() {
   return (
-    <section className="py-16 sm:py-20 bg-gradient-to-b from-gray-50/80 to-white">
+    <section className="py-16 sm:py-20 bg-gray-50">
       <div className="mx-auto max-w-[1140px] px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
