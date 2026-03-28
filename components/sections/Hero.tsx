@@ -10,7 +10,7 @@ export function Hero() {
   return (
     <section className="relative h-[100svh] sm:min-h-screen flex items-start sm:items-center pt-[72px] sm:pt-[88px] pb-0 sm:pb-0 overflow-hidden">
       {/* Background image - Mobile */}
-      <div className="absolute inset-0 top-[92px] sm:hidden">
+      <div className="absolute inset-0 top-[92px] sm:hidden opacity-75">
         <Image
           src="/hero-mobile.jpg"
           alt="Hero background"
