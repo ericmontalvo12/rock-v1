@@ -733,7 +733,7 @@ export default function FormulaPage() {
         </section>
 
         {/* Final CTA */}
-        <section className="bg-white py-16 sm:py-20 border-t border-gray-200">
+        <section className="bg-gray-50 py-16 sm:py-20 border-t border-gray-200">
           <div className="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8 text-center">
             <p className="text-xs font-semibold uppercase tracking-widest text-primary mb-3">
               Ready to run the full protocol?
