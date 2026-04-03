@@ -10,7 +10,7 @@ export function Hero() {
   return (
     <section className="relative h-[100svh] sm:min-h-screen flex items-start sm:items-center pt-[72px] sm:pt-[88px] pb-0 sm:pb-0 overflow-hidden">
       {/* Background image - Mobile */}
-      <div className="absolute inset-0 top-[92px] sm:hidden">
+      <div className="absolute inset-0 top-[92px] sm:hidden opacity-75">
         <Image
           src="/hero-mobile.jpg"
           alt="Hero background"
@@ -31,7 +31,7 @@ export function Hero() {
       </div>
 
       {/* Gradient overlay - Mobile: top gradient, Desktop: left gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/50 to-black/30 sm:bg-gradient-to-r sm:from-black/75 sm:via-black/50 sm:to-black/15 lg:to-65%" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/30 to-black/15 sm:bg-gradient-to-r sm:from-black/75 sm:via-black/50 sm:to-black/15 lg:to-65%" />
 
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-6 sm:py-24 lg:py-32 w-full">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
@@ -43,7 +43,7 @@ export function Hero() {
             className="text-center sm:text-center lg:text-left max-w-[320px] sm:max-w-none mx-auto"
           >
             {/* Headline */}
-            <h1 className="text-[26px] sm:text-4xl lg:text-6xl font-bold tracking-tight text-white mb-2 sm:mb-5 leading-[1.15]">
+            <h1 className="text-[26px] sm:text-4xl lg:text-6xl font-bold tracking-tight text-white mb-2 sm:mb-5 leading-[1.15] pt-[5px] sm:pt-0">
               Built for Men Who Read Labels
             </h1>
 
