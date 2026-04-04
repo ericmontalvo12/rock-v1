@@ -607,7 +607,7 @@ export default function FormulaPage() {
             <div className="grid sm:grid-cols-2 gap-3">
               <Link
                 href="/product"
-                className="flex items-center gap-4 p-4 bg-gray-50 rounded-xl border border-gray-200 hover:border-primary/30 hover:shadow-sm transition-all group"
+                className="flex flex-col items-center text-center gap-3 p-4 bg-gray-50 rounded-xl border border-gray-200 hover:border-primary/30 hover:shadow-sm transition-all group"
               >
                 <div className="w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
                   <FileText className="w-5 h-5 text-primary" />
@@ -618,7 +618,7 @@ export default function FormulaPage() {
                 </div>
               </Link>
 
-              <div className="flex items-center gap-4 p-4 bg-gray-50 rounded-xl border border-gray-200">
+              <div className="flex flex-col items-center text-center gap-3 p-4 bg-gray-50 rounded-xl border border-gray-200">
                 <div className="w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
                   <FlaskConical className="w-5 h-5 text-primary" />
                 </div>
@@ -657,7 +657,7 @@ export default function FormulaPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: index * 0.08 }}
-                  className="flex items-center gap-3 p-4 bg-white rounded-xl border border-gray-200 shadow-sm"
+                  className="flex flex-col items-center text-center gap-3 p-4 bg-white rounded-xl border border-gray-200 shadow-sm"
                 >
                   <div className="w-9 h-9 rounded-full bg-red-50 flex items-center justify-center flex-shrink-0">
                     <X className="w-4 h-4 text-red-500" />
@@ -707,7 +707,7 @@ export default function FormulaPage() {
                 </p>
 
                 <div className="space-y-3">
-                  <div className="flex items-center gap-4 p-4 bg-gray-50 rounded-xl border border-gray-200">
+                  <div className="flex flex-col items-center text-center gap-3 p-4 bg-gray-50 rounded-xl border border-gray-200">
                     <div className="w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
                       <FlaskConical className="w-5 h-5 text-primary" />
                     </div>
@@ -717,7 +717,7 @@ export default function FormulaPage() {
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-4 p-4 bg-gray-50 rounded-xl border border-gray-200">
+                  <div className="flex flex-col items-center text-center gap-3 p-4 bg-gray-50 rounded-xl border border-gray-200">
                     <div className="w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
                       <Shield className="w-5 h-5 text-primary" />
                     </div>
