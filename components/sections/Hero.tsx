@@ -11,24 +11,25 @@ export function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    // Use visualViewport.height which accounts for Instagram/Facebook bottom nav bar.
-    // window.innerHeight includes hidden chrome; visualViewport gives true visible height.
-    const getHeight = () =>
-      window.visualViewport ? window.visualViewport.height : window.innerHeight;
+    if (sectionRef.current && window.innerWidth < 640) {
+      // Capture height once on mount using visualViewport (excludes Instagram bottom nav).
+      // Do NOT listen to visualViewport resize — it fires on scroll and causes the glitch.
+      const h = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+      sectionRef.current.style.height = `${h}px`;
+    }
 
-    const setHeight = () => {
-      if (sectionRef.current && window.innerWidth < 640) {
-        sectionRef.current.style.height = `${getHeight()}px`;
-      }
+    const handleOrientation = () => {
+      // Only re-measure on orientation change (portrait ↔ landscape), not scroll
+      setTimeout(() => {
+        if (sectionRef.current && window.innerWidth < 640) {
+          const h = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+          sectionRef.current.style.height = `${h}px`;
+        }
+      }, 200); // small delay to let the browser settle after rotation
     };
-    setHeight();
-    // Update on orientation change only, not scroll
-    window.addEventListener("orientationchange", setHeight);
-    window.visualViewport?.addEventListener("resize", setHeight);
-    return () => {
-      window.removeEventListener("orientationchange", setHeight);
-      window.visualViewport?.removeEventListener("resize", setHeight);
-    };
+
+    window.addEventListener("orientationchange", handleOrientation);
+    return () => window.removeEventListener("orientationchange", handleOrientation);
   }, []);
 
   return (
