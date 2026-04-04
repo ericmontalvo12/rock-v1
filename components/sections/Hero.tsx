@@ -11,17 +11,24 @@ export function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    // Lock hero height on mount using window.innerHeight (works in IG/FB WebViews
-    // which don't support svh units and resize viewport on scroll)
+    // Use visualViewport.height which accounts for Instagram/Facebook bottom nav bar.
+    // window.innerHeight includes hidden chrome; visualViewport gives true visible height.
+    const getHeight = () =>
+      window.visualViewport ? window.visualViewport.height : window.innerHeight;
+
     const setHeight = () => {
       if (sectionRef.current && window.innerWidth < 640) {
-        sectionRef.current.style.height = `${window.innerHeight}px`;
+        sectionRef.current.style.height = `${getHeight()}px`;
       }
     };
     setHeight();
-    // Only update on orientation change, not scroll
+    // Update on orientation change only, not scroll
     window.addEventListener("orientationchange", setHeight);
-    return () => window.removeEventListener("orientationchange", setHeight);
+    window.visualViewport?.addEventListener("resize", setHeight);
+    return () => {
+      window.removeEventListener("orientationchange", setHeight);
+      window.visualViewport?.removeEventListener("resize", setHeight);
+    };
   }, []);
 
   return (
