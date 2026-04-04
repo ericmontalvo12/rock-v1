@@ -66,7 +66,7 @@ export default function About() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4 }}
-                className="bg-white p-5 rounded-xl border border-gray-200 shadow-sm"
+                className="bg-white p-5 rounded-xl border border-gray-200 shadow-sm flex flex-col items-center text-center"
               >
                 <div className="w-10 h-10 rounded-lg bg-red-50 flex items-center justify-center mb-3">
                   <AlertTriangle className="w-5 h-5 text-red-500" />
@@ -82,7 +82,7 @@ export default function About() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: 0.1 }}
-                className="bg-white p-5 rounded-xl border border-gray-200 shadow-sm"
+                className="bg-white p-5 rounded-xl border border-gray-200 shadow-sm flex flex-col items-center text-center"
               >
                 <div className="w-10 h-10 rounded-lg bg-red-50 flex items-center justify-center mb-3">
                   <Eye className="w-5 h-5 text-red-500" />
@@ -98,7 +98,7 @@ export default function About() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: 0.2 }}
-                className="bg-white p-5 rounded-xl border border-gray-200 shadow-sm"
+                className="bg-white p-5 rounded-xl border border-gray-200 shadow-sm flex flex-col items-center text-center"
               >
                 <div className="w-10 h-10 rounded-lg bg-red-50 flex items-center justify-center mb-3">
                   <Beaker className="w-5 h-5 text-red-500" />
@@ -212,7 +212,7 @@ export default function About() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4 }}
-              className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm max-w-lg mx-auto"
+              className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm max-w-lg mx-auto flex flex-col items-center text-center"
             >
               <div className="flex items-center gap-2 mb-4">
                 <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
@@ -221,16 +221,16 @@ export default function About() {
                 <h3 className="font-semibold text-gray-900 text-sm">Built for men who:</h3>
               </div>
               <ul className="space-y-2.5">
-                <li className="flex items-start gap-2.5 text-gray-600 text-sm">
-                  <span className="w-1 h-1 rounded-full bg-primary mt-2 flex-shrink-0"></span>
+                <li className="flex items-center justify-center gap-2.5 text-gray-600 text-sm">
+                  <span className="w-1 h-1 rounded-full bg-primary flex-shrink-0"></span>
                   Want real hormonal support backed by research
                 </li>
-                <li className="flex items-start gap-2.5 text-gray-600 text-sm">
-                  <span className="w-1 h-1 rounded-full bg-primary mt-2 flex-shrink-0"></span>
+                <li className="flex items-center justify-center gap-2.5 text-gray-600 text-sm">
+                  <span className="w-1 h-1 rounded-full bg-primary flex-shrink-0"></span>
                   Value fully disclosed ingredients at effective doses
                 </li>
-                <li className="flex items-start gap-2.5 text-gray-600 text-sm">
-                  <span className="w-1 h-1 rounded-full bg-primary mt-2 flex-shrink-0"></span>
+                <li className="flex items-center justify-center gap-2.5 text-gray-600 text-sm">
+                  <span className="w-1 h-1 rounded-full bg-primary flex-shrink-0"></span>
                   Are ready to support energy, drive, and recovery
                 </li>
               </ul>
