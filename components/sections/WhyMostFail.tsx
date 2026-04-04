@@ -39,9 +39,9 @@ export function WhyMostFail() {
             {failReasons.map((reason, index) => (
               <li
                 key={index}
-                className="flex items-start gap-3 bg-gray-50 rounded-xl p-4 border border-gray-200/80"
+                className="flex flex-col items-center text-center gap-3 bg-gray-50 rounded-xl p-4 border border-gray-200/80"
               >
-                <div className="w-8 h-8 rounded-lg bg-red-50 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <div className="w-8 h-8 rounded-lg bg-red-50 flex items-center justify-center flex-shrink-0">
                   <X className="w-4 h-4 text-red-500" />
                 </div>
                 <span className="text-gray-700 text-sm sm:text-base leading-relaxed">
@@ -56,7 +56,7 @@ export function WhyMostFail() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-gray-700 text-sm sm:text-base leading-relaxed text-center border-l-4 border-primary pl-4 text-left"
+            className="text-gray-700 text-sm sm:text-base leading-relaxed text-center border-t-2 border-primary pt-4"
           >
             Peak Performance was built differently — with clinical doses, full transparency, and
             ingredients chosen to support real hormonal function.
