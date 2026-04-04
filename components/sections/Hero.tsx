@@ -5,10 +5,27 @@ import Image from "next/image";
 import Link from "next/link";
 import { Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useEffect, useRef } from "react";
 
 export function Hero() {
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    // Lock hero height on mount using window.innerHeight (works in IG/FB WebViews
+    // which don't support svh units and resize viewport on scroll)
+    const setHeight = () => {
+      if (sectionRef.current && window.innerWidth < 640) {
+        sectionRef.current.style.height = `${window.innerHeight}px`;
+      }
+    };
+    setHeight();
+    // Only update on orientation change, not scroll
+    window.addEventListener("orientationchange", setHeight);
+    return () => window.removeEventListener("orientationchange", setHeight);
+  }, []);
+
   return (
-    <section className="relative h-[100svh] sm:min-h-screen flex items-start sm:items-center pt-[72px] sm:pt-[88px] pb-0 sm:pb-0 overflow-hidden">
+    <section ref={sectionRef} className="relative h-[100svh] sm:min-h-screen flex items-start sm:items-center pt-[72px] sm:pt-[88px] pb-0 sm:pb-0 overflow-hidden">
       {/* Background image - Mobile */}
       <div className="absolute inset-0 top-[92px] sm:hidden">
         <Image
