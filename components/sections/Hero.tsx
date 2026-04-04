@@ -65,7 +65,7 @@ export function Hero() {
             </h1>
 
             {/* Subheadline */}
-            <p className="text-white/85 text-[14px] sm:text-lg mb-4 sm:mb-8 leading-relaxed max-w-[280px] sm:max-w-md mx-auto lg:mx-0">
+            <p className="text-white/85 text-[14px] sm:text-lg mb-4 sm:mb-8 leading-relaxed max-w-[280px] sm:max-w-md mx-auto lg:mx-0 text-center lg:text-left">
               Research-backed testosterone support for energy, drive, and recovery.
             </p>
 
@@ -113,7 +113,7 @@ export function Hero() {
             </div>
 
             {/* Pre-order note */}
-            <p className="text-white/50 text-[11px] sm:text-sm mt-3 sm:mt-4">
+            <p className="text-white/50 text-[11px] sm:text-sm mt-3 sm:mt-4 text-center lg:text-left">
               Pre-orders open. Ships when production is complete.
             </p>
 
