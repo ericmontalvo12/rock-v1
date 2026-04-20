@@ -75,7 +75,7 @@ const ingredients = [
     category: "availability" as TabId,
     form: "Citrate",
     dosage: "9 mg",
-    image: "/food-ingredients.jpg",
+    image: "/boron.png",
     shortDesc: "Shown to increase free testosterone by reducing SHBG in just one week.",
     fullDesc: "A study found that just 10mg of boron daily significantly increased free testosterone and DHT while decreasing estradiol and SHBG after only 7 days. Boron doesn't just support T — it makes more of it available for your body to use.",
     benefits: [
