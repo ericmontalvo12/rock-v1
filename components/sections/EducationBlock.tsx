@@ -13,7 +13,7 @@ const ingredients = [
   { name: "Fenugreek", dose: "500mg", image: "/fenugreek.png" },
   { name: "Magnesium", dose: "30mg", image: "/magnesium.png" },
   { name: "Zinc", dose: "20mg", image: "/zinc.png" },
-  { name: "Boron", dose: "9mg", image: "/boron.png" },
+  { name: "Boron", dose: "9mg", image: "/food-ingredients.jpg" },
 ];
 
 export function EducationBlock() {
