@@ -8,7 +8,7 @@ const features = [
     image: "/batch-testing.png",
     label: "Quality",
     claim: "Every batch independently tested",
-    description: "Third-party lab analysis for purity and potency before shipment.",
+    description: "Batch tested for purity and potency before shipment.",
   },
   {
     image: "/research-backed.png",

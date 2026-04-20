@@ -2,6 +2,14 @@
 
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 
+// Pricing logic: price per bottle based on quantity
+function getPricePerBottle(quantity: number): number {
+  if (quantity >= 3) {
+    return parseFloat((49.99 * 0.85).toFixed(2)); // 15% off = $42.49
+  }
+  return 49.99;
+}
+
 export interface CartItem {
   id: string;
   name: string;
@@ -46,11 +54,14 @@ export function CartProvider({ children }: { children: ReactNode }) {
     setItems((prev) => {
       const existingItem = prev.find((i) => i.id === item.id);
       if (existingItem) {
+        const newQuantity = existingItem.quantity + quantity;
         return prev.map((i) =>
-          i.id === item.id ? { ...i, quantity: i.quantity + quantity } : i
+          i.id === item.id
+            ? { ...i, quantity: newQuantity, price: getPricePerBottle(newQuantity) }
+            : i
         );
       }
-      return [...prev, { ...item, quantity }];
+      return [...prev, { ...item, quantity, price: getPricePerBottle(quantity) }];
     });
   };
 
@@ -64,7 +75,11 @@ export function CartProvider({ children }: { children: ReactNode }) {
       return;
     }
     setItems((prev) =>
-      prev.map((item) => (item.id === id ? { ...item, quantity } : item))
+      prev.map((item) =>
+        item.id === id
+          ? { ...item, quantity, price: getPricePerBottle(quantity) }
+          : item
+      )
     );
   };
 

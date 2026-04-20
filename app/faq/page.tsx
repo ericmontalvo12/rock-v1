@@ -37,6 +37,11 @@ const faqs = [
       "If you are taking prescription medications or have a medical condition, consult your healthcare provider before using this product. Dietary supplements may interact with certain medications.",
   },
   {
+    question: "How do I cancel my subscription?",
+    answer:
+      "You can cancel anytime — no phone calls, no hassle. Just visit our Manage Subscription page at rockmountainperformance.com/manage, enter the email you used at checkout, and you'll be taken directly to the billing portal where you can cancel with one click.",
+  },
+  {
     question: "Is Peak Performance backed by a guarantee?",
     answer:
       "Yes. Rock Mountain Peak Performance is backed by a 30-day money-back guarantee. If you're not satisfied, contact us within 30 days of purchase for a refund.",

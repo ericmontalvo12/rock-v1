@@ -1,12 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
-
-
-const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
-
 export async function POST(req: NextRequest) {
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+  const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
   const body = await req.text();
   const signature = req.headers.get("stripe-signature");
 
@@ -44,8 +41,26 @@ export async function POST(req: NextRequest) {
       console.log("=======================");
 
       // TODO: Save order to database
-      // TODO: Send confirmation email
       // TODO: Update inventory
+
+      // Forward order to HighLevel for confirmation email
+      try {
+        await fetch("https://services.leadconnectorhq.com/hooks/EakYnXEQy1hvVFmdShYB/webhook-trigger/7VJ6AHSjoT5le9ZcK4WZ", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email: session.customer_details?.email || null,
+            first_name: session.customer_details?.name?.split(" ")[0] || null,
+            last_name: session.customer_details?.name?.split(" ").slice(1).join(" ") || null,
+            order_id: session.id,
+            amount_total: session.amount_total ? (session.amount_total / 100).toFixed(2) : null,
+            currency: session.currency,
+            payment_status: session.payment_status,
+          }),
+        });
+      } catch (err) {
+        console.error("Failed to send order confirmation to HighLevel:", err);
+      }
 
       break;
     }

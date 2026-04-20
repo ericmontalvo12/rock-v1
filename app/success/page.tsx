@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect, Suspense } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { CheckCircle } from "lucide-react";
 import { useCart } from "@/lib/cart-context";
 
@@ -13,6 +13,7 @@ function SuccessContent() {
   const searchParams = useSearchParams();
   const sessionId = searchParams.get("session_id");
   const { clearCart } = useCart();
+  const [portalUrl, setPortalUrl] = useState<string | null>(null);
 
   // Clear the cart after successful purchase
   useEffect(() => {
@@ -20,6 +21,21 @@ function SuccessContent() {
       clearCart();
     }
   }, [sessionId, clearCart]);
+
+  // Check if this was a subscription and fetch portal URL
+  useEffect(() => {
+    if (!sessionId) return;
+    fetch("/api/portal", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ sessionId }),
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.isSubscription && data.url) setPortalUrl(data.url);
+      })
+      .catch(() => {});
+  }, [sessionId]);
 
   return (
     <div className="w-full max-w-full overflow-x-hidden">
@@ -32,12 +48,11 @@ function SuccessContent() {
             </div>
 
             <h1 className="text-3xl sm:text-4xl font-bold text-text-primary mb-4">
-              Order Confirmed!
+              Pre-Order Confirmed!
             </h1>
 
             <p className="text-text-secondary mb-2">
-              Thank you for your purchase. Your order has been successfully
-              placed.
+              Thanks for being one of the first. Your order is secured and will ship as soon as production is complete.
             </p>
 
             {sessionId && (
@@ -65,8 +80,7 @@ function SuccessContent() {
                     2
                   </span>
                   <span>
-                    Your order will be processed and shipped within 1 business
-                    day.
+                    Your order will ship as soon as the first production run is complete.
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
@@ -74,27 +88,31 @@ function SuccessContent() {
                     3
                   </span>
                   <span>
-                    You'll receive tracking information via email once shipped.
+                    We'll send you tracking information the moment your order ships.
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="w-6 h-6 rounded-full bg-primary/10 text-primary text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">
                     4
                   </span>
-                  <span>Delivery typically takes 4-7 business days.</span>
+                  <span>Your 30-day guarantee starts when your order arrives.</span>
                 </li>
               </ul>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/">
-                <Button size="lg">Return Home</Button>
+              <Link href="/" className={buttonVariants({ size: "lg" })}>
+                Return Home
               </Link>
-              <Link href="/product">
-                <Button size="lg" variant="outline">
-                  Continue Shopping
-                </Button>
-              </Link>
+              {portalUrl ? (
+                <a href={portalUrl} className={buttonVariants({ size: "lg", variant: "outline" })}>
+                  Manage Subscription
+                </a>
+              ) : (
+                <Link href="/product" className={buttonVariants({ size: "lg", variant: "outline" })}>
+                  View Product
+                </Link>
+              )}
             </div>
           </div>
         </div>

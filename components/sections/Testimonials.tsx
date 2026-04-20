@@ -1,11 +1,89 @@
 "use client";
 
-import { useState, useRef } from "react";
 import { motion } from "framer-motion";
-import Image from "next/image";
-import { ChevronLeft, ChevronRight, CheckCircle } from "lucide-react";
 
-// Transformation data - replace with real data later
+/**
+ * =============================================================================
+ * TESTIMONIALS COMPONENT - PRE-LAUNCH PLACEHOLDER
+ * =============================================================================
+ *
+ * This component currently shows a placeholder empty state for pre-launch.
+ * The original testimonial carousel code is preserved below and can be
+ * re-enabled after launch by:
+ *
+ * 1. Uncommenting the ORIGINAL TESTIMONIALS CODE section below
+ * 2. Commenting out or removing the PLACEHOLDER SECTION
+ * 3. Uncommenting the imports at the top of the file
+ *
+ * =============================================================================
+ */
+
+// =============================================================================
+// ORIGINAL IMPORTS (uncomment when re-enabling testimonials)
+// =============================================================================
+// import { useState, useRef } from "react";
+// import Image from "next/image";
+// import { ChevronLeft, ChevronRight, CheckCircle } from "lucide-react";
+
+// =============================================================================
+// PLACEHOLDER SECTION (remove after launch)
+// =============================================================================
+export function Testimonials() {
+  return (
+    <section id="transformations" className="py-16 sm:py-20 lg:py-24 bg-white">
+      <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="text-center"
+        >
+          <p className="text-[#0981e3] font-semibold text-xs uppercase tracking-widest mb-3">
+            Testimonials
+          </p>
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#0b1320] mb-4">
+            What Our Customers Are Saying
+          </h2>
+
+          {/* Empty State Card */}
+          <div className="max-w-lg mx-auto mt-10">
+            <div className="bg-[#f8f9fa] border border-[#0b1320]/10 rounded-2xl p-10 sm:p-12">
+              {/* Icon */}
+              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#0981e3]/10 mb-6">
+                <svg
+                  className="w-8 h-8 text-[#0981e3]"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={1.5}
+                    d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+                  />
+                </svg>
+              </div>
+
+              <h3 className="text-xl font-bold text-[#0b1320] mb-3">
+                No testimonials yet
+              </h3>
+              <p className="text-[#0b1320]/60 text-base leading-relaxed max-w-sm mx-auto">
+                We're just getting started. Be one of the first to try Peak Performance and share your experience after launch.
+              </p>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+// =============================================================================
+// ORIGINAL TESTIMONIALS CODE (uncomment after launch)
+// =============================================================================
+/*
 const transformations = [
   {
     id: 1,
@@ -76,7 +154,6 @@ export function Testimonials() {
   return (
     <section id="transformations" className="py-16 sm:py-20 lg:py-24 bg-white">
       <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -95,9 +172,7 @@ export function Testimonials() {
           </p>
         </motion.div>
 
-        {/* Carousel Container */}
         <div className="relative">
-          {/* Arrow Buttons */}
           <button
             onClick={goPrev}
             disabled={activeIndex === 0}
@@ -115,7 +190,6 @@ export function Testimonials() {
             <ChevronRight className="w-6 h-6 text-gray-600" />
           </button>
 
-          {/* Carousel */}
           <div
             ref={carouselRef}
             onScroll={handleScroll}
@@ -132,11 +206,8 @@ export function Testimonials() {
                 className="flex-shrink-0 w-[calc(100vw-32px)] sm:w-[calc(100vw-48px)] lg:w-full"
                 style={{ scrollSnapAlign: "start" }}
               >
-                {/* Transformation Set: Quote + Before + After */}
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-5">
-                  {/* Quote Card */}
                   <div className="group bg-white p-6 sm:p-8 rounded-2xl border border-gray-200/80 shadow-[0_2px_12px_rgba(0,0,0,0.06)] hover:shadow-[0_12px_40px_rgba(59,130,246,0.1)] hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between min-h-[280px] lg:min-h-[400px]">
-                    {/* Top: Name + Verified */}
                     <div>
                       <div className="flex items-center gap-2 mb-5">
                         <span className="text-lg font-bold text-gray-900">{transformation.name}</span>
@@ -144,22 +215,16 @@ export function Testimonials() {
                           <CheckCircle className="w-5 h-5 text-primary fill-primary/20" />
                         )}
                       </div>
-
-                      {/* Quote */}
                       <p className="text-gray-600 text-base leading-relaxed line-clamp-6 lg:line-clamp-none">
                         "{transformation.quote}"
                       </p>
                     </div>
-
-                    {/* Bottom spacer for alignment */}
                     <div className="mt-4">
                       <span className="text-xs text-gray-400 uppercase tracking-wider">Verified Customer</span>
                     </div>
                   </div>
 
-                  {/* Before/After Images - Side by side on mobile, grid on desktop */}
                   <div className="grid grid-cols-2 lg:contents gap-3">
-                    {/* Before Image Card */}
                     <div className="group relative rounded-2xl overflow-hidden border border-gray-200/80 shadow-[0_2px_12px_rgba(0,0,0,0.06)] hover:shadow-[0_12px_40px_rgba(59,130,246,0.1)] hover:-translate-y-1 transition-all duration-300 aspect-[3/4] lg:aspect-auto lg:min-h-[400px]">
                       <Image
                         src={transformation.beforeImage}
@@ -168,9 +233,7 @@ export function Testimonials() {
                         className="object-cover object-[0%_50%]"
                         unoptimized
                       />
-                      {/* Gradient overlay */}
                       <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
-                      {/* Before Pill */}
                       <div className="absolute bottom-4 left-1/2 -translate-x-1/2">
                         <span className="inline-block px-4 py-1.5 bg-white/95 backdrop-blur-sm rounded-full text-xs font-semibold text-gray-800 shadow-lg border border-gray-200/50">
                           BEFORE
@@ -178,7 +241,6 @@ export function Testimonials() {
                       </div>
                     </div>
 
-                    {/* After Image Card */}
                     <div className="group relative rounded-2xl overflow-hidden border border-gray-200/80 shadow-[0_2px_12px_rgba(0,0,0,0.06)] hover:shadow-[0_12px_40px_rgba(59,130,246,0.1)] hover:-translate-y-1 transition-all duration-300 aspect-[3/4] lg:aspect-auto lg:min-h-[400px]">
                       <Image
                         src={transformation.afterImage}
@@ -187,9 +249,7 @@ export function Testimonials() {
                         className="object-cover"
                         unoptimized
                       />
-                      {/* Gradient overlay */}
                       <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
-                      {/* After Pill */}
                       <div className="absolute bottom-4 left-1/2 -translate-x-1/2">
                         <span className="inline-block px-4 py-1.5 bg-white/95 backdrop-blur-sm rounded-full text-xs font-semibold text-primary shadow-lg border border-primary/20">
                           AFTER
@@ -202,9 +262,7 @@ export function Testimonials() {
             ))}
           </div>
 
-          {/* Dot Pagination */}
           <div className="flex items-center justify-center gap-3 mt-8">
-            {/* Mobile Arrows */}
             <button
               onClick={goPrev}
               disabled={activeIndex === 0}
@@ -214,7 +272,6 @@ export function Testimonials() {
               <ChevronLeft className="w-5 h-5 text-gray-600" />
             </button>
 
-            {/* Dots */}
             <div className="flex gap-2">
               {transformations.map((_, index) => (
                 <button
@@ -230,7 +287,6 @@ export function Testimonials() {
               ))}
             </div>
 
-            {/* Mobile Arrows */}
             <button
               onClick={goNext}
               disabled={activeIndex === transformations.length - 1}
@@ -245,3 +301,4 @@ export function Testimonials() {
     </section>
   );
 }
+*/

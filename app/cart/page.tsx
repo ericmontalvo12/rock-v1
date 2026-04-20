@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useState, useEffect } from "react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -11,9 +12,77 @@ import { Minus, Plus, Trash2, ShoppingBag } from "lucide-react";
 
 export default function CartPage() {
   const { items, updateQuantity, removeFromCart, totalPrice, totalItems, clearCart } = useCart();
+  const [promoInput, setPromoInput] = useState("");
+  const [promoLoading, setPromoLoading] = useState(false);
+  const [promoError, setPromoError] = useState("");
+  const [appliedPromo, setAppliedPromo] = useState<{ code: string; percentOff: number | null; amountOff: number | null; promotionCodeId: string } | null>(null);
 
-  // Free shipping for 2+ bottles or orders over $100
-  const qualifiesForFreeShipping = totalItems >= 2 || totalPrice >= 100;
+  const applyPromoCode = async (code: string) => {
+    setPromoLoading(true);
+    setPromoError("");
+    setAppliedPromo(null);
+    try {
+      const res = await fetch("/api/validate-promo", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ code }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setAppliedPromo({ code, promotionCodeId: data.promotionCodeId, percentOff: data.percentOff, amountOff: data.amountOff });
+      } else {
+        setPromoError(data.error || "Invalid code.");
+      }
+    } catch {
+      setPromoError("Something went wrong. Try again.");
+    } finally {
+      setPromoLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    const saved = localStorage.getItem("promoCode");
+    if (saved) {
+      setPromoInput(saved);
+      applyPromoCode(saved);
+    }
+  }, []);
+
+  const handleApplyPromo = async () => {
+    if (!promoInput.trim()) return;
+    setPromoLoading(true);
+    setPromoError("");
+    setAppliedPromo(null);
+    try {
+      const res = await fetch("/api/validate-promo", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ code: promoInput.trim().toUpperCase() }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setPromoError(data.error || "Invalid code.");
+      } else {
+        setAppliedPromo({ code: promoInput.trim().toUpperCase(), promotionCodeId: data.promotionCodeId, percentOff: data.percentOff, amountOff: data.amountOff });
+      }
+    } catch {
+      setPromoError("Something went wrong. Try again.");
+    } finally {
+      setPromoLoading(false);
+    }
+  };
+
+
+  const discountAmount = appliedPromo
+    ? appliedPromo.percentOff
+      ? totalPrice * (appliedPromo.percentOff / 100)
+      : (appliedPromo.amountOff ?? 0) / 100
+    : 0;
+
+  const discountedSubtotal = totalPrice - discountAmount;
+
+  // Free shipping for 2+ bottles
+  const qualifiesForFreeShipping = totalItems >= 2;
 
   // Map cart items to the format expected by CheckoutButton
   const checkoutItems = items.map((item) => ({
@@ -27,7 +96,7 @@ export default function CartPage() {
     return (
       <div className="w-full max-w-full overflow-x-hidden">
         <Header />
-        <main className="pt-32 pb-16 sm:pb-24">
+        <main className="pt-32 pb-16 sm:pb-24 min-h-screen">
           <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
             <div className="text-center py-16">
               <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-surface border border-border flex items-center justify-center">
@@ -40,7 +109,7 @@ export default function CartPage() {
                 Looks like you haven't added anything to your cart yet.
               </p>
               <Link href="/product">
-                <Button size="lg">Shop Now</Button>
+                <Button size="lg">Pre-Order Now</Button>
               </Link>
             </div>
           </div>
@@ -53,15 +122,18 @@ export default function CartPage() {
   return (
     <div className="w-full max-w-full overflow-x-hidden">
       <Header />
-      <main className="pt-32 pb-16 sm:pb-24">
+      <main className="pt-32 pb-16 sm:pb-24 min-h-screen">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <h1 className="text-3xl sm:text-4xl font-bold text-text-primary mb-8">
-            Your Cart
+          <h1 className="text-3xl sm:text-4xl font-bold text-text-primary mb-2">
+            Your Pre-Order
           </h1>
+          <p className="text-text-muted text-sm mb-8">
+            You're reserving from the first production run. Ships when manufacturing is complete.
+          </p>
 
           <div className="grid lg:grid-cols-3 gap-8">
             {/* Cart Items */}
-            <div className="lg:col-span-2 space-y-4">
+            <div className="lg:col-span-2 space-y-4 min-h-[300px]">
               {items.map((item) => (
                 <div
                   key={item.id}
@@ -144,7 +216,7 @@ export default function CartPage() {
             <div className="lg:col-span-1">
               <div className="sticky top-32 p-6 rounded-2xl bg-surface border border-border">
                 <h2 className="text-xl font-semibold text-text-primary mb-6">
-                  Order Summary
+                  Pre-Order Summary
                 </h2>
 
                 <div className="space-y-4 mb-6">
@@ -152,6 +224,12 @@ export default function CartPage() {
                     <span>Subtotal</span>
                     <span className="text-text-primary">${totalPrice.toFixed(2)}</span>
                   </div>
+                  {appliedPromo && (
+                    <div className="flex justify-between text-green-500">
+                      <span>Discount ({appliedPromo.code})</span>
+                      <span>-${discountAmount.toFixed(2)}</span>
+                    </div>
+                  )}
                   <div className="flex justify-between text-text-secondary">
                     <span>Shipping</span>
                     <span className="text-text-primary">
@@ -160,30 +238,43 @@ export default function CartPage() {
                   </div>
                   <div className="pt-4 border-t border-border flex justify-between">
                     <span className="font-semibold text-text-primary">Total</span>
-                    <span className="font-bold text-primary text-xl">
-                      ${(totalPrice + (qualifiesForFreeShipping ? 0 : 9.99)).toFixed(2)}
-                    </span>
+                    <div className="text-right">
+                      {appliedPromo && (
+                        <p className="text-text-muted line-through text-sm">
+                          ${(totalPrice + (qualifiesForFreeShipping ? 0 : 9.99)).toFixed(2)}
+                        </p>
+                      )}
+                      <span className="font-bold text-primary text-xl">
+                        ${(discountedSubtotal + (qualifiesForFreeShipping ? 0 : 9.99)).toFixed(2)}
+                      </span>
+                    </div>
                   </div>
                 </div>
 
-                {/* Discount Code */}
+                {/* Promo Code */}
                 <div className="mb-6">
-                  <label className="block text-sm text-text-secondary mb-2 text-center">
-                    Discount Code
-                  </label>
-                  <div className="flex gap-2 justify-center">
+                  <p className="text-sm text-text-secondary mb-2">Discount Code</p>
+                  <div className="flex gap-2">
                     <input
                       type="text"
                       placeholder="Enter code"
-                      className="w-40 px-4 py-2 rounded-lg bg-background border border-border text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                      value={promoInput}
+                      onChange={(e) => { setPromoInput(e.target.value.toUpperCase()); setPromoError(""); }}
+                      className="flex-1 px-3 py-2 rounded-lg bg-background border border-border text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-sm"
                     />
-                    <Button variant="outline" className="px-4 py-2 h-auto">
-                      Apply
+                    <Button variant="outline" className="px-4 py-2 h-auto text-sm" onClick={handleApplyPromo} disabled={promoLoading}>
+                      {promoLoading ? "..." : "Apply"}
                     </Button>
                   </div>
+                  {promoError && <p className="text-red-500 text-xs mt-1">{promoError}</p>}
+                  {appliedPromo && (
+                    <p className="text-green-500 text-xs mt-1">
+                      ✓ {appliedPromo.percentOff ? `${appliedPromo.percentOff}% off` : `$${((appliedPromo.amountOff ?? 0) / 100).toFixed(2)} off`} applied!
+                    </p>
+                  )}
                 </div>
 
-                <CheckoutButton cartItems={checkoutItems} />
+                <CheckoutButton cartItems={checkoutItems} promotionCodeId={appliedPromo?.promotionCodeId} />
 
                 <p className="text-xs text-text-muted text-center mt-4">
                   Secure checkout powered by Stripe

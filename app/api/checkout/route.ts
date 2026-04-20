@@ -8,21 +8,20 @@ type CartItem = {
   image?: string;
 };
 
-const secretKey = process.env.STRIPE_SECRET_KEY;
-if (!secretKey) {
-  throw new Error("Missing STRIPE_SECRET_KEY in environment (.env.local)");
-}
-
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
-if (!siteUrl) {
-  throw new Error("Missing NEXT_PUBLIC_SITE_URL in environment (.env.local)");
-}
-
-const stripe = new Stripe(secretKey);
-
 export async function POST(req: Request) {
   try {
-    const { cartItems } = (await req.json()) as { cartItems: CartItem[] };
+    const secretKey = process.env.STRIPE_SECRET_KEY;
+    if (!secretKey) {
+      throw new Error("Missing STRIPE_SECRET_KEY in environment (.env.local)");
+    }
+
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
+    if (!siteUrl) {
+      throw new Error("Missing NEXT_PUBLIC_SITE_URL in environment (.env.local)");
+    }
+
+    const stripe = new Stripe(secretKey);
+    const { cartItems, promotionCodeId } = (await req.json()) as { cartItems: CartItem[]; promotionCodeId?: string };
 
     if (!Array.isArray(cartItems) || cartItems.length === 0) {
       return NextResponse.json({ error: "Cart is empty" }, { status: 400 });
@@ -42,16 +41,19 @@ export async function POST(req: Request) {
         },
       }));
 
-    // Shipping: free over $100, otherwise $9.99
-    const subtotal = cartItems.reduce(
-      (sum, item) => sum + item.price * item.quantity,
+    // Shipping: free for 2+ bottles, otherwise $9.99
+    const totalQuantity = cartItems.reduce(
+      (sum, item) => sum + item.quantity,
       0
     );
-    const shippingCost = subtotal >= 100 ? 0 : 999; // cents
+    const shippingCost = totalQuantity >= 2 ? 0 : 999; // cents
 
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
       line_items,
+      ...(promotionCodeId
+        ? { discounts: [{ promotion_code: promotionCodeId }] }
+        : { allow_promotion_codes: true }),
       shipping_options: [
         {
           shipping_rate_data: {
