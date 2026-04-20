@@ -50,7 +50,7 @@ export function EducationBlock() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: index * 0.05 }}
-                className="flex-shrink-0 w-[140px] sm:w-[160px] bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm"
+                className="flex-shrink-0 w-[44vw] sm:w-[160px] bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm"
               >
                 <div className="aspect-square bg-gray-50 relative">
                   <Image
