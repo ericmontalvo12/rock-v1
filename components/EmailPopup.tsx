@@ -51,23 +51,22 @@ export function EmailPopup() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.25 }}
-          className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6"
+          className="fixed inset-0 z-[100] flex items-center justify-center sm:p-6"
           style={{ background: "rgba(0,0,0,0.70)" }}
           onClick={(e) => { if (e.target === e.currentTarget) handleClose(); }}
         >
           <motion.div
-            initial={{ opacity: 0, scale: 0.96, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.96, y: 20 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="relative w-full max-w-[740px] rounded-2xl overflow-hidden shadow-2xl flex"
+            className="relative w-full h-full sm:h-auto sm:max-w-[740px] sm:rounded-2xl overflow-hidden shadow-2xl flex flex-col sm:flex-row"
           >
             {/* Left: Dark product panel — desktop only */}
             <div
               className="hidden sm:flex sm:w-[42%] flex-col items-center justify-between py-8 px-6 relative overflow-hidden flex-shrink-0"
               style={{ background: "linear-gradient(160deg, #0d1117 0%, #0f1923 100%)" }}
             >
-              {/* Blue glow behind bottle */}
               <div
                 className="absolute pointer-events-none"
                 style={{
@@ -79,19 +78,15 @@ export function EmailPopup() {
                   transform: "translate(-50%, -50%)",
                 }}
               />
-
-              {/* Logo */}
-              <div className="relative z-10 w-full flex items-center justify-center h-12 overflow-visible">
+              <div className="relative z-10 w-full flex items-center justify-center h-16 overflow-visible">
                 <Image
                   src="/logo-new.png"
                   alt="Rock Mountain Performance"
                   width={200}
                   height={60}
-                  className="h-[30px] w-auto scale-[2.1] translate-y-[5px]"
+                  className="h-[38px] w-auto scale-[2.2] translate-y-[6px]"
                 />
               </div>
-
-              {/* Bottle */}
               <div className="relative z-10 flex-1 flex items-center justify-center py-4">
                 <Image
                   src="/bottle-new.png"
@@ -101,53 +96,56 @@ export function EmailPopup() {
                   className="w-[145px] h-auto object-contain drop-shadow-2xl"
                 />
               </div>
-
-              {/* Trust badge */}
               <div className="relative z-10 flex items-center gap-2 bg-white/[0.07] border border-white/10 rounded-full px-4 py-2">
                 <ShieldCheck className="w-3.5 h-3.5 text-[#2d94ff] flex-shrink-0" />
                 <span className="text-white/70 text-xs font-medium whitespace-nowrap">30-Day Money Back</span>
               </div>
             </div>
 
-            {/* Right: Form panel */}
-            <div className="flex-1 bg-white flex flex-col justify-center px-7 sm:px-8 py-8 sm:py-10 relative">
+            {/* Form panel — dark fullscreen on mobile, white card on desktop */}
+            <div
+              className="flex-1 flex flex-col justify-center px-8 sm:px-8 py-10 sm:py-10 relative"
+              style={{ background: "linear-gradient(160deg, #0d1117 0%, #0f1923 100%)" }}
+            >
+              {/* Desktop white override */}
+              <div className="hidden sm:block absolute inset-0 bg-white" />
+
               {/* Close */}
               <button
                 onClick={handleClose}
-                className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center text-gray-400 hover:text-gray-600 transition-colors rounded-full hover:bg-gray-100"
+                className="absolute top-5 right-5 w-9 h-9 flex items-center justify-center text-white/50 hover:text-white sm:text-gray-400 sm:hover:text-gray-600 transition-colors rounded-full hover:bg-white/10 sm:hover:bg-gray-100 z-10"
                 aria-label="Close"
               >
-                <X className="w-4 h-4" />
+                <X className="w-5 h-5" />
               </button>
 
               {!isSubmitted ? (
-                <>
-                  {/* Mobile logo */}
-                  <div className="sm:hidden mb-6 flex justify-center h-10 overflow-visible">
+                <div className="relative z-10 max-w-sm mx-auto w-full sm:max-w-none">
+                  {/* Logo — mobile only */}
+                  <div className="sm:hidden mb-10 flex justify-center h-14 overflow-visible">
                     <Image
                       src="/logo-new.png"
                       alt="Rock Mountain Performance"
                       width={200}
                       height={60}
-                      className="h-[26px] w-auto scale-[2.1] translate-y-[4px]"
+                      className="h-[34px] w-auto scale-[2.2] translate-y-[5px]"
                     />
                   </div>
 
                   {/* Stars */}
                   <div className="flex gap-0.5 mb-4">
                     {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-3.5 h-3.5 fill-[#f59e0b] text-[#f59e0b]" />
+                      <Star key={i} className="w-4 h-4 fill-[#f59e0b] text-[#f59e0b]" />
                     ))}
-                    <span className="text-xs text-gray-400 ml-1.5 self-center">5.0 · Early Reviews</span>
                   </div>
 
-                  <p className="text-[11px] font-bold uppercase tracking-widest text-[#2d94ff] mb-2">
+                  <p className="text-[11px] font-bold uppercase tracking-widest text-[#2d94ff] mb-3">
                     Limited Pre-Order Offer
                   </p>
-                  <h2 className="text-[26px] sm:text-[30px] font-bold text-gray-900 leading-tight mb-3">
+                  <h2 className="text-[32px] sm:text-[30px] font-bold text-white sm:text-gray-900 leading-tight mb-3">
                     Get 20% Off<br />Your First Order
                   </h2>
-                  <p className="text-sm text-gray-500 mb-6 leading-relaxed">
+                  <p className="text-sm text-white/60 sm:text-gray-500 mb-8 leading-relaxed">
                     Pre-orders are now open. Enter your email to claim your code and be among the first to try Peak Performance.
                   </p>
 
@@ -158,11 +156,11 @@ export function EmailPopup() {
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="Enter your email"
                       required
-                      className="w-full h-12 px-4 rounded-xl border border-gray-200 bg-gray-50 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#2d94ff]/20 focus:border-[#2d94ff] transition-all text-sm"
+                      className="w-full h-14 sm:h-12 px-4 rounded-xl border border-white/20 sm:border-gray-200 bg-white/10 sm:bg-gray-50 text-white sm:text-gray-900 placeholder-white/40 sm:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#2d94ff]/40 focus:border-[#2d94ff] transition-all text-base sm:text-sm"
                     />
                     <button
                       type="submit"
-                      className="w-full h-12 rounded-xl bg-[#2d94ff] text-white font-semibold text-sm hover:bg-[#1a7ee6] transition-colors"
+                      className="w-full h-14 sm:h-12 rounded-xl bg-[#2d94ff] text-white font-semibold text-base sm:text-sm hover:bg-[#1a7ee6] transition-colors"
                     >
                       Claim My 20% Code →
                     </button>
@@ -170,25 +168,25 @@ export function EmailPopup() {
 
                   <button
                     onClick={handleClose}
-                    className="mt-4 text-xs text-gray-400 hover:text-gray-500 transition-colors w-full text-center"
+                    className="mt-5 text-sm sm:text-xs text-white/50 sm:text-gray-400 hover:text-white/70 sm:hover:text-gray-500 transition-colors w-full text-center"
                   >
-                    No thanks, I'll pay full price
+                    No thanks, I&apos;ll pay full price
                   </button>
-                </>
+                </div>
               ) : (
-                <div className="text-center">
-                  <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-[#2d94ff]/10 mb-5">
-                    <svg className="w-7 h-7 text-[#2d94ff]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="relative z-10 text-center max-w-sm mx-auto w-full sm:max-w-none">
+                  <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#2d94ff]/20 mb-5">
+                    <svg className="w-8 h-8 text-[#2d94ff]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                   </div>
-                  <h2 className="text-2xl font-bold text-gray-900 mb-2">Here&apos;s your code!</h2>
-                  <p className="text-sm text-gray-500 mb-6">
+                  <h2 className="text-2xl font-bold text-white sm:text-gray-900 mb-2">Here&apos;s your code!</h2>
+                  <p className="text-sm text-white/60 sm:text-gray-500 mb-6">
                     Apply it at checkout for 20% off your first order.
                   </p>
                   <button
                     onClick={handleCopy}
-                    className="w-full flex items-center justify-between px-5 py-4 rounded-xl border-2 border-dashed border-[#2d94ff] bg-[#2d94ff]/5 hover:bg-[#2d94ff]/10 transition-colors group mb-4"
+                    className="w-full flex items-center justify-between px-5 py-4 rounded-xl border-2 border-dashed border-[#2d94ff] bg-[#2d94ff]/10 hover:bg-[#2d94ff]/20 transition-colors group mb-4"
                   >
                     <span className="text-2xl font-bold text-[#2d94ff] tracking-widest">WELCOME20</span>
                     <span className="text-sm text-[#2d94ff]/70 group-hover:text-[#2d94ff] transition-colors ml-3">
