@@ -103,17 +103,12 @@ export function EmailPopup() {
             </div>
 
             {/* Form panel — dark fullscreen on mobile, white card on desktop */}
-            <div
-              className="flex-1 flex flex-col justify-center px-8 sm:px-8 py-10 sm:py-10 relative"
-              style={{ background: "linear-gradient(160deg, #0d1117 0%, #0f1923 100%)" }}
-            >
-              {/* Desktop white override */}
-              <div className="hidden sm:block absolute inset-0 bg-white" />
+            <div className="flex-1 flex flex-col justify-center px-8 sm:px-8 py-10 sm:py-10 relative bg-white">
 
               {/* Close */}
               <button
                 onClick={handleClose}
-                className="absolute top-5 right-5 w-9 h-9 flex items-center justify-center text-white/50 hover:text-white sm:text-gray-400 sm:hover:text-gray-600 transition-colors rounded-full hover:bg-white/10 sm:hover:bg-gray-100 z-10"
+                className="absolute top-5 right-5 w-9 h-9 flex items-center justify-center text-gray-400 hover:text-gray-600 transition-colors rounded-full hover:bg-gray-100 z-10"
                 aria-label="Close"
               >
                 <X className="w-5 h-5" />
@@ -142,10 +137,10 @@ export function EmailPopup() {
                   <p className="text-[11px] font-bold uppercase tracking-widest text-[#2d94ff] mb-3">
                     Limited Pre-Order Offer
                   </p>
-                  <h2 className="text-[32px] sm:text-[30px] font-bold text-white sm:text-gray-900 leading-tight mb-3">
+                  <h2 className="text-[32px] sm:text-[30px] font-bold text-gray-900 leading-tight mb-3">
                     Get 20% Off<br />Your First Order
                   </h2>
-                  <p className="text-sm text-white/60 sm:text-gray-500 mb-8 leading-relaxed">
+                  <p className="text-sm text-gray-500 mb-8 leading-relaxed">
                     Pre-orders are now open. Enter your email to claim your code and be among the first to try Peak Performance.
                   </p>
 
@@ -156,7 +151,7 @@ export function EmailPopup() {
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="Enter your email"
                       required
-                      className="w-full h-14 sm:h-12 px-4 rounded-xl border border-white/20 sm:border-gray-200 bg-white/10 sm:bg-gray-50 text-white sm:text-gray-900 placeholder-white/40 sm:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#2d94ff]/40 focus:border-[#2d94ff] transition-all text-base sm:text-sm"
+                      className="w-full h-14 sm:h-12 px-4 rounded-xl border border-gray-200 bg-gray-50 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#2d94ff]/20 focus:border-[#2d94ff] transition-all text-base sm:text-sm"
                     />
                     <button
                       type="submit"
@@ -168,7 +163,7 @@ export function EmailPopup() {
 
                   <button
                     onClick={handleClose}
-                    className="mt-5 text-sm sm:text-xs text-white/50 sm:text-gray-400 hover:text-white/70 sm:hover:text-gray-500 transition-colors w-full text-center"
+                    className="mt-5 text-sm sm:text-xs text-gray-400 hover:text-gray-500 transition-colors w-full text-center"
                   >
                     No thanks, I&apos;ll pay full price
                   </button>
@@ -180,8 +175,8 @@ export function EmailPopup() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                   </div>
-                  <h2 className="text-2xl font-bold text-white sm:text-gray-900 mb-2">Here&apos;s your code!</h2>
-                  <p className="text-sm text-white/60 sm:text-gray-500 mb-6">
+                  <h2 className="text-2xl font-bold text-gray-900 mb-2">Here&apos;s your code!</h2>
+                  <p className="text-sm text-gray-500 mb-6">
                     Apply it at checkout for 20% off your first order.
                   </p>
                   <button
