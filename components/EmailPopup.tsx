@@ -2,34 +2,29 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X } from "lucide-react";
+import { X, ShieldCheck, Star } from "lucide-react";
 import Image from "next/image";
 
 export function EmailPopup() {
   const [isOpen, setIsOpen] = useState(false);
   const [email, setEmail] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
-    // Show popup after a short delay on every visit
     const timer = setTimeout(() => {
       setIsOpen(true);
     }, 1500);
     return () => clearTimeout(timer);
   }, []);
 
-  const handleClose = () => {
-    setIsOpen(false);
-  };
-
-  const [copied, setCopied] = useState(false);
+  const handleClose = () => setIsOpen(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (email) {
       localStorage.setItem("promoCode", "WELCOME20");
       setIsSubmitted(true);
-
       try {
         await fetch("https://services.leadconnectorhq.com/hooks/EakYnXEQy1hvVFmdShYB/webhook-trigger/wFhzPl8SglWPsW3BeDsh", {
           method: "POST",
@@ -55,116 +50,154 @@ export function EmailPopup() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-[100]"
+          transition={{ duration: 0.25 }}
+          className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6"
+          style={{ background: "rgba(0,0,0,0.70)" }}
+          onClick={(e) => { if (e.target === e.currentTarget) handleClose(); }}
         >
-          {/* Fullscreen Modal */}
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="absolute inset-0 flex items-center justify-center overflow-hidden"
-            style={{
-              background: "linear-gradient(180deg, #ffffff 0%, #f4f6f8 100%)",
-            }}
+            initial={{ opacity: 0, scale: 0.96, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.96, y: 20 }}
+            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className="relative w-full max-w-[740px] rounded-2xl overflow-hidden shadow-2xl flex"
           >
-            {/* Subtle brand glow behind content */}
+            {/* Left: Dark product panel — desktop only */}
             <div
-              className="absolute pointer-events-none"
-              style={{
-                width: "600px",
-                height: "600px",
-                background: "radial-gradient(circle, rgba(9, 129, 227, 0.08) 0%, rgba(9, 129, 227, 0) 70%)",
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-              }}
-            />
-
-            {/* Close button */}
-            <button
-              onClick={handleClose}
-              className="absolute top-5 right-5 w-10 h-10 flex items-center justify-center text-[#0b1320]/30 hover:text-[#0b1320]/60 transition-colors z-10"
-              aria-label="Close"
+              className="hidden sm:flex sm:w-[42%] flex-col items-center justify-between py-8 px-6 relative overflow-hidden flex-shrink-0"
+              style={{ background: "linear-gradient(160deg, #0d1117 0%, #0f1923 100%)" }}
             >
-              <X className="w-5 h-5" />
-            </button>
+              {/* Blue glow behind bottle */}
+              <div
+                className="absolute pointer-events-none"
+                style={{
+                  width: "340px",
+                  height: "340px",
+                  background: "radial-gradient(circle, rgba(45,148,255,0.15) 0%, transparent 70%)",
+                  top: "50%",
+                  left: "50%",
+                  transform: "translate(-50%, -50%)",
+                }}
+              />
 
-            {/* Content */}
-            <div className="relative px-8 text-center w-full max-w-lg mx-auto">
+              {/* Logo */}
+              <div className="relative z-10 w-full flex items-center justify-center h-12 overflow-visible">
+                <Image
+                  src="/logo-new.png"
+                  alt="Rock Mountain Performance"
+                  width={200}
+                  height={60}
+                  className="h-[30px] w-auto scale-[2.1] translate-y-[5px]"
+                />
+              </div>
+
+              {/* Bottle */}
+              <div className="relative z-10 flex-1 flex items-center justify-center py-4">
+                <Image
+                  src="/bottle-new.png"
+                  alt="Peak Performance"
+                  width={160}
+                  height={260}
+                  className="w-[145px] h-auto object-contain drop-shadow-2xl"
+                />
+              </div>
+
+              {/* Trust badge */}
+              <div className="relative z-10 flex items-center gap-2 bg-white/[0.07] border border-white/10 rounded-full px-4 py-2">
+                <ShieldCheck className="w-3.5 h-3.5 text-[#2d94ff] flex-shrink-0" />
+                <span className="text-white/70 text-xs font-medium whitespace-nowrap">30-Day Money Back</span>
+              </div>
+            </div>
+
+            {/* Right: Form panel */}
+            <div className="flex-1 bg-white flex flex-col justify-center px-7 sm:px-8 py-8 sm:py-10 relative">
+              {/* Close */}
+              <button
+                onClick={handleClose}
+                className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center text-gray-400 hover:text-gray-600 transition-colors rounded-full hover:bg-gray-100"
+                aria-label="Close"
+              >
+                <X className="w-4 h-4" />
+              </button>
+
               {!isSubmitted ? (
                 <>
-                  {/* Logo */}
-                  <div className="mb-6">
+                  {/* Mobile logo */}
+                  <div className="sm:hidden mb-6 flex justify-center h-10 overflow-visible">
                     <Image
-                      src="/logo.png"
+                      src="/logo-new.png"
                       alt="Rock Mountain Performance"
-                      width={210}
-                      height={210}
-                      className="mx-auto w-[210px] h-[210px] object-contain"
+                      width={200}
+                      height={60}
+                      className="h-[26px] w-auto scale-[2.1] translate-y-[4px]"
                     />
                   </div>
 
-                  {/* Header */}
-                  <h2 className="text-[36px] sm:text-[42px] font-bold text-[#0b1320] mb-3 leading-[1.1] tracking-tight">
-                    Get 20% Off Your First Order
+                  {/* Stars */}
+                  <div className="flex gap-0.5 mb-4">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="w-3.5 h-3.5 fill-[#f59e0b] text-[#f59e0b]" />
+                    ))}
+                    <span className="text-xs text-gray-400 ml-1.5 self-center">5.0 · Early Reviews</span>
+                  </div>
+
+                  <p className="text-[11px] font-bold uppercase tracking-widest text-[#2d94ff] mb-2">
+                    Limited Pre-Order Offer
+                  </p>
+                  <h2 className="text-[26px] sm:text-[30px] font-bold text-gray-900 leading-tight mb-3">
+                    Get 20% Off<br />Your First Order
                   </h2>
-                  <p className="text-[17px] text-[#0b1320]/60 mb-8 leading-relaxed max-w-md mx-auto">
-                    Pre-orders are now open. Claim your code and be one of the first to try Peak Performance.
+                  <p className="text-sm text-gray-500 mb-6 leading-relaxed">
+                    Pre-orders are now open. Enter your email to claim your code and be among the first to try Peak Performance.
                   </p>
 
-                  {/* Form */}
-                  <form onSubmit={handleSubmit} className="space-y-3 max-w-sm mx-auto">
+                  <form onSubmit={handleSubmit} className="space-y-3">
                     <input
                       type="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="Enter your email"
                       required
-                      className="w-full h-[56px] px-5 rounded-lg border border-[#0b1320]/20 bg-white text-[#0b1320] placeholder-[#0b1320]/35 focus:outline-none focus:ring-2 focus:ring-[#0981e3]/25 focus:border-[#0981e3] transition-all text-[17px]"
+                      className="w-full h-12 px-4 rounded-xl border border-gray-200 bg-gray-50 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#2d94ff]/20 focus:border-[#2d94ff] transition-all text-sm"
                     />
                     <button
                       type="submit"
-                      className="w-full h-[56px] rounded-lg bg-[#0981e3] text-white font-semibold text-[17px] hover:bg-[#0770c9] transition-colors"
+                      className="w-full h-12 rounded-xl bg-[#2d94ff] text-white font-semibold text-sm hover:bg-[#1a7ee6] transition-colors"
                     >
-                      Claim My 20% Code
+                      Claim My 20% Code →
                     </button>
                   </form>
 
-                  {/* Decline link */}
                   <button
                     onClick={handleClose}
-                    className="mt-6 text-[14px] text-[#0b1320]/60 hover:text-[#0b1320]/80 transition-colors"
+                    className="mt-4 text-xs text-gray-400 hover:text-gray-500 transition-colors w-full text-center"
                   >
-                    No thanks
+                    No thanks, I'll pay full price
                   </button>
                 </>
               ) : (
-                /* Success State */
-                <div className="py-4">
-                  <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-[#0981e3]/10 mb-5">
-                    <svg className="w-10 h-10 text-[#0981e3]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="text-center">
+                  <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-[#2d94ff]/10 mb-5">
+                    <svg className="w-7 h-7 text-[#2d94ff]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                   </div>
-                  <h2 className="text-[32px] font-bold text-[#0b1320] mb-2">
-                    Here's your code!
-                  </h2>
-                  <p className="text-[16px] text-[#0b1320]/60 mb-6">
+                  <h2 className="text-2xl font-bold text-gray-900 mb-2">Here&apos;s your code!</h2>
+                  <p className="text-sm text-gray-500 mb-6">
                     Apply it at checkout for 20% off your first order.
                   </p>
                   <button
                     onClick={handleCopy}
-                    className="w-full max-w-xs mx-auto flex items-center justify-between px-5 py-4 rounded-xl border-2 border-dashed border-[#0981e3] bg-[#0981e3]/5 hover:bg-[#0981e3]/10 transition-colors group"
+                    className="w-full flex items-center justify-between px-5 py-4 rounded-xl border-2 border-dashed border-[#2d94ff] bg-[#2d94ff]/5 hover:bg-[#2d94ff]/10 transition-colors group mb-4"
                   >
-                    <span className="text-[26px] font-bold text-[#0981e3] tracking-widest">WELCOME20</span>
-                    <span className="text-sm text-[#0981e3]/70 group-hover:text-[#0981e3] transition-colors ml-3">
+                    <span className="text-2xl font-bold text-[#2d94ff] tracking-widest">WELCOME20</span>
+                    <span className="text-sm text-[#2d94ff]/70 group-hover:text-[#2d94ff] transition-colors ml-3">
                       {copied ? "Copied!" : "Copy"}
                     </span>
                   </button>
                   <button
                     onClick={handleClose}
-                    className="mt-6 w-full max-w-xs mx-auto h-[52px] rounded-lg bg-[#0981e3] text-white font-semibold text-[16px] hover:bg-[#0770c9] transition-colors"
+                    className="w-full h-12 rounded-xl bg-[#2d94ff] text-white font-semibold text-sm hover:bg-[#1a7ee6] transition-colors"
                   >
                     Shop Now
                   </button>
