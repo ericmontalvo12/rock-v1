@@ -9,7 +9,7 @@ export type BlogPost = {
 };
 
 type Section = {
-  type: "paragraph" | "heading" | "subheading" | "list" | "numbered-list" | "callout" | "quote" | "evidence-grid" | "stats-grid" | "sleep-stages" | "action-grid" | "study-cards";
+  type: "paragraph" | "heading" | "subheading" | "list" | "numbered-list" | "callout" | "quote" | "evidence-grid" | "stats-grid" | "sleep-stages" | "action-grid" | "study-cards" | "mechanism-list" | "risk-grid" | "food-table";
   text?: string;
   items?: string[];
   evidence?: { label: string; strength: "strong" | "mixed" | "weak" | "context"; text: string }[];
@@ -17,6 +17,9 @@ type Section = {
   stages?: { color: string; name: string; text: string }[];
   actions?: { title: string; text: string }[];
   studies?: { author: string; title: string; year: string; tags: string[]; body: string; verdict: string; verdictStrength: "strong" | "conditional" | "weak" }[];
+  mechanisms?: { title: string; text: string }[];
+  risks?: { title: string; text: string }[];
+  foods?: { food: string; serving: string; zinc: string; bioavailability: string }[];
 };
 
 export const blogPosts: BlogPost[] = [
@@ -444,45 +447,135 @@ export const blogPosts: BlogPost[] = [
     content: [
       {
         type: "paragraph",
-        text: "Zinc is essential for testosterone synthesis at the cellular level. Without adequate zinc, your Leydig cells — the cells in the testes responsible for producing testosterone — cannot function properly. This isn't a peripheral effect. It's a fundamental requirement.",
-      },
-      {
-        type: "heading",
-        text: "The Evidence",
+        text: "Of all the nutrients involved in testosterone production, zinc has the most direct and well-documented relationship. It's not a fringe ingredient or an emerging area of research. The connection between zinc status and testosterone has been established for decades across dozens of human and animal studies. And yet deficiency remains remarkably common — especially in the men who are working hardest to stay in shape.",
       },
       {
         type: "paragraph",
-        text: "A landmark study found that inducing zinc deficiency in men over several months led to a significant drop in testosterone — and that supplementation restored levels. Studies in elderly men with borderline zinc deficiency showed meaningful testosterone increases after supplementation over 6 months.",
-      },
-      {
-        type: "paragraph",
-        text: "The relationship is strongest in men who are actually deficient. If your zinc status is already adequate, supplementing more won't raise testosterone above baseline. The goal is sufficiency, not excess.",
+        text: "The problem isn't that men don't know zinc matters. It's that marginal deficiency — the kind that quietly suppresses testosterone without producing obvious symptoms — goes undetected because most men never check for it.",
       },
       {
         type: "heading",
-        text: "Why Deficiency Is Common",
+        text: "What the research establishes",
       },
       {
-        type: "list",
-        items: [
-          "Intense exercise increases zinc loss through sweat — athletes are at higher risk",
-          "Alcohol consumption significantly reduces zinc absorption",
-          "Vegetarian and vegan diets are commonly lower in bioavailable zinc",
-          "The standard Western diet is often borderline in zinc content",
-          "Stress increases zinc excretion",
+        type: "paragraph",
+        text: "The foundational human study on zinc and testosterone comes from Prasad et al., published in the journal Nutrition in 1996. The trial ran two separate experiments. In the first, researchers induced dietary zinc restriction in young healthy men for 20 weeks. Serum testosterone dropped sharply — from a mean of 39.9 nmol/L at baseline to 10.6 nmol/L following restriction. In the second experiment, marginally zinc-deficient older men received zinc supplementation for six months. Their testosterone nearly doubled, rising from a mean of 8.3 to 16.0 nmol/L.",
+      },
+      {
+        type: "paragraph",
+        text: "Those numbers represent some of the most dramatic nutritional interventions documented in the testosterone literature. The dose-response is unambiguous: deplete zinc and testosterone falls; restore zinc and it recovers.",
+      },
+      {
+        type: "paragraph",
+        text: "A 2022 systematic review published in the Journal of Trace Elements in Medicine and Biology confirmed this across 18 papers — in clinical and 80 animal studies — concluding that zinc deficiency consistently reduces testosterone and that supplementation improves it. The size of the effect varies depending on baseline zinc status, dosage form, and duration, which is why the context matters.",
+      },
+      {
+        type: "heading",
+        text: "How zinc deficiency suppresses testosterone",
+      },
+      {
+        type: "paragraph",
+        text: "The mechanism isn't a single pathway — it's several overlapping ones, which is part of why zinc deficiency hits testosterone so broadly.",
+      },
+      {
+        type: "mechanism-list",
+        mechanisms: [
+          { title: "Leydig cell requirement", text: "Zinc is concentrated in Leydig cells in the testes — the primary site of testosterone synthesis. Zinc acts as a cofactor for enzymes involved in steroidogenesis, including the conversion of cholesterol to testosterone precursors. Without adequate zinc, the enzymatic machinery for testosterone production runs below capacity." },
+          { title: "LH suppression", text: "Zinc supports the hypothalamic-pituitary axis. Zinc deficiency disrupts GnRH pulsatility — the upstream signal that tells the testes to produce testosterone. This means zinc deficiency reduces testosterone indirectly at the hypothalamus and pituitary level, as well as directly at the testicular level." },
+          { title: "Aromatase dysregulation", text: "Zinc acts as a natural aromatase inhibitor. Aromatase is an enzyme that converts testosterone to estradiol, and zinc's inhibitory action means zinc deficiency allows more testosterone-to-estrogen conversion than optimal — reducing circulating testosterone and shifting the hormonal ratio." },
+          { title: "SHBG modulation", text: "Lower zinc status has been shown in some research to correlate with higher SHBG (sex hormone binding globulin), which binds free testosterone and makes more of what's produced unavailable to receptors — reducing the biologically active fraction." },
         ],
       },
       {
         type: "heading",
-        text: "Form and Dose",
+        text: "Why active men are at particular risk",
       },
       {
         type: "paragraph",
-        text: "Not all zinc is created equal. Zinc citrate and zinc bisglycinate have significantly better absorption than zinc oxide, which is poorly bioavailable and common in cheap supplements. Effective doses in studies range from 20–30mg of elemental zinc daily.",
+        text: "Zinc is not stored in the body in any meaningful reserve — it must be consumed regularly, and it's actively lost through sweat. This creates a chronic depletion risk for men engaged in physically demanding training protocols who aren't tracking intake.",
+      },
+      {
+        type: "paragraph",
+        text: "Research confirms that men have significantly higher zinc losses through sweat than women — due to greater sweat rates and higher sweat zinc concentration. An hour of moderate-intensity exercise measurably increases zinc excretion. Across weekly training volume, that deficit accumulates.",
       },
       {
         type: "callout",
-        text: "High-dose zinc supplementation (above 40mg daily long-term) can interfere with copper absorption. Stick to the researched range.",
+        text: "Studies have found that up to 90% of active individuals that have substantial zinc intake from food sources fall short — largely because performance nutrition tends to be heavy in sources low in the animal proteins that provide the most bioavailable zinc. Even athletes whose overall calorie and protein intake look adequate are frequently zinc-deficient without knowing it.",
+      },
+      {
+        type: "paragraph",
+        text: "The wider picture includes alcohol consumption (which increases urinary zinc excretion), certain medications including diuretics and ACE inhibitors, and any diet that restricts red meat, shellfish, or eggs. None of these individually would produce severe deficiency, but combinations stack quickly and the result is the kind of marginal insufficiency that suppresses testosterone without producing textbook deficiency symptoms.",
+      },
+      {
+        type: "quote",
+        text: "You don't need to be severely deficient for zinc to be limiting your testosterone.",
+      },
+      {
+        type: "heading",
+        text: "Who's actually at risk",
+      },
+      {
+        type: "risk-grid",
+        risks: [
+          { title: "Regular training 4x+ per week", text: "Ongoing physical sweat increases dietary zinc requirements significantly for muscle repair and immune function. Most high-activity men consume inadequate zinc from diet alone." },
+          { title: "Low-animal protein intake", text: "Plant-based or semi-vegetarian diets are significantly lower in bioavailable zinc. Phytates in grains and legumes can bind up to 30% more zinc, making dietary zinc absorption less predictable." },
+          { title: "Regular alcohol consumption", text: "Alcohol increases urinary zinc excretion directly. Even moderate weekly consumption measurably accelerates zinc clearance and reduces dietary absorption." },
+          { title: "Men over 40", text: "Intestinal zinc absorption declines with age. Combined with age-related dietary changes and potentially lower red meat intake, older men are significantly more zinc-depleted than younger cohorts." },
+          { title: "Caloric restriction or cutting", text: "Reducing food volume reduces zinc intake proportionally — unless specifically supplemented. Deficit phases are exactly when zinc stress is highest due to cortisol elevation and tissue turnover demands." },
+          { title: "High-physique diets", text: "Aggressive high-protein physique diets frequently use protein powders, greens, and low-fat sources that are zinc-poor. Dietary quality matters more than raw protein volume." },
+        ],
+      },
+      {
+        type: "heading",
+        text: "Dietary zinc: where it comes from and what the numbers look like",
+      },
+      {
+        type: "paragraph",
+        text: "The RDA for zinc in adult men is 11mg per day. That figure represents the minimum to prevent deficiency, not to optimize the output expected from men under regular physical stress. Some research suggests that active men may benefit from intakes of 15–20mg daily, though exceeding 40mg long term begins to interfere with copper absorption and should be avoided.",
+      },
+      {
+        type: "food-table",
+        foods: [
+          { food: "Oysters", serving: "6 cooked", zinc: "~32mg", bioavailability: "High" },
+          { food: "Beef", serving: "3 oz cooked", zinc: "~7mg", bioavailability: "High" },
+          { food: "Crab", serving: "3 oz cooked", zinc: "~6.5mg", bioavailability: "High" },
+          { food: "Pork shoulder", serving: "3 oz", zinc: "~2.9mg", bioavailability: "Moderate (phytate reduced)" },
+          { food: "Pumpkin seeds", serving: "1 oz", zinc: "~2.2mg", bioavailability: "Moderate (phytate reduced)" },
+          { food: "Chickpeas", serving: "½ cup cooked", zinc: "~1.3mg", bioavailability: "Low (high phytate)" },
+          { food: "Almonds", serving: "1 oz", zinc: "~0.9mg", bioavailability: "Low (high phytate)" },
+        ],
+      },
+      {
+        type: "paragraph",
+        text: "A man eating red meat or shellfish several times per week is likely meeting baseline requirements from diet alone. A man eating mostly chicken, plant proteins, and grains is likely carrying a significant deficit — especially if training volume is high and sweat losses are unaccounted for.",
+      },
+      {
+        type: "heading",
+        text: "Supplementation: what form and dose actually matter",
+      },
+      {
+        type: "paragraph",
+        text: "Not all zinc supplements are equivalent. Bioavailability varies significantly across forms. Zinc gluconate and zinc citrate are among the best-absorbed options. Zinc oxide — the cheapest and most common form in low-quality multivitamins — has significantly lower bioavailability and should generally be avoided when the goal is actually correcting deficiency.",
+      },
+      {
+        type: "paragraph",
+        text: "For men supplementing specifically to address testosterone-relevant deficiency, the effective range in clinical studies targeting hormonal outcomes is 25–45mg of elemental zinc. The Prasad supplementation trial used 50mg per day for six months with the results described above. Critically, the testosterone response was dose-and-status dependent: men who were only mildly deficient had the largest recoveries. Men already at adequate zinc levels don't see the same effect.",
+      },
+      {
+        type: "paragraph",
+        text: "One important note on timing: zinc competes with iron and calcium for absorption. Taking zinc with a calcium supplement or dairy can reduce uptake. The most bioavailable window for most men is in the evening, away from other mineral supplements.",
+      },
+      {
+        type: "heading",
+        text: "The bottom line",
+      },
+      {
+        type: "paragraph",
+        text: "Zinc is the most evidence-backed micronutrient in the testosterone literature. The studies aren't just correlational: the depletion-repletion experiments with human subjects are well-defined. For men who train regularly, eat limited animal protein, or have any of the other risk factors outlined above, marginal zinc insufficiency is a realistic explanation for suppressed testosterone — and one of the most straightforward to address.",
+      },
+      {
+        type: "paragraph",
+        text: "The catch is that marginal deficiency rarely produces dramatic symptoms. It doesn't show up on standard blood panels unless you specifically request it be tested. A quality zinc supplement costs almost nothing. The cost of doing nothing is paid in testosterone.",
       },
     ],
   },
