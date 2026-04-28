@@ -115,7 +115,7 @@ export function EmailPopup() {
               </button>
 
               {!isSubmitted ? (
-                <div className="relative z-10 max-w-sm mx-auto w-full sm:max-w-none">
+                <div className="relative z-10 max-w-sm mx-auto w-full sm:max-w-none text-center">
                   {/* Logo — mobile only */}
                   <div className="sm:hidden mb-10 flex justify-center h-14 overflow-visible">
                     <Image
