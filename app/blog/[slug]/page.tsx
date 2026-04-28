@@ -132,6 +132,93 @@ export default function BlogPostPage({ params }: { params: Promise<{ slug: strin
                     </div>
                   );
                 }
+                if (section.type === "hormone-axes" && section.axes) {
+                  return (
+                    <div key={i} className="grid grid-cols-2 gap-3 my-2">
+                      {section.axes.map((axis, j) => (
+                        <div key={j} className="bg-gray-50 border border-gray-200 rounded-xl p-4">
+                          <p className="font-semibold text-gray-900 text-sm mb-3">{axis.title}</p>
+                          <div className="space-y-2">
+                            {axis.steps.map((step, k) => (
+                              <div key={k} className="flex items-center gap-2">
+                                <span className="w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0" />
+                                <p className="text-gray-600 text-xs leading-snug">{step}</p>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  );
+                }
+                if (section.type === "level-cards" && section.levels) {
+                  return (
+                    <div key={i} className="space-y-3 my-2">
+                      {section.levels.map((lvl, j) => (
+                        <div key={j} className="border border-gray-200 rounded-xl overflow-hidden bg-white">
+                          <div className="bg-primary/10 border-b border-primary/20 px-4 py-2.5 flex items-center gap-3">
+                            <span className="text-[10px] font-bold uppercase tracking-widest text-primary bg-primary/10 px-2 py-0.5 rounded">{lvl.level}</span>
+                            <span className="font-semibold text-gray-900 text-sm">{lvl.title}</span>
+                          </div>
+                          <p className="px-4 py-3 text-gray-600 text-sm leading-relaxed">{lvl.text}</p>
+                        </div>
+                      ))}
+                    </div>
+                  );
+                }
+                if (section.type === "mechanism-list" && section.mechanisms) {
+                  return (
+                    <div key={i} className="space-y-3 my-2">
+                      {section.mechanisms.map((m, j) => (
+                        <div key={j} className="flex gap-3 p-4 bg-gray-50 border border-gray-200 rounded-xl">
+                          <span className="w-6 h-6 rounded-full bg-primary text-white text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">{j + 1}</span>
+                          <div>
+                            <p className="font-semibold text-gray-900 text-sm mb-1">{m.title}</p>
+                            <p className="text-gray-600 text-sm leading-relaxed">{m.text}</p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  );
+                }
+                if (section.type === "risk-grid" && section.risks) {
+                  return (
+                    <div key={i} className="grid grid-cols-1 sm:grid-cols-2 gap-3 my-2">
+                      {section.risks.map((r, j) => (
+                        <div key={j} className="p-4 bg-gray-50 border border-gray-200 rounded-xl">
+                          <p className="font-semibold text-gray-900 text-sm mb-1.5">{r.title}</p>
+                          <p className="text-gray-500 text-xs leading-relaxed">{r.text}</p>
+                        </div>
+                      ))}
+                    </div>
+                  );
+                }
+                if (section.type === "food-table" && section.foods) {
+                  return (
+                    <div key={i} className="my-2 rounded-xl border border-gray-200 overflow-hidden">
+                      <table className="w-full text-sm">
+                        <thead>
+                          <tr className="bg-gray-50 border-b border-gray-200">
+                            <th className="text-left px-4 py-2.5 text-xs font-semibold text-gray-600 uppercase tracking-wide">Food</th>
+                            <th className="text-left px-4 py-2.5 text-xs font-semibold text-gray-600 uppercase tracking-wide">Serving</th>
+                            <th className="text-left px-4 py-2.5 text-xs font-semibold text-gray-600 uppercase tracking-wide">Zinc</th>
+                            <th className="text-left px-4 py-2.5 text-xs font-semibold text-gray-600 uppercase tracking-wide hidden sm:table-cell">Bioavailability</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {section.foods.map((f, j) => (
+                            <tr key={j} className={j % 2 === 0 ? "bg-white" : "bg-gray-50/50"}>
+                              <td className="px-4 py-2.5 font-medium text-gray-900 text-sm">{f.food}</td>
+                              <td className="px-4 py-2.5 text-gray-500 text-sm">{f.serving}</td>
+                              <td className="px-4 py-2.5 text-primary font-semibold text-sm">{f.zinc}</td>
+                              <td className="px-4 py-2.5 text-gray-500 text-xs hidden sm:table-cell">{f.bioavailability}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  );
+                }
                 if (section.type === "study-cards" && section.studies) {
                   const verdictColors: Record<string, string> = {
                     strong: "bg-green-50 border-green-200 text-green-700",

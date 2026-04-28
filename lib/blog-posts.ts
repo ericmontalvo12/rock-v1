@@ -9,7 +9,7 @@ export type BlogPost = {
 };
 
 type Section = {
-  type: "paragraph" | "heading" | "subheading" | "list" | "numbered-list" | "callout" | "quote" | "evidence-grid" | "stats-grid" | "sleep-stages" | "action-grid" | "study-cards";
+  type: "paragraph" | "heading" | "subheading" | "list" | "numbered-list" | "callout" | "quote" | "evidence-grid" | "stats-grid" | "sleep-stages" | "action-grid" | "study-cards" | "mechanism-list" | "risk-grid" | "food-table" | "hormone-axes" | "level-cards";
   text?: string;
   items?: string[];
   evidence?: { label: string; strength: "strong" | "mixed" | "weak" | "context"; text: string }[];
@@ -17,6 +17,11 @@ type Section = {
   stages?: { color: string; name: string; text: string }[];
   actions?: { title: string; text: string }[];
   studies?: { author: string; title: string; year: string; tags: string[]; body: string; verdict: string; verdictStrength: "strong" | "conditional" | "weak" }[];
+  mechanisms?: { title: string; text: string }[];
+  risks?: { title: string; text: string }[];
+  foods?: { food: string; serving: string; zinc: string; bioavailability: string }[];
+  axes?: { title: string; steps: string[] }[];
+  levels?: { level: string; title: string; text: string }[];
 };
 
 export const blogPosts: BlogPost[] = [
@@ -440,49 +445,139 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       "Zinc deficiency is more common than most men realize — and its effect on testosterone is significant. Here's how to know if you're deficient and what to do.",
     date: "February 18, 2026",
-    coverImage: "/zinc.png",
+    coverImage: "/blog-zinc.jpg",
     content: [
       {
         type: "paragraph",
-        text: "Zinc is essential for testosterone synthesis at the cellular level. Without adequate zinc, your Leydig cells — the cells in the testes responsible for producing testosterone — cannot function properly. This isn't a peripheral effect. It's a fundamental requirement.",
-      },
-      {
-        type: "heading",
-        text: "The Evidence",
+        text: "Of all the nutrients involved in testosterone production, zinc has the most direct and well-documented relationship. It's not a fringe ingredient or an emerging area of research. The connection between zinc status and testosterone has been established for decades across dozens of human and animal studies. And yet deficiency remains remarkably common — especially in the men who are working hardest to stay in shape.",
       },
       {
         type: "paragraph",
-        text: "A landmark study found that inducing zinc deficiency in men over several months led to a significant drop in testosterone — and that supplementation restored levels. Studies in elderly men with borderline zinc deficiency showed meaningful testosterone increases after supplementation over 6 months.",
-      },
-      {
-        type: "paragraph",
-        text: "The relationship is strongest in men who are actually deficient. If your zinc status is already adequate, supplementing more won't raise testosterone above baseline. The goal is sufficiency, not excess.",
+        text: "The problem isn't that men don't know zinc matters. It's that marginal deficiency — the kind that quietly suppresses testosterone without producing obvious symptoms — goes undetected because most men never check for it.",
       },
       {
         type: "heading",
-        text: "Why Deficiency Is Common",
+        text: "What the research establishes",
       },
       {
-        type: "list",
-        items: [
-          "Intense exercise increases zinc loss through sweat — athletes are at higher risk",
-          "Alcohol consumption significantly reduces zinc absorption",
-          "Vegetarian and vegan diets are commonly lower in bioavailable zinc",
-          "The standard Western diet is often borderline in zinc content",
-          "Stress increases zinc excretion",
+        type: "paragraph",
+        text: "The foundational human study on zinc and testosterone comes from Prasad et al., published in the journal Nutrition in 1996. The trial ran two separate experiments. In the first, researchers induced dietary zinc restriction in young healthy men for 20 weeks. Serum testosterone dropped sharply — from a mean of 39.9 nmol/L at baseline to 10.6 nmol/L following restriction. In the second experiment, marginally zinc-deficient older men received zinc supplementation for six months. Their testosterone nearly doubled, rising from a mean of 8.3 to 16.0 nmol/L.",
+      },
+      {
+        type: "paragraph",
+        text: "Those numbers represent some of the most dramatic nutritional interventions documented in the testosterone literature. The dose-response is unambiguous: deplete zinc and testosterone falls; restore zinc and it recovers.",
+      },
+      {
+        type: "paragraph",
+        text: "A 2022 systematic review published in the Journal of Trace Elements in Medicine and Biology confirmed this across 18 papers — in clinical and 80 animal studies — concluding that zinc deficiency consistently reduces testosterone and that supplementation improves it. The size of the effect varies depending on baseline zinc status, dosage form, and duration, which is why the context matters.",
+      },
+      {
+        type: "heading",
+        text: "How zinc deficiency suppresses testosterone",
+      },
+      {
+        type: "paragraph",
+        text: "The mechanism isn't a single pathway — it's several overlapping ones, which is part of why zinc deficiency hits testosterone so broadly.",
+      },
+      {
+        type: "mechanism-list",
+        mechanisms: [
+          { title: "Leydig cell requirement", text: "Zinc is concentrated in Leydig cells in the testes — the primary site of testosterone synthesis. Zinc acts as a cofactor for enzymes involved in steroidogenesis, including the conversion of cholesterol to testosterone precursors. Without adequate zinc, the enzymatic machinery for testosterone production runs below capacity." },
+          { title: "LH suppression", text: "Zinc supports the hypothalamic-pituitary axis. Zinc deficiency disrupts GnRH pulsatility — the upstream signal that tells the testes to produce testosterone. This means zinc deficiency reduces testosterone indirectly at the hypothalamus and pituitary level, as well as directly at the testicular level." },
+          { title: "Aromatase dysregulation", text: "Zinc acts as a natural aromatase inhibitor. Aromatase is an enzyme that converts testosterone to estradiol, and zinc's inhibitory action means zinc deficiency allows more testosterone-to-estrogen conversion than optimal — reducing circulating testosterone and shifting the hormonal ratio." },
+          { title: "SHBG modulation", text: "Lower zinc status has been shown in some research to correlate with higher SHBG (sex hormone binding globulin), which binds free testosterone and makes more of what's produced unavailable to receptors — reducing the biologically active fraction." },
         ],
       },
       {
         type: "heading",
-        text: "Form and Dose",
+        text: "Why active men are at particular risk",
       },
       {
         type: "paragraph",
-        text: "Not all zinc is created equal. Zinc citrate and zinc bisglycinate have significantly better absorption than zinc oxide, which is poorly bioavailable and common in cheap supplements. Effective doses in studies range from 20–30mg of elemental zinc daily.",
+        text: "Zinc is not stored in the body in any meaningful reserve — it must be consumed regularly, and it's actively lost through sweat. This creates a chronic depletion risk for men engaged in physically demanding training protocols who aren't tracking intake.",
+      },
+      {
+        type: "paragraph",
+        text: "Research confirms that men have significantly higher zinc losses through sweat than women — due to greater sweat rates and higher sweat zinc concentration. An hour of moderate-intensity exercise measurably increases zinc excretion. Across weekly training volume, that deficit accumulates.",
       },
       {
         type: "callout",
-        text: "High-dose zinc supplementation (above 40mg daily long-term) can interfere with copper absorption. Stick to the researched range.",
+        text: "Studies have found that up to 90% of active individuals that have substantial zinc intake from food sources fall short — largely because performance nutrition tends to be heavy in sources low in the animal proteins that provide the most bioavailable zinc. Even athletes whose overall calorie and protein intake look adequate are frequently zinc-deficient without knowing it.",
+      },
+      {
+        type: "paragraph",
+        text: "The wider picture includes alcohol consumption (which increases urinary zinc excretion), certain medications including diuretics and ACE inhibitors, and any diet that restricts red meat, shellfish, or eggs. None of these individually would produce severe deficiency, but combinations stack quickly and the result is the kind of marginal insufficiency that suppresses testosterone without producing textbook deficiency symptoms.",
+      },
+      {
+        type: "quote",
+        text: "You don't need to be severely deficient for zinc to be limiting your testosterone.",
+      },
+      {
+        type: "heading",
+        text: "Who's actually at risk",
+      },
+      {
+        type: "risk-grid",
+        risks: [
+          { title: "Regular training 4x+ per week", text: "Ongoing physical sweat increases dietary zinc requirements significantly for muscle repair and immune function. Most high-activity men consume inadequate zinc from diet alone." },
+          { title: "Low-animal protein intake", text: "Plant-based or semi-vegetarian diets are significantly lower in bioavailable zinc. Phytates in grains and legumes can bind up to 30% more zinc, making dietary zinc absorption less predictable." },
+          { title: "Regular alcohol consumption", text: "Alcohol increases urinary zinc excretion directly. Even moderate weekly consumption measurably accelerates zinc clearance and reduces dietary absorption." },
+          { title: "Men over 40", text: "Intestinal zinc absorption declines with age. Combined with age-related dietary changes and potentially lower red meat intake, older men are significantly more zinc-depleted than younger cohorts." },
+          { title: "Caloric restriction or cutting", text: "Reducing food volume reduces zinc intake proportionally — unless specifically supplemented. Deficit phases are exactly when zinc stress is highest due to cortisol elevation and tissue turnover demands." },
+          { title: "High-physique diets", text: "Aggressive high-protein physique diets frequently use protein powders, greens, and low-fat sources that are zinc-poor. Dietary quality matters more than raw protein volume." },
+        ],
+      },
+      {
+        type: "heading",
+        text: "Dietary zinc: where it comes from and what the numbers look like",
+      },
+      {
+        type: "paragraph",
+        text: "The RDA for zinc in adult men is 11mg per day. That figure represents the minimum to prevent deficiency, not to optimize the output expected from men under regular physical stress. Some research suggests that active men may benefit from intakes of 15–20mg daily, though exceeding 40mg long term begins to interfere with copper absorption and should be avoided.",
+      },
+      {
+        type: "food-table",
+        foods: [
+          { food: "Oysters", serving: "6 cooked", zinc: "~32mg", bioavailability: "High" },
+          { food: "Beef", serving: "3 oz cooked", zinc: "~7mg", bioavailability: "High" },
+          { food: "Crab", serving: "3 oz cooked", zinc: "~6.5mg", bioavailability: "High" },
+          { food: "Pork shoulder", serving: "3 oz", zinc: "~2.9mg", bioavailability: "Moderate (phytate reduced)" },
+          { food: "Pumpkin seeds", serving: "1 oz", zinc: "~2.2mg", bioavailability: "Moderate (phytate reduced)" },
+          { food: "Chickpeas", serving: "½ cup cooked", zinc: "~1.3mg", bioavailability: "Low (high phytate)" },
+          { food: "Almonds", serving: "1 oz", zinc: "~0.9mg", bioavailability: "Low (high phytate)" },
+        ],
+      },
+      {
+        type: "paragraph",
+        text: "A man eating red meat or shellfish several times per week is likely meeting baseline requirements from diet alone. A man eating mostly chicken, plant proteins, and grains is likely carrying a significant deficit — especially if training volume is high and sweat losses are unaccounted for.",
+      },
+      {
+        type: "heading",
+        text: "Supplementation: what form and dose actually matter",
+      },
+      {
+        type: "paragraph",
+        text: "Not all zinc supplements are equivalent. Bioavailability varies significantly across forms. Zinc gluconate and zinc citrate are among the best-absorbed options. Zinc oxide — the cheapest and most common form in low-quality multivitamins — has significantly lower bioavailability and should generally be avoided when the goal is actually correcting deficiency.",
+      },
+      {
+        type: "paragraph",
+        text: "For men supplementing specifically to address testosterone-relevant deficiency, the effective range in clinical studies targeting hormonal outcomes is 25–45mg of elemental zinc. The Prasad supplementation trial used 50mg per day for six months with the results described above. Critically, the testosterone response was dose-and-status dependent: men who were only mildly deficient had the largest recoveries. Men already at adequate zinc levels don't see the same effect.",
+      },
+      {
+        type: "paragraph",
+        text: "One important note on timing: zinc competes with iron and calcium for absorption. Taking zinc with a calcium supplement or dairy can reduce uptake. The most bioavailable window for most men is in the evening, away from other mineral supplements.",
+      },
+      {
+        type: "heading",
+        text: "The bottom line",
+      },
+      {
+        type: "paragraph",
+        text: "Zinc is the most evidence-backed micronutrient in the testosterone literature. The studies aren't just correlational: the depletion-repletion experiments with human subjects are well-defined. For men who train regularly, eat limited animal protein, or have any of the other risk factors outlined above, marginal zinc insufficiency is a realistic explanation for suppressed testosterone — and one of the most straightforward to address.",
+      },
+      {
+        type: "paragraph",
+        text: "The catch is that marginal deficiency rarely produces dramatic symptoms. It doesn't show up on standard blood panels unless you specifically request it be tested. A quality zinc supplement costs almost nothing. The cost of doing nothing is paid in testosterone.",
       },
     ],
   },
@@ -491,51 +586,155 @@ export const blogPosts: BlogPost[] = [
     category: "Recovery",
     title: "Cortisol vs. Testosterone: Understanding the Stress-Hormone Tradeoff",
     excerpt:
-      "Chronic stress doesn't just affect your mood. It directly competes with testosterone production. Learn how to manage cortisol to protect your hormonal health.",
+      "Chronic stress doesn't just affect your mood. It directly competes with testosterone production. Learn how the mechanism works — and what you can do to manage it.",
     date: "February 10, 2026",
     coverImage: "/blog-cortisol.jpg",
     content: [
       {
         type: "paragraph",
-        text: "Cortisol and testosterone share a precursor — pregnenolone. When your body is under sustained stress, it prioritizes cortisol production. The result is less raw material available for testosterone synthesis. This is often called the \"pregnenolone steal\" — and while the full mechanism is still debated, the inverse relationship between cortisol and testosterone is well-established in the research.",
-      },
-      {
-        type: "heading",
-        text: "Acute vs. Chronic Stress",
+        text: "Most men understand that stress is bad for them. Fewer understand exactly why chronic stress tanks testosterone — and the explanation is more mechanistically precise than \"stress is unhealthy.\" Cortisol and testosterone aren't loosely correlated. They're connected by competing biological systems that share resources with each other, and when one is chronically elevated, the other almost always drops.",
       },
       {
         type: "paragraph",
-        text: "Short-term stress — a hard training session, a deadline — doesn't meaningfully suppress testosterone long-term. The body adapts. The problem is chronic, sustained stress: poor sleep, overtraining, unmanaged anxiety, caloric restriction. These keep cortisol elevated persistently, and persistent cortisol elevation consistently tracks with lower testosterone.",
+        text: "Understanding this pathway matters because it changes how you think about the problem. This isn't a lifestyle optimization issue. It's a hormonal conflict — a suppression cascade with identifiable steps — each of which can be measured, and some of which can be addressed.",
       },
       {
         type: "heading",
-        text: "What the Research Shows",
+        text: "Two axes, one hypothalamus",
       },
       {
         type: "paragraph",
-        text: "Studies in military personnel undergoing sustained stress consistently show significant testosterone suppression alongside cortisol elevation. Research in athletes shows that overtraining syndrome — characterized by chronically elevated cortisol — is reliably associated with suppressed testosterone. The pattern holds across different populations and stress types.",
+        text: "Your body runs testosterone and cortisol production through two parallel hormonal control systems — both of which originate at the same point: the hypothalamus. That shared architecture is the root of the conflict.",
       },
       {
-        type: "callout",
-        text: "Managing cortisol isn't just about feeling less stressed. It's a direct lever for protecting your hormonal environment.",
-      },
-      {
-        type: "heading",
-        text: "Practical Interventions",
-      },
-      {
-        type: "list",
-        items: [
-          "Sleep is the single most powerful cortisol regulator — prioritize it above everything else",
-          "Avoid training to failure every session — periodize intensity to allow hormonal recovery",
-          "Eat enough calories — chronic caloric restriction raises cortisol significantly",
-          "KSM-66 ashwagandha has the strongest evidence for blunting cortisol among supplements",
-          "Tongkat Ali also reduces cortisol while supporting free testosterone availability",
+        type: "hormone-axes",
+        axes: [
+          { title: "Cortisol pathway", steps: ["Hypothalamus → CRH", "Pituitary → ACTH", "Adrenal glands produce cortisol"] },
+          { title: "Testosterone pathway", steps: ["Hypothalamus → GnRH", "Pituitary → LH", "Testes produce testosterone"] },
         ],
       },
       {
         type: "paragraph",
-        text: "The stress-testosterone connection is one of the most clinically robust relationships in men's hormonal health. If your cortisol is chronically elevated, no supplement will fully compensate. Address the source.",
+        text: "These axes share not just an origin point, but regulatory pathways. The mechanisms and signaling interact with systems. When chronic stress downregulates the HPA axis, that dysfunction can echo directly into HPG signaling. The two systems do not operate in isolation — dysfunction in one reliably disrupts the other.",
+      },
+      {
+        type: "heading",
+        text: "When cortisol suppresses testosterone: three levels",
+      },
+      {
+        type: "paragraph",
+        text: "Cortisol-mediated testosterone suppression doesn't happen in isolation at a single point — it acts at every level of the HPG axis simultaneously, which is why chronically elevated cortisol produces such a consistent and significant drop in testosterone.",
+      },
+      {
+        type: "level-cards",
+        levels: [
+          { level: "Level 1", title: "The hypothalamus", text: "High cortisol reduces the frequency and amplitude of GnRH (gonadotropin-releasing hormone) release — reducing the signal that drives downstream testosterone production. Even moderate cortisol elevation is associated with measurable GnRH pulse suppression. Since GnRH pulses drive everything downstream, this is the highest-leverage point of the suppression cascade." },
+          { level: "Level 2", title: "The pituitary", text: "Cortisol directly inhibits the release of luteinizing hormone (LH) at the pituitary level — blunting the signal that tells the testes to produce testosterone. Even if GnRH output is partially maintained, elevated cortisol at the pituitary creates a secondary filter that reduces the downstream signal." },
+          { level: "Level 3", title: "The testes", text: "Glucocorticoid receptors — the cellular docking stations for cortisol — are present in Leydig cells. Binding here directly decreases the cellular machinery of testosterone synthesis, reducing the testes' capacity to produce testosterone even when the upstream signal is present." },
+        ],
+      },
+      {
+        type: "stats-grid",
+        stats: [
+          { value: "25–59%", label: "Testosterone reduction", description: "Range found in high-stress/high-cortisol male populations across research." },
+          { value: "3", label: "HPG axis levels", description: "Levels where cortisol directly suppresses testosterone signaling simultaneously." },
+          { value: "T:C ratio", label: "Key tracking metric", description: "Used by sports scientists to monitor hormonal balance and training readiness." },
+        ],
+      },
+      {
+        type: "heading",
+        text: "A note on the \"pregnenolone steal\"",
+      },
+      {
+        type: "paragraph",
+        text: "You may have seen the concept of \"pregnenolone steal\" used to explain the cortisol-testosterone tradeoff — the idea that cortisol and testosterone compete for the same precursor molecule, and that when cortisol demand is high, that precursor gets diverted away from testosterone production.",
+      },
+      {
+        type: "paragraph",
+        text: "The mechanism is more nuanced than this. \"Pregnenolone steal\" isn't a reliable concept at the tissue level. Pregnenolone is made locally within individual steroidogenic cells — the adrenal cells making cortisol and the Leydig cells making testosterone are operating in separate compartments, not drawing from the same reservoir.",
+      },
+      {
+        type: "callout",
+        text: "The primary mechanism isn't substrate competition — it's signaling suppression. CRH and cortisol suppress GnRH pulse frequency from the hypothalamus, which reduces LH output from the pituitary, which reduces the signal to the testes. The distinction matters because it points to where interventions are actually effective: the HPG-signaling pathway, not precursor availability.",
+      },
+      {
+        type: "heading",
+        text: "Acute stress vs. chronic stress: why the distinction matters",
+      },
+      {
+        type: "paragraph",
+        text: "The cortisol-testosterone relationship is not inherently pathological. In the short term, it's adaptive. Acute stress — a hard training session, a deadline, a novel threat — produces a transient cortisol spike that recovers quickly. Testosterone suppression may occur in the stress period but recovers once cortisol normalizes. This is the system working as designed.",
+      },
+      {
+        type: "paragraph",
+        text: "The problem is chronic stress: a cortisol baseline that never fully returns to normal because the stressor is never removed. At that point, the hypothalamic suppression of GnRH becomes a sustained condition rather than a brief interruption. It repeats, week after week. And the cumulative effect is the consistent testosterone decline documented in men with chronically elevated cortisol.",
+      },
+      {
+        type: "quote",
+        text: "A single bout of hard training doesn't suppress testosterone. A year of accumulated stress debt does.",
+      },
+      {
+        type: "paragraph",
+        text: "The practical implication is that handling stress as a binary (\"I'm stressed\" or \"I'm not\") misses what's actually happening. It's the return-to-baseline — the cortisol recovery window over time — that determines the hormonal outcome. Work capacity, training volume, sleep debt, financial stress, and nutritional stress all feed into the same HPG axis. The body doesn't distinguish between sources.",
+      },
+      {
+        type: "heading",
+        text: "The aromatase effect: a secondary mechanism",
+      },
+      {
+        type: "paragraph",
+        text: "Beyond direct HPG suppression, chronically elevated cortisol also increases the activity of aromatase — the enzyme that converts testosterone into estradiol. This is a compounding effect: cortisol simultaneously suppresses production and increases aromatization. A man under chronic stress isn't just producing less testosterone, he's also converting more of what he does produce into a hormone that further suppresses HPG output via negative feedback.",
+      },
+      {
+        type: "paragraph",
+        text: "Elevated cortisol also raises SHBG in chronic contexts, reducing the fraction of testosterone that is actually free and biologically available — even when total testosterone numbers look acceptable. This is why total testosterone tests can give a misleadingly clean picture of chronic stress effects. Free testosterone tells a more complete story.",
+      },
+      {
+        type: "heading",
+        text: "What the T:C ratio tells you",
+      },
+      {
+        type: "paragraph",
+        text: "Sports scientists have long used the testosterone-to-cortisol (T:C) ratio as a marker of overall hormonal health and recovery state. A higher ratio indicates an anabolic, recovery-ready state. A lower ratio — indicating relatively higher cortisol — correlates with impaired recovery, reduced training adaptation, and the symptom profile of low testosterone even when absolute T numbers appear normal.",
+      },
+      {
+        type: "paragraph",
+        text: "Men who train hard and sleep poorly while managing high work stress can have a T:C ratio that looks like overtraining syndrome regardless of their testosterone number in isolation. The ratio captures the functional relationship between the two systems in a way that neither number alone does.",
+      },
+      {
+        type: "heading",
+        text: "What you can actually do about it",
+      },
+      {
+        type: "paragraph",
+        text: "Managing the cortisol-testosterone tradeoff requires addressing the HPA axis directly — not just taking testosterone support supplements while leaving the suppressive source intact. Upstream intervention matters more when the upstream signal is blocked.",
+      },
+      {
+        type: "action-grid",
+        actions: [
+          { title: "Quantify your load, not just your output", text: "Tracking training volume, sleep debt, dietary stress, work stress, and life stress together gives a complete picture of HPA loading. Reduce total load before adding testosterone support inputs." },
+          { title: "Prioritize sleep quality and quantity", text: "Sleep is when cortisol clearance is highest and GnRH pulse recovery occurs. A single night of poor sleep measurably disrupts HPA-HPG balance. Protecting deep sleep specifically matters more than total time in bed." },
+          { title: "Address cortisol with targeted support", text: "KSM-66 ashwagandha has the most consistent evidence for blunting cortisol elevation and supporting HPG recovery. Tongkat Ali also shows cortisol-lowering effects in stressed populations. These work on the HPA pathway — not as direct testosterone boosters." },
+          { title: "Don't train through accumulated sleep debt", text: "Training hard while sleep-deprived compounds HPA loading. A deloading week alongside sleep recovery restores T:C ratio faster than continuing to train through impaired recovery." },
+          { title: "Eat enough, especially carbohydrates", text: "Caloric restriction and low-carbohydrate diets elevate cortisol independently of training stress. Men in aggressive cutting phases are suppressing testosterone via multiple vectors simultaneously. Maintenance phases restore the HPA axis faster." },
+          { title: "Manage the ratio, not just the number", text: "If total testosterone looks acceptable but symptoms persist — poor recovery, low drive, reduced adaptation — get free testosterone and cortisol tested together. The T:C ratio often explains what the total number doesn't." },
+        ],
+      },
+      {
+        type: "heading",
+        text: "The bottom line",
+      },
+      {
+        type: "paragraph",
+        text: "Cortisol and testosterone aren't loosely related. They're produced by competing systems that share regulatory infrastructure and actively suppress each other at multiple levels simultaneously — the hypothalamus stops pulsing GnRH, the pituitary reduces LH, aromatase activity increases, all at once.",
+      },
+      {
+        type: "paragraph",
+        text: "The research is consistent across populations: men with chronically elevated cortisol tend to have substantially lower testosterone, and the mechanisms are well-characterized. The mistake most men make is optimizing training and supplementation while ignoring the cortisol load that's offsetting everything else.",
+      },
+      {
+        type: "paragraph",
+        text: "The supplement stack matters. So does the sleep. So does the training load. But a 25–59% loss in chronic conditions — if it's working against a mechanism that hasn't been addressed — is money and effort pointed at nothing.",
       },
     ],
   },
