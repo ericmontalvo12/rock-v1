@@ -23,7 +23,7 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       "The supplement industry is flooded with products making bold claims. Here's what the research actually says about what moves the needle — and what doesn't.",
     date: "March 12, 2026",
-    coverImage: "/blog-tsupp.jpg",
+    coverImage: "/gym-lifestyle.jpg",
     content: [
       {
         type: "paragraph",
