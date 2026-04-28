@@ -443,7 +443,7 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       "Zinc deficiency is more common than most men realize — and its effect on testosterone is significant. Here's how to know if you're deficient and what to do.",
     date: "February 18, 2026",
-    coverImage: "/zinc.png",
+    coverImage: "/blog-zinc.jpg",
     content: [
       {
         type: "paragraph",
