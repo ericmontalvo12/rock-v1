@@ -84,7 +84,7 @@ export function EmailPopup() {
                   alt="Rock Mountain Performance"
                   width={200}
                   height={60}
-                  className="h-[38px] w-auto scale-[2.2] translate-y-[6px]"
+                  className="h-[46px] w-auto scale-[2.2] translate-y-[7px]"
                 />
               </div>
               <div className="relative z-10 flex-1 flex items-center justify-center py-4">
@@ -115,7 +115,7 @@ export function EmailPopup() {
               </button>
 
               {!isSubmitted ? (
-                <div className="relative z-10 max-w-sm mx-auto w-full sm:max-w-none">
+                <div className="relative z-10 max-w-sm mx-auto w-full sm:max-w-none text-center">
                   {/* Logo — mobile only */}
                   <div className="sm:hidden mb-10 flex justify-center h-14 overflow-visible">
                     <Image
@@ -123,7 +123,7 @@ export function EmailPopup() {
                       alt="Rock Mountain Performance"
                       width={200}
                       height={60}
-                      className="h-[34px] w-auto scale-[2.2] translate-y-[5px]"
+                      className="h-[41px] w-auto scale-[2.2] translate-y-[6px]"
                     />
                   </div>
 
