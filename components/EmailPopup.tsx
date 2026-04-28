@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ShieldCheck, Star } from "lucide-react";
+import { X, ShieldCheck } from "lucide-react";
 import Image from "next/image";
 
 export function EmailPopup() {
@@ -125,13 +125,6 @@ export function EmailPopup() {
                       height={60}
                       className="h-[34px] w-auto scale-[2.2] translate-y-[5px]"
                     />
-                  </div>
-
-                  {/* Stars */}
-                  <div className="flex gap-0.5 mb-4">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 fill-[#f59e0b] text-[#f59e0b]" />
-                    ))}
                   </div>
 
                   <p className="text-[11px] font-bold uppercase tracking-widest text-[#2d94ff] mb-3">
