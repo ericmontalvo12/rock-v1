@@ -9,10 +9,13 @@ export type BlogPost = {
 };
 
 type Section = {
-  type: "paragraph" | "heading" | "subheading" | "list" | "numbered-list" | "callout" | "quote" | "evidence-grid";
+  type: "paragraph" | "heading" | "subheading" | "list" | "numbered-list" | "callout" | "quote" | "evidence-grid" | "stats-grid" | "sleep-stages" | "action-grid";
   text?: string;
   items?: string[];
   evidence?: { label: string; strength: "strong" | "mixed" | "weak" | "context"; text: string }[];
+  stats?: { value: string; label: string; description: string }[];
+  stages?: { color: string; name: string; text: string }[];
+  actions?: { title: string; text: string }[];
 };
 
 export const blogPosts: BlogPost[] = [
@@ -140,49 +143,118 @@ export const blogPosts: BlogPost[] = [
     content: [
       {
         type: "paragraph",
-        text: "Testosterone production is tightly coupled to your sleep cycle. The majority of daily testosterone release happens during sleep — particularly during the early stages of deep sleep. Disrupt that, and your levels pay the price.",
-      },
-      {
-        type: "heading",
-        text: "What the Research Shows",
+        text: "Most men know that sleep matters. Fewer understand the mechanism behind why shortchanging it is one of the fastest ways to crater your testosterone — and why the damage compounds over time in ways that diet and supplementation alone can't fully offset.",
       },
       {
         type: "paragraph",
-        text: "A study published in JAMA found that restricting sleep to five hours per night for one week reduced testosterone levels in young healthy men by 10–15%. That's a significant drop — roughly equivalent to aging 10–15 years in hormonal terms.",
-      },
-      {
-        type: "paragraph",
-        text: "Another study showed that men who slept less than six hours had significantly lower testosterone than those sleeping seven or more, independent of age, weight, and other variables.",
+        text: "This isn't about optimizing for marginal gains. It's about understanding a fundamental biological relationship that most men over 30 are quietly working against every night.",
       },
       {
         type: "heading",
-        text: "The Mechanism",
+        text: "Testosterone is made while you sleep",
       },
       {
         type: "paragraph",
-        text: "Testosterone is primarily released in pulses during sleep, triggered by signals from the hypothalamus and pituitary gland. When you cut sleep short or fragment it with poor sleep quality, you interrupt this hormonal signaling cascade.",
+        text: "The majority of your daily testosterone is produced during sleep, not during waking hours. The process is driven by luteinizing hormone (LH), which is released in pulses from the pituitary gland. Those pulses are tightly coupled to sleep stage — specifically, they're most concentrated during slow-wave, deep sleep in the first half of the night.",
       },
       {
-        type: "callout",
-        text: "You cannot out-supplement poor sleep. If you're consistently under 7 hours, no supplement will fully compensate for what you're losing.",
+        type: "paragraph",
+        text: "When that deep sleep is cut short, fragmented, or replaced by lighter stages, the LH pulse pattern is disrupted. Less LH means less signal to the testes to produce testosterone. The pathway is direct and well-documented in the research literature.",
       },
       {
-        type: "heading",
-        text: "Practical Steps",
-      },
-      {
-        type: "list",
-        items: [
-          "Prioritize 7–9 hours — this is non-negotiable for hormonal health",
-          "Keep your bedroom cool (65–68°F / 18–20°C) — core body temperature drop is a sleep trigger",
-          "Eliminate blue light 60–90 minutes before bed to support natural melatonin production",
-          "Consistent wake time matters more than consistent bedtime — anchor your circadian rhythm from the morning side",
-          "Alcohol significantly suppresses REM sleep even in moderate amounts — it's not a sleep aid",
+        type: "stats-grid",
+        stats: [
+          { value: "10–15%", label: "Drop in daytime testosterone", description: "After just one week of sleeping 5 hours per night. Per University of Chicago research." },
+          { value: "3 hrs", label: "Critical window", description: "Between early morning REM and deep sleep where most testosterone release is concentrated." },
+          { value: "1–2%", label: "Annual testosterone decline", description: "After age 30 — sleep deprivation accelerates this significantly." },
         ],
       },
       {
+        type: "heading",
+        text: "Not all sleep hours are equal",
+      },
+      {
         type: "paragraph",
-        text: "For men over 30, when testosterone is naturally declining by roughly 1% per year, protecting sleep is one of the most impactful, zero-cost interventions available. Before adding any supplement protocol, get your sleep right.",
+        text: "Duration matters, but architecture matters more. Eight hours of fragmented, poor-quality sleep can produce a worse hormonal outcome than six solid hours with normal sleep cycling. Understanding the stages clarifies why.",
+      },
+      {
+        type: "sleep-stages",
+        stages: [
+          { color: "blue", name: "Deep sleep (slow-wave)", text: "The primary window for LH pulsing and testosterone synthesis. Concentrated in the first 3–4 hours of sleep. Declines significantly with age — men over 50 often get 80% less slow-wave sleep than men in their 30s. Alcohol, late eating, and high core body temperature all suppress this stage disproportionately." },
+          { color: "indigo", name: "REM sleep", text: "Supports cortisol regulation and recovery. Disrupted REM leads to elevated morning cortisol, which competes with testosterone at the precursor level. REM cycles lengthen toward the end of the night — cutting sleep short by even 60–90 minutes eliminates a disproportionate amount of REM." },
+          { color: "gray", name: "Light sleep (N1/N2)", text: "Transitional stages with limited hormonal output. Fragmented sleep — from sleep apnea, alcohol, late-night stimulants, or inconsistent schedules — traps the body in lighter stages and reduces time spent in deep and REM sleep." },
+        ],
+      },
+      {
+        type: "heading",
+        text: "The cortisol connection",
+      },
+      {
+        type: "paragraph",
+        text: "Sleep deprivation doesn't just reduce testosterone production — it actively drives up cortisol. And cortisol is directly antagonistic to testosterone at multiple points in the hormonal cascade.",
+      },
+      {
+        type: "paragraph",
+        text: "Both hormones are synthesized from the same precursor molecule: pregnenolone. When cortisol demand rises — as it does under sleep deprivation and stress — the body preferentially shunts pregnenolone toward cortisol production. Less is available for testosterone. Researchers sometimes call this the \"pregnenolone steal.\"",
+      },
+      {
+        type: "quote",
+        text: "Sleep deprivation is a cortisol spike you didn't earn and can't easily undo.",
+      },
+      {
+        type: "paragraph",
+        text: "Chronically elevated cortisol also suppresses GnRH release from the hypothalamus, which in turn reduces LH output from the pituitary — the same signal that triggers testosterone synthesis in the testes. The result is suppression at both ends of the HPG axis simultaneously.",
+      },
+      {
+        type: "heading",
+        text: "Why this hits harder after 30",
+      },
+      {
+        type: "paragraph",
+        text: "Men over 30 are already contending with a natural decline in slow-wave sleep architecture. The body spends less time in deep sleep as it ages — independent of how long you're in bed. This reduction directly correlates with declining testosterone levels observed across aging research.",
+      },
+      {
+        type: "paragraph",
+        text: "The practical implication: a 22-year-old can partially absorb the hormonal cost of poor sleep. A 35-year-old with already-reduced deep sleep capacity has less margin. The same night of disrupted sleep produces a steeper hormonal drop on an aging baseline.",
+      },
+      {
+        type: "callout",
+        text: "Men with moderate-to-severe OSA show testosterone levels consistently lower than matched controls without apnea. Each apnea event fragments deep sleep and triggers a brief cortisol spike. Over hundreds of events per night, the cumulative suppression is substantial — and it doesn't respond to supplementation until the apnea is treated.",
+      },
+      {
+        type: "heading",
+        text: "What you can actually do about it",
+      },
+      {
+        type: "paragraph",
+        text: "Most sleep advice focuses on hygiene habits. That's the right starting point, but the hormonal angle adds some specificity to which interventions matter most.",
+      },
+      {
+        type: "action-grid",
+        actions: [
+          { title: "Protect your first four hours", text: "Deep sleep is front-loaded. Going to bed at a consistent time, in a cool room (65–68°F), without alcohol in your system maximizes the slow-wave window where most testosterone synthesis occurs." },
+          { title: "Don't cut the back end", text: "The last 90 minutes of an 8-hour window is almost entirely REM. Rising at 6.5 hours completely eliminates this window — and because REM handles cortisol regulation, this compounds the testosterone suppression." },
+          { title: "Lower core temperature at onset", text: "Core body temperature must drop to initiate and sustain deep sleep. A cool room, a shower 1–2 hours before bed, and avoiding hard exercise late accelerate this transition and extend slow-wave duration." },
+          { title: "Cut alcohol before bed", text: "Alcohol suppresses REM and reduces deep sleep even in moderate amounts. A standard drink within 4 hours of sleep measurably degrades sleep architecture — regardless of how quickly you fall asleep." },
+          { title: "Address cortisol at the source", text: "Adaptogenic support — specifically ashwagandha and tongkat ali — has been shown to blunt cortisol elevation and helps maintain the lower cortisol environment needed for testosterone synthesis. This works alongside sleep quality, not as a substitute for it." },
+          { title: "Rule out sleep apnea", text: "If you snore, wake unrefreshed, or fatigue despite adequate time in bed, get screened. The testosterone impact of untreated OSA is not addressable through supplementation." },
+        ],
+      },
+      {
+        type: "heading",
+        text: "The bottom line",
+      },
+      {
+        type: "paragraph",
+        text: "Sleep is not a passive recovery state. It's an active hormonal production window, and for testosterone specifically, it's the most important one. Every night of poor sleep is a compounding deficit — not just in energy, but in the biological substrate that drives performance, body composition, mood, and drive.",
+      },
+      {
+        type: "paragraph",
+        text: "Men over 30 are already operating on a declining baseline. Protecting sleep architecture isn't optimization at the margins — it's the foundation everything else is built on. No supplement stack, no training protocol, and no dietary intervention fully compensates for what consistent poor sleep takes away.",
+      },
+      {
+        type: "paragraph",
+        text: "Get the sleep right first. Then build on top of it.",
       },
     ],
   },

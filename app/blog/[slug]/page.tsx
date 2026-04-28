@@ -132,6 +132,51 @@ export default function BlogPostPage({ params }: { params: Promise<{ slug: strin
                     </div>
                   );
                 }
+                if (section.type === "stats-grid" && section.stats) {
+                  return (
+                    <div key={i} className="grid grid-cols-3 gap-3 my-2">
+                      {section.stats.map((stat, j) => (
+                        <div key={j} className="bg-gray-50 border border-gray-200 rounded-xl p-4 text-center">
+                          <p className="text-2xl sm:text-3xl font-bold text-primary mb-1">{stat.value}</p>
+                          <p className="text-xs font-semibold text-gray-900 mb-1">{stat.label}</p>
+                          <p className="text-[11px] text-gray-500 leading-snug">{stat.description}</p>
+                        </div>
+                      ))}
+                    </div>
+                  );
+                }
+                if (section.type === "sleep-stages" && section.stages) {
+                  const colorMap: Record<string, string> = {
+                    blue: "bg-blue-500",
+                    indigo: "bg-indigo-500",
+                    gray: "bg-gray-400",
+                  };
+                  return (
+                    <div key={i} className="space-y-3 my-2">
+                      {section.stages.map((stage, j) => (
+                        <div key={j} className="flex gap-3 p-4 bg-gray-50 border border-gray-200 rounded-xl">
+                          <span className={`w-2.5 h-2.5 rounded-full ${colorMap[stage.color] ?? "bg-gray-400"} flex-shrink-0 mt-1.5`} />
+                          <div>
+                            <p className="font-semibold text-gray-900 text-sm mb-1">{stage.name}</p>
+                            <p className="text-gray-600 text-sm leading-relaxed">{stage.text}</p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  );
+                }
+                if (section.type === "action-grid" && section.actions) {
+                  return (
+                    <div key={i} className="grid grid-cols-1 sm:grid-cols-2 gap-3 my-2">
+                      {section.actions.map((action, j) => (
+                        <div key={j} className="p-4 bg-gray-50 border border-gray-200 rounded-xl">
+                          <p className="font-semibold text-gray-900 text-sm mb-1.5">{action.title}</p>
+                          <p className="text-gray-600 text-xs leading-relaxed">{action.text}</p>
+                        </div>
+                      ))}
+                    </div>
+                  );
+                }
                 if (section.type === "evidence-grid" && section.evidence) {
                   const strengthLabel: Record<string, string> = {
                     strong: "Strong Evidence",
