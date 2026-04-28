@@ -9,7 +9,7 @@ export type BlogPost = {
 };
 
 type Section = {
-  type: "paragraph" | "heading" | "subheading" | "list" | "numbered-list" | "callout" | "quote" | "evidence-grid" | "stats-grid" | "sleep-stages" | "action-grid" | "study-cards" | "mechanism-list" | "risk-grid" | "food-table";
+  type: "paragraph" | "heading" | "subheading" | "list" | "numbered-list" | "callout" | "quote" | "evidence-grid" | "stats-grid" | "sleep-stages" | "action-grid" | "study-cards" | "mechanism-list" | "risk-grid" | "food-table" | "hormone-axes" | "level-cards";
   text?: string;
   items?: string[];
   evidence?: { label: string; strength: "strong" | "mixed" | "weak" | "context"; text: string }[];
@@ -20,6 +20,8 @@ type Section = {
   mechanisms?: { title: string; text: string }[];
   risks?: { title: string; text: string }[];
   foods?: { food: string; serving: string; zinc: string; bioavailability: string }[];
+  axes?: { title: string; steps: string[] }[];
+  levels?: { level: string; title: string; text: string }[];
 };
 
 export const blogPosts: BlogPost[] = [
@@ -584,51 +586,155 @@ export const blogPosts: BlogPost[] = [
     category: "Recovery",
     title: "Cortisol vs. Testosterone: Understanding the Stress-Hormone Tradeoff",
     excerpt:
-      "Chronic stress doesn't just affect your mood. It directly competes with testosterone production. Learn how to manage cortisol to protect your hormonal health.",
+      "Chronic stress doesn't just affect your mood. It directly competes with testosterone production. Learn how the mechanism works — and what you can do to manage it.",
     date: "February 10, 2026",
     coverImage: "/blog-cortisol.jpg",
     content: [
       {
         type: "paragraph",
-        text: "Cortisol and testosterone share a precursor — pregnenolone. When your body is under sustained stress, it prioritizes cortisol production. The result is less raw material available for testosterone synthesis. This is often called the \"pregnenolone steal\" — and while the full mechanism is still debated, the inverse relationship between cortisol and testosterone is well-established in the research.",
-      },
-      {
-        type: "heading",
-        text: "Acute vs. Chronic Stress",
+        text: "Most men understand that stress is bad for them. Fewer understand exactly why chronic stress tanks testosterone — and the explanation is more mechanistically precise than \"stress is unhealthy.\" Cortisol and testosterone aren't loosely correlated. They're connected by competing biological systems that share resources with each other, and when one is chronically elevated, the other almost always drops.",
       },
       {
         type: "paragraph",
-        text: "Short-term stress — a hard training session, a deadline — doesn't meaningfully suppress testosterone long-term. The body adapts. The problem is chronic, sustained stress: poor sleep, overtraining, unmanaged anxiety, caloric restriction. These keep cortisol elevated persistently, and persistent cortisol elevation consistently tracks with lower testosterone.",
+        text: "Understanding this pathway matters because it changes how you think about the problem. This isn't a lifestyle optimization issue. It's a hormonal conflict — a suppression cascade with identifiable steps — each of which can be measured, and some of which can be addressed.",
       },
       {
         type: "heading",
-        text: "What the Research Shows",
+        text: "Two axes, one hypothalamus",
       },
       {
         type: "paragraph",
-        text: "Studies in military personnel undergoing sustained stress consistently show significant testosterone suppression alongside cortisol elevation. Research in athletes shows that overtraining syndrome — characterized by chronically elevated cortisol — is reliably associated with suppressed testosterone. The pattern holds across different populations and stress types.",
+        text: "Your body runs testosterone and cortisol production through two parallel hormonal control systems — both of which originate at the same point: the hypothalamus. That shared architecture is the root of the conflict.",
       },
       {
-        type: "callout",
-        text: "Managing cortisol isn't just about feeling less stressed. It's a direct lever for protecting your hormonal environment.",
-      },
-      {
-        type: "heading",
-        text: "Practical Interventions",
-      },
-      {
-        type: "list",
-        items: [
-          "Sleep is the single most powerful cortisol regulator — prioritize it above everything else",
-          "Avoid training to failure every session — periodize intensity to allow hormonal recovery",
-          "Eat enough calories — chronic caloric restriction raises cortisol significantly",
-          "KSM-66 ashwagandha has the strongest evidence for blunting cortisol among supplements",
-          "Tongkat Ali also reduces cortisol while supporting free testosterone availability",
+        type: "hormone-axes",
+        axes: [
+          { title: "Cortisol pathway", steps: ["Hypothalamus → CRH", "Pituitary → ACTH", "Adrenal glands produce cortisol"] },
+          { title: "Testosterone pathway", steps: ["Hypothalamus → GnRH", "Pituitary → LH", "Testes produce testosterone"] },
         ],
       },
       {
         type: "paragraph",
-        text: "The stress-testosterone connection is one of the most clinically robust relationships in men's hormonal health. If your cortisol is chronically elevated, no supplement will fully compensate. Address the source.",
+        text: "These axes share not just an origin point, but regulatory pathways. The mechanisms and signaling interact with systems. When chronic stress downregulates the HPA axis, that dysfunction can echo directly into HPG signaling. The two systems do not operate in isolation — dysfunction in one reliably disrupts the other.",
+      },
+      {
+        type: "heading",
+        text: "When cortisol suppresses testosterone: three levels",
+      },
+      {
+        type: "paragraph",
+        text: "Cortisol-mediated testosterone suppression doesn't happen in isolation at a single point — it acts at every level of the HPG axis simultaneously, which is why chronically elevated cortisol produces such a consistent and significant drop in testosterone.",
+      },
+      {
+        type: "level-cards",
+        levels: [
+          { level: "Level 1", title: "The hypothalamus", text: "High cortisol reduces the frequency and amplitude of GnRH (gonadotropin-releasing hormone) release — reducing the signal that drives downstream testosterone production. Even moderate cortisol elevation is associated with measurable GnRH pulse suppression. Since GnRH pulses drive everything downstream, this is the highest-leverage point of the suppression cascade." },
+          { level: "Level 2", title: "The pituitary", text: "Cortisol directly inhibits the release of luteinizing hormone (LH) at the pituitary level — blunting the signal that tells the testes to produce testosterone. Even if GnRH output is partially maintained, elevated cortisol at the pituitary creates a secondary filter that reduces the downstream signal." },
+          { level: "Level 3", title: "The testes", text: "Glucocorticoid receptors — the cellular docking stations for cortisol — are present in Leydig cells. Binding here directly decreases the cellular machinery of testosterone synthesis, reducing the testes' capacity to produce testosterone even when the upstream signal is present." },
+        ],
+      },
+      {
+        type: "stats-grid",
+        stats: [
+          { value: "25–59%", label: "Testosterone reduction", description: "Range found in high-stress/high-cortisol male populations across research." },
+          { value: "3", label: "HPG axis levels", description: "Levels where cortisol directly suppresses testosterone signaling simultaneously." },
+          { value: "T:C ratio", label: "Key tracking metric", description: "Used by sports scientists to monitor hormonal balance and training readiness." },
+        ],
+      },
+      {
+        type: "heading",
+        text: "A note on the \"pregnenolone steal\"",
+      },
+      {
+        type: "paragraph",
+        text: "You may have seen the concept of \"pregnenolone steal\" used to explain the cortisol-testosterone tradeoff — the idea that cortisol and testosterone compete for the same precursor molecule, and that when cortisol demand is high, that precursor gets diverted away from testosterone production.",
+      },
+      {
+        type: "paragraph",
+        text: "The mechanism is more nuanced than this. \"Pregnenolone steal\" isn't a reliable concept at the tissue level. Pregnenolone is made locally within individual steroidogenic cells — the adrenal cells making cortisol and the Leydig cells making testosterone are operating in separate compartments, not drawing from the same reservoir.",
+      },
+      {
+        type: "callout",
+        text: "The primary mechanism isn't substrate competition — it's signaling suppression. CRH and cortisol suppress GnRH pulse frequency from the hypothalamus, which reduces LH output from the pituitary, which reduces the signal to the testes. The distinction matters because it points to where interventions are actually effective: the HPG-signaling pathway, not precursor availability.",
+      },
+      {
+        type: "heading",
+        text: "Acute stress vs. chronic stress: why the distinction matters",
+      },
+      {
+        type: "paragraph",
+        text: "The cortisol-testosterone relationship is not inherently pathological. In the short term, it's adaptive. Acute stress — a hard training session, a deadline, a novel threat — produces a transient cortisol spike that recovers quickly. Testosterone suppression may occur in the stress period but recovers once cortisol normalizes. This is the system working as designed.",
+      },
+      {
+        type: "paragraph",
+        text: "The problem is chronic stress: a cortisol baseline that never fully returns to normal because the stressor is never removed. At that point, the hypothalamic suppression of GnRH becomes a sustained condition rather than a brief interruption. It repeats, week after week. And the cumulative effect is the consistent testosterone decline documented in men with chronically elevated cortisol.",
+      },
+      {
+        type: "quote",
+        text: "A single bout of hard training doesn't suppress testosterone. A year of accumulated stress debt does.",
+      },
+      {
+        type: "paragraph",
+        text: "The practical implication is that handling stress as a binary (\"I'm stressed\" or \"I'm not\") misses what's actually happening. It's the return-to-baseline — the cortisol recovery window over time — that determines the hormonal outcome. Work capacity, training volume, sleep debt, financial stress, and nutritional stress all feed into the same HPG axis. The body doesn't distinguish between sources.",
+      },
+      {
+        type: "heading",
+        text: "The aromatase effect: a secondary mechanism",
+      },
+      {
+        type: "paragraph",
+        text: "Beyond direct HPG suppression, chronically elevated cortisol also increases the activity of aromatase — the enzyme that converts testosterone into estradiol. This is a compounding effect: cortisol simultaneously suppresses production and increases aromatization. A man under chronic stress isn't just producing less testosterone, he's also converting more of what he does produce into a hormone that further suppresses HPG output via negative feedback.",
+      },
+      {
+        type: "paragraph",
+        text: "Elevated cortisol also raises SHBG in chronic contexts, reducing the fraction of testosterone that is actually free and biologically available — even when total testosterone numbers look acceptable. This is why total testosterone tests can give a misleadingly clean picture of chronic stress effects. Free testosterone tells a more complete story.",
+      },
+      {
+        type: "heading",
+        text: "What the T:C ratio tells you",
+      },
+      {
+        type: "paragraph",
+        text: "Sports scientists have long used the testosterone-to-cortisol (T:C) ratio as a marker of overall hormonal health and recovery state. A higher ratio indicates an anabolic, recovery-ready state. A lower ratio — indicating relatively higher cortisol — correlates with impaired recovery, reduced training adaptation, and the symptom profile of low testosterone even when absolute T numbers appear normal.",
+      },
+      {
+        type: "paragraph",
+        text: "Men who train hard and sleep poorly while managing high work stress can have a T:C ratio that looks like overtraining syndrome regardless of their testosterone number in isolation. The ratio captures the functional relationship between the two systems in a way that neither number alone does.",
+      },
+      {
+        type: "heading",
+        text: "What you can actually do about it",
+      },
+      {
+        type: "paragraph",
+        text: "Managing the cortisol-testosterone tradeoff requires addressing the HPA axis directly — not just taking testosterone support supplements while leaving the suppressive source intact. Upstream intervention matters more when the upstream signal is blocked.",
+      },
+      {
+        type: "action-grid",
+        actions: [
+          { title: "Quantify your load, not just your output", text: "Tracking training volume, sleep debt, dietary stress, work stress, and life stress together gives a complete picture of HPA loading. Reduce total load before adding testosterone support inputs." },
+          { title: "Prioritize sleep quality and quantity", text: "Sleep is when cortisol clearance is highest and GnRH pulse recovery occurs. A single night of poor sleep measurably disrupts HPA-HPG balance. Protecting deep sleep specifically matters more than total time in bed." },
+          { title: "Address cortisol with targeted support", text: "KSM-66 ashwagandha has the most consistent evidence for blunting cortisol elevation and supporting HPG recovery. Tongkat Ali also shows cortisol-lowering effects in stressed populations. These work on the HPA pathway — not as direct testosterone boosters." },
+          { title: "Don't train through accumulated sleep debt", text: "Training hard while sleep-deprived compounds HPA loading. A deloading week alongside sleep recovery restores T:C ratio faster than continuing to train through impaired recovery." },
+          { title: "Eat enough, especially carbohydrates", text: "Caloric restriction and low-carbohydrate diets elevate cortisol independently of training stress. Men in aggressive cutting phases are suppressing testosterone via multiple vectors simultaneously. Maintenance phases restore the HPA axis faster." },
+          { title: "Manage the ratio, not just the number", text: "If total testosterone looks acceptable but symptoms persist — poor recovery, low drive, reduced adaptation — get free testosterone and cortisol tested together. The T:C ratio often explains what the total number doesn't." },
+        ],
+      },
+      {
+        type: "heading",
+        text: "The bottom line",
+      },
+      {
+        type: "paragraph",
+        text: "Cortisol and testosterone aren't loosely related. They're produced by competing systems that share regulatory infrastructure and actively suppress each other at multiple levels simultaneously — the hypothalamus stops pulsing GnRH, the pituitary reduces LH, aromatase activity increases, all at once.",
+      },
+      {
+        type: "paragraph",
+        text: "The research is consistent across populations: men with chronically elevated cortisol tend to have substantially lower testosterone, and the mechanisms are well-characterized. The mistake most men make is optimizing training and supplementation while ignoring the cortisol load that's offsetting everything else.",
+      },
+      {
+        type: "paragraph",
+        text: "The supplement stack matters. So does the sleep. So does the training load. But a 25–59% loss in chronic conditions — if it's working against a mechanism that hasn't been addressed — is money and effort pointed at nothing.",
       },
     ],
   },

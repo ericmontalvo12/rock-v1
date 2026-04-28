@@ -132,6 +132,40 @@ export default function BlogPostPage({ params }: { params: Promise<{ slug: strin
                     </div>
                   );
                 }
+                if (section.type === "hormone-axes" && section.axes) {
+                  return (
+                    <div key={i} className="grid grid-cols-2 gap-3 my-2">
+                      {section.axes.map((axis, j) => (
+                        <div key={j} className="bg-gray-50 border border-gray-200 rounded-xl p-4">
+                          <p className="font-semibold text-gray-900 text-sm mb-3">{axis.title}</p>
+                          <div className="space-y-2">
+                            {axis.steps.map((step, k) => (
+                              <div key={k} className="flex items-center gap-2">
+                                <span className="w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0" />
+                                <p className="text-gray-600 text-xs leading-snug">{step}</p>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  );
+                }
+                if (section.type === "level-cards" && section.levels) {
+                  return (
+                    <div key={i} className="space-y-3 my-2">
+                      {section.levels.map((lvl, j) => (
+                        <div key={j} className="border border-gray-200 rounded-xl overflow-hidden bg-white">
+                          <div className="bg-primary/10 border-b border-primary/20 px-4 py-2.5 flex items-center gap-3">
+                            <span className="text-[10px] font-bold uppercase tracking-widest text-primary bg-primary/10 px-2 py-0.5 rounded">{lvl.level}</span>
+                            <span className="font-semibold text-gray-900 text-sm">{lvl.title}</span>
+                          </div>
+                          <p className="px-4 py-3 text-gray-600 text-sm leading-relaxed">{lvl.text}</p>
+                        </div>
+                      ))}
+                    </div>
+                  );
+                }
                 if (section.type === "mechanism-list" && section.mechanisms) {
                   return (
                     <div key={i} className="space-y-3 my-2">
