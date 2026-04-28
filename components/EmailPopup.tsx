@@ -81,13 +81,13 @@ export function EmailPopup() {
               />
 
               {/* Logo */}
-              <div className="relative z-10 w-full flex items-center justify-center h-12 overflow-visible">
+              <div className="relative z-10 w-full flex items-center justify-center h-16 overflow-visible">
                 <Image
                   src="/logo-new.png"
                   alt="Rock Mountain Performance"
                   width={200}
                   height={60}
-                  className="h-[30px] w-auto scale-[2.1] translate-y-[5px]"
+                  className="h-[38px] w-auto scale-[2.2] translate-y-[6px]"
                 />
               </div>
 
@@ -123,13 +123,13 @@ export function EmailPopup() {
               {!isSubmitted ? (
                 <>
                   {/* Mobile logo */}
-                  <div className="sm:hidden mb-6 flex justify-center h-10 overflow-visible">
+                  <div className="sm:hidden mb-6 flex justify-center h-14 overflow-visible">
                     <Image
                       src="/logo-new.png"
                       alt="Rock Mountain Performance"
                       width={200}
                       height={60}
-                      className="h-[26px] w-auto scale-[2.1] translate-y-[4px]"
+                      className="h-[34px] w-auto scale-[2.2] translate-y-[5px]"
                     />
                   </div>
 
@@ -138,7 +138,6 @@ export function EmailPopup() {
                     {[...Array(5)].map((_, i) => (
                       <Star key={i} className="w-3.5 h-3.5 fill-[#f59e0b] text-[#f59e0b]" />
                     ))}
-                    <span className="text-xs text-gray-400 ml-1.5 self-center">5.0 · Early Reviews</span>
                   </div>
 
                   <p className="text-[11px] font-bold uppercase tracking-widest text-[#2d94ff] mb-2">
