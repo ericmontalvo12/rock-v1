@@ -266,7 +266,7 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       "Ashwagandha is one of the most hyped ingredients in men's health supplements. We looked at every relevant human study to see if the hype is justified.",
     date: "February 26, 2026",
-    coverImage: "/ashwagandha.png",
+    coverImage: "/blog-ashwagandha.jpg",
     content: [
       {
         type: "paragraph",
