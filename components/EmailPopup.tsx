@@ -84,7 +84,7 @@ export function EmailPopup() {
                   alt="Rock Mountain Performance"
                   width={200}
                   height={60}
-                  className="h-[60px] w-auto scale-[2.2] translate-y-[9px]"
+                  className="h-[72px] w-auto scale-[2.2] translate-y-[11px]"
                 />
               </div>
               <div className="relative z-10 flex-1 flex items-center justify-center py-4">
@@ -123,7 +123,7 @@ export function EmailPopup() {
                       alt="Rock Mountain Performance"
                       width={200}
                       height={60}
-                      className="h-[53px] w-auto scale-[2.2] translate-y-[8px]"
+                      className="h-[64px] w-auto scale-[2.2] translate-y-[10px]"
                     />
                   </div>
 
