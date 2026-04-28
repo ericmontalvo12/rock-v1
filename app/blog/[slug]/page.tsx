@@ -299,6 +299,36 @@ export default function BlogPostPage({ params }: { params: Promise<{ slug: strin
                     </div>
                   );
                 }
+                if (section.type === "mechanism-cards" && section.mechanismCards) {
+                  return (
+                    <div key={i} className="grid grid-cols-1 sm:grid-cols-3 gap-3 my-2">
+                      {section.mechanismCards.map((m, j) => (
+                        <div key={j} className="p-4 bg-gray-50 border border-gray-200 rounded-xl">
+                          <p className="font-semibold text-gray-900 text-sm mb-1.5">{m.title}</p>
+                          <p className="text-gray-500 text-xs leading-relaxed">{m.text}</p>
+                        </div>
+                      ))}
+                    </div>
+                  );
+                }
+                if (section.type === "dosing-guide" && section.dosingGuide) {
+                  const dosingColors: Record<string, string> = {
+                    high: "bg-green-50 border-green-200",
+                    moderate: "bg-yellow-50 border-yellow-200",
+                    low: "bg-gray-50 border-gray-200",
+                    avoid: "bg-red-50 border-red-200",
+                  };
+                  return (
+                    <div key={i} className="space-y-2 my-2">
+                      {section.dosingGuide.map((d, j) => (
+                        <div key={j} className={`p-4 rounded-xl border ${dosingColors[d.confidence]}`}>
+                          <p className="font-semibold text-gray-900 text-sm mb-1">{d.label}</p>
+                          <p className="text-gray-500 text-xs leading-relaxed">{d.text}</p>
+                        </div>
+                      ))}
+                    </div>
+                  );
+                }
                 if (section.type === "evidence-grid" && section.evidence) {
                   const strengthLabel: Record<string, string> = {
                     strong: "Strong Evidence",

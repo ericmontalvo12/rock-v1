@@ -9,7 +9,7 @@ export type BlogPost = {
 };
 
 type Section = {
-  type: "paragraph" | "heading" | "subheading" | "list" | "numbered-list" | "callout" | "quote" | "evidence-grid" | "stats-grid" | "sleep-stages" | "action-grid" | "study-cards" | "mechanism-list" | "risk-grid" | "food-table" | "hormone-axes" | "level-cards";
+  type: "paragraph" | "heading" | "subheading" | "list" | "numbered-list" | "callout" | "quote" | "evidence-grid" | "stats-grid" | "sleep-stages" | "action-grid" | "study-cards" | "mechanism-list" | "risk-grid" | "food-table" | "hormone-axes" | "level-cards" | "mechanism-cards" | "dosing-guide";
   text?: string;
   items?: string[];
   evidence?: { label: string; strength: "strong" | "mixed" | "weak" | "context"; text: string }[];
@@ -22,6 +22,8 @@ type Section = {
   foods?: { food: string; serving: string; zinc: string; bioavailability: string }[];
   axes?: { title: string; steps: string[] }[];
   levels?: { level: string; title: string; text: string }[];
+  mechanismCards?: { title: string; text: string }[];
+  dosingGuide?: { label: string; confidence: "high" | "moderate" | "low" | "avoid"; text: string }[];
 };
 
 export const blogPosts: BlogPost[] = [
@@ -745,52 +747,171 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       "Tongkat Ali has decades of research behind it. Most products use the wrong dose. We break down what the studies actually used and why it matters.",
     date: "February 3, 2026",
-    coverImage: "/tongkat-ali.png",
+    coverImage: "/blog-tongkat.jpg",
     content: [
       {
         type: "paragraph",
-        text: "Tongkat Ali (Eurycoma longifolia) is one of the more well-researched ingredients in men's hormonal health. It has a body of human clinical trials going back over two decades. Most supplement products still get the dose wrong.",
-      },
-      {
-        type: "heading",
-        text: "The Human Research",
+        text: "Tongkat Ali (Eurycoma longifolia) is one of the most documented performance herbs in Southeast Asian traditional medicine — used in Malaysia, Indonesia, and Thailand for centuries before it entered the supplement industry. Unlike most heavily marketed testosterone support ingredients, it has a meaningful volume of human trial data — with trials in humans, a specifically calibrated performance extract (Physta), and a well-characterized mechanism of action.",
       },
       {
         type: "paragraph",
-        text: "A controlled 4-week study in moderately stressed adults found that tongkat ali (200mg of a standardized 200:1 extract) significantly increased testosterone by 37% and reduced cortisol by 16%. Participants also reported improvements in stress, mood, and energy.",
-      },
-      {
-        type: "paragraph",
-        text: "Studies in men with late-onset hypogonadism (low testosterone) showed improvements in testosterone levels along with quality-of-life markers. Research in male athletes found improvements in muscle strength and body composition alongside hormonal changes.",
+        text: "And yet, most products that list it on their labels either dose it far below the clinical threshold or use an unstandardized form that bears little resemblance to what was tested. Understanding why requires looking at what the studies actually used — and why the standardized extract specification matters more than the ingredient name.",
       },
       {
         type: "heading",
-        text: "How It Works",
+        text: "What tongkat ali is actually doing",
       },
       {
         type: "paragraph",
-        text: "Tongkat Ali's primary mechanisms include stimulating the release of free testosterone from sex hormone binding globulin (SHBG) and supporting the hypothalamic-pituitary-gonadal (HPG) axis — the hormonal signaling chain that regulates testosterone production. It operates on both the availability and production sides of the equation.",
+        text: "Before reviewing the trials, it helps to understand the mechanism. Tongkat Ali is meaningfully different from how most brands describe the ingredient.",
       },
       {
-        type: "heading",
-        text: "The Dose Problem",
-      },
-      {
-        type: "callout",
-        text: "The research used standardized 200:1 extract at 200–300mg daily. Many products use plain root powder at similar doses — which is not equivalent. The extraction ratio matters.",
-      },
-      {
-        type: "list",
-        items: [
-          "Look for \"200:1 extract\" or \"standardized for eurycomanone\" on the label",
-          "Effective doses in studies: 200–300mg of standardized extract",
-          "Effects accumulate over 4–8 weeks — it's not an acute stimulant",
-          "Works synergistically with cortisol-reducing ingredients like ashwagandha",
+        type: "mechanism-cards",
+        mechanismCards: [
+          { title: "Adaptogenic mechanism", text: "Tongkat Ali is classified as an adaptogen — its primary documented action is modulating the HPA axis and blunting the cortisol response to physical and psychological stress. High cortisol is a primary driver of testosterone suppression. By lowering cortisol, tongkat ali indirectly removes a significant suppressive load from the HPG axis." },
+          { title: "LH stimulation mechanism", text: "Beyond cortisol, tongkat ali stimulates luteinizing hormone (LH) release from the pituitary. LH is the direct signal that tells the testes to produce testosterone. This mechanism is more direct than a purely adaptogenic ingredient — and appears to be the primary driver of free testosterone increases observed in trials." },
+          { title: "SHBG reduction mechanism", text: "Tongkat ali has shown evidence of reducing SHBG (sex hormone binding globulin) — the protein that binds and inactivates free testosterone. By reducing SHBG, tongkat ali increases the proportion of testosterone that is biologically active and available to tissue, even before total testosterone changes." },
         ],
       },
       {
         type: "paragraph",
-        text: "Tongkat Ali is one of the few ingredients where the evidence for testosterone support in healthy men (not just clinically deficient populations) is reasonably strong — provided the extract quality and dose are correct. The barrier is finding products that actually meet that standard.",
+        text: "These three pathways — HPA downregulation, LH signaling, and SHBG reduction — make tongkat ali more mechanistically complete than simpler testosterone support ingredients. It's acting on three separate mechanisms simultaneously, which is one reason the effects seen in well-designed trials are meaningful rather than marginal.",
+      },
+      {
+        type: "heading",
+        text: "The human studies, examined",
+      },
+      {
+        type: "study-cards",
+        studies: [
+          {
+            author: "Tambi et al.",
+            title: "Standardized eurycoma subjects, soldiers and testosterone",
+            year: "2012",
+            tags: ["PHYSTA EXTRACT", "DOUBLE-BLIND", "RANDOMIZED", "PLACEBO CONTROLLED", "1 MONTH"],
+            body: "A pivotal RCT measuring testosterone, cortisol, and immune markers. The Physta extract (200mg) showed significantly increased testosterone (↑37%), a significant decrease in cortisol (↓16%), and a large significant reduction in SHBG. Both total and free testosterone increased, with LH also elevated in the treatment group. Published in Phytotherapy Research — this is the most directly relevant single study for men evaluating the clinical performance of tongkat ali.",
+            verdict: "STRONG — Multi-marker hormonal response, well-designed RCT, most cited study",
+            verdictStrength: "strong",
+          },
+          {
+            author: "Flanagan et al.",
+            title: "Aging males study — long-term hormonal assessment",
+            year: "2021",
+            tags: ["PHYSTA", "DOUBLE-BLIND", "RANDOMIZED", "PLACEBO CONTROLLED", "12 WEEKS"],
+            body: "Results in aging males show significant improvements in testosterone with a well-powered study design across a broader demographic range than single-cycle research. This was specifically designed to measure effects in older, chronically stressed men who were monitored for health risk indices in addition to testosterone. The cortisol-suppression pathway is well-documented in this population, and tongkat ali consistently produced significant improvements across it. Published in the journal Ageing Males.",
+            verdict: "STRONG — Specifically relevant demographic, cortisol-suppression pathway confirmed",
+            verdictStrength: "strong",
+          },
+          {
+            author: "Tambi et al.",
+            title: "Low-sperm quality subjects, standardized extract",
+            year: "2012",
+            tags: ["PHYSTA EXTRACT", "CONFIRMED EFFECTS", "STANDARDIZED EXTRACT"],
+            body: "75 men with low sperm quality taking Physta showed significant improvement in testosterone and sperm parameters. Subjects showed a significant increase in testicular volume alongside hormonal improvements — a finding with implications for the hypothesis that LH stimulation is the primary mechanism rather than peripheral SHBG suppression alone.",
+            verdict: "STRONG — LH-dominant mechanism supported by testicular response data",
+            verdictStrength: "strong",
+          },
+          {
+            author: "Hamzah et al.",
+            title: "Physically active men, body composition and testosterone",
+            year: "2003",
+            tags: ["EURYCOMA LONGIFOLIA EXTRACT", "DOUBLE-BLIND", "RANDOMIZED", "PLACEBO CONTROLLED"],
+            body: "A 5-week trial in recreationally trained men showed significant increases in lean body mass, testosterone, and strength (leg press and arm curl). The testosterone improvement was associated with body composition changes — which is more practically significant than isolated hormonal measurements and represents the kind of functional outcome men actually care about.",
+            verdict: "STRONG — Functionally relevant outcomes, body composition and strength confirmed",
+            verdictStrength: "strong",
+          },
+          {
+            author: "Leisegang et al.",
+            title: "Infertility panels, testosterone and reproductive function",
+            year: "2022",
+            tags: ["EURYCOMA LONGIFOLIA EXTRACT", "MULTIPLE CLINICAL PARAMETERS", "3 MONTHS"],
+            body: "Three-month trial in men with fertility impairment. Significant improvements across testosterone, LH, FSH, and sperm parameters. This study specifically supported the upstream LH mechanism — FSH co-elevation with LH suggests pituitary-level stimulation rather than purely peripheral effects. Multiple reproductive parameters improved simultaneously, consistent with the upstream-pituitary hypothesis.",
+            verdict: "STRONG — Multi-parameter reproductive panel, upstream pituitary mechanism supported",
+            verdictStrength: "strong",
+          },
+          {
+            author: "Udani et al.",
+            title: "Healthy young men, short-term assessment",
+            year: "2014",
+            tags: ["EURYCOMA LONGIFOLIA EXTRACT", "HEALTHY COHORT"],
+            body: "Short-term study measuring testosterone response in a healthy young cohort without stress-related baseline suppression. Significant increases in testosterone were observed, with effect size more modest than stress-population studies — consistent with the mechanism (less cortisol-mediated suppression to remove) — but statistically significant and practically relevant for supplementation use.",
+            verdict: "CONDITIONAL — Modest effect in healthy unstressed males; larger effects expected in cortisol-suppressed populations",
+            verdictStrength: "conditional",
+          },
+        ],
+      },
+      {
+        type: "heading",
+        text: "What the meta-analysis says",
+      },
+      {
+        type: "paragraph",
+        text: "A 2022 systematic review and meta-analysis published in the journal Medicine analyzed 11 randomized controlled studies and 1 meta-analysis of RCTs. The analysis found that tongkat ali supplementation produced a significant overall increase in testosterone (SMD = 1.567, p < 0.001), confirming the hormonal effects across both healthy subjects and clinical populations.",
+      },
+      {
+        type: "stats-grid",
+        stats: [
+          { value: "+37%", label: "Max testosterone increase", description: "Maximum testosterone increase documented in a single well-controlled trial (Tambi et al.)." },
+          { value: "-16%", label: "Max cortisol reduction", description: "Maximum cortisol reduction across trials in the same Physta RCT." },
+          { value: "1.567", label: "Meta-analysis SMD", description: "Standardized mean difference for testosterone increase in the 2022 meta-analysis (p < 0.001)." },
+        ],
+      },
+      {
+        type: "callout",
+        text: "200mg daily as a standardized 200:1 Physta extract — the dose used in the most consistently effective trials. This is roughly equivalent to 40g of raw tongkat ali root due to the concentration ratio.",
+      },
+      {
+        type: "heading",
+        text: "The dosing problem most products have",
+      },
+      {
+        type: "paragraph",
+        text: "The Physta extraction process concentrates the active components to a ratio of approximately 200:1 against the raw root. Most products use raw or weakly standardized root powder at similar dosages. There is no evidence that raw or weakly standardized tongkat ali root produces the same hormonal response as Physta at equivalent doses — and in fact, most products at 200mg using an unstandardized approach show no measurable effect in research.",
+      },
+      {
+        type: "dosing-guide",
+        dosingGuide: [
+          { label: "200mg Physta (200:1, 0.8% eurycomanone)", confidence: "high", text: "Matches the research exactly. Highest clinical confidence. This is what the trials used." },
+          { label: "300–400mg standardized extract (eurycomanone specified)", confidence: "moderate", text: "Reasonable range if standardization is explicitly stated on the label." },
+          { label: "200–500mg 'tongkat ali root extract' (no specification)", confidence: "low", text: "Uncertain. No clinical basis for dose prediction without knowing the standardization." },
+          { label: "Any amount inside a proprietary blend", confidence: "avoid", text: "Unverifiable dose. Cannot confirm clinical relevance. Not recommended." },
+        ],
+      },
+      {
+        type: "heading",
+        text: "Who responds to tongkat ali — and who doesn't",
+      },
+      {
+        type: "paragraph",
+        text: "Consistently across the trials, the populations showing the largest effect sizes are men experiencing elevated cortisol at baseline — whether from stress, physical demands, or aging. The strongest results appear in three groups: men experiencing chronic stress with elevated cortisol; men with above-average physical demands and higher baseline stress exposure; and older men with age-related HPA dysregulation.",
+      },
+      {
+        type: "paragraph",
+        text: "A young healthy man with optimal testosterone and no stress is likely to see a more modest response. The studies confirm this — the effect in the healthy unstressed cohort is real, but smaller. The mechanism-directed use of this ingredient works best when there is suppression to remove.",
+      },
+      {
+        type: "heading",
+        text: "Safety profile",
+      },
+      {
+        type: "paragraph",
+        text: "Tongkat ali is one of the better-characterized herbs in the botanical supplement category. Short-term studies have not demonstrated clinically relevant adverse effects. A higher-ratio research study found no clinically significant effects on liver, kidney, or renal function. No significant safety-related findings were observed in any trial at the doses and durations described above.",
+      },
+      {
+        type: "heading",
+        text: "The bottom line",
+      },
+      {
+        type: "paragraph",
+        text: "Tongkat Ali is one of the highest-supported ingredients in the testosterone support literature. The clinical studies aren't correlational — they're interventional with randomized control and clear objective endpoints. A 2022 meta-analysis confirms the significance of the effect across studies.",
+      },
+      {
+        type: "paragraph",
+        text: "The caveats are real: extract standardization matters enormously. The product must contain Physta or a demonstrably equivalent standardized extract at 200mg — if there is no standardization stated, the product is not built on the evidence. Product formulation, not the ingredient name, determines outcomes.",
+      },
+      {
+        type: "paragraph",
+        text: "For men with stress-related testosterone suppression — which includes the majority of men experiencing low drive, poor recovery, or declining performance in their 30s and beyond — the evidence for correctly-dosed tongkat ali is as strong as any ingredient in the supplement literature.",
       },
     ],
   },
