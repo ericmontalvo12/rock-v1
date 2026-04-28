@@ -132,6 +132,41 @@ export default function BlogPostPage({ params }: { params: Promise<{ slug: strin
                     </div>
                   );
                 }
+                if (section.type === "study-cards" && section.studies) {
+                  const verdictColors: Record<string, string> = {
+                    strong: "bg-green-50 border-green-200 text-green-700",
+                    conditional: "bg-yellow-50 border-yellow-200 text-yellow-700",
+                    weak: "bg-red-50 border-red-200 text-red-700",
+                  };
+                  return (
+                    <div key={i} className="space-y-4 my-2">
+                      {section.studies.map((study, j) => (
+                        <div key={j} className="border border-gray-200 rounded-xl overflow-hidden bg-white">
+                          <div className="bg-gray-50 border-b border-gray-200 px-4 py-3">
+                            <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1 mb-2">
+                              <span className="font-bold text-gray-900 text-sm">{study.author}</span>
+                              <span className="text-gray-500 text-sm">— {study.title}</span>
+                              <span className="text-gray-400 text-xs ml-auto">{study.year}</span>
+                            </div>
+                            <div className="flex flex-wrap gap-1.5">
+                              {study.tags.map((tag, t) => (
+                                <span key={t} className="text-[10px] font-semibold uppercase tracking-wide bg-primary/10 text-primary px-2 py-0.5 rounded">
+                                  {tag}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                          <div className="px-4 py-3">
+                            <p className="text-gray-600 text-sm leading-relaxed mb-3">{study.body}</p>
+                            <div className={`inline-flex items-center text-[11px] font-semibold uppercase tracking-wide px-2.5 py-1 rounded border ${verdictColors[study.verdictStrength]}`}>
+                              {study.verdict}
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  );
+                }
                 if (section.type === "stats-grid" && section.stats) {
                   return (
                     <div key={i} className="grid grid-cols-3 gap-3 my-2">

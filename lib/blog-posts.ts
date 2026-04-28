@@ -9,13 +9,14 @@ export type BlogPost = {
 };
 
 type Section = {
-  type: "paragraph" | "heading" | "subheading" | "list" | "numbered-list" | "callout" | "quote" | "evidence-grid" | "stats-grid" | "sleep-stages" | "action-grid";
+  type: "paragraph" | "heading" | "subheading" | "list" | "numbered-list" | "callout" | "quote" | "evidence-grid" | "stats-grid" | "sleep-stages" | "action-grid" | "study-cards";
   text?: string;
   items?: string[];
   evidence?: { label: string; strength: "strong" | "mixed" | "weak" | "context"; text: string }[];
   stats?: { value: string; label: string; description: string }[];
   stages?: { color: string; name: string; text: string }[];
   actions?: { title: string; text: string }[];
+  studies?: { author: string; title: string; year: string; tags: string[]; body: string; verdict: string; verdictStrength: "strong" | "conditional" | "weak" }[];
 };
 
 export const blogPosts: BlogPost[] = [
@@ -265,52 +266,170 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       "Ashwagandha is one of the most hyped ingredients in men's health supplements. We looked at every relevant human study to see if the hype is justified.",
     date: "February 26, 2026",
-    coverImage: "/ashwagandha.png",
+    coverImage: "/blog-ashwagandha.jpg",
     content: [
       {
         type: "paragraph",
-        text: "Ashwagandha (Withania somnifera) is one of the few supplement ingredients where the hype is largely justified — with a critical caveat: the evidence is specific to particular extracts at particular doses.",
-      },
-      {
-        type: "heading",
-        text: "The Key Studies",
+        text: "Few supplement ingredients have accumulated as much attention in men's health over the past decade as ashwagandha (Withania somnifera). It's in nearly every testosterone support formula on the market. The claims on labels range from conservative to absurd. And unlike many popular ingredients, there's actually a meaningful body of human trial data to evaluate.",
       },
       {
         type: "paragraph",
-        text: "A 2019 randomized controlled trial in overweight men aged 40–70 found that 600mg of KSM-66 ashwagandha daily for 8 weeks produced a significant increase in testosterone (roughly 14–17%) compared to placebo. DHEA-S also increased meaningfully.",
-      },
-      {
-        type: "paragraph",
-        text: "An earlier study in men with fertility issues found that ashwagandha supplementation increased testosterone by 17% and luteinizing hormone by 34% over 3 months. A separate study in resistance-trained men found significant increases in testosterone alongside improvements in muscle recovery and strength.",
+        text: "We went through it. Here's what the research shows — where it's strong, where it's conditional, and what the limitations are that most brands won't mention.",
       },
       {
         type: "heading",
-        text: "How It Works",
+        text: "What ashwagandha is actually doing",
       },
       {
         type: "paragraph",
-        text: "Ashwagandha doesn't directly stimulate testosterone production. Its primary mechanism is cortisol reduction. Cortisol and testosterone operate on a seesaw — when cortisol is chronically elevated, testosterone is suppressed. By lowering cortisol, ashwagandha removes a key barrier to natural T production.",
+        text: "Before reviewing the studies, it helps to understand the mechanism. Ashwagandha is an adaptogen — its primary documented action is modulating the hypothalamic-pituitary-adrenal (HPA) axis, which governs cortisol output. When that axis is chronically activated by stress, cortisol stays elevated, and testosterone takes the hit via two pathways: the pregnenolone steal (where precursor molecules are diverted toward cortisol production) and direct suppression of LH release from the pituitary.",
       },
       {
-        type: "callout",
-        text: "The extract matters. KSM-66 and Sensoril are the two standardized forms used in the clinical research. Generic \"ashwagandha root powder\" has almost no evidence behind it.",
+        type: "paragraph",
+        text: "Ashwagandha's withanolides — its active steroidal lactone compounds — appear to inhibit this HPA overactivation. That's the primary mechanism. Secondary effects on LH signaling and SHBG have also been observed in some trials. The testosterone increase itself is secondary to cortisol normalization across the hypothalamic system.",
+      },
+      {
+        type: "paragraph",
+        text: "This distinction matters when evaluating who responds to the research — and who doesn't.",
       },
       {
         type: "heading",
-        text: "What Dose Is Needed",
+        text: "The human studies, one by one",
       },
       {
-        type: "list",
-        items: [
-          "Studies showing testosterone increases used 300–600mg of KSM-66 or Sensoril extract",
-          "Lower doses (100–200mg) appear in many products but lack direct evidence",
-          "Effects typically take 4–8 weeks of consistent use to accumulate",
-          "Look for the standardized extract name on the label — not just \"ashwagandha\"",
+        type: "study-cards",
+        studies: [
+          {
+            author: "Wankhede et al.",
+            title: "Resistance-trained men, muscle strength and recovery",
+            year: "2015",
+            tags: ["KSM-66", "DOUBLE-BLIND", "RANDOMIZED", "8 WEEKS"],
+            body: "57 male subjects in an 8-week RCT. KSM-66 dosed at 300mg twice daily (600mg/day). The ashwagandha group showed a 15.0% increase in total testosterone compared to placebo, alongside significant gains in muscle strength and a significant reduction in muscle damage. Testosterone increase was secondary — strength and recovery was the primary endpoint. Published in the Journal of the International Society of Sports Nutrition.",
+            verdict: "STRONG — Well-designed RCT with standardized extract and primary formulation",
+            verdictStrength: "strong",
+          },
+          {
+            author: "Lopresti et al.",
+            title: "Aging, overweight males, hormonal and vitality effects",
+            year: "2019",
+            tags: ["KSM-66", "DOUBLE-BLIND", "RANDOMIZED", "PLACEBO CONTROLLED", "8 WEEKS"],
+            body: "57 overweight men aged 40–70, 8-week RCT. KSM-66 at 600mg/day. A 14.7% increase in DHEA-S and a 15.7% greater increase in testosterone compared to placebo. Notably, this was a stressed, overweight population — consistent with ashwagandha's mechanism. Testosterone improved but was directionally consistent with, not independent of, DHEA-S recovery. Fairly well-powered for the supplement literature.",
+            verdict: "STRONG — Relevant population, meaningful effect supported",
+            verdictStrength: "strong",
+          },
+          {
+            author: "Lopresti et al.",
+            title: "Overweight males, free testosterone and LH",
+            year: "2023",
+            tags: ["KSM-66", "DOUBLE-BLIND", "RANDOMIZED", "PLACEBO CONTROLLED", "8 WEEKS"],
+            body: "Followed a similar design to the 2019 study, but added free testosterone and LH as endpoints. KSM-66 at 600mg/day over 8 weeks. Produced significant increases in luteinizing hormone (p<0.05 versus placebo). Free T also improved significantly — a suggestive finding that upstream pituitary signaling is improved. This suggests ashwagandha supports the full axis — not just symptomatic cortisol suppression.",
+            verdict: "STRONG — Upstream pituitary and free testosterone effects both supported",
+            verdictStrength: "strong",
+          },
+          {
+            author: "Lopresti et al.",
+            title: "Stressed healthy adults, cortisol and testosterone",
+            year: "2019",
+            tags: ["SENSORIL", "DOUBLE-BLIND", "RANDOMIZED", "PLACEBO CONTROLLED", "60 DAYS"],
+            body: "A 60-day trial in adults self-reporting stress and anxiety, using a Sensoril extract (not KSM-66) at 240mg. Significant reduction in cortisol (p<0.05) and significant improvements in well-being. Testosterone was not a primary endpoint but trended upward in subanalysis. This is conditional relevance — the extract and dose differ from KSM-66 data, and the testosterone effects are preliminary and underpowered.",
+            verdict: "CONDITIONAL — Different extract, cortisol finding strong, testosterone preliminary",
+            verdictStrength: "conditional",
+          },
+          {
+            author: "Chauhan et al.",
+            title: "Healthy adult males, sexual health and testosterone",
+            year: "2022",
+            tags: ["KSM-66", "DOUBLE-BLIND", "RANDOMIZED", "PLACEBO CONTROLLED", "8 WEEKS"],
+            body: "Healthy males recruited for improvements in sexual health — not stressed, not clinically deficient. Ashwagandha root showed significant improvements in sexual function and self-reported well-being. Testosterone increases were observed but modest and fell within normal reference range (300–827 ng/dL) for the population. Research most relevant to men with clinically low testosterone or stress.",
+            verdict: "CONDITIONAL — Normal range effects, meaningful if baseline is low",
+            verdictStrength: "conditional",
+          },
+          {
+            author: "Frontiers study",
+            title: "Healthy men, sexual health and reproductive parameters",
+            year: "2022",
+            tags: ["KSM-66", "INCREASED MOST PARAMETERS", "90 DAYS"],
+            body: "One of the most comprehensive reproductive panels run on ashwagandha. Semen quality parameters improved significantly. The ashwagandha group showed significant gains in free and total testosterone relative to placebo, and serum LH also increased significantly. This represents one of the most complete anabolic responses measured in the ashwagandha literature and gives credibility to both the LH and free testosterone mechanisms.",
+            verdict: "STRONG — Multi-parameter anabolic response, most complete panel in literature",
+            verdictStrength: "strong",
+          },
+        ],
+      },
+      {
+        type: "heading",
+        text: "What the studies tell us collectively",
+      },
+      {
+        type: "stats-grid",
+        stats: [
+          { value: "6+", label: "Quality RCTs", description: "Trials with at least moderate quality evaluating ashwagandha and testosterone." },
+          { value: "-15%", label: "Avg cortisol reduction", description: "Average cortisol reduction across trials in stressed populations." },
+          { value: "600mg", label: "Optimal daily dose", description: "Daily dose used in the strongest performing KSM-66 trials." },
         ],
       },
       {
         type: "paragraph",
-        text: "The verdict: ashwagandha is one of the more well-supported ingredients for testosterone when the right extract is used at the right dose. Most products get one or both of those wrong.",
+        text: "Taken together, the human data on ashwagandha and testosterone is more substantive than most supplement ingredients can claim. But reading across the trials reveals a pattern that's worth understanding before drawing conclusions:",
+      },
+      {
+        type: "quote",
+        text: "Ashwagandha doesn't maximize your testosterone. It removes what's suppressing it.",
+      },
+      {
+        type: "paragraph",
+        text: "The strongest results — both in effect size and statistical confidence — appear in men who have one or more of the following: chronically elevated cortisol; chronic stress; physical training loads; or age-related HPA dysregulation. The cortisol-mediated suppression pathway is real, and ashwagandha blunts it consistently across studies. Some trials also suggest upstream HPG axis support, not just peripheral cortisol management.",
+      },
+      {
+        type: "paragraph",
+        text: "Trials in healthy men at baseline without elevated stress show more modest or statistically weaker testosterone effects. This isn't a failure of the ingredient — it's a reflection of mechanism. If cortisol isn't suppressing your testosterone in the first place, removing that suppression has less to work with.",
+      },
+      {
+        type: "heading",
+        text: "The extract and dose question",
+      },
+      {
+        type: "paragraph",
+        text: "Not all ashwagandha products are equivalent. The trials with the most consistent and significant testosterone outcomes used KSM-66 at 600mg daily. KSM-66 is standardized to a minimum of 5% withanolides via a water extraction process that preserves the full phytochemical profile of the root.",
+      },
+      {
+        type: "callout",
+        text: "A generic ashwagandha extract with unspecified withanolide concentration is not pharmacologically comparable to 600mg of KSM-66 standardized extract. Most budget formulas use understandardized powder and list doses far below what any meaningful clinical trial has used. The label ingredient name is the same; the clinical reality is not.",
+      },
+      {
+        type: "paragraph",
+        text: "Sensoril (a high-concentration extract standardized to 35% withanolides) has also shown androgenic results at lower dosages (125–250mg). It's not reliably interchangeable with KSM-66, but it's a legitimately studied extract. If a product shows either extract name and the dose, it's at least building on real research. If it shows neither, assume the formula is built around the ingredient name, not the evidence.",
+      },
+      {
+        type: "heading",
+        text: "Limitations the research acknowledges",
+      },
+      {
+        type: "paragraph",
+        text: "It's worth being direct about what the literature doesn't yet establish. Most trials are 8–12 weeks in duration and rely on relatively small sample sizes — typically 50–100 participants. No multi-year trial on ashwagandha and testosterone exists. Only the KSM-66 12-month safety trial showed sustained testosterone increases and no adverse effects on renal markers, but long-term efficacy data in large populations is still limited.",
+      },
+      {
+        type: "paragraph",
+        text: "Men with clinically low testosterone — hypogonadism — are underrepresented in the current literature. Most trials enroll men in the normal-to-lower-normal range, often under stress or exertion. Ashwagandha doesn't substitute for evaluation for diagnosed hypogonadism, and no published trial makes that claim.",
+      },
+      {
+        type: "paragraph",
+        text: "Finally, the mechanism remains partially characterized. The cortisol-suppression pathway is well-supported. The LH upstream effect needs replication. Additional androgenic mechanisms are currently being studied. What the research shows is that the ingredient works — in the product form and dose that the research actually used.",
+      },
+      {
+        type: "heading",
+        text: "The bottom line",
+      },
+      {
+        type: "paragraph",
+        text: "Ashwagandha is one of the few ingredients in men's testosterone support supplements that's earned its place through human trials rather than marketing. The evidence is strongest for men experiencing chronic stress, physical training loads, or age-related HPA dysregulation — each condition extremely common in the target market.",
+      },
+      {
+        type: "paragraph",
+        text: "The caveats are real: extract standardization and dose both matter significantly. The cortisol-mediated mechanism means individual baseline cortisol levels largely determine how much room there is for improvement. But unlike most ingredients in this category, the question isn't whether ashwagandha works — it's whether a specific product delivers the form and dose that the research actually used.",
+      },
+      {
+        type: "paragraph",
+        text: "Most don't. The ones that do are worth paying attention to.",
       },
     ],
   },
