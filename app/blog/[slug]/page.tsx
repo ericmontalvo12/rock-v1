@@ -98,12 +98,64 @@ export default function BlogPostPage({ params }: { params: Promise<{ slug: strin
                     </ul>
                   );
                 }
+                if (section.type === "numbered-list" && section.items) {
+                  return (
+                    <div key={i} className="bg-gray-50 border border-gray-200 rounded-xl p-5">
+                      <ol className="space-y-2.5">
+                        {section.items.map((item, j) => (
+                          <li key={j} className="flex items-start gap-3 text-gray-700 text-sm leading-relaxed">
+                            <span className="w-5 h-5 rounded-full bg-primary text-white text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">
+                              {j + 1}
+                            </span>
+                            {item}
+                          </li>
+                        ))}
+                      </ol>
+                    </div>
+                  );
+                }
                 if (section.type === "callout") {
                   return (
                     <div key={i} className="border-l-4 border-primary pl-4 py-1 bg-primary/[0.04] rounded-r-lg">
                       <p className="text-gray-800 text-base font-medium leading-relaxed">
                         {section.text}
                       </p>
+                    </div>
+                  );
+                }
+                if (section.type === "quote") {
+                  return (
+                    <div key={i} className="my-6 py-5 px-6 bg-gray-900 rounded-xl text-center">
+                      <p className="text-white text-base sm:text-lg font-medium leading-relaxed italic">
+                        &ldquo;{section.text}&rdquo;
+                      </p>
+                    </div>
+                  );
+                }
+                if (section.type === "evidence-grid" && section.evidence) {
+                  const strengthLabel: Record<string, string> = {
+                    strong: "Strong Evidence",
+                    mixed: "Mixed Evidence",
+                    weak: "Weak Evidence",
+                    context: "Context Dependent",
+                  };
+                  const strengthColor: Record<string, string> = {
+                    strong: "bg-green-50 border-green-200 text-green-700",
+                    mixed: "bg-yellow-50 border-yellow-200 text-yellow-700",
+                    weak: "bg-red-50 border-red-200 text-red-700",
+                    context: "bg-blue-50 border-blue-200 text-blue-700",
+                  };
+                  return (
+                    <div key={i} className="grid grid-cols-1 sm:grid-cols-2 gap-3 my-2">
+                      {section.evidence.map((item, j) => (
+                        <div key={j} className="border border-gray-200 rounded-xl p-4 bg-white">
+                          <span className={`inline-block text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded border mb-2 ${strengthColor[item.strength]}`}>
+                            {strengthLabel[item.strength]}
+                          </span>
+                          <p className="font-bold text-gray-900 text-sm mb-1">{item.label}</p>
+                          <p className="text-gray-500 text-xs leading-relaxed">{item.text}</p>
+                        </div>
+                      ))}
                     </div>
                   );
                 }

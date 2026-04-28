@@ -9,9 +9,10 @@ export type BlogPost = {
 };
 
 type Section = {
-  type: "paragraph" | "heading" | "subheading" | "list" | "callout";
+  type: "paragraph" | "heading" | "subheading" | "list" | "numbered-list" | "callout" | "quote" | "evidence-grid";
   text?: string;
   items?: string[];
+  evidence?: { label: string; strength: "strong" | "mixed" | "weak" | "context"; text: string }[];
 };
 
 export const blogPosts: BlogPost[] = [
@@ -26,60 +27,105 @@ export const blogPosts: BlogPost[] = [
     content: [
       {
         type: "paragraph",
-        text: "Walk into any supplement store and you'll find dozens of products promising to \"boost testosterone naturally.\" Most of them don't work. Not because the concept is wrong — several ingredients genuinely do support testosterone — but because the products are built around marketing, not the research.",
+        text: "Walk into any supplement store or scroll through Amazon and you'll find dozens of products promising to \"boost testosterone naturally,\" \"support healthy T levels,\" or \"optimize male performance.\" The labels are confident. The before-and-after testimonials are convincing. The price tags suggest something powerful is inside.",
+      },
+      {
+        type: "paragraph",
+        text: "Most of it doesn't work. Not because the idea of nutritional support for hormone health is flawed — it isn't — but because most products are built around marketing rather than mechanism. Here's how to tell the difference.",
       },
       {
         type: "heading",
-        text: "The Underdosing Problem",
+        text: "The core problem: treating symptoms, not systems",
       },
       {
         type: "paragraph",
-        text: "This is the most common issue. An ingredient like ashwagandha has been studied at 300–600mg of a high-concentration extract (KSM-66 or Sensoril) to produce meaningful testosterone increases. Many products include 50–100mg — just enough to list it on the label, not enough to do anything.",
+        text: "Testosterone doesn't exist in isolation. It's produced, regulated, bound, released, and metabolized through a cascade of interconnected biological systems. If any part of that cascade is compromised, your \"free\" testosterone — the fraction your body can actually use — drops.",
       },
       {
         type: "paragraph",
-        text: "The same applies to zinc, magnesium, vitamin D3, and virtually every other ingredient that has real data behind it. Clinical doses exist. Most brands ignore them because they're expensive.",
+        text: "Most supplements ignore this entirely. They focus on one pathway, one ingredient, or one flashy mechanism while ignoring the three primary reasons men in their 20s, 30s, and 40s experience declining testosterone output in the first place:",
       },
       {
-        type: "heading",
-        text: "Proprietary Blends Hide the Truth",
-      },
-      {
-        type: "paragraph",
-        text: "A proprietary blend is a group of ingredients listed together with only a total weight shown — not individual doses. This makes it impossible to know whether any single ingredient is present at a meaningful level. It's a legal way to obscure an underdosed formula.",
-      },
-      {
-        type: "callout",
-        text: "If a label says \"Testosterone Support Blend — 500mg\" and lists 8 ingredients underneath, the math means most of them are there in trace amounts.",
-      },
-      {
-        type: "heading",
-        text: "Ingredients With No Evidence",
-      },
-      {
-        type: "paragraph",
-        text: "Many formulas are padded with ingredients that have either no human studies or studies that show no effect. Tribulus terrestris is the most well-known example — it's been studied extensively in humans and consistently fails to raise testosterone. Yet it appears in more formulas than almost any other ingredient.",
-      },
-      {
-        type: "list",
+        type: "numbered-list",
         items: [
-          "Look for ingredients backed by randomized controlled trials in humans",
-          "Check that the dose on the label matches what was used in the studies",
-          "Avoid any formula that uses a proprietary blend",
-          "Ignore \"complexes\" or \"matrices\" — these are just blends with better branding",
+          "Nutrient gaps that impair the enzymatic processes involved in testosterone synthesis",
+          "Elevated cortisol, which directly suppresses the hormonal cascade at the pituitary level",
+          "High SHBG (sex hormone-binding globulin), which binds free testosterone and removes it from circulation",
+        ],
+      },
+      {
+        type: "paragraph",
+        text: "A supplement that doesn't address all three is leaving most of the problem untouched. That's why men often feel nothing after a month on a well-reviewed product — the formula was incomplete before it was even bottled.",
+      },
+      {
+        type: "heading",
+        text: "What the research actually shows",
+      },
+      {
+        type: "paragraph",
+        text: "There's a wide spectrum of evidence behind common testosterone-support ingredients. Some have strong human trial data. Others have promising animal or in-vitro research that hasn't translated to meaningful outcomes in men. And some are almost entirely marketing.",
+      },
+      {
+        type: "evidence-grid",
+        evidence: [
+          { label: "Zinc", strength: "strong", text: "Deficiency is directly linked to lower testosterone. Supplementation restores levels in men who are depleted — which includes a significant portion of active men." },
+          { label: "Vitamin D3", strength: "strong", text: "Acts more like a hormone than a vitamin. Men with optimal D3 levels consistently show higher testosterone. Most men in the U.S. are insufficient year-round." },
+          { label: "Ashwagandha (KSM-66)", strength: "strong", text: "Multiple RCTs show meaningful reductions in cortisol and increases in testosterone and LH. The mechanism is real — cortisol suppresses the HPG axis, and ashwagandha blunts it." },
+          { label: "Magnesium", strength: "strong", text: "Competes with SHBG for testosterone-binding sites, effectively increasing free testosterone. Deficiency is widespread in physically active men due to sweat loss." },
+          { label: "Tongkat Ali", strength: "strong", text: "Standardized extract has been shown in human trials to increase free testosterone by reducing SHBG binding and supporting LH signaling. Also lowers cortisol in stressed populations." },
+          { label: "Fenugreek", strength: "mixed", text: "Some studies show increased T via SHBG inhibition. Results are inconsistent across trials. Dosing and standardization matter significantly." },
+          { label: "Tribulus Terrestris", strength: "weak", text: "One of the most popular T-support ingredients sold. Multiple human trials have failed to show meaningful increases in testosterone. Largely unsupported." },
+          { label: "Horny Goat Weed", strength: "weak", text: "Active compound (icariin) shows promise in animal models and in vitro. Human trials are sparse and underpowered. Common filler in proprietary blends." },
+          { label: "Boron", strength: "context", text: "A 10mg daily dose has been shown to reduce SHBG and increase free testosterone in several studies. Understudied, underappreciated, and rarely dosed correctly." },
         ],
       },
       {
         type: "heading",
-        text: "What Actually Works",
+        text: "The proprietary blend problem",
       },
       {
         type: "paragraph",
-        text: "The ingredients with the strongest evidence for supporting testosterone in men are: vitamin D3 (especially in those who are deficient), zinc, magnesium, ashwagandha (KSM-66), tongkat ali, fenugreek, and boron. Each of these has multiple human trials showing measurable effects — when dosed correctly.",
+        text: "Even when a product contains the right ingredients, it often fails for a simpler reason: underdosing. Proprietary blends allow manufacturers to list an ingredient on the label without disclosing its amount. A formula can technically contain ashwagandha while delivering 50mg — a fraction of the 300–600mg used in clinical trials that actually produced results.",
+      },
+      {
+        type: "quote",
+        text: "The label lists what's in it. The dose determines whether it works.",
       },
       {
         type: "paragraph",
-        text: "The standard for a supplement worth taking is simple: every ingredient should have human study support, and every dose should match or exceed what those studies used. If a product can't show you that, it's not worth your money.",
+        text: "This is one of the most widespread problems in the supplement industry and one of the hardest for consumers to detect. If a product doesn't show you the exact milligram amount for every active ingredient, assume the dose isn't clinically relevant.",
+      },
+      {
+        type: "heading",
+        text: "Why your lifestyle can cancel out any supplement",
+      },
+      {
+        type: "paragraph",
+        text: "This is the part most brands won't tell you because it complicates their message: if you're sleeping five hours a night, running a chronic caloric deficit, or carrying persistent stress, no supplement protocol will overcome those inputs. Testosterone synthesis is highly sensitive to sleep stage, particularly deep sleep, during which the largest pulses of LH — the hormone that signals testosterone production — occur. Poor sleep doesn't just correlate with low testosterone; it mechanistically suppresses it.",
+      },
+      {
+        type: "paragraph",
+        text: "The same applies to chronic stress. Cortisol and testosterone share precursor molecules. When the body is under sustained stress, it preferentially converts those precursors toward cortisol at the expense of testosterone. An adaptogen like ashwagandha can blunt this effect, but it can't override it entirely if the underlying stressor is never addressed.",
+      },
+      {
+        type: "paragraph",
+        text: "Supplements are a lever, not a replacement for the fundamentals. The strongest protocols combine both.",
+      },
+      {
+        type: "heading",
+        text: "What actually moves the needle",
+      },
+      {
+        type: "paragraph",
+        text: "The men who see the most measurable improvement from testosterone support supplements share a few things in common. They're addressing a real nutritional gap — most commonly zinc, magnesium, or vitamin D. They're using ingredients with clinical backing at doses that match the research. And they're not expecting a supplement to compensate for sleep deprivation or chronic stress.",
+      },
+      {
+        type: "paragraph",
+        text: "The goal isn't to artificially spike a hormone. It's to remove the physiological obstacles that are suppressing the testosterone your body is already capable of producing. That distinction matters, and it's the reason formulas built around mechanism — rather than marketing — produce outcomes that proprietary-blend products don't.",
+      },
+      {
+        type: "paragraph",
+        text: "If you're evaluating a product, ask three questions: Does the label show exact doses? Are those doses within the range used in clinical trials? Does the formula address all three limiting factors, or just one? The answers will tell you most of what you need to know.",
       },
     ],
   },
