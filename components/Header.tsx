@@ -36,20 +36,20 @@ export function Header() {
       >
         {/* Desktop: static text */}
         <p className="hidden sm:block text-sm font-medium text-white whitespace-nowrap">
-          PRE-ORDERS NOW OPEN <span className="text-text-muted mx-2">•</span> 30-DAY GUARANTEE        </p>
+          NOW IN STOCK <span className="text-text-muted mx-2">•</span> 30-DAY GUARANTEE        </p>
         {/* Mobile: scrolling marquee */}
         <div className="sm:hidden announceTrack">
           <span className="text-xs font-medium text-white whitespace-nowrap">
-            PRE-ORDERS NOW OPEN <span className="text-text-muted mx-2">•</span> 30-DAY GUARANTEE <span className="text-text-muted mx-2">•</span>
+            NOW IN STOCK <span className="text-text-muted mx-2">•</span> 30-DAY GUARANTEE <span className="text-text-muted mx-2">•</span>
           </span>
           <span className="text-xs font-medium text-white whitespace-nowrap">
-            PRE-ORDERS NOW OPEN <span className="text-text-muted mx-2">•</span> 30-DAY GUARANTEE <span className="text-text-muted mx-2">•</span>
+            NOW IN STOCK <span className="text-text-muted mx-2">•</span> 30-DAY GUARANTEE <span className="text-text-muted mx-2">•</span>
           </span>
           <span className="text-xs font-medium text-white whitespace-nowrap">
-            PRE-ORDERS NOW OPEN <span className="text-text-muted mx-2">•</span> 30-DAY GUARANTEE <span className="text-text-muted mx-2">•</span>
+            NOW IN STOCK <span className="text-text-muted mx-2">•</span> 30-DAY GUARANTEE <span className="text-text-muted mx-2">•</span>
           </span>
           <span className="text-xs font-medium text-white whitespace-nowrap">
-            PRE-ORDERS NOW OPEN <span className="text-text-muted mx-2">•</span> 30-DAY GUARANTEE <span className="text-text-muted mx-2">•</span>
+            NOW IN STOCK <span className="text-text-muted mx-2">•</span> 30-DAY GUARANTEE <span className="text-text-muted mx-2">•</span>
           </span>
         </div>
       </div>
@@ -96,7 +96,7 @@ export function Header() {
               </Button>
             </Link>
             <Link href="/product">
-              <Button size="sm">Pre-Order</Button>
+              <Button size="sm">Buy Now</Button>
             </Link>
           </div>
         </div>
@@ -170,7 +170,7 @@ export function Header() {
               ))}
               <div className="pt-4 border-t border-border-subtle">
                 <Link href="/product" onClick={() => setMobileMenuOpen(false)}>
-                  <Button className="w-full">Pre-Order Now</Button>
+                  <Button className="w-full">Buy Now</Button>
                 </Link>
               </div>
             </nav>

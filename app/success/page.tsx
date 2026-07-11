@@ -48,11 +48,11 @@ function SuccessContent() {
             </div>
 
             <h1 className="text-3xl sm:text-4xl font-bold text-text-primary mb-4">
-              Pre-Order Confirmed!
+              Order Confirmed!
             </h1>
 
             <p className="text-text-secondary mb-2">
-              Thanks for being one of the first. Your order is secured and will ship as soon as production is complete.
+              Thanks for your order. It's in stock and will ship shortly.
             </p>
 
             {sessionId && (

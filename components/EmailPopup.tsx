@@ -83,13 +83,13 @@ export function EmailPopup() {
                 </div>
 
                 <p className="text-[11px] font-bold uppercase tracking-widest text-[#2d94ff] mb-3">
-                  Limited Pre-Order Offer
+                  Limited Time Offer
                 </p>
                 <h2 className="text-[32px] font-bold text-gray-900 leading-tight mb-3">
                   Get 20% Off<br />Your First Order
                 </h2>
                 <p className="text-sm text-gray-500 mb-8 leading-relaxed">
-                  Pre-orders are now open. Enter your email to claim your code and be among the first to try Peak Performance.
+                  Peak Performance is in stock now. Enter your email to claim your code and get your first bottle.
                 </p>
 
                 <form onSubmit={handleSubmit} className="space-y-3">

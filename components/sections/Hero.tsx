@@ -109,7 +109,7 @@ export function Hero() {
             <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-4 justify-center lg:justify-start">
               <Link href="/product" className="w-full max-w-[280px] sm:max-w-none sm:w-auto mx-auto sm:mx-0">
                 <Button size="lg" className="w-full sm:w-auto h-12 sm:h-12 text-[15px] sm:text-base rounded-lg sm:px-8">
-                  Pre-Order Now
+                  Buy Now
                 </Button>
               </Link>
               {/* Secondary CTA - hidden on mobile */}
@@ -120,9 +120,9 @@ export function Hero() {
               </Link>
             </div>
 
-            {/* Pre-order note */}
+            {/* Shipping note */}
             <p className="text-white/50 text-[11px] sm:text-sm mt-3 sm:mt-4 text-center lg:text-left">
-              Pre-orders open. Ships when production is complete.
+              In stock. Ships within 1-2 business days.
             </p>
 
           </motion.div>

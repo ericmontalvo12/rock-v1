@@ -29,7 +29,7 @@ export function CheckoutButton({ cartItems, className, disabled, promotionCodeId
         onClick={() => setShowCheckout(true)}
         disabled={disabled || cartItems.length === 0}
       >
-        Complete Pre-Order
+        Complete Purchase
       </Button>
 
       {showCheckout && (
