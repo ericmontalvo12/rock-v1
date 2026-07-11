@@ -290,9 +290,9 @@ const productSections = [
           We give you 30 days because that's the window where real, consistent support starts to show.
         </p>
         <div className="pt-2">
-          <p className="text-sm font-medium text-text-primary mb-2">Pre-Order Shipping</p>
+          <p className="text-sm font-medium text-text-primary mb-2">Shipping</p>
           <ul className="space-y-1 text-sm">
-            <li>• Ships as soon as production is complete</li>
+            <li>• Ships within 1-2 business days</li>
             <li>• Free shipping on orders of 2+ bottles</li>
             <li>• You'll receive tracking once your order ships</li>
           </ul>
@@ -733,10 +733,10 @@ export default function ProductV2Page() {
             <div className="bg-gradient-to-br from-primary/5 to-primary/10 rounded-2xl p-8 sm:p-12">
               <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">Ready to Feel Like Yourself Again?</h2>
               <p className="text-gray-600 mb-6 max-w-xl mx-auto">
-                Pre-order now and be first in line when production is complete.
+                Buy now and start feeling the difference.
               </p>
               <Button size="lg" onClick={handleAddToCart} className="px-12">
-                {addedToCart ? "Added to Cart!" : "Pre-Order Now"}
+                {addedToCart ? "Added to Cart!" : "Buy Now"}
               </Button>
               <p className="text-sm text-gray-500 mt-4">30-day guarantee • No commitment</p>
             </div>

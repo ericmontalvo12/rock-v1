@@ -742,13 +742,13 @@ export default function FormulaPage() {
               Peak Performance
             </h2>
             <p className="text-gray-500 text-sm mb-8">
-              View the full Supplement Facts and pre-order today.
+              View the full Supplement Facts and buy today.
             </p>
             <Link
               href="/product"
               className="inline-flex items-center gap-2 px-7 py-3.5 rounded-lg bg-primary text-white font-medium hover:bg-primary-hover transition-colors"
             >
-              Pre-Order Peak Performance
+              Buy Peak Performance
               <ArrowRight className="w-4 h-4" />
             </Link>
           </div>

@@ -25,7 +25,7 @@ export function FinalCTA() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/product" className="w-full sm:w-auto">
               <Button size="lg" className="w-full sm:w-auto h-12 text-base px-8 rounded-md">
-                Pre-Order Peak Performance
+                Buy Peak Performance
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </Link>
