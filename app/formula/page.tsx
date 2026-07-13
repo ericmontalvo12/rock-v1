@@ -698,6 +698,7 @@ export default function FormulaPage() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.1 }}
+                className="text-center"
               >
                 <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
                   Quality You Can Trust
