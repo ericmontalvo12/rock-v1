@@ -11,7 +11,7 @@ const ingredients = [
   { name: "Ashwagandha", dose: "500mg KSM-66", image: "/ashwagandha.png" },
   { name: "Tongkat Ali", dose: "300mg 200:1", image: "/tongkat-ali.png" },
   { name: "Fenugreek", dose: "500mg", image: "/fenugreek.png" },
-  { name: "Magnesium", dose: "30mg", image: "/magnesium.png" },
+  { name: "Magnesium", dose: "28.6mg", image: "/magnesium.png" },
   { name: "Zinc", dose: "20mg", image: "/zinc.png" },
   { name: "Boron", dose: "9mg", image: "/boron.png" },
 ];
