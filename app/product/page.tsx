@@ -24,18 +24,18 @@ const BUNDLES = [
   {
     qty: 2,
     label: "Buy 2 Bottles",
-    pricePerBottle: 49.99,
-    total: 99.98,
+    pricePerBottle: parseFloat((94.99 / 2).toFixed(2)),
+    total: 94.99,
     badge: "FREE SHIPPING",
     perks: ["Free shipping", "30-day guarantee"],
   },
   {
     qty: 3,
     label: "Buy 3 Bottles",
-    pricePerBottle: parseFloat((49.99 * 0.85).toFixed(2)),
-    total: parseFloat((49.99 * 3 * 0.85).toFixed(2)),
+    pricePerBottle: parseFloat((119.99 / 3).toFixed(2)),
+    total: 119.99,
     badge: "BEST VALUE",
-    perks: ["15% off", "Free shipping", "30-day guarantee"],
+    perks: ["20% off", "Free shipping", "30-day guarantee"],
   },
 ];
 
