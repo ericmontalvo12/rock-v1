@@ -5,7 +5,10 @@ import { createContext, useContext, useState, useEffect, ReactNode } from "react
 // Pricing logic: price per bottle based on quantity
 function getPricePerBottle(quantity: number): number {
   if (quantity >= 3) {
-    return parseFloat((49.99 * 0.85).toFixed(2)); // 15% off = $42.49
+    return parseFloat((119.99 / 3).toFixed(2)); // Buy 3 Bottles = $119.99
+  }
+  if (quantity === 2) {
+    return parseFloat((94.99 / 2).toFixed(2)); // Buy 2 Bottles = $94.99
   }
   return 49.99;
 }
