@@ -23,7 +23,7 @@ export function EmailPopup() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (email) {
-      localStorage.setItem("promoCode", "WELCOME20");
+      localStorage.setItem("promoCode", "WELCOME15");
       setIsSubmitted(true);
       try {
         await fetch("https://services.leadconnectorhq.com/hooks/EakYnXEQy1hvVFmdShYB/webhook-trigger/wFhzPl8SglWPsW3BeDsh", {
@@ -38,7 +38,7 @@ export function EmailPopup() {
   };
 
   const handleCopy = () => {
-    navigator.clipboard.writeText("WELCOME20");
+    navigator.clipboard.writeText("WELCOME15");
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -86,7 +86,7 @@ export function EmailPopup() {
                   Limited Time Offer
                 </p>
                 <h2 className="text-[32px] font-bold text-gray-900 leading-tight mb-3">
-                  Get 20% Off<br />Your First Order
+                  Get 15% Off<br />Your First Order
                 </h2>
                 <p className="text-sm text-gray-500 mb-8 leading-relaxed">
                   Peak Performance is in stock now. Enter your email to claim your code and get your first bottle.
@@ -105,7 +105,7 @@ export function EmailPopup() {
                     type="submit"
                     className="w-full h-14 rounded-xl bg-[#2d94ff] text-white font-semibold text-base hover:bg-[#1a7ee6] transition-colors"
                   >
-                    Claim My 20% Code →
+                    Claim My 15% Code →
                   </button>
                 </form>
 
@@ -125,13 +125,13 @@ export function EmailPopup() {
                 </div>
                 <h2 className="text-2xl font-bold text-gray-900 mb-2">Here&apos;s your code!</h2>
                 <p className="text-sm text-gray-500 mb-6">
-                  Apply it at checkout for 20% off your first order.
+                  Apply it at checkout for 15% off your first order.
                 </p>
                 <button
                   onClick={handleCopy}
                   className="w-full flex items-center justify-between px-5 py-4 rounded-xl border-2 border-dashed border-[#2d94ff] bg-[#2d94ff]/5 hover:bg-[#2d94ff]/10 transition-colors group mb-4"
                 >
-                  <span className="text-2xl font-bold text-[#2d94ff] tracking-widest">WELCOME20</span>
+                  <span className="text-2xl font-bold text-[#2d94ff] tracking-widest">WELCOME15</span>
                   <span className="text-sm text-[#2d94ff]/70 group-hover:text-[#2d94ff] transition-colors ml-3">
                     {copied ? "Copied!" : "Copy"}
                   </span>
