@@ -66,7 +66,7 @@ const ingredients = [
   { name: "Ashwagandha", dose: "500mg KSM-66", image: "/ashwagandha.png" },
   { name: "Tongkat Ali", dose: "300mg 200:1", image: "/tongkat-ali.png" },
   { name: "Fenugreek", dose: "500mg", image: "/fenugreek.png" },
-  { name: "Magnesium", dose: "30mg", image: "/magnesium.png" },
+  { name: "Magnesium", dose: "28.6mg", image: "/magnesium.png" },
   { name: "Zinc", dose: "20mg", image: "/zinc.png" },
   { name: "Boron", dose: "9mg", image: "/boron.png" },
 ];
@@ -259,7 +259,7 @@ const productSections = [
         <div>
           <ul className="space-y-2 text-sm">
             <li>Vitamin D3 (Cholecalciferol) — 3,000 IU</li>
-            <li>Magnesium (Bisglycinate) — 30 mg</li>
+            <li>Magnesium (Bisglycinate) — 28.6 mg</li>
             <li>Zinc (Citrate) — 20 mg</li>
             <li>Fenugreek Seed Extract (50% saponins) — 500 mg</li>
             <li>Ashwagandha Root Extract (KSM-66) — 500 mg</li>

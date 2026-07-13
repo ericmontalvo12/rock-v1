@@ -40,7 +40,7 @@ const ingredients = [
     name: "Magnesium",
     category: "foundational" as TabId,
     form: "Bisglycinate",
-    dosage: "30 mg",
+    dosage: "28.6 mg",
     image: "/magnesium.png",
     shortDesc: "Directly correlated with testosterone levels — higher magnesium means higher T.",
     fullDesc: "Research shows a strong positive correlation between magnesium levels and testosterone in men. Athletes lose magnesium through sweat, and studies confirm that supplementation supports both total and free testosterone, especially in active men.",
