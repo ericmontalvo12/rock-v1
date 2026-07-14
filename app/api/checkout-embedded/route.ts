@@ -88,6 +88,7 @@ export async function POST(req: Request) {
       ...(promotionCodeId
         ? { discounts: [{ promotion_code: promotionCodeId }] }
         : { allow_promotion_codes: true }),
+      shipping_address_collection: { allowed_countries: ["US"] },
       shipping_options: [
         {
           shipping_rate_data: {
