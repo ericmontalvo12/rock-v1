@@ -38,10 +38,14 @@ export async function POST(req: NextRequest) {
       console.log("Payment Status:", session.payment_status);
       console.log("Amount Total:", session.amount_total ? `$${(session.amount_total / 100).toFixed(2)}` : "N/A");
       console.log("Customer Email:", session.customer_details?.email || "N/A");
+      console.log("Shipping Address:", session.collected_information?.shipping_details?.address || "N/A");
       console.log("=======================");
 
       // TODO: Save order to database
       // TODO: Update inventory
+
+      const shippingDetails = session.collected_information?.shipping_details;
+      const shippingAddress = shippingDetails?.address;
 
       // Forward order to HighLevel for confirmation email
       try {
@@ -56,6 +60,13 @@ export async function POST(req: NextRequest) {
             amount_total: session.amount_total ? (session.amount_total / 100).toFixed(2) : null,
             currency: session.currency,
             payment_status: session.payment_status,
+            shipping_name: shippingDetails?.name || null,
+            shipping_address_line1: shippingAddress?.line1 || null,
+            shipping_address_line2: shippingAddress?.line2 || null,
+            shipping_address_city: shippingAddress?.city || null,
+            shipping_address_state: shippingAddress?.state || null,
+            shipping_address_postal_code: shippingAddress?.postal_code || null,
+            shipping_address_country: shippingAddress?.country || null,
           }),
         });
       } catch (err) {
