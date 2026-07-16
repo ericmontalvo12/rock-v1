@@ -53,6 +53,33 @@ export function CartProvider({ children }: { children: ReactNode }) {
     }
   }, [items, isLoaded]);
 
+  // Notify GHL of active cart contents for the abandoned-cart automation.
+  // Only fires once per distinct cart state, and only once we know the
+  // customer's email (captured via the discount popup).
+  useEffect(() => {
+    if (!isLoaded || items.length === 0) return;
+
+    const email = localStorage.getItem("customerEmail");
+    if (!email) return;
+
+    const signature = JSON.stringify(
+      items.map((item) => [item.id, item.quantity, item.price])
+    );
+    if (localStorage.getItem("cartActivitySignature") === signature) return;
+    localStorage.setItem("cartActivitySignature", signature);
+
+    const totalPrice = items.reduce(
+      (sum, item) => sum + item.price * item.quantity,
+      0
+    );
+
+    fetch("/api/cart-activity", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, cartItems: items, totalPrice }),
+    }).catch(() => {});
+  }, [items, isLoaded]);
+
   const addToCart = (item: Omit<CartItem, "quantity">, quantity: number = 1) => {
     setItems((prev) => {
       const existingItem = prev.find((i) => i.id === item.id);
@@ -88,6 +115,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   const clearCart = () => {
     setItems([]);
+    localStorage.removeItem("cartActivitySignature");
   };
 
   const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);

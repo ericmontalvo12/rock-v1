@@ -24,6 +24,7 @@ export function EmailPopup() {
     e.preventDefault();
     if (email) {
       localStorage.setItem("promoCode", "WELCOME15");
+      localStorage.setItem("customerEmail", email);
       setIsSubmitted(true);
       try {
         await fetch("https://services.leadconnectorhq.com/hooks/EakYnXEQy1hvVFmdShYB/webhook-trigger/wFhzPl8SglWPsW3BeDsh", {
