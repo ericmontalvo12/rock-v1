@@ -10,8 +10,11 @@ import { useCart } from "@/lib/cart-context";
 import { CheckoutButton } from "@/components/CheckoutButton";
 import { Minus, Plus, Trash2, ShoppingBag } from "lucide-react";
 
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 export default function CartPage() {
-  const { items, updateQuantity, removeFromCart, totalPrice, totalItems, clearCart } = useCart();
+  const { items, updateQuantity, removeFromCart, totalPrice, totalItems, clearCart, customerEmail, setCustomerEmail } = useCart();
+  const [emailInput, setEmailInput] = useState("");
   const [promoInput, setPromoInput] = useState("");
   const [promoLoading, setPromoLoading] = useState(false);
   const [promoError, setPromoError] = useState("");
@@ -47,6 +50,22 @@ export default function CartPage() {
       applyPromoCode(saved);
     }
   }, []);
+
+  // Prefill from a previously captured email (e.g. the discount popup)
+  useEffect(() => {
+    if (customerEmail) {
+      setEmailInput(customerEmail);
+    }
+  }, [customerEmail]);
+
+  const isValidEmail = EMAIL_REGEX.test(emailInput.trim());
+
+  const handleEmailChange = (value: string) => {
+    setEmailInput(value);
+    if (EMAIL_REGEX.test(value.trim())) {
+      setCustomerEmail(value.trim());
+    }
+  };
 
   const handleApplyPromo = async () => {
     if (!promoInput.trim()) return;
@@ -251,6 +270,25 @@ export default function CartPage() {
                   </div>
                 </div>
 
+                {/* Email */}
+                <div className="mb-6">
+                  <label htmlFor="email" className="text-sm text-text-secondary mb-2 block">
+                    Email <span className="text-text-muted">(for order updates)</span>
+                  </label>
+                  <input
+                    id="email"
+                    type="email"
+                    required
+                    placeholder="you@example.com"
+                    value={emailInput}
+                    onChange={(e) => handleEmailChange(e.target.value)}
+                    className="w-full px-3 py-2 rounded-lg bg-background border border-border text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-sm"
+                  />
+                  {emailInput.trim().length > 0 && !isValidEmail && (
+                    <p className="text-red-500 text-xs mt-1">Enter a valid email to continue.</p>
+                  )}
+                </div>
+
                 {/* Promo Code */}
                 <div className="mb-6">
                   <p className="text-sm text-text-secondary mb-2">Discount Code</p>
@@ -274,7 +312,12 @@ export default function CartPage() {
                   )}
                 </div>
 
-                <CheckoutButton cartItems={checkoutItems} promotionCodeId={appliedPromo?.promotionCodeId} />
+                <CheckoutButton
+                  cartItems={checkoutItems}
+                  promotionCodeId={appliedPromo?.promotionCodeId}
+                  email={emailInput.trim()}
+                  disabled={!isValidEmail}
+                />
 
                 <p className="text-xs text-text-muted text-center mt-4">
                   Secure checkout powered by Stripe

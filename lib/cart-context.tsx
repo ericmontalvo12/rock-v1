@@ -2,6 +2,8 @@
 
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 // Pricing logic: price per bottle based on quantity
 function getPricePerBottle(quantity: number): number {
   if (quantity >= 3) {
@@ -29,19 +31,26 @@ interface CartContextType {
   clearCart: () => void;
   totalItems: number;
   totalPrice: number;
+  customerEmail: string;
+  setCustomerEmail: (email: string) => void;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export function CartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);
+  const [customerEmail, setCustomerEmailState] = useState("");
   const [isLoaded, setIsLoaded] = useState(false);
 
-  // Load cart from localStorage on mount
+  // Load cart and email from localStorage on mount
   useEffect(() => {
     const savedCart = localStorage.getItem("cart");
     if (savedCart) {
       setItems(JSON.parse(savedCart));
+    }
+    const savedEmail = localStorage.getItem("customerEmail");
+    if (savedEmail) {
+      setCustomerEmailState(savedEmail);
     }
     setIsLoaded(true);
   }, []);
@@ -53,18 +62,23 @@ export function CartProvider({ children }: { children: ReactNode }) {
     }
   }, [items, isLoaded]);
 
+  const setCustomerEmail = (email: string) => {
+    setCustomerEmailState(email);
+    if (email) {
+      localStorage.setItem("customerEmail", email);
+    }
+  };
+
   // Notify GHL of active cart contents for the abandoned-cart automation.
-  // Only fires once per distinct cart state, and only once we know the
-  // customer's email (captured via the discount popup).
+  // Only fires once per distinct cart + email combination, and only once we
+  // know the customer's email (from the discount popup or the cart page).
   useEffect(() => {
-    if (!isLoaded || items.length === 0) return;
+    if (!isLoaded || items.length === 0 || !EMAIL_REGEX.test(customerEmail)) return;
 
-    const email = localStorage.getItem("customerEmail");
-    if (!email) return;
-
-    const signature = JSON.stringify(
-      items.map((item) => [item.id, item.quantity, item.price])
-    );
+    const signature = JSON.stringify({
+      email: customerEmail,
+      items: items.map((item) => [item.id, item.quantity, item.price]),
+    });
     if (localStorage.getItem("cartActivitySignature") === signature) return;
     localStorage.setItem("cartActivitySignature", signature);
 
@@ -76,9 +90,9 @@ export function CartProvider({ children }: { children: ReactNode }) {
     fetch("/api/cart-activity", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, cartItems: items, totalPrice }),
+      body: JSON.stringify({ email: customerEmail, cartItems: items, totalPrice }),
     }).catch(() => {});
-  }, [items, isLoaded]);
+  }, [items, isLoaded, customerEmail]);
 
   const addToCart = (item: Omit<CartItem, "quantity">, quantity: number = 1) => {
     setItems((prev) => {
@@ -134,6 +148,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
         clearCart,
         totalItems,
         totalPrice,
+        customerEmail,
+        setCustomerEmail,
       }}
     >
       {children}

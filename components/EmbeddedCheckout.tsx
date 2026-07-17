@@ -27,24 +27,26 @@ interface CartItem {
 interface EmbeddedCheckoutModalProps {
   cartItems: CartItem[];
   promotionCodeId?: string;
+  email?: string;
   onClose: () => void;
 }
 
 export function EmbeddedCheckoutModal({
   cartItems,
   promotionCodeId,
+  email,
   onClose,
 }: EmbeddedCheckoutModalProps) {
   const fetchClientSecret = useCallback(async () => {
     const res = await fetch("/api/checkout-embedded", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ cartItems, promotionCodeId }),
+      body: JSON.stringify({ cartItems, promotionCodeId, email }),
     });
     const data = await res.json();
     if (!res.ok) throw new Error(data.error || "Failed to start checkout");
     return data.clientSecret as string;
-  }, [cartItems, promotionCodeId]);
+  }, [cartItems, promotionCodeId, email]);
 
   const options: StripeEmbeddedCheckoutOptions = { fetchClientSecret };
 
