@@ -23,9 +23,10 @@ export async function POST(req: Request) {
     }
 
     const stripe = new Stripe(secretKey);
-    const { cartItems, promotionCodeId } = (await req.json()) as {
+    const { cartItems, promotionCodeId, email } = (await req.json()) as {
       cartItems: CartItem[];
       promotionCodeId?: string;
+      email?: string;
     };
 
     if (!Array.isArray(cartItems) || cartItems.length === 0) {
@@ -57,6 +58,7 @@ export async function POST(req: Request) {
         ui_mode: "embedded",
         mode: "subscription",
         line_items,
+        ...(email ? { customer_email: email } : {}),
         shipping_address_collection: { allowed_countries: ["US"] },
         return_url: `${siteUrl}/success?session_id={CHECKOUT_SESSION_ID}`,
       });
@@ -85,6 +87,7 @@ export async function POST(req: Request) {
       ui_mode: "embedded",
       mode: "payment",
       line_items,
+      ...(email ? { customer_email: email } : {}),
       ...(promotionCodeId
         ? { discounts: [{ promotion_code: promotionCodeId }] }
         : { allow_promotion_codes: true }),

@@ -2,6 +2,8 @@
 
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 // Pricing logic: price per bottle based on quantity
 function getPricePerBottle(quantity: number): number {
   if (quantity >= 3) {
@@ -29,19 +31,26 @@ interface CartContextType {
   clearCart: () => void;
   totalItems: number;
   totalPrice: number;
+  customerEmail: string;
+  setCustomerEmail: (email: string) => void;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export function CartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);
+  const [customerEmail, setCustomerEmailState] = useState("");
   const [isLoaded, setIsLoaded] = useState(false);
 
-  // Load cart from localStorage on mount
+  // Load cart and email from localStorage on mount
   useEffect(() => {
     const savedCart = localStorage.getItem("cart");
     if (savedCart) {
       setItems(JSON.parse(savedCart));
+    }
+    const savedEmail = localStorage.getItem("customerEmail");
+    if (savedEmail) {
+      setCustomerEmailState(savedEmail);
     }
     setIsLoaded(true);
   }, []);
@@ -52,6 +61,38 @@ export function CartProvider({ children }: { children: ReactNode }) {
       localStorage.setItem("cart", JSON.stringify(items));
     }
   }, [items, isLoaded]);
+
+  const setCustomerEmail = (email: string) => {
+    setCustomerEmailState(email);
+    if (email) {
+      localStorage.setItem("customerEmail", email);
+    }
+  };
+
+  // Notify GHL of active cart contents for the abandoned-cart automation.
+  // Only fires once per distinct cart + email combination, and only once we
+  // know the customer's email (from the discount popup or the cart page).
+  useEffect(() => {
+    if (!isLoaded || items.length === 0 || !EMAIL_REGEX.test(customerEmail)) return;
+
+    const signature = JSON.stringify({
+      email: customerEmail,
+      items: items.map((item) => [item.id, item.quantity, item.price]),
+    });
+    if (localStorage.getItem("cartActivitySignature") === signature) return;
+    localStorage.setItem("cartActivitySignature", signature);
+
+    const totalPrice = items.reduce(
+      (sum, item) => sum + item.price * item.quantity,
+      0
+    );
+
+    fetch("/api/cart-activity", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email: customerEmail, cartItems: items, totalPrice }),
+    }).catch(() => {});
+  }, [items, isLoaded, customerEmail]);
 
   const addToCart = (item: Omit<CartItem, "quantity">, quantity: number = 1) => {
     setItems((prev) => {
@@ -88,6 +129,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   const clearCart = () => {
     setItems([]);
+    localStorage.removeItem("cartActivitySignature");
   };
 
   const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
@@ -106,6 +148,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
         clearCart,
         totalItems,
         totalPrice,
+        customerEmail,
+        setCustomerEmail,
       }}
     >
       {children}

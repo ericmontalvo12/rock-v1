@@ -4,8 +4,10 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 import Image from "next/image";
+import { useCart } from "@/lib/cart-context";
 
 export function EmailPopup() {
+  const { setCustomerEmail } = useCart();
   const [isOpen, setIsOpen] = useState(false);
   const [email, setEmail] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -24,6 +26,7 @@ export function EmailPopup() {
     e.preventDefault();
     if (email) {
       localStorage.setItem("promoCode", "WELCOME15");
+      setCustomerEmail(email);
       setIsSubmitted(true);
       try {
         await fetch("https://services.leadconnectorhq.com/hooks/EakYnXEQy1hvVFmdShYB/webhook-trigger/wFhzPl8SglWPsW3BeDsh", {

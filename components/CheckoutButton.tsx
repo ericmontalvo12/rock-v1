@@ -16,9 +16,10 @@ interface CheckoutButtonProps {
   className?: string;
   disabled?: boolean;
   promotionCodeId?: string;
+  email?: string;
 }
 
-export function CheckoutButton({ cartItems, className, disabled, promotionCodeId }: CheckoutButtonProps) {
+export function CheckoutButton({ cartItems, className, disabled, promotionCodeId, email }: CheckoutButtonProps) {
   const [showCheckout, setShowCheckout] = useState(false);
 
   return (
@@ -36,6 +37,7 @@ export function CheckoutButton({ cartItems, className, disabled, promotionCodeId
         <EmbeddedCheckoutModal
           cartItems={cartItems}
           promotionCodeId={promotionCodeId}
+          email={email}
           onClose={() => setShowCheckout(false)}
         />
       )}
