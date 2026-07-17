@@ -13,8 +13,22 @@ import { Minus, Plus, Trash2, ShoppingBag } from "lucide-react";
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export default function CartPage() {
-  const { items, updateQuantity, removeFromCart, totalPrice, totalItems, clearCart, customerEmail, setCustomerEmail } = useCart();
+  const {
+    items,
+    updateQuantity,
+    removeFromCart,
+    totalPrice,
+    totalItems,
+    clearCart,
+    customerEmail,
+    setCustomerEmail,
+    customerPhone,
+    setCustomerPhone,
+    smsConsent,
+    setSmsConsent,
+  } = useCart();
   const [emailInput, setEmailInput] = useState("");
+  const [phoneInput, setPhoneInput] = useState("");
   const [promoInput, setPromoInput] = useState("");
   const [promoLoading, setPromoLoading] = useState(false);
   const [promoError, setPromoError] = useState("");
@@ -58,12 +72,29 @@ export default function CartPage() {
     }
   }, [customerEmail]);
 
+  // Prefill phone if it was captured on a previous visit
+  useEffect(() => {
+    if (customerPhone) {
+      setPhoneInput(customerPhone);
+    }
+  }, [customerPhone]);
+
   const isValidEmail = EMAIL_REGEX.test(emailInput.trim());
 
   const handleEmailChange = (value: string) => {
     setEmailInput(value);
     if (EMAIL_REGEX.test(value.trim())) {
       setCustomerEmail(value.trim());
+    }
+  };
+
+  const handlePhoneChange = (value: string) => {
+    setPhoneInput(value);
+    setCustomerPhone(value.trim());
+    // A phone number with no consent is useless for SMS, so clear consent
+    // if the field is emptied out.
+    if (!value.trim()) {
+      setSmsConsent(false);
     }
   };
 
@@ -287,6 +318,38 @@ export default function CartPage() {
                   {emailInput.trim().length > 0 && !isValidEmail && (
                     <p className="text-red-500 text-xs mt-1">Enter a valid email to continue.</p>
                   )}
+                </div>
+
+                {/* Phone (optional) */}
+                <div className="mb-6">
+                  <label htmlFor="phone" className="text-sm text-text-secondary mb-2 block">
+                    Phone <span className="text-text-muted">(optional)</span>
+                  </label>
+                  <input
+                    id="phone"
+                    type="tel"
+                    placeholder="(555) 123-4567"
+                    value={phoneInput}
+                    onChange={(e) => handlePhoneChange(e.target.value)}
+                    className="w-full px-3 py-2 rounded-lg bg-background border border-border text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-sm"
+                  />
+                  <label className={`flex items-start gap-2 mt-3 text-xs text-text-muted ${phoneInput.trim() ? "" : "opacity-50"}`}>
+                    <input
+                      type="checkbox"
+                      checked={smsConsent}
+                      disabled={!phoneInput.trim()}
+                      onChange={(e) => setSmsConsent(e.target.checked)}
+                      className="mt-0.5"
+                    />
+                    <span>
+                      By checking this box, I agree to receive recurring automated marketing text
+                      messages from Rock Mountain Performance at the phone number provided. Consent
+                      is not a condition of purchase. Message and data rates may apply. Message
+                      frequency varies. Reply STOP to cancel, HELP for help. View our{" "}
+                      <Link href="/privacy-policy" className="underline">Privacy Policy</Link> and{" "}
+                      <Link href="/terms-of-service" className="underline">Terms</Link>.
+                    </span>
+                  </label>
                 </div>
 
                 {/* Promo Code */}

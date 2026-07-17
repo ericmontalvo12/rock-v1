@@ -16,8 +16,10 @@ export async function POST(req: Request) {
       return NextResponse.json({ skipped: true });
     }
 
-    const { email, cartItems, totalPrice } = (await req.json()) as {
+    const { email, phone, smsConsent, cartItems, totalPrice } = (await req.json()) as {
       email?: string;
+      phone?: string;
+      smsConsent?: boolean;
       cartItems?: CartItem[];
       totalPrice?: number;
     };
@@ -34,6 +36,8 @@ export async function POST(req: Request) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         email,
+        phone: phone || null,
+        sms_consent: Boolean(smsConsent),
         cart_items: cartItems
           .map((item) => `${item.name} x${item.quantity}`)
           .join(", "),

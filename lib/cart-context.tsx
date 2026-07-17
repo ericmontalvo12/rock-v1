@@ -33,6 +33,10 @@ interface CartContextType {
   totalPrice: number;
   customerEmail: string;
   setCustomerEmail: (email: string) => void;
+  customerPhone: string;
+  setCustomerPhone: (phone: string) => void;
+  smsConsent: boolean;
+  setSmsConsent: (consent: boolean) => void;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -40,9 +44,11 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 export function CartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);
   const [customerEmail, setCustomerEmailState] = useState("");
+  const [customerPhone, setCustomerPhoneState] = useState("");
+  const [smsConsent, setSmsConsentState] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
 
-  // Load cart and email from localStorage on mount
+  // Load cart, email, phone, and SMS consent from localStorage on mount
   useEffect(() => {
     const savedCart = localStorage.getItem("cart");
     if (savedCart) {
@@ -51,6 +57,14 @@ export function CartProvider({ children }: { children: ReactNode }) {
     const savedEmail = localStorage.getItem("customerEmail");
     if (savedEmail) {
       setCustomerEmailState(savedEmail);
+    }
+    const savedPhone = localStorage.getItem("customerPhone");
+    if (savedPhone) {
+      setCustomerPhoneState(savedPhone);
+    }
+    const savedSmsConsent = localStorage.getItem("smsConsent");
+    if (savedSmsConsent) {
+      setSmsConsentState(savedSmsConsent === "true");
     }
     setIsLoaded(true);
   }, []);
@@ -69,14 +83,26 @@ export function CartProvider({ children }: { children: ReactNode }) {
     }
   };
 
+  const setCustomerPhone = (phone: string) => {
+    setCustomerPhoneState(phone);
+    localStorage.setItem("customerPhone", phone);
+  };
+
+  const setSmsConsent = (consent: boolean) => {
+    setSmsConsentState(consent);
+    localStorage.setItem("smsConsent", String(consent));
+  };
+
   // Notify GHL of active cart contents for the abandoned-cart automation.
-  // Only fires once per distinct cart + email combination, and only once we
-  // know the customer's email (from the discount popup or the cart page).
+  // Only fires once per distinct cart + contact-info combination, and only
+  // once we know the customer's email (from the discount popup or the cart page).
   useEffect(() => {
     if (!isLoaded || items.length === 0 || !EMAIL_REGEX.test(customerEmail)) return;
 
     const signature = JSON.stringify({
       email: customerEmail,
+      phone: customerPhone,
+      smsConsent,
       items: items.map((item) => [item.id, item.quantity, item.price]),
     });
     if (localStorage.getItem("cartActivitySignature") === signature) return;
@@ -90,9 +116,15 @@ export function CartProvider({ children }: { children: ReactNode }) {
     fetch("/api/cart-activity", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email: customerEmail, cartItems: items, totalPrice }),
+      body: JSON.stringify({
+        email: customerEmail,
+        phone: customerPhone || undefined,
+        smsConsent,
+        cartItems: items,
+        totalPrice,
+      }),
     }).catch(() => {});
-  }, [items, isLoaded, customerEmail]);
+  }, [items, isLoaded, customerEmail, customerPhone, smsConsent]);
 
   const addToCart = (item: Omit<CartItem, "quantity">, quantity: number = 1) => {
     setItems((prev) => {
@@ -150,6 +182,10 @@ export function CartProvider({ children }: { children: ReactNode }) {
         totalPrice,
         customerEmail,
         setCustomerEmail,
+        customerPhone,
+        setCustomerPhone,
+        smsConsent,
+        setSmsConsent,
       }}
     >
       {children}
