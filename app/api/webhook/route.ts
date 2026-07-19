@@ -49,7 +49,7 @@ export async function POST(req: NextRequest) {
 
       // Forward order to HighLevel for confirmation email
       try {
-        await fetch("https://services.leadconnectorhq.com/hooks/EakYnXEQy1hvVFmdShYB/webhook-trigger/7VJ6AHSjoT5le9ZcK4WZ", {
+        await fetch("https://services.leadconnectorhq.com/hooks/EakYnXEQy1hvVFmdShYB/webhook-trigger/0bc60e38-cd24-4372-84cf-86e540f8ef14", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
