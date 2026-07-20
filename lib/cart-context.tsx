@@ -98,6 +98,11 @@ export function CartProvider({ children }: { children: ReactNode }) {
   // once we know the customer's email (from the discount popup or the cart page).
   useEffect(() => {
     if (!isLoaded || items.length === 0 || !EMAIL_REGEX.test(customerEmail)) return;
+    // Phone is free-typed character by character; only treat it as settled
+    // once it's empty or looks like a complete number, so every keystroke
+    // doesn't produce a "new" signature and re-fire the webhook.
+    const phoneDigits = customerPhone.replace(/\D/g, "");
+    if (customerPhone !== "" && phoneDigits.length < 10) return;
 
     const signature = JSON.stringify({
       email: customerEmail,
