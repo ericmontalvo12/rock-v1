@@ -80,7 +80,7 @@ function SuccessContent() {
                     2
                   </span>
                   <span>
-                    Your order will ship as soon as the first production run is complete.
+                    Your order will ship within 1-2 business days.
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
