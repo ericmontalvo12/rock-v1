@@ -109,7 +109,7 @@ const ingredients = [
   {
     name: "Tongkat Ali",
     category: "stress" as TabId,
-    form: "200:1 Extract (1% Eurycomanone)",
+    form: "200:1 Eurycomanone",
     dosage: "300 mg",
     image: "/tongkat-ali.png",
     shortDesc: "Shown to increase testosterone by 37% in a 4-week clinical study.",

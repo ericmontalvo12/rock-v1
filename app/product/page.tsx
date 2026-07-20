@@ -263,7 +263,7 @@ const productSections = [
             <li>Zinc (Citrate) — 20 mg</li>
             <li>Fenugreek Seed Extract (50% saponins) — 500 mg</li>
             <li>Ashwagandha Root Extract (KSM-66) — 500 mg</li>
-            <li>Tongkat Ali Root Extract (1% Eurycomanone) — 300 mg</li>
+            <li>Tongkat Ali Root Extract (200:1 Eurycomanone) — 300 mg</li>
             <li>Boron (Citrate) — 9 mg</li>
           </ul>
         </div>
