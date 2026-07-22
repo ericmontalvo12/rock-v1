@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import { trackFbEvent } from "./fbpixel";
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -143,6 +144,14 @@ export function CartProvider({ children }: { children: ReactNode }) {
         );
       }
       return [...prev, { ...item, quantity, price: getPricePerBottle(quantity) }];
+    });
+
+    trackFbEvent("AddToCart", {
+      content_name: item.name,
+      content_ids: [item.id],
+      content_type: "product",
+      value: getPricePerBottle(quantity) * quantity,
+      currency: "USD",
     });
   };
 

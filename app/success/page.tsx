@@ -8,6 +8,7 @@ import { Footer } from "@/components/Footer";
 import { buttonVariants } from "@/components/ui/button";
 import { CheckCircle } from "lucide-react";
 import { useCart } from "@/lib/cart-context";
+import { trackFbEvent } from "@/lib/fbpixel";
 
 function SuccessContent() {
   const searchParams = useSearchParams();
@@ -33,6 +34,27 @@ function SuccessContent() {
       .then((r) => r.json())
       .then((data) => {
         if (data.isSubscription && data.url) setPortalUrl(data.url);
+      })
+      .catch(() => {});
+  }, [sessionId]);
+
+  // Fire the Meta Pixel Purchase event once per session ID, so refreshing
+  // this page doesn't double-count the conversion.
+  useEffect(() => {
+    if (!sessionId) return;
+    const trackedKey = `fbPurchaseTracked:${sessionId}`;
+    if (localStorage.getItem(trackedKey)) return;
+
+    fetch(`/api/checkout-session?session_id=${encodeURIComponent(sessionId)}`)
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.amountTotal != null) {
+          trackFbEvent("Purchase", {
+            value: data.amountTotal,
+            currency: (data.currency || "usd").toUpperCase(),
+          });
+          localStorage.setItem(trackedKey, "true");
+        }
       })
       .catch(() => {});
   }, [sessionId]);
