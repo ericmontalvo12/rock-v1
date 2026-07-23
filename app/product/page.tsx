@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Header } from "@/components/Header";
@@ -357,12 +357,84 @@ function StarRating({ rating }: { rating: number }) {
   );
 }
 
+interface ProductReview {
+  id: number;
+  name: string;
+  rating: number;
+  quote: string;
+  createdAt: string;
+}
+
 export default function ProductV2Page() {
   const [openSection, setOpenSection] = useState<number | null>(null);
   const [addedToCart, setAddedToCart] = useState(false);
   const [activeImage, setActiveImage] = useState(0);
   const [selectedBundle, setSelectedBundle] = useState(1);
   const { addToCart } = useCart();
+
+  const [reviews, setReviews] = useState<ProductReview[]>([]);
+  const [reviewCount, setReviewCount] = useState(0);
+  const [reviewAverage, setReviewAverage] = useState(0);
+
+  const [reviewName, setReviewName] = useState("");
+  const [reviewEmail, setReviewEmail] = useState("");
+  const [reviewRating, setReviewRating] = useState(0);
+  const [reviewQuote, setReviewQuote] = useState("");
+  const [reviewSubmitting, setReviewSubmitting] = useState(false);
+  const [reviewError, setReviewError] = useState("");
+  const [reviewSuccess, setReviewSuccess] = useState(false);
+
+  const loadReviews = () => {
+    fetch("/api/reviews")
+      .then((r) => r.json())
+      .then((data) => {
+        setReviews(data.reviews || []);
+        setReviewCount(data.count || 0);
+        setReviewAverage(data.average || 0);
+      })
+      .catch(() => {});
+  };
+
+  useEffect(() => {
+    loadReviews();
+  }, []);
+
+  const handleSubmitReview = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setReviewError("");
+    if (reviewRating < 1) {
+      setReviewError("Select a star rating.");
+      return;
+    }
+    setReviewSubmitting(true);
+    try {
+      const res = await fetch("/api/reviews", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: reviewName.trim(),
+          email: reviewEmail.trim(),
+          rating: reviewRating,
+          quote: reviewQuote.trim(),
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setReviewError(data.error || "Something went wrong. Try again.");
+      } else {
+        setReviewSuccess(true);
+        setReviewName("");
+        setReviewEmail("");
+        setReviewRating(0);
+        setReviewQuote("");
+        loadReviews();
+      }
+    } catch {
+      setReviewError("Something went wrong. Try again.");
+    } finally {
+      setReviewSubmitting(false);
+    }
+  };
 
   const handleAddToCart = () => {
     const bundle = BUNDLES.find((b) => b.qty === selectedBundle)!;
@@ -469,19 +541,27 @@ export default function ProductV2Page() {
 
               {/* Social Proof Bar */}
               <div className="flex flex-wrap items-center justify-center gap-3 mb-4 text-sm">
-                {/* Reviews link - uncomment after launch when reviews are available */}
-                {/*
-                <div className="flex items-center gap-1">
-                  <StarRating rating={5} />
-                </div>
-                <span className="text-gray-300">|</span>
-                <button
-                  onClick={() => document.getElementById('reviews')?.scrollIntoView({ behavior: 'smooth' })}
-                  className="text-primary hover:underline"
-                >
-                  9 reviews
-                </button>
-                */}
+                {reviewCount > 0 ? (
+                  <>
+                    <div className="flex items-center gap-1">
+                      <StarRating rating={Math.round(reviewAverage)} />
+                    </div>
+                    <span className="text-gray-300">|</span>
+                    <button
+                      onClick={() => document.getElementById('reviews')?.scrollIntoView({ behavior: 'smooth' })}
+                      className="text-primary hover:underline"
+                    >
+                      {reviewCount} review{reviewCount === 1 ? "" : "s"}
+                    </button>
+                  </>
+                ) : (
+                  <button
+                    onClick={() => document.getElementById('reviews')?.scrollIntoView({ behavior: 'smooth' })}
+                    className="text-primary hover:underline"
+                  >
+                    Be the first to leave a review
+                  </button>
+                )}
               </div>
 
               <p className="text-sm sm:text-base text-text-secondary mb-6">
@@ -725,6 +805,128 @@ export default function ProductV2Page() {
                   <p className="text-gray-600 text-sm">{item.description}</p>
                 </motion.div>
               ))}
+            </div>
+          </section>
+
+          {/* Reviews */}
+          <section id="reviews" className="mt-16 sm:mt-24 scroll-mt-24">
+            <div className="text-center mb-10">
+              <p className="text-primary font-semibold text-xs uppercase tracking-widest mb-2">Reviews</p>
+              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">Customer Reviews</h2>
+              {reviewCount > 0 && (
+                <div className="flex items-center justify-center gap-2 mt-3">
+                  <StarRating rating={Math.round(reviewAverage)} />
+                  <span className="text-gray-600 text-sm">
+                    {reviewAverage.toFixed(1)} out of 5 ({reviewCount} review{reviewCount === 1 ? "" : "s"})
+                  </span>
+                </div>
+              )}
+            </div>
+
+            <div className="grid lg:grid-cols-2 gap-8">
+              {/* Review list */}
+              <div className="space-y-4">
+                {reviews.length === 0 ? (
+                  <div className="bg-gray-50 border border-gray-200 rounded-2xl p-8 text-center text-gray-500 text-sm">
+                    No reviews yet. Be the first to share your experience.
+                  </div>
+                ) : (
+                  reviews.map((review) => (
+                    <div key={review.id} className="bg-white border border-gray-200 rounded-2xl p-5 sm:p-6">
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="font-semibold text-gray-900">{review.name}</span>
+                        <span className="inline-flex items-center gap-1 text-xs font-medium text-primary bg-primary/10 px-2 py-1 rounded-full">
+                          <Check className="w-3 h-3" />
+                          Verified Buyer
+                        </span>
+                      </div>
+                      <StarRating rating={review.rating} />
+                      <p className="text-gray-600 text-sm mt-3 leading-relaxed">{review.quote}</p>
+                    </div>
+                  ))
+                )}
+              </div>
+
+              {/* Write a review form */}
+              <div className="bg-gray-50 border border-gray-200 rounded-2xl p-6 sm:p-8 h-fit">
+                <h3 className="font-bold text-gray-900 mb-1">Write a Review</h3>
+                <p className="text-gray-500 text-sm mb-5">
+                  Only verified purchasers can leave a review. We'll check your email against your order.
+                </p>
+
+                {reviewSuccess ? (
+                  <div className="text-center py-6">
+                    <Check className="w-10 h-10 text-primary mx-auto mb-3" />
+                    <p className="font-semibold text-gray-900">Thanks for your review!</p>
+                    <p className="text-gray-500 text-sm mt-1">It's now live on this page.</p>
+                  </div>
+                ) : (
+                  <form onSubmit={handleSubmitReview} className="space-y-4">
+                    <div>
+                      <label className="text-sm text-gray-700 mb-1 block">Your Rating</label>
+                      <div className="flex items-center gap-1">
+                        {[1, 2, 3, 4, 5].map((star) => (
+                          <button
+                            key={star}
+                            type="button"
+                            onClick={() => setReviewRating(star)}
+                            aria-label={`${star} star${star === 1 ? "" : "s"}`}
+                          >
+                            <Star
+                              className={`w-6 h-6 ${star <= reviewRating ? "text-yellow-400 fill-yellow-400" : "text-gray-300"}`}
+                            />
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div>
+                      <label htmlFor="review-name" className="text-sm text-gray-700 mb-1 block">Name</label>
+                      <input
+                        id="review-name"
+                        type="text"
+                        required
+                        value={reviewName}
+                        onChange={(e) => setReviewName(e.target.value)}
+                        className="w-full px-3 py-2 rounded-lg bg-white border border-gray-300 text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                      />
+                    </div>
+
+                    <div>
+                      <label htmlFor="review-email" className="text-sm text-gray-700 mb-1 block">
+                        Email <span className="text-gray-400">(used only to verify your purchase, not shown publicly)</span>
+                      </label>
+                      <input
+                        id="review-email"
+                        type="email"
+                        required
+                        value={reviewEmail}
+                        onChange={(e) => setReviewEmail(e.target.value)}
+                        className="w-full px-3 py-2 rounded-lg bg-white border border-gray-300 text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                      />
+                    </div>
+
+                    <div>
+                      <label htmlFor="review-quote" className="text-sm text-gray-700 mb-1 block">Your Review</label>
+                      <textarea
+                        id="review-quote"
+                        required
+                        minLength={10}
+                        rows={4}
+                        value={reviewQuote}
+                        onChange={(e) => setReviewQuote(e.target.value)}
+                        className="w-full px-3 py-2 rounded-lg bg-white border border-gray-300 text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                      />
+                    </div>
+
+                    {reviewError && <p className="text-red-500 text-sm">{reviewError}</p>}
+
+                    <Button type="submit" className="w-full" disabled={reviewSubmitting}>
+                      {reviewSubmitting ? "Submitting..." : "Submit Review"}
+                    </Button>
+                  </form>
+                )}
+              </div>
             </div>
           </section>
 
