@@ -121,7 +121,7 @@ export function Hero() {
             </div>
 
             {/* Shipping note */}
-            <p className="text-white/50 text-[11px] sm:text-sm mt-3 sm:mt-4 text-center lg:text-left">
+            <p className="text-white text-[11px] sm:text-sm mt-3 sm:mt-4 text-center lg:text-left">
               In stock. Ships within 1-2 business days.
             </p>
 
