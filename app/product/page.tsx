@@ -12,6 +12,11 @@ import { Check, ChevronDown, ArrowRight, Star, Shield, FlaskConical, FileText, L
 
 const RETAIL_PRICE = 49.99;
 
+// Temporarily disabled while debugging the Stripe/DB verification flow.
+// Flip back to true to restore the "Write a Review" submission form.
+// Existing/displayed reviews are unaffected by this flag either way.
+const REVIEW_SUBMISSION_ENABLED = false;
+
 const BUNDLES = [
   {
     qty: 1,
@@ -848,85 +853,91 @@ export default function ProductV2Page() {
               </div>
 
               {/* Write a review form */}
-              <div className="bg-gray-50 border border-gray-200 rounded-2xl p-6 sm:p-8 h-fit">
-                <h3 className="font-bold text-gray-900 mb-1">Write a Review</h3>
-                <p className="text-gray-500 text-sm mb-5">
-                  Only verified purchasers can leave a review. We'll check your email against your order.
-                </p>
+              {REVIEW_SUBMISSION_ENABLED ? (
+                <div className="bg-gray-50 border border-gray-200 rounded-2xl p-6 sm:p-8 h-fit">
+                  <h3 className="font-bold text-gray-900 mb-1">Write a Review</h3>
+                  <p className="text-gray-500 text-sm mb-5">
+                    Only verified purchasers can leave a review. We'll check your email against your order.
+                  </p>
 
-                {reviewSuccess ? (
-                  <div className="text-center py-6">
-                    <Check className="w-10 h-10 text-primary mx-auto mb-3" />
-                    <p className="font-semibold text-gray-900">Thanks for your review!</p>
-                    <p className="text-gray-500 text-sm mt-1">It's now live on this page.</p>
-                  </div>
-                ) : (
-                  <form onSubmit={handleSubmitReview} className="space-y-4">
-                    <div>
-                      <label className="text-sm text-gray-700 mb-1 block">Your Rating</label>
-                      <div className="flex items-center gap-1">
-                        {[1, 2, 3, 4, 5].map((star) => (
-                          <button
-                            key={star}
-                            type="button"
-                            onClick={() => setReviewRating(star)}
-                            aria-label={`${star} star${star === 1 ? "" : "s"}`}
-                          >
-                            <Star
-                              className={`w-6 h-6 ${star <= reviewRating ? "text-yellow-400 fill-yellow-400" : "text-gray-300"}`}
-                            />
-                          </button>
-                        ))}
+                  {reviewSuccess ? (
+                    <div className="text-center py-6">
+                      <Check className="w-10 h-10 text-primary mx-auto mb-3" />
+                      <p className="font-semibold text-gray-900">Thanks for your review!</p>
+                      <p className="text-gray-500 text-sm mt-1">It's now live on this page.</p>
+                    </div>
+                  ) : (
+                    <form onSubmit={handleSubmitReview} className="space-y-4">
+                      <div>
+                        <label className="text-sm text-gray-700 mb-1 block">Your Rating</label>
+                        <div className="flex items-center gap-1">
+                          {[1, 2, 3, 4, 5].map((star) => (
+                            <button
+                              key={star}
+                              type="button"
+                              onClick={() => setReviewRating(star)}
+                              aria-label={`${star} star${star === 1 ? "" : "s"}`}
+                            >
+                              <Star
+                                className={`w-6 h-6 ${star <= reviewRating ? "text-yellow-400 fill-yellow-400" : "text-gray-300"}`}
+                              />
+                            </button>
+                          ))}
+                        </div>
                       </div>
-                    </div>
 
-                    <div>
-                      <label htmlFor="review-name" className="text-sm text-gray-700 mb-1 block">Name</label>
-                      <input
-                        id="review-name"
-                        type="text"
-                        required
-                        value={reviewName}
-                        onChange={(e) => setReviewName(e.target.value)}
-                        className="w-full px-3 py-2 rounded-lg bg-white border border-gray-300 text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                      />
-                    </div>
+                      <div>
+                        <label htmlFor="review-name" className="text-sm text-gray-700 mb-1 block">Name</label>
+                        <input
+                          id="review-name"
+                          type="text"
+                          required
+                          value={reviewName}
+                          onChange={(e) => setReviewName(e.target.value)}
+                          className="w-full px-3 py-2 rounded-lg bg-white border border-gray-300 text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                        />
+                      </div>
 
-                    <div>
-                      <label htmlFor="review-email" className="text-sm text-gray-700 mb-1 block">
-                        Email <span className="text-gray-400">(used only to verify your purchase, not shown publicly)</span>
-                      </label>
-                      <input
-                        id="review-email"
-                        type="email"
-                        required
-                        value={reviewEmail}
-                        onChange={(e) => setReviewEmail(e.target.value)}
-                        className="w-full px-3 py-2 rounded-lg bg-white border border-gray-300 text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                      />
-                    </div>
+                      <div>
+                        <label htmlFor="review-email" className="text-sm text-gray-700 mb-1 block">
+                          Email <span className="text-gray-400">(used only to verify your purchase, not shown publicly)</span>
+                        </label>
+                        <input
+                          id="review-email"
+                          type="email"
+                          required
+                          value={reviewEmail}
+                          onChange={(e) => setReviewEmail(e.target.value)}
+                          className="w-full px-3 py-2 rounded-lg bg-white border border-gray-300 text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                        />
+                      </div>
 
-                    <div>
-                      <label htmlFor="review-quote" className="text-sm text-gray-700 mb-1 block">Your Review</label>
-                      <textarea
-                        id="review-quote"
-                        required
-                        minLength={10}
-                        rows={4}
-                        value={reviewQuote}
-                        onChange={(e) => setReviewQuote(e.target.value)}
-                        className="w-full px-3 py-2 rounded-lg bg-white border border-gray-300 text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                      />
-                    </div>
+                      <div>
+                        <label htmlFor="review-quote" className="text-sm text-gray-700 mb-1 block">Your Review</label>
+                        <textarea
+                          id="review-quote"
+                          required
+                          minLength={10}
+                          rows={4}
+                          value={reviewQuote}
+                          onChange={(e) => setReviewQuote(e.target.value)}
+                          className="w-full px-3 py-2 rounded-lg bg-white border border-gray-300 text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                        />
+                      </div>
 
-                    {reviewError && <p className="text-red-500 text-sm">{reviewError}</p>}
+                      {reviewError && <p className="text-red-500 text-sm">{reviewError}</p>}
 
-                    <Button type="submit" className="w-full" disabled={reviewSubmitting}>
-                      {reviewSubmitting ? "Submitting..." : "Submit Review"}
-                    </Button>
-                  </form>
-                )}
-              </div>
+                      <Button type="submit" className="w-full" disabled={reviewSubmitting}>
+                        {reviewSubmitting ? "Submitting..." : "Submit Review"}
+                      </Button>
+                    </form>
+                  )}
+                </div>
+              ) : (
+                <div className="bg-gray-50 border border-gray-200 rounded-2xl p-6 sm:p-8 h-fit flex items-center justify-center text-center text-gray-500 text-sm min-h-[200px]">
+                  Review submissions are temporarily paused. Check back soon.
+                </div>
+              )}
             </div>
           </section>
 
