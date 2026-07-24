@@ -545,29 +545,31 @@ export default function ProductV2Page() {
               </h1>
 
               {/* Social Proof Bar */}
-              <div className="flex flex-wrap items-center justify-center gap-3 mb-4 text-sm">
-                {reviewCount > 0 ? (
-                  <>
-                    <div className="flex items-center gap-1">
-                      <StarRating rating={Math.round(reviewAverage)} />
-                    </div>
-                    <span className="text-gray-300">|</span>
+              {REVIEW_SUBMISSION_ENABLED && (
+                <div className="flex flex-wrap items-center justify-center gap-3 mb-4 text-sm">
+                  {reviewCount > 0 ? (
+                    <>
+                      <div className="flex items-center gap-1">
+                        <StarRating rating={Math.round(reviewAverage)} />
+                      </div>
+                      <span className="text-gray-300">|</span>
+                      <button
+                        onClick={() => document.getElementById('reviews')?.scrollIntoView({ behavior: 'smooth' })}
+                        className="text-primary hover:underline"
+                      >
+                        {reviewCount} review{reviewCount === 1 ? "" : "s"}
+                      </button>
+                    </>
+                  ) : (
                     <button
                       onClick={() => document.getElementById('reviews')?.scrollIntoView({ behavior: 'smooth' })}
                       className="text-primary hover:underline"
                     >
-                      {reviewCount} review{reviewCount === 1 ? "" : "s"}
+                      Be the first to leave a review
                     </button>
-                  </>
-                ) : (
-                  <button
-                    onClick={() => document.getElementById('reviews')?.scrollIntoView({ behavior: 'smooth' })}
-                    className="text-primary hover:underline"
-                  >
-                    Be the first to leave a review
-                  </button>
-                )}
-              </div>
+                  )}
+                </div>
+              )}
 
               <p className="text-sm sm:text-base text-text-secondary mb-6">
                 A foundational testosterone support formula designed to help your body respond the way it used to.
@@ -814,6 +816,7 @@ export default function ProductV2Page() {
           </section>
 
           {/* Reviews */}
+          {REVIEW_SUBMISSION_ENABLED && (
           <section id="reviews" className="mt-16 sm:mt-24 scroll-mt-24">
             <div className="text-center mb-10">
               <p className="text-primary font-semibold text-xs uppercase tracking-widest mb-2">Reviews</p>
@@ -940,6 +943,7 @@ export default function ProductV2Page() {
               )}
             </div>
           </section>
+          )}
 
           {/* Final CTA */}
           <section className="mt-16 sm:mt-24 text-center">
