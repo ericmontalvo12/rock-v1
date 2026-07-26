@@ -196,13 +196,6 @@ const ingredients = [
   },
 ];
 
-const whatsNotItems = [
-  { text: "Proprietary blends that hide real doses" },
-  { text: "Underdosed ingredients for label appeal" },
-  { text: "Ingredients with no evidence behind them" },
-  { text: "Cheap fillers to reduce cost" },
-];
-
 const timeline = [
   { week: "Week 1-2", title: "Foundation Building", description: "Ingredients accumulate in your system", icon: Layers },
   { week: "Week 2-4", title: "Energy Stabilizes", description: "More consistent energy through the day", icon: Zap },
@@ -1074,35 +1067,6 @@ export default function ProductV2Page() {
                   </div>
                 </motion.div>
               </div>
-            </div>
-          </section>
-
-          {/* What's Not in the Formula */}
-          <section className="mt-16 sm:mt-24">
-            <div className="text-center mb-6">
-              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
-                What's Not in the Formula
-              </h2>
-              <p className="text-gray-600 text-sm">
-                We left out what doesn't belong.
-              </p>
-            </div>
-            <div className="grid sm:grid-cols-2 gap-3 max-w-4xl mx-auto">
-              {whatsNotItems.map((item, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: index * 0.08 }}
-                  className="flex flex-col items-center text-center gap-3 p-4 bg-gray-50 rounded-xl border border-gray-200 shadow-sm"
-                >
-                  <div className="w-9 h-9 rounded-full bg-red-50 flex items-center justify-center flex-shrink-0">
-                    <X className="w-4 h-4 text-red-500" />
-                  </div>
-                  <span className="text-gray-700 text-sm">{item.text}</span>
-                </motion.div>
-              ))}
             </div>
           </section>
 
