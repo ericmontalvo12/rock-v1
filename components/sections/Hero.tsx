@@ -50,7 +50,7 @@ export function Hero() {
           src="/hero-mountain.jpg"
           alt="Hero background"
           fill
-          className="object-cover object-[center_calc(20%_-_10px)]"
+          className="object-cover object-[center_calc(20%_-_30px)]"
           priority
         />
       </div>
