@@ -1307,14 +1307,17 @@ export default function ProductV2Page() {
           <section className="mt-16 sm:mt-24">
             <div className="bg-gradient-to-br from-[#5B9BD5] to-[#4A8BC9] rounded-2xl overflow-hidden shadow-xl">
               <div className="grid sm:grid-cols-2 items-center gap-6 p-8 sm:p-12">
-                <div className="flex justify-center order-2 sm:order-1">
-                  <Image
-                    src="/product-bottle.png"
-                    alt="Peak Performance Bottle"
-                    width={220}
-                    height={280}
-                    className="w-40 sm:w-56 h-auto drop-shadow-2xl"
-                  />
+                <div className="flex items-center justify-center order-2 sm:order-1">
+                  <div className="relative">
+                    <Image
+                      src="/product-bottle.png"
+                      alt="Peak Performance Bottle"
+                      width={220}
+                      height={280}
+                      className="relative z-10 w-40 sm:w-56 h-auto"
+                    />
+                    <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-24 sm:w-32 h-4 sm:h-5 bg-black/25 rounded-full blur-md" />
+                  </div>
                 </div>
                 <div className="text-center sm:text-left order-1 sm:order-2">
                   <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3">
