@@ -12,10 +12,7 @@ import { Check, ChevronDown, ArrowRight, Star, Shield, FlaskConical, FileText, L
 
 const RETAIL_PRICE = 49.99;
 
-// Temporarily disabled while debugging the Stripe/DB verification flow.
-// Flip back to true to restore the "Write a Review" submission form.
-// Existing/displayed reviews are unaffected by this flag either way.
-const REVIEW_SUBMISSION_ENABLED = false;
+const REVIEW_SUBMISSION_ENABLED = true;
 
 const BUNDLES = [
   {
@@ -1307,16 +1304,38 @@ export default function ProductV2Page() {
           )}
 
           {/* Final CTA */}
-          <section className="mt-16 sm:mt-24 text-center">
-            <div className="bg-gradient-to-br from-primary/5 to-primary/10 rounded-2xl p-8 sm:p-12">
-              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">Ready to Feel Like Yourself Again?</h2>
-              <p className="text-gray-600 mb-6 max-w-xl mx-auto">
-                Buy now and start feeling the difference.
-              </p>
-              <Button size="lg" onClick={handleAddToCart} className="px-12">
-                {addedToCart ? "Added to Cart!" : "Buy Now"}
-              </Button>
-              <p className="text-sm text-gray-500 mt-4">30-day guarantee • No commitment</p>
+          <section className="mt-16 sm:mt-24">
+            <div className="bg-gradient-to-br from-[#5B9BD5] to-[#4A8BC9] rounded-2xl overflow-hidden shadow-xl">
+              <div className="grid sm:grid-cols-2 items-center gap-6 p-8 sm:p-12">
+                <div className="flex justify-center order-2 sm:order-1">
+                  <Image
+                    src="/product-bottle.png"
+                    alt="Peak Performance Bottle"
+                    width={220}
+                    height={280}
+                    className="w-40 sm:w-56 h-auto drop-shadow-2xl"
+                  />
+                </div>
+                <div className="text-center sm:text-left order-1 sm:order-2">
+                  <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3">
+                    Ready to Feel Like Yourself Again?
+                  </h2>
+                  <p className="text-white/80 mb-6">
+                    Buy now and start feeling the difference.
+                  </p>
+                  <Button
+                    size="lg"
+                    onClick={handleAddToCart}
+                    className="bg-white text-[#4A8BC9] hover:bg-white/90 px-12"
+                  >
+                    {addedToCart ? "Added to Cart!" : "Buy Now"}
+                  </Button>
+                  <div className="flex flex-wrap justify-center sm:justify-start gap-x-4 gap-y-1 mt-4 text-sm text-white/80">
+                    <span className="flex items-center gap-1.5"><Check className="w-4 h-4" />30-Day Guarantee</span>
+                    <span className="flex items-center gap-1.5"><Check className="w-4 h-4" />No Commitment</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </section>
 
