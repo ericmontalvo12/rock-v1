@@ -77,15 +77,34 @@ export async function insertReview(params: {
 }
 
 // A review is only ever published if this returns true - the email must
-// match a real, successfully completed Stripe charge.
+// match a real, completed Checkout Session. Stripe's Search API doesn't
+// support searching charges by receipt_email, so this lists sessions and
+// matches the email in code instead (same field the order-confirmation
+// webhook already reads from session.customer_details.email).
 export async function verifyPurchase(email: string): Promise<boolean> {
   const secretKey = process.env.STRIPE_SECRET_KEY;
   if (!secretKey) return false;
 
   const stripe = new Stripe(secretKey);
-  const sanitizedEmail = email.replace(/"/g, "");
-  const result = await stripe.charges.search({
-    query: `receipt_email:"${sanitizedEmail}" AND status:"succeeded"`,
-  });
-  return result.data.length > 0;
+  const normalizedEmail = email.trim().toLowerCase();
+
+  let startingAfter: string | undefined;
+  for (let page = 0; page < 20; page++) {
+    const sessions: Stripe.ApiList<Stripe.Checkout.Session> = await stripe.checkout.sessions.list({
+      limit: 100,
+      starting_after: startingAfter,
+    });
+
+    const match = sessions.data.find(
+      (session) =>
+        session.payment_status === "paid" &&
+        session.customer_details?.email?.toLowerCase() === normalizedEmail
+    );
+    if (match) return true;
+
+    if (!sessions.has_more || sessions.data.length === 0) break;
+    startingAfter = sessions.data[sessions.data.length - 1].id;
+  }
+
+  return false;
 }
