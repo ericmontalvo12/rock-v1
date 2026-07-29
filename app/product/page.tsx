@@ -25,7 +25,7 @@ const BUNDLES = [
     total: getBundleTotal(1),
     regularTotal: getRegularBundleTotal(1),
     badge: SALE_ACTIVE ? "20% OFF" : null,
-    perks: ["$9.99 shipping", "30-day guarantee"],
+    perks: ["Free shipping", "30-day guarantee"],
   },
   {
     qty: 2,
@@ -33,7 +33,7 @@ const BUNDLES = [
     pricePerBottle: getPricePerBottle(2),
     total: getBundleTotal(2),
     regularTotal: getRegularBundleTotal(2),
-    badge: "FREE SHIPPING",
+    badge: null,
     perks: ["Free shipping", "30-day guarantee"],
   },
   {
@@ -424,7 +424,7 @@ const productSections = [
           <p className="text-sm font-medium text-text-primary mb-2">Shipping</p>
           <ul className="space-y-1 text-sm">
             <li>• Ships within 1-2 business days</li>
-            <li>• Free shipping on orders of 2+ bottles</li>
+            <li>• Free shipping on every order</li>
             <li>• You'll receive tracking once your order ships</li>
           </ul>
         </div>

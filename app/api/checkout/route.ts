@@ -41,13 +41,6 @@ export async function POST(req: Request) {
         },
       }));
 
-    // Shipping: free for 2+ bottles, otherwise $9.99
-    const totalQuantity = cartItems.reduce(
-      (sum, item) => sum + item.quantity,
-      0
-    );
-    const shippingCost = totalQuantity >= 2 ? 0 : 999; // cents
-
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
       line_items,
@@ -59,8 +52,8 @@ export async function POST(req: Request) {
         {
           shipping_rate_data: {
             type: "fixed_amount",
-            fixed_amount: { amount: shippingCost, currency: "usd" },
-            display_name: shippingCost === 0 ? "Free Shipping" : "Standard Shipping",
+            fixed_amount: { amount: 0, currency: "usd" },
+            display_name: "Free Shipping",
             delivery_estimate: {
               minimum: { unit: "business_day", value: 4 },
               maximum: { unit: "business_day", value: 7 },
