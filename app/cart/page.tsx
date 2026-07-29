@@ -20,7 +20,6 @@ export default function CartPage() {
     updateQuantity,
     removeFromCart,
     totalPrice,
-    totalItems,
     clearCart,
     customerEmail,
     setCustomerEmail,
@@ -132,9 +131,6 @@ export default function CartPage() {
     : 0;
 
   const discountedSubtotal = totalPrice - discountAmount;
-
-  // Free shipping for 2+ bottles
-  const qualifiesForFreeShipping = totalItems >= 2;
 
   // Map cart items to the format expected by CheckoutButton
   const checkoutItems = items.map((item) => ({
@@ -291,20 +287,18 @@ export default function CartPage() {
                   )}
                   <div className="flex justify-between text-text-secondary">
                     <span>Shipping</span>
-                    <span className="text-text-primary">
-                      {qualifiesForFreeShipping ? "Free" : "$9.99"}
-                    </span>
+                    <span className="text-text-primary">Free</span>
                   </div>
                   <div className="pt-4 border-t border-border flex justify-between">
                     <span className="font-semibold text-text-primary">Total</span>
                     <div className="text-right">
                       {appliedPromo && (
                         <p className="text-text-muted line-through text-sm">
-                          ${(totalPrice + (qualifiesForFreeShipping ? 0 : 9.99)).toFixed(2)}
+                          ${totalPrice.toFixed(2)}
                         </p>
                       )}
                       <span className="font-bold text-primary text-xl">
-                        ${(discountedSubtotal + (qualifiesForFreeShipping ? 0 : 9.99)).toFixed(2)}
+                        ${discountedSubtotal.toFixed(2)}
                       </span>
                     </div>
                   </div>
