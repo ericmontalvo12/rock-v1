@@ -35,7 +35,7 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       "Two products can list the exact same ingredient and mean completely different things. Here's what a label is legally required to disclose — and where the loopholes are.",
     date: "July 21, 2026",
-    coverImage: "/supplement-facts-new.png",
+    coverImage: "/how-to-read-a-supplement-label.jpg",
     content: [
       {
         type: "paragraph",
