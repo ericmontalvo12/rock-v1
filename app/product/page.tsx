@@ -1251,14 +1251,8 @@ export default function ProductV2Page() {
                 ) : (
                   reviews.map((review) => (
                     <div key={review.id} className="bg-white border border-gray-200 rounded-2xl p-5 sm:p-6">
-                      <div className="flex items-center justify-between mb-2">
+                      <div className="mb-2">
                         <span className="font-semibold text-gray-900">{review.name}</span>
-                        {review.verifiedPurchase && (
-                          <span className="inline-flex items-center gap-1 text-xs font-medium text-primary bg-primary/10 px-2 py-1 rounded-full">
-                            <Check className="w-3 h-3" />
-                            Verified Buyer
-                          </span>
-                        )}
                       </div>
                       <StarRating rating={review.rating} />
                       <p className="text-gray-600 text-sm mt-3 leading-relaxed">{review.quote}</p>
