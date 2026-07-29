@@ -11,6 +11,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Check, ChevronDown, ArrowRight, Star, Shield, FlaskConical, FileText, Lock, Zap, TrendingUp, Target, Layers, X } from "lucide-react";
 import { getBundleTotal, getRegularBundleTotal, getPricePerBottle, isSaleActive } from "@/lib/sale";
 import { SaleCountdown } from "@/components/SaleCountdown";
+import { REQUIRE_VERIFIED_PURCHASE, MAX_REVIEW_PHOTO_BYTES } from "@/lib/reviews-config";
 
 const SALE_ACTIVE = isSaleActive();
 
@@ -493,6 +494,8 @@ interface ProductReview {
   rating: number;
   quote: string;
   createdAt: string;
+  photoDataUrl: string | null;
+  verifiedPurchase: boolean;
 }
 
 export default function ProductV2Page() {
@@ -526,9 +529,38 @@ export default function ProductV2Page() {
   const [reviewEmail, setReviewEmail] = useState("");
   const [reviewRating, setReviewRating] = useState(0);
   const [reviewQuote, setReviewQuote] = useState("");
+  const [reviewPhoto, setReviewPhoto] = useState<File | null>(null);
+  const [reviewPhotoPreview, setReviewPhotoPreview] = useState<string | null>(null);
   const [reviewSubmitting, setReviewSubmitting] = useState(false);
   const [reviewError, setReviewError] = useState("");
   const [reviewSuccess, setReviewSuccess] = useState(false);
+
+  const handleReviewPhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0] ?? null;
+    setReviewError("");
+    if (!file) {
+      setReviewPhoto(null);
+      setReviewPhotoPreview(null);
+      return;
+    }
+    if (!file.type.startsWith("image/")) {
+      setReviewError("Photo must be an image.");
+      e.target.value = "";
+      return;
+    }
+    if (file.size > MAX_REVIEW_PHOTO_BYTES) {
+      setReviewError("Photo must be under 2MB.");
+      e.target.value = "";
+      return;
+    }
+    setReviewPhoto(file);
+    setReviewPhotoPreview(URL.createObjectURL(file));
+  };
+
+  const clearReviewPhoto = () => {
+    setReviewPhoto(null);
+    setReviewPhotoPreview(null);
+  };
 
   const loadReviews = () => {
     fetch("/api/reviews")
@@ -554,15 +586,16 @@ export default function ProductV2Page() {
     }
     setReviewSubmitting(true);
     try {
+      const formData = new FormData();
+      formData.append("name", reviewName.trim());
+      formData.append("email", reviewEmail.trim());
+      formData.append("rating", String(reviewRating));
+      formData.append("quote", reviewQuote.trim());
+      if (reviewPhoto) formData.append("photo", reviewPhoto);
+
       const res = await fetch("/api/reviews", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: reviewName.trim(),
-          email: reviewEmail.trim(),
-          rating: reviewRating,
-          quote: reviewQuote.trim(),
-        }),
+        body: formData,
       });
       const data = await res.json();
       if (!res.ok) {
@@ -573,6 +606,7 @@ export default function ProductV2Page() {
         setReviewEmail("");
         setReviewRating(0);
         setReviewQuote("");
+        clearReviewPhoto();
         loadReviews();
       }
     } catch {
@@ -1219,13 +1253,23 @@ export default function ProductV2Page() {
                     <div key={review.id} className="bg-white border border-gray-200 rounded-2xl p-5 sm:p-6">
                       <div className="flex items-center justify-between mb-2">
                         <span className="font-semibold text-gray-900">{review.name}</span>
-                        <span className="inline-flex items-center gap-1 text-xs font-medium text-primary bg-primary/10 px-2 py-1 rounded-full">
-                          <Check className="w-3 h-3" />
-                          Verified Buyer
-                        </span>
+                        {review.verifiedPurchase && (
+                          <span className="inline-flex items-center gap-1 text-xs font-medium text-primary bg-primary/10 px-2 py-1 rounded-full">
+                            <Check className="w-3 h-3" />
+                            Verified Buyer
+                          </span>
+                        )}
                       </div>
                       <StarRating rating={review.rating} />
                       <p className="text-gray-600 text-sm mt-3 leading-relaxed">{review.quote}</p>
+                      {review.photoDataUrl && (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img
+                          src={review.photoDataUrl}
+                          alt={`Photo from ${review.name}'s review`}
+                          className="mt-3 w-24 h-24 object-cover rounded-lg border border-gray-200"
+                        />
+                      )}
                     </div>
                   ))
                 )}
@@ -1236,7 +1280,9 @@ export default function ProductV2Page() {
                 <div className="bg-gray-50 border border-gray-200 rounded-2xl p-6 sm:p-8 h-fit">
                   <h3 className="font-bold text-gray-900 mb-1">Write a Review</h3>
                   <p className="text-gray-500 text-sm mb-5">
-                    Only verified purchasers can leave a review. We'll check your email against your order.
+                    {REQUIRE_VERIFIED_PURCHASE
+                      ? "Only verified purchasers can leave a review. We'll check your email against your order."
+                      : "Share your experience with Peak Performance."}
                   </p>
 
                   {reviewSuccess ? (
@@ -1302,6 +1348,37 @@ export default function ProductV2Page() {
                           onChange={(e) => setReviewQuote(e.target.value)}
                           className="w-full px-3 py-2 rounded-lg bg-white border border-gray-300 text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                         />
+                      </div>
+
+                      <div>
+                        <label htmlFor="review-photo" className="text-sm text-gray-700 mb-1 block">
+                          Photo <span className="text-gray-400">(optional)</span>
+                        </label>
+                        {reviewPhotoPreview ? (
+                          <div className="flex items-center gap-3">
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img
+                              src={reviewPhotoPreview}
+                              alt="Selected review photo preview"
+                              className="w-16 h-16 object-cover rounded-lg border border-gray-300"
+                            />
+                            <button
+                              type="button"
+                              onClick={clearReviewPhoto}
+                              className="text-sm text-gray-500 hover:text-red-500 transition-colors"
+                            >
+                              Remove
+                            </button>
+                          </div>
+                        ) : (
+                          <input
+                            id="review-photo"
+                            type="file"
+                            accept="image/*"
+                            onChange={handleReviewPhotoChange}
+                            className="w-full text-sm text-gray-600 file:mr-3 file:px-3 file:py-2 file:rounded-lg file:border-0 file:bg-primary/10 file:text-primary file:text-sm file:font-medium hover:file:bg-primary/20"
+                          />
+                        )}
                       </div>
 
                       {reviewError && <p className="text-red-500 text-sm">{reviewError}</p>}

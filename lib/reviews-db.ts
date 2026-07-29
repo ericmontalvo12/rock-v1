@@ -15,6 +15,8 @@ export interface Review {
   rating: number;
   quote: string;
   createdAt: string;
+  photoDataUrl: string | null;
+  verifiedPurchase: boolean;
 }
 
 async function ensureTable() {
@@ -29,13 +31,17 @@ async function ensureTable() {
       created_at TIMESTAMPTZ NOT NULL DEFAULT now()
     )
   `;
+  // Existing rows predate these columns and were all genuinely verified
+  // purchases (the gate was always on before), so default true is accurate.
+  await sql`ALTER TABLE reviews ADD COLUMN IF NOT EXISTS photo_data_url TEXT`;
+  await sql`ALTER TABLE reviews ADD COLUMN IF NOT EXISTS verified_purchase BOOLEAN NOT NULL DEFAULT true`;
 }
 
 export async function getReviews(): Promise<Review[]> {
   await ensureTable();
   const sql = getSql();
   const rows = (await sql`
-    SELECT id, name, rating, quote, created_at
+    SELECT id, name, rating, quote, created_at, photo_data_url, verified_purchase
     FROM reviews
     ORDER BY created_at DESC
   `) as Array<{
@@ -44,6 +50,8 @@ export async function getReviews(): Promise<Review[]> {
     rating: number;
     quote: string;
     created_at: string;
+    photo_data_url: string | null;
+    verified_purchase: boolean;
   }>;
 
   return rows.map((row) => ({
@@ -52,6 +60,8 @@ export async function getReviews(): Promise<Review[]> {
     rating: row.rating,
     quote: row.quote,
     createdAt: row.created_at,
+    photoDataUrl: row.photo_data_url,
+    verifiedPurchase: row.verified_purchase,
   }));
 }
 
@@ -67,12 +77,21 @@ export async function insertReview(params: {
   name: string;
   rating: number;
   quote: string;
+  photoDataUrl?: string | null;
+  verifiedPurchase: boolean;
 }) {
   await ensureTable();
   const sql = getSql();
   await sql`
-    INSERT INTO reviews (email, name, rating, quote)
-    VALUES (${params.email.toLowerCase()}, ${params.name}, ${params.rating}, ${params.quote})
+    INSERT INTO reviews (email, name, rating, quote, photo_data_url, verified_purchase)
+    VALUES (
+      ${params.email.toLowerCase()},
+      ${params.name},
+      ${params.rating},
+      ${params.quote},
+      ${params.photoDataUrl ?? null},
+      ${params.verifiedPurchase}
+    )
   `;
 }
 
