@@ -11,7 +11,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Check, ChevronDown, ArrowRight, Star, Shield, FlaskConical, FileText, Lock, Zap, TrendingUp, Target, Layers, X } from "lucide-react";
 import { getBundleTotal, getRegularBundleTotal, getPricePerBottle, isSaleActive } from "@/lib/sale";
 import { SaleCountdown } from "@/components/SaleCountdown";
-import { REQUIRE_VERIFIED_PURCHASE, MAX_REVIEW_PHOTO_BYTES } from "@/lib/reviews-config";
+import { MAX_REVIEW_PHOTO_BYTES } from "@/lib/reviews-config";
 
 const SALE_ACTIVE = isSaleActive();
 
@@ -1280,9 +1280,7 @@ export default function ProductV2Page() {
                 <div className="bg-gray-50 border border-gray-200 rounded-2xl p-6 sm:p-8 h-fit">
                   <h3 className="font-bold text-gray-900 mb-1">Write a Review</h3>
                   <p className="text-gray-500 text-sm mb-5">
-                    {REQUIRE_VERIFIED_PURCHASE
-                      ? "Only verified purchasers can leave a review. We'll check your email against your order."
-                      : "Share your experience with Peak Performance."}
+                    Only verified purchasers can leave a review. We'll check your email against your order.
                   </p>
 
                   {reviewSuccess ? (
