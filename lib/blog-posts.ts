@@ -172,7 +172,7 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       "Zinc gets most of the attention in the testosterone conversation. Magnesium plays an equally direct role in free testosterone — and it's one of the most common shortfalls in an active man's diet.",
     date: "July 14, 2026",
-    coverImage: "/magnesium-new.png",
+    coverImage: "/magnesium-and-testosterone-overlooked-mineral.jpg",
     content: [
       {
         type: "paragraph",
