@@ -201,7 +201,7 @@ export default function BlogPostPage({ params }: { params: Promise<{ slug: strin
                           <tr className="bg-gray-50 border-b border-gray-200">
                             <th className="text-left px-4 py-2.5 text-xs font-semibold text-gray-600 uppercase tracking-wide">Food</th>
                             <th className="text-left px-4 py-2.5 text-xs font-semibold text-gray-600 uppercase tracking-wide">Serving</th>
-                            <th className="text-left px-4 py-2.5 text-xs font-semibold text-gray-600 uppercase tracking-wide">Zinc</th>
+                            <th className="text-left px-4 py-2.5 text-xs font-semibold text-gray-600 uppercase tracking-wide">{section.nutrientLabel ?? "Zinc"}</th>
                             <th className="text-left px-4 py-2.5 text-xs font-semibold text-gray-600 uppercase tracking-wide hidden sm:table-cell">Bioavailability</th>
                           </tr>
                         </thead>

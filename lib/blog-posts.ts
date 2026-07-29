@@ -20,6 +20,7 @@ type Section = {
   mechanisms?: { title: string; text: string }[];
   risks?: { title: string; text: string }[];
   foods?: { food: string; serving: string; zinc: string; bioavailability: string }[];
+  nutrientLabel?: string;
   axes?: { title: string; steps: string[] }[];
   levels?: { level: string; title: string; text: string }[];
   mechanismCards?: { title: string; text: string }[];
@@ -27,6 +28,268 @@ type Section = {
 };
 
 export const blogPosts: BlogPost[] = [
+  {
+    slug: "how-to-read-a-supplement-label",
+    category: "Education",
+    title: "How to Read a Supplement Label Like Someone Who Knows What They're Looking At",
+    excerpt:
+      "Two products can list the exact same ingredient and mean completely different things. Here's what a label is legally required to disclose — and where the loopholes are.",
+    date: "July 21, 2026",
+    coverImage: "/supplement-facts-new.png",
+    content: [
+      {
+        type: "paragraph",
+        text: "Every supplement label follows roughly the same format: a panel, a serving size, a list of ingredients, some percentages. At a glance, they all look equally legitimate. That similarity is doing a lot of work for brands that don't want you looking closely, because the format is standardized — what's actually disclosed underneath it is not.",
+      },
+      {
+        type: "paragraph",
+        text: "Reading a label well isn't about being a chemist. It's about knowing which few numbers actually matter, which ones are decoration, and which gaps on the panel are gaps by design. Once you know what to look for, the difference between a real formula and a marketing exercise takes about thirty seconds to spot.",
+      },
+      {
+        type: "heading",
+        text: "What the label is legally required to tell you",
+      },
+      {
+        type: "paragraph",
+        text: "Dietary supplements in the U.S. are regulated under the Dietary Supplement Health and Education Act (DSHEA), passed by Congress in 1994. Under that framework, supplements are treated much closer to food than to medicine. A company doesn't need FDA approval, and doesn't need to prove a product works, before putting it on a shelf. The FDA's role is almost entirely after the fact — acting on products that are already being sold if they turn out to be mislabeled, contaminated, or unsafe.",
+      },
+      {
+        type: "stats-grid",
+        stats: [
+          { value: "1994", label: "DSHEA became law", description: "The year Congress passed the act that still governs how supplements are labeled and sold today." },
+          { value: "0", label: "Pre-market FDA reviews required", description: "Unlike prescription drugs, a supplement doesn't need FDA approval or a demonstrated safety/efficacy review before it's sold." },
+          { value: "3", label: "Things a real label discloses", description: "Ingredient name, its form, and its exact per-serving dose. A proprietary blend lets a brand skip the third one entirely." },
+        ],
+      },
+      {
+        type: "paragraph",
+        text: "This isn't a criticism of the industry as a whole — plenty of brands disclose everything and stand behind it. But the regulatory bar is low enough that the label alone won't tell you which category a product falls into. You have to know what to look for.",
+      },
+      {
+        type: "heading",
+        text: "The proprietary blend loophole",
+      },
+      {
+        type: "paragraph",
+        text: "This is the single most important thing to understand about supplement labels. If a product lists a \"blend\" — a Testosterone Complex, a Performance Matrix, whatever the marketing name is — the manufacturer is only required to disclose the total weight of that entire blend, not how much of each individual ingredient inside it. A blend can legally say \"1,000mg\" and contain ten ingredients without telling you whether any single one of them is present at a clinically meaningful dose.",
+      },
+      {
+        type: "callout",
+        text: "A 1,000mg \"Testosterone Support Blend\" could legally be 950mg of a cheap bulking agent and 50mg split across nine ingredients — including the one splashed across the front of the bottle. The label isn't lying. It's just not required to tell you the part that matters.",
+      },
+      {
+        type: "paragraph",
+        text: "There is one rule that works in your favor here: ingredients inside an undisclosed blend must still be listed in descending order by weight (this is standard FDA labeling practice, similar to how food ingredient lists work). That means if the ingredient you actually want is listed fourth or fifth out of six inside a blend, you can be fairly confident it's a small fraction of that blend's total weight — even without an exact number.",
+      },
+      {
+        type: "quote",
+        text: "A proprietary blend lets a brand show you the ingredient list without showing you the dose that matters.",
+      },
+      {
+        type: "heading",
+        text: "Why the exact dose is the whole story",
+      },
+      {
+        type: "paragraph",
+        text: "Clinical research on any given ingredient is conducted at a specific dose, in a specific form. Ashwagandha studied at 600mg of a standardized extract doesn't tell you anything about what happens at 50mg of an unstandardized root powder — even though both would legally be allowed to say \"Ashwagandha\" on the label. The ingredient name is not the active variable. The dose and the form are.",
+      },
+      {
+        type: "paragraph",
+        text: "This is why standardized extracts matter so much more than most people realize. An extract standardized to a specific percentage of its active compounds — for example, an ashwagandha extract guaranteed to contain 5% withanolides, or a tongkat ali extract concentrated to a verified 200:1 ratio — is telling you something concrete about potency. A label that just says \"ashwagandha root\" or \"tongkat ali extract\" with no standardization listed could be anywhere on the potency spectrum, and there's no way to know from the label alone.",
+      },
+      {
+        type: "heading",
+        text: "Serving size tricks",
+      },
+      {
+        type: "paragraph",
+        text: "The numbers on a supplement facts panel are almost always per serving, not per day — and the two aren't always the same thing. If a label's serving size is one capsule but the directions say \"take up to four capsules daily,\" the number on the panel is a quarter of what you'd actually be taking at the studied dose. Always multiply out to the full daily amount before comparing a product's dose to a clinical trial's dose.",
+      },
+      {
+        type: "paragraph",
+        text: "The reverse trick also shows up: a serving size defined as a large number of capsules can make a per-capsule cost look artificially low, or can make a single ingredient's total daily amount look more impressive than it is once you realize how many pills it takes to get there. Neither trick is illegal. Both are worth catching.",
+      },
+      {
+        type: "heading",
+        text: "Red flags worth slowing down for",
+      },
+      {
+        type: "risk-grid",
+        risks: [
+          { title: "Proprietary blend, no per-ingredient dose", text: "The single biggest red flag. If the ingredients that matter to you are buried in an undisclosed blend, you're trusting the brand's word, not the label." },
+          { title: "Ingredient names with no standardization", text: "\"Ashwagandha\" or \"Tongkat Ali\" without an extract name or active-compound percentage tells you almost nothing about potency." },
+          { title: "Clinical dose only reached at an unusual serving size", text: "If reaching the studied dose requires six or eight capsules a day, ask why the serving size wasn't just designed around the research in the first place." },
+          { title: "No manufacturing certification listed", text: "cGMP (current Good Manufacturing Practice) certification and third-party testing seals are voluntary but common among brands with nothing to hide. Their absence isn't proof of a problem, but their presence is a good sign." },
+          { title: "Structure/function claims that sound like drug claims", text: "By law, a supplement can only claim to \"support\" a bodily function, not treat, cure, or prevent a condition. Overly medical-sounding claims on packaging are a labeling compliance flag, not a bonus." },
+          { title: "Ingredient list in alphabetical order inside a blend", text: "Ingredients in a blend are supposed to be listed by descending weight. Alphabetical ordering inside what's marketed as a dosed blend is worth a second look." },
+        ],
+      },
+      {
+        type: "heading",
+        text: "What to look for instead",
+      },
+      {
+        type: "action-grid",
+        actions: [
+          { title: "Per-ingredient doses in milligrams", text: "Every active ingredient should have its own disclosed number, not a shared blend total." },
+          { title: "Named, standardized extracts", text: "Look for a specific extract name (KSM-66, Physta, etc.) or a stated percentage of active compounds — not just the plant name." },
+          { title: "Third-party testing seals", text: "NSF Certified for Sport, USP Verified, and Informed-Sport are independent programs that verify label accuracy and screen for banned substances." },
+          { title: "Doses that match or exceed the research", text: "Compare the daily total — not the per-serving number — against the doses used in the studies behind the ingredient." },
+          { title: "A clean 'Other Ingredients' line", text: "A short list of functional ingredients (capsule material, anti-caking agent) is normal. A long list of dyes, sweeteners, and fillers is worth questioning." },
+          { title: "cGMP-certified manufacturing", text: "Confirms the product was made in a facility that follows FDA-audited quality and consistency standards." },
+        ],
+      },
+      {
+        type: "heading",
+        text: "What 'Other Ingredients' actually means",
+      },
+      {
+        type: "paragraph",
+        text: "Below the active ingredient panel, most labels list \"Other Ingredients\" — and this line tends to alarm people who don't recognize the names. In most cases, it's nothing to worry about. Hypromellose is a plant-based capsule shell. Magnesium stearate and silicon dioxide are flow agents and anti-caking agents that keep powder from clumping during manufacturing, used in tiny amounts and present in the vast majority of capsules and tablets on the market, supplement or otherwise.",
+      },
+      {
+        type: "paragraph",
+        text: "The reasonable thing to watch for isn't the presence of manufacturing aids — it's the length and nature of the list. A handful of standard, functional ingredients is normal. A long list padded with artificial dyes, added sugars, or unnecessary preservatives is a sign the formula is being built for shelf appeal rather than function.",
+      },
+      {
+        type: "heading",
+        text: "The bottom line",
+      },
+      {
+        type: "paragraph",
+        text: "The regulatory bar for a supplement label is disclosure of the blend, not disclosure of the ingredient. That gap is exactly where most of the industry's marketing lives — impressive-sounding ingredient names, no verifiable dose behind them, and a label that's technically compliant while telling you almost nothing useful.",
+      },
+      {
+        type: "paragraph",
+        text: "You don't need a chemistry background to close that gap. You need three questions: Is every ingredient dosed individually, or hidden in a blend? Is the extract standardized, or just named? And does the daily total actually match what the research used? A label that answers all three is telling you something real. One that doesn't is asking you to trust the marketing instead.",
+      },
+    ],
+  },
+  {
+    slug: "magnesium-and-testosterone-overlooked-mineral",
+    category: "Nutrition",
+    title: "Magnesium and Testosterone: The Overlooked Mineral Most Active Men Are Short On",
+    excerpt:
+      "Zinc gets most of the attention in the testosterone conversation. Magnesium plays an equally direct role in free testosterone — and it's one of the most common shortfalls in an active man's diet.",
+    date: "July 14, 2026",
+    coverImage: "/magnesium-new.png",
+    content: [
+      {
+        type: "paragraph",
+        text: "Magnesium doesn't get the same billing as zinc or vitamin D in the testosterone conversation, but the research behind it is just as direct. It's a cofactor in more than 300 enzymatic reactions in the human body, several of them directly involved in hormone synthesis and signaling — and it's one of the more common shortfalls in the diet of men who train hard, sweat regularly, and don't think twice about their mineral intake.",
+      },
+      {
+        type: "paragraph",
+        text: "Most men associate magnesium with muscle cramps or sleep aids, if they think about it at all. Fewer know it has a measurable, mechanistic relationship with free testosterone — one that becomes more relevant, not less, the more physically active you are.",
+      },
+      {
+        type: "heading",
+        text: "What the research shows",
+      },
+      {
+        type: "paragraph",
+        text: "The most frequently cited human trial on this relationship comes from Cinar et al., published in Biological Trace Element Research in 2011. Over four weeks, sedentary subjects and trained athletes were given magnesium supplementation (dosed relative to body weight) while testosterone was measured both at rest and after exhaustive exercise. Both magnesium-supplemented groups saw increases in free and total testosterone — but the effect was meaningfully larger in the group that combined magnesium supplementation with regular training, compared to magnesium alone or exercise alone.",
+      },
+      {
+        type: "paragraph",
+        text: "That interaction is the interesting part. It suggests magnesium isn't just correcting a static deficiency — it's supporting the hormonal response your body is already trying to mount in reaction to training. A separate line of evidence comes from the InCHIANTI aging study (Maggio et al.), which followed older men and found serum magnesium levels positively correlated with total testosterone, free testosterone, and IGF-1 — independent of age. Lower magnesium status tracked with a lower hormonal profile across an aging population, which is exactly the group with the least room to spare.",
+      },
+      {
+        type: "heading",
+        text: "The SHBG mechanism",
+      },
+      {
+        type: "mechanism-list",
+        mechanisms: [
+          { title: "SHBG displacement", text: "Magnesium appears to bind sex hormone-binding globulin (SHBG) directly, reducing its affinity for testosterone. Since SHBG-bound testosterone is biologically inactive, this shifts more of your existing testosterone into the free, usable fraction — without requiring any change in total production." },
+          { title: "Enzymatic cofactor role", text: "Magnesium is required for hundreds of ATP-dependent enzymatic reactions, several of which sit inside the steroidogenesis pathway that converts cholesterol into testosterone. A shortfall doesn't shut the pathway down, but it does make it run below capacity." },
+          { title: "Vitamin D activation", text: "Magnesium is a required cofactor for the enzymes that convert vitamin D into its active hormonal form. A magnesium shortfall can blunt the benefit of vitamin D supplementation even when D3 intake looks adequate on paper — the two nutrients are working the same pathway together, not independently." },
+          { title: "Sleep and cortisol regulation", text: "Magnesium supports GABA receptor activity and helps regulate HPA axis reactivity, both of which affect sleep depth and cortisol clearance. Since deep sleep and lower cortisol are each independently tied to higher testosterone, magnesium status touches the hormonal picture from more than one direction at once." },
+        ],
+      },
+      {
+        type: "heading",
+        text: "Why active men are especially at risk",
+      },
+      {
+        type: "paragraph",
+        text: "Magnesium is lost through sweat in the same way zinc is, and it's not stored in any meaningful reserve the body can draw on indefinitely — daily intake matters. Regular training increases magnesium turnover and urinary excretion, which means the men putting in the most work in the gym are often the ones running the largest deficit, without any obvious symptom pointing back to the cause.",
+      },
+      {
+        type: "callout",
+        text: "National dietary surveys consistently find that a majority of adult men fall short of the RDA for magnesium from food alone — and that gap widens further for men in a caloric deficit, men who train heavily, or anyone eating a diet low in leafy greens, legumes, and seeds. Unlike a lot of nutritional shortfalls, this one rarely produces a symptom dramatic enough to prompt a blood test.",
+      },
+      {
+        type: "heading",
+        text: "Who's most at risk",
+      },
+      {
+        type: "risk-grid",
+        risks: [
+          { title: "Regular heavy training", text: "Sweat losses and increased turnover from consistent training raise daily magnesium requirements well above sedentary baselines." },
+          { title: "Regular alcohol consumption", text: "Alcohol increases urinary magnesium excretion directly, on top of typically displacing magnesium-rich foods in the diet." },
+          { title: "Caloric restriction or cutting", text: "Less food volume means less magnesium intake — at the exact time cortisol demand and training stress are often highest." },
+          { title: "Men over 40", text: "Intestinal magnesium absorption declines with age. Common medications in this age group, including certain diuretics and long-term proton pump inhibitors, further deplete magnesium status." },
+          { title: "High caffeine intake", text: "Caffeine's mild diuretic effect modestly increases magnesium losses, particularly when intake is high and spread throughout the day." },
+          { title: "Low-produce diets", text: "Magnesium is concentrated in leafy greens, seeds, legumes, and nuts. Diets built around processed food and lean protein with little produce are commonly short on it." },
+        ],
+      },
+      {
+        type: "heading",
+        text: "Dietary magnesium: where it comes from",
+      },
+      {
+        type: "food-table",
+        nutrientLabel: "Magnesium",
+        foods: [
+          { food: "Pumpkin seeds", serving: "1 oz", zinc: "~150mg", bioavailability: "High" },
+          { food: "Spinach (cooked)", serving: "½ cup", zinc: "~78mg", bioavailability: "Moderate (oxalates reduce uptake)" },
+          { food: "Almonds", serving: "1 oz", zinc: "~80mg", bioavailability: "Moderate (phytate reduced)" },
+          { food: "Black beans (cooked)", serving: "½ cup", zinc: "~60mg", bioavailability: "Moderate (phytate reduced)" },
+          { food: "Dark chocolate (70–85%)", serving: "1 oz", zinc: "~65mg", bioavailability: "High" },
+          { food: "Avocado", serving: "1 medium", zinc: "~58mg", bioavailability: "High" },
+          { food: "Salmon", serving: "3 oz cooked", zinc: "~26mg", bioavailability: "High" },
+        ],
+      },
+      {
+        type: "paragraph",
+        text: "The RDA for magnesium in adult men is 400–420mg per day, depending on age. A diet with consistent leafy greens, legumes, nuts, and seeds can reasonably approach that number — but it takes deliberate effort. A diet built around processed carbohydrates and lean protein with minimal produce commonly lands well short, often without any single dramatic red flag beyond the numbers not adding up.",
+      },
+      {
+        type: "heading",
+        text: "Supplementation: form matters as much as dose",
+      },
+      {
+        type: "paragraph",
+        text: "Not all magnesium supplements behave the same way in the body. Magnesium oxide is the cheapest and most common form in low-quality multivitamins, but it's poorly absorbed — a large fraction passes through the gut unabsorbed, which is why it's more often marketed as a laxative than a supplement for correcting a deficiency. Magnesium glycinate (bisglycinate) and magnesium citrate are both considerably better absorbed and are generally gentler on the GI tract, making them the more reasonable choice when the goal is actually correcting a shortfall rather than treating occasional constipation.",
+      },
+      {
+        type: "quote",
+        text: "Zinc gets most of the spotlight. Magnesium has been doing just as much work quietly in the background.",
+      },
+      {
+        type: "dosing-guide",
+        dosingGuide: [
+          { label: "300–400mg elemental magnesium (glycinate or citrate)", confidence: "high", text: "Falls within the range used in research showing hormonal and sleep benefits, in forms that are well-absorbed and well-tolerated." },
+          { label: "200–300mg magnesium oxide", confidence: "low", text: "Cheap and common, but poorly absorbed — a meaningful fraction passes through unused, and higher doses commonly cause GI upset before they correct a deficiency." },
+          { label: "Magnesium only as part of a multivitamin (typically under 50mg)", confidence: "low", text: "Rarely enough on its own to close an existing shortfall, particularly for men with elevated training-related losses." },
+          { label: "Supplemental magnesium above 350mg/day", confidence: "avoid", text: "The NIH's tolerable upper intake level for magnesium from supplements specifically — food sources aren't capped the same way. Going meaningfully beyond this raises the risk of GI upset without added benefit." },
+        ],
+      },
+      {
+        type: "heading",
+        text: "The bottom line",
+      },
+      {
+        type: "paragraph",
+        text: "Magnesium's role in testosterone isn't a single mechanism — it's a cofactor for the enzymes that make testosterone, a competitor that frees testosterone from SHBG, a requirement for activating the vitamin D you're already taking, and a lever on the sleep and cortisol systems that independently drive hormonal output. Few nutrients touch the picture from that many angles at once.",
+      },
+      {
+        type: "paragraph",
+        text: "For men training regularly, restricting calories, drinking occasionally, or simply not eating much in the way of leafy greens and legumes, a magnesium shortfall is one of the more plausible and correctable explanations for a hormonal picture that isn't where it should be. It rarely announces itself. It's worth checking for anyway.",
+      },
+    ],
+  },
   {
     slug: "why-most-testosterone-supplements-dont-work",
     category: "Testosterone",
