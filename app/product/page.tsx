@@ -1267,7 +1267,7 @@ export default function ProductV2Page() {
                         <img
                           src={review.photoDataUrl}
                           alt={`Photo from ${review.name}'s review`}
-                          className="mt-3 w-24 h-24 object-cover rounded-lg border border-gray-200"
+                          className="mt-3 w-36 h-36 sm:w-48 sm:h-48 object-cover rounded-lg border border-gray-200"
                         />
                       )}
                     </div>
