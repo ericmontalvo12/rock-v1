@@ -7,6 +7,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/lib/cart-context";
+import { isSaleActive } from "@/lib/sale";
+import { SaleCountdown } from "@/components/SaleCountdown";
 
 const navLinks = [
   { href: "/product", label: "Product" },
@@ -36,21 +38,25 @@ export function Header() {
       >
         {/* Desktop: static text */}
         <p className="hidden sm:block text-sm font-medium text-white whitespace-nowrap">
-          NOW IN STOCK <span className="text-text-muted mx-2">•</span> 30-DAY GUARANTEE        </p>
+          {isSaleActive() ? (
+            <>
+              20% OFF — $39.95/BOTTLE <span className="text-text-muted mx-2">•</span> ENDS IN <SaleCountdown className="font-semibold" />
+            </>
+          ) : (
+            <>NOW IN STOCK <span className="text-text-muted mx-2">•</span> 30-DAY GUARANTEE</>
+          )}
+        </p>
         {/* Mobile: scrolling marquee */}
         <div className="sm:hidden announceTrack">
-          <span className="text-xs font-medium text-white whitespace-nowrap">
-            NOW IN STOCK <span className="text-text-muted mx-2">•</span> 30-DAY GUARANTEE <span className="text-text-muted mx-2">•</span>
-          </span>
-          <span className="text-xs font-medium text-white whitespace-nowrap">
-            NOW IN STOCK <span className="text-text-muted mx-2">•</span> 30-DAY GUARANTEE <span className="text-text-muted mx-2">•</span>
-          </span>
-          <span className="text-xs font-medium text-white whitespace-nowrap">
-            NOW IN STOCK <span className="text-text-muted mx-2">•</span> 30-DAY GUARANTEE <span className="text-text-muted mx-2">•</span>
-          </span>
-          <span className="text-xs font-medium text-white whitespace-nowrap">
-            NOW IN STOCK <span className="text-text-muted mx-2">•</span> 30-DAY GUARANTEE <span className="text-text-muted mx-2">•</span>
-          </span>
+          {Array.from({ length: 4 }).map((_, i) => (
+            <span key={i} className="text-xs font-medium text-white whitespace-nowrap">
+              {isSaleActive() ? (
+                <>20% OFF — $39.95/BOTTLE <span className="text-text-muted mx-2">•</span> ENDS IN <SaleCountdown /> <span className="text-text-muted mx-2">•</span></>
+              ) : (
+                <>NOW IN STOCK <span className="text-text-muted mx-2">•</span> 30-DAY GUARANTEE <span className="text-text-muted mx-2">•</span></>
+              )}
+            </span>
+          ))}
         </div>
       </div>
       {/* Navbar */}

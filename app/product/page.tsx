@@ -9,8 +9,10 @@ import { Button } from "@/components/ui/button";
 import { useCart } from "@/lib/cart-context";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check, ChevronDown, ArrowRight, Star, Shield, FlaskConical, FileText, Lock, Zap, TrendingUp, Target, Layers, X } from "lucide-react";
+import { getBundleTotal, getRegularBundleTotal, getPricePerBottle, isSaleActive } from "@/lib/sale";
+import { SaleCountdown } from "@/components/SaleCountdown";
 
-const RETAIL_PRICE = 49.99;
+const SALE_ACTIVE = isSaleActive();
 
 const REVIEW_SUBMISSION_ENABLED = true;
 
@@ -18,24 +20,27 @@ const BUNDLES = [
   {
     qty: 1,
     label: "Buy 1 Bottle",
-    pricePerBottle: 49.99,
-    total: 49.99,
-    badge: null,
+    pricePerBottle: getPricePerBottle(1),
+    total: getBundleTotal(1),
+    regularTotal: getRegularBundleTotal(1),
+    badge: SALE_ACTIVE ? "20% OFF" : null,
     perks: ["$9.99 shipping", "30-day guarantee"],
   },
   {
     qty: 2,
     label: "Buy 2 Bottles",
-    pricePerBottle: parseFloat((94.99 / 2).toFixed(2)),
-    total: 94.99,
+    pricePerBottle: getPricePerBottle(2),
+    total: getBundleTotal(2),
+    regularTotal: getRegularBundleTotal(2),
     badge: "FREE SHIPPING",
     perks: ["Free shipping", "30-day guarantee"],
   },
   {
     qty: 3,
     label: "Buy 3 Bottles",
-    pricePerBottle: parseFloat((119.99 / 3).toFixed(2)),
-    total: 119.99,
+    pricePerBottle: getPricePerBottle(3),
+    total: getBundleTotal(3),
+    regularTotal: getRegularBundleTotal(3),
     badge: "BEST VALUE",
     perks: ["20% off", "Free shipping", "30-day guarantee"],
   },
@@ -729,6 +734,14 @@ export default function ProductV2Page() {
                 </div>
               </div>
 
+              {/* Sale banner */}
+              {SALE_ACTIVE && (
+                <div className="flex items-center justify-between gap-3 bg-primary/10 border border-primary/20 rounded-lg px-4 py-2.5 mb-4">
+                  <p className="text-sm font-semibold text-primary">20% Off Sale — Ends In</p>
+                  <SaleCountdown className="text-sm font-bold text-primary tabular-nums" />
+                </div>
+              )}
+
               {/* Bundle Options */}
               <div className="space-y-3 mb-4">
                 {BUNDLES.map((bundle) => (
@@ -765,7 +778,12 @@ export default function ProductV2Page() {
                         </div>
                       </div>
                       <div className="text-right">
-                        <p className="font-bold text-text-primary">${bundle.total.toFixed(2)}</p>
+                        <div className="flex items-center gap-1.5 justify-end">
+                          {bundle.total < bundle.regularTotal && (
+                            <p className="text-xs text-text-muted line-through">${bundle.regularTotal.toFixed(2)}</p>
+                          )}
+                          <p className="font-bold text-text-primary">${bundle.total.toFixed(2)}</p>
+                        </div>
                         {bundle.qty > 1 && (
                           <p className="text-xs text-text-muted">${bundle.pricePerBottle.toFixed(2)}/bottle</p>
                         )}
@@ -1349,9 +1367,16 @@ export default function ProductV2Page() {
       <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 md:hidden z-40">
         <div className="flex items-center justify-between gap-4">
           <div>
-            <p className="font-bold text-gray-900">
-              ${BUNDLES.find((b) => b.qty === selectedBundle)!.total.toFixed(2)}
-            </p>
+            <div className="flex items-center gap-1.5">
+              {SALE_ACTIVE && (
+                <p className="text-xs text-gray-400 line-through">
+                  ${BUNDLES.find((b) => b.qty === selectedBundle)!.regularTotal.toFixed(2)}
+                </p>
+              )}
+              <p className="font-bold text-gray-900">
+                ${BUNDLES.find((b) => b.qty === selectedBundle)!.total.toFixed(2)}
+              </p>
+            </div>
             <p className="text-xs text-gray-500">
               {selectedBundle} bottle{selectedBundle > 1 ? "s" : ""} • One-time
             </p>

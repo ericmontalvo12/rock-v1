@@ -1,5 +1,6 @@
 import Stripe from "stripe";
 import { NextResponse } from "next/server";
+import { getPricePerBottle } from "@/lib/sale";
 
 type CartItem = {
   name: string;
@@ -67,18 +68,27 @@ export async function POST(req: Request) {
     }
 
     // One-time payment checkout
+    // Peak Performance's price is recomputed here from quantity + the live
+    // sale window instead of trusting item.price, so a client can't check
+    // out at a stale sale price (or a tampered one) once the sale ends.
     const line_items: Stripe.Checkout.SessionCreateParams.LineItem[] =
-      cartItems.map((item) => ({
-        quantity: item.quantity,
-        price_data: {
-          currency: "usd",
-          unit_amount: Math.round(item.price * 100),
-          product_data: {
-            name: item.name,
-            ...(item.image ? { images: [item.image] } : {}),
+      cartItems.map((item) => {
+        const unitPrice =
+          item.name === "Peak Performance"
+            ? getPricePerBottle(item.quantity)
+            : item.price;
+        return {
+          quantity: item.quantity,
+          price_data: {
+            currency: "usd",
+            unit_amount: Math.round(unitPrice * 100),
+            product_data: {
+              name: item.name,
+              ...(item.image ? { images: [item.image] } : {}),
+            },
           },
-        },
-      }));
+        };
+      });
 
     const totalQuantity = cartItems.reduce((sum, item) => sum + item.quantity, 0);
     const shippingCost = totalQuantity >= 2 ? 0 : 999;
