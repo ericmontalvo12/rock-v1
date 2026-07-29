@@ -2,19 +2,9 @@
 
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 import { trackFbEvent } from "./fbpixel";
+import { getPricePerBottle } from "./sale";
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-// Pricing logic: price per bottle based on quantity
-function getPricePerBottle(quantity: number): number {
-  if (quantity >= 3) {
-    return parseFloat((119.99 / 3).toFixed(2)); // Buy 3 Bottles = $119.99
-  }
-  if (quantity === 2) {
-    return parseFloat((94.99 / 2).toFixed(2)); // Buy 2 Bottles = $94.99
-  }
-  return 49.99;
-}
 
 export interface CartItem {
   id: string;

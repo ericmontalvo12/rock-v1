@@ -8,6 +8,8 @@ import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/lib/cart-context";
 import { CheckoutButton } from "@/components/CheckoutButton";
+import { SaleCountdown } from "@/components/SaleCountdown";
+import { isSaleActive } from "@/lib/sale";
 import { Minus, Plus, Trash2, ShoppingBag } from "lucide-react";
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -177,9 +179,16 @@ export default function CartPage() {
           <h1 className="text-3xl sm:text-4xl font-bold text-text-primary mb-2">
             Your Cart
           </h1>
-          <p className="text-text-muted text-sm mb-8">
+          <p className="text-text-muted text-sm mb-4">
             In stock and ready to ship.
           </p>
+
+          {isSaleActive() && (
+            <div className="flex items-center justify-between gap-3 bg-primary/10 border border-primary/20 rounded-lg px-4 py-2.5 mb-6">
+              <p className="text-sm font-semibold text-primary">🔥 20% Off Sale — Ends In</p>
+              <SaleCountdown className="text-sm font-bold text-primary tabular-nums" />
+            </div>
+          )}
 
           <div className="grid lg:grid-cols-3 gap-8">
             {/* Cart Items */}
