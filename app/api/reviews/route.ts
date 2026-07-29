@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getReviews, hasReviewForEmail, insertReview, verifyPurchase } from "@/lib/reviews-db";
+import { REQUIRE_VERIFIED_PURCHASE, MAX_REVIEW_PHOTO_BYTES } from "@/lib/reviews-config";
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -18,7 +19,12 @@ export async function GET() {
 
 export async function POST(req: NextRequest) {
   try {
-    const { email, name, rating, quote } = await req.json();
+    const formData = await req.formData();
+    const email = formData.get("email");
+    const name = formData.get("name");
+    const rating = Number(formData.get("rating"));
+    const quote = formData.get("quote");
+    const photo = formData.get("photo");
 
     if (!email || typeof email !== "string" || !EMAIL_REGEX.test(email)) {
       return NextResponse.json({ error: "Enter a valid email." }, { status: 400 });
@@ -36,6 +42,18 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    let photoDataUrl: string | null = null;
+    if (photo instanceof File && photo.size > 0) {
+      if (!photo.type.startsWith("image/")) {
+        return NextResponse.json({ error: "Photo must be an image." }, { status: 400 });
+      }
+      if (photo.size > MAX_REVIEW_PHOTO_BYTES) {
+        return NextResponse.json({ error: "Photo must be under 2MB." }, { status: 400 });
+      }
+      const bytes = Buffer.from(await photo.arrayBuffer());
+      photoDataUrl = `data:${photo.type};base64,${bytes.toString("base64")}`;
+    }
+
     const alreadyReviewed = await hasReviewForEmail(email);
     if (alreadyReviewed) {
       return NextResponse.json(
@@ -44,8 +62,10 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    // Always check purchase status so the "Verified Buyer" badge stays
+    // accurate, even while REQUIRE_VERIFIED_PURCHASE is temporarily off.
     const verified = await verifyPurchase(email);
-    if (!verified) {
+    if (REQUIRE_VERIFIED_PURCHASE && !verified) {
       return NextResponse.json(
         {
           error:
@@ -55,7 +75,14 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    await insertReview({ email, name: name.trim(), rating, quote: quote.trim() });
+    await insertReview({
+      email,
+      name: name.trim(),
+      rating,
+      quote: quote.trim(),
+      photoDataUrl,
+      verifiedPurchase: verified,
+    });
     return NextResponse.json({ success: true });
   } catch (err) {
     console.error("Failed to submit review:", err);
