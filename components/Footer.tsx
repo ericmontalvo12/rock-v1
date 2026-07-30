@@ -4,7 +4,7 @@ const footerLinks = {
   product: [
     { label: "Peak Performance", href: "/product" },
     { label: "Inside The Formula", href: "/formula" },
-    { label: "Testimonials", href: "/#testimonials" },
+    { label: "Reviews", href: "/product#reviews" },
   ],
   company: [
     { label: "About", href: "/about" },
@@ -142,7 +142,18 @@ export function Footer() {
         </div>
 
         {/* Bottom */}
-        <div className="mt-12 pt-8 border-t border-gray-700">
+        <div className="mt-12 pt-8 border-t border-gray-700 space-y-4">
+          {/* Required for dietary supplements making structure/function claims (21 CFR 101.93) */}
+          <p className="text-xs text-gray-500 text-center max-w-3xl mx-auto leading-relaxed">
+            * These statements have not been evaluated by the Food and Drug
+            Administration. This product is not intended to diagnose, treat,
+            cure, or prevent any disease.
+          </p>
+          <p className="text-xs text-gray-500 text-center max-w-3xl mx-auto leading-relaxed">
+            Individual results vary. Consult your physician before starting any
+            supplement, especially if you are pregnant, nursing, under 18, have
+            a medical condition, or take prescription medication.
+          </p>
           <p className="text-sm text-gray-500 text-center">
             {new Date().getFullYear()} Rock Mountain Performance. All rights
             reserved.

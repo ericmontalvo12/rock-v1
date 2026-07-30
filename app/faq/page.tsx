@@ -1,6 +1,14 @@
 import React from "react";
+import type { Metadata } from "next";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+
+export const metadata: Metadata = {
+  title: "Frequently Asked Questions",
+  description:
+    "Answers to common questions about Peak Performance - who it's for, how to take it, what to expect, shipping, and our 30-day guarantee.",
+  alternates: { canonical: "/faq" },
+};
 
 const faqs = [
   {

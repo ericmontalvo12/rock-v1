@@ -2,17 +2,44 @@ import type { Metadata } from "next";
 import { Providers } from "@/components/Providers";
 import "./globals.css";
 
+export const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.rockmountainperformance.com";
+
+const DEFAULT_TITLE =
+  "Rock Mountain Performance | Research-Aligned Testosterone Support";
+const DEFAULT_DESCRIPTION =
+  "Science-backed testosterone support formula designed to support healthy testosterone levels, improve training performance, and optimize daily vitality.";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   icons: {
     icon: [
-      { url: "/logo-new.png", sizes: "32x32", type: "image/png" },
-      { url: "/logo-new.png", sizes: "192x192", type: "image/png" },
+      { url: "/favicon-32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-192.png", sizes: "192x192", type: "image/png" },
     ],
-    apple: { url: "/logo-new.png", sizes: "180x180" },
+    apple: { url: "/apple-touch-icon.png", sizes: "180x180" },
   },
-  title: "Rock Mountain Performance | Research-Aligned Testosterone Support",
-  description:
-    "Science-backed testosterone support formula designed to support healthy testosterone levels, improve training performance, and optimize daily vitality.",
+  // Child routes set only their own page name; this appends the brand.
+  title: {
+    default: DEFAULT_TITLE,
+    template: "%s | Rock Mountain Performance",
+  },
+  description: DEFAULT_DESCRIPTION,
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    siteName: "Rock Mountain Performance",
+    title: DEFAULT_TITLE,
+    description: DEFAULT_DESCRIPTION,
+    url: SITE_URL,
+    images: [{ url: "/product-bottle.png", width: 1200, height: 630, alt: "Peak Performance" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: DEFAULT_TITLE,
+    description: DEFAULT_DESCRIPTION,
+    images: ["/product-bottle.png"],
+  },
   keywords: [
     "testosterone support",
     "peak performance",

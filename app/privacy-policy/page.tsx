@@ -1,5 +1,13 @@
+import type { Metadata } from "next";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+
+export const metadata: Metadata = {
+  title: "Privacy Policy",
+  description:
+    "How Rock Mountain Performance collects, uses, and protects your personal information.",
+  alternates: { canonical: "/privacy-policy" },
+};
 
 export default function PrivacyPolicy() {
   return (

@@ -35,11 +35,17 @@ export function Hero() {
   return (
     <section ref={sectionRef} className="relative h-[100svh] sm:min-h-screen flex items-start sm:items-center pt-[72px] sm:pt-[88px] pb-0 sm:pb-0 overflow-hidden">
       {/* Background image - Mobile */}
+      {/* Both variants stay in the DOM (CSS decides which shows), so each one
+          declares a 1px width at the breakpoint where it's hidden. The browser
+          then picks the smallest srcset candidate for the hidden variant
+          instead of downloading a second full-size hero. */}
       <div className="absolute inset-0 top-[92px] sm:hidden">
         <Image
           src="/hero-mobile.jpg"
-          alt="Hero background"
+          alt=""
+          aria-hidden="true"
           fill
+          sizes="(max-width: 639px) 100vw, 1px"
           className="object-cover object-center"
           priority
         />
@@ -48,8 +54,10 @@ export function Hero() {
       <div className="absolute inset-0 top-[80px] hidden sm:block">
         <Image
           src="/hero-mountain.jpg"
-          alt="Hero background"
+          alt=""
+          aria-hidden="true"
           fill
+          sizes="(max-width: 639px) 1px, 100vw"
           className="object-cover object-[center_calc(20%_-_30px)]"
           priority
         />

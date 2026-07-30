@@ -1,5 +1,13 @@
+import type { Metadata } from "next";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+
+export const metadata: Metadata = {
+  title: "Refund & Returns Policy",
+  description:
+    "Our 30-day money-back guarantee, how refunds work, and how to start a return.",
+  alternates: { canonical: "/refund-policy" },
+};
 
 export default function RefundPolicy() {
   return (
