@@ -1,5 +1,13 @@
+import type { Metadata } from "next";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+
+export const metadata: Metadata = {
+  title: "Terms of Service",
+  description:
+    "The terms and conditions governing use of the Rock Mountain Performance website and purchases.",
+  alternates: { canonical: "/terms-of-service" },
+};
 
 export default function TermsOfService() {
   return (
