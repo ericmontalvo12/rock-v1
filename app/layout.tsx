@@ -2,8 +2,12 @@ import type { Metadata } from "next";
 import { Providers } from "@/components/Providers";
 import "./globals.css";
 
-export const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.rockmountainperformance.com";
+// The canonical production origin, used for canonical tags, OG URLs, the
+// sitemap, and JSON-LD. Deliberately NOT read from NEXT_PUBLIC_SITE_URL:
+// that var legitimately differs per environment (Stripe redirects need the
+// current deployment's URL), but a canonical must always name the real
+// production host or preview builds would tell Google to index preview URLs.
+export const SITE_URL = "https://www.rockmountainperformance.com";
 
 const DEFAULT_TITLE =
   "Rock Mountain Performance | Research-Aligned Testosterone Support";
