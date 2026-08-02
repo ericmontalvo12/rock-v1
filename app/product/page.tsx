@@ -524,6 +524,10 @@ export default function ProductV2Page() {
   const [reviews, setReviews] = useState<ProductReview[]>([]);
   const [reviewCount, setReviewCount] = useState(0);
   const [reviewAverage, setReviewAverage] = useState(0);
+  // Reviews are fetched after first paint. Until that resolves we must not
+  // render the "no reviews yet" empty state - it tells every visitor the
+  // product has zero reviews for the first second of their visit.
+  const [reviewsLoading, setReviewsLoading] = useState(true);
 
   const [reviewName, setReviewName] = useState("");
   const [reviewEmail, setReviewEmail] = useState("");
@@ -570,7 +574,8 @@ export default function ProductV2Page() {
         setReviewCount(data.count || 0);
         setReviewAverage(data.average || 0);
       })
-      .catch(() => {});
+      .catch(() => {})
+      .finally(() => setReviewsLoading(false));
   };
 
   useEffect(() => {
@@ -722,7 +727,10 @@ export default function ProductV2Page() {
               {/* Social Proof Bar */}
               {REVIEW_SUBMISSION_ENABLED && (
                 <div className="flex flex-wrap items-center justify-center gap-3 mb-4 text-sm">
-                  {reviewCount > 0 ? (
+                  {reviewsLoading ? (
+                    // Reserve the space instead of flashing "be the first".
+                    <div className="h-5 w-44 bg-gray-100 rounded animate-pulse" aria-hidden="true" />
+                  ) : reviewCount > 0 ? (
                     <>
                       <div className="flex items-center gap-1">
                         <StarRating rating={Math.round(reviewAverage)} />
@@ -1244,7 +1252,22 @@ export default function ProductV2Page() {
             <div className="grid lg:grid-cols-2 gap-8">
               {/* Review list */}
               <div className="space-y-4">
-                {reviews.length === 0 ? (
+                {reviewsLoading ? (
+                  // Placeholder cards while loading - never claim zero reviews.
+                  <div className="space-y-4" aria-hidden="true">
+                    {[0, 1, 2].map((i) => (
+                      <div
+                        key={i}
+                        className="bg-white border border-gray-200 rounded-2xl p-5 sm:p-6 animate-pulse"
+                      >
+                        <div className="h-4 w-28 bg-gray-200 rounded mb-3" />
+                        <div className="h-3.5 w-24 bg-gray-200 rounded mb-4" />
+                        <div className="h-3 w-full bg-gray-100 rounded mb-2" />
+                        <div className="h-3 w-4/5 bg-gray-100 rounded" />
+                      </div>
+                    ))}
+                  </div>
+                ) : reviews.length === 0 ? (
                   <div className="bg-gray-50 border border-gray-200 rounded-2xl p-8 text-center text-gray-500 text-sm">
                     No reviews yet. Be the first to share your experience.
                   </div>
