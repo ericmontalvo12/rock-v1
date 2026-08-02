@@ -1,24 +1,72 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 import Image from "next/image";
 import { useCart } from "@/lib/cart-context";
 
+// Once a visitor dismisses or claims the offer, we never ask again.
+const SEEN_KEY = "emailPopupSeen";
+
+// Never interrupt someone who is mid-purchase.
+const SUPPRESSED_PATHS = ["/cart", "/success", "/manage"];
+
+// Mobile has no mouseleave, so engagement stands in for exit intent:
+// they've read a meaningful chunk of the page, or spent real time on it.
+const MOBILE_SCROLL_DEPTH = 0.6;
+const MOBILE_DWELL_MS = 25000;
+
 export function EmailPopup() {
   const { setCustomerEmail } = useCart();
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [email, setEmail] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
+    if (SUPPRESSED_PATHS.some((p) => pathname?.startsWith(p))) return;
+    if (localStorage.getItem(SEEN_KEY)) return;
+
+    let done = false;
+    const open = () => {
+      if (done) return;
+      done = true;
+      // Mark on open, not on close, so a reload can't resurface it.
+      localStorage.setItem(SEEN_KEY, "1");
       setIsOpen(true);
-    }, 1500);
-    return () => clearTimeout(timer);
-  }, []);
+      cleanup();
+    };
+
+    // Desktop: cursor leaving through the top of the viewport.
+    const onMouseOut = (e: MouseEvent) => {
+      if (!e.relatedTarget && e.clientY <= 0) open();
+    };
+
+    const onScroll = () => {
+      const scrollable = document.body.scrollHeight - window.innerHeight;
+      if (scrollable > 0 && window.scrollY / scrollable >= MOBILE_SCROLL_DEPTH) open();
+    };
+
+    const isTouch = window.matchMedia("(hover: none)").matches;
+    let dwellTimer: ReturnType<typeof setTimeout> | undefined;
+
+    if (isTouch) {
+      window.addEventListener("scroll", onScroll, { passive: true });
+      dwellTimer = setTimeout(open, MOBILE_DWELL_MS);
+    } else {
+      document.addEventListener("mouseout", onMouseOut);
+    }
+
+    function cleanup() {
+      window.removeEventListener("scroll", onScroll);
+      document.removeEventListener("mouseout", onMouseOut);
+      if (dwellTimer) clearTimeout(dwellTimer);
+    }
+    return cleanup;
+  }, [pathname]);
 
   const handleClose = () => setIsOpen(false);
 
