@@ -692,27 +692,29 @@ export default function ProductV2Page() {
                 </div>
 
                 {/* Trust Badges */}
-                <div className="flex justify-center items-center -space-x-6 sm:-space-x-20 lg:-space-x-32 -mt-[30px]">
+                {/* Source art is square and full-bleed, so these need no
+                    negative margins to close up dead canvas space. */}
+                <div className="flex justify-center items-center gap-4 sm:gap-6 mt-6">
                   <Image
                     src="/gmp-certified.png"
                     alt="GMP Certified"
-                    width={300}
-                    height={300}
-                    className="w-24 h-24 sm:w-32 sm:h-32 lg:w-[300px] lg:h-[300px] object-contain"
+                    width={400}
+                    height={400}
+                    className="w-24 h-24 sm:w-28 sm:h-28 lg:w-36 lg:h-36 object-contain"
                   />
                   <Image
                     src="/made-in-usa.png"
                     alt="Made in USA"
-                    width={300}
-                    height={300}
-                    className="w-24 h-24 sm:w-32 sm:h-32 lg:w-[300px] lg:h-[300px] object-contain"
+                    width={400}
+                    height={400}
+                    className="w-24 h-24 sm:w-28 sm:h-28 lg:w-36 lg:h-36 object-contain"
                   />
                   <Image
                     src="/lab-tested.png"
                     alt="Lab Tested"
-                    width={300}
-                    height={300}
-                    className="w-24 h-24 sm:w-32 sm:h-32 lg:w-[300px] lg:h-[300px] object-contain"
+                    width={400}
+                    height={400}
+                    className="w-24 h-24 sm:w-28 sm:h-28 lg:w-36 lg:h-36 object-contain"
                   />
                 </div>
               </div>
