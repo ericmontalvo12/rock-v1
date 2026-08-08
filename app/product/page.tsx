@@ -694,27 +694,27 @@ export default function ProductV2Page() {
                 {/* Trust Badges */}
                 {/* Source art is square and full-bleed, so these need no
                     negative margins to close up dead canvas space. */}
-                <div className="flex justify-center items-center gap-4 sm:gap-6 mt-6">
+                <div className="flex justify-center items-center gap-3 min-[360px]:gap-4 sm:gap-6 mt-6">
                   <Image
                     src="/gmp-certified.png"
                     alt="GMP Certified"
                     width={400}
                     height={400}
-                    className="w-24 h-24 sm:w-28 sm:h-28 lg:w-36 lg:h-36 object-contain"
+                    className="w-20 h-20 min-[360px]:w-24 min-[360px]:h-24 sm:w-28 sm:h-28 lg:w-36 lg:h-36 object-contain"
                   />
                   <Image
                     src="/made-in-usa.png"
                     alt="Made in USA"
                     width={400}
                     height={400}
-                    className="w-24 h-24 sm:w-28 sm:h-28 lg:w-36 lg:h-36 object-contain"
+                    className="w-20 h-20 min-[360px]:w-24 min-[360px]:h-24 sm:w-28 sm:h-28 lg:w-36 lg:h-36 object-contain"
                   />
                   <Image
                     src="/lab-tested.png"
                     alt="Lab Tested"
                     width={400}
                     height={400}
-                    className="w-24 h-24 sm:w-28 sm:h-28 lg:w-36 lg:h-36 object-contain"
+                    className="w-20 h-20 min-[360px]:w-24 min-[360px]:h-24 sm:w-28 sm:h-28 lg:w-36 lg:h-36 object-contain"
                   />
                 </div>
               </div>
@@ -798,8 +798,11 @@ export default function ProductV2Page() {
                         : "border-border hover:border-gray-300"
                     }`}
                   >
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-3">
+                    {/* min-w-0 lets the label column shrink; without it flexbox
+                        keeps it at content width and squeezes the price until
+                        the number wraps mid-digit ("$39.9" / "5"). */}
+                    <div className="flex items-center justify-between gap-3">
+                      <div className="flex items-center gap-3 min-w-0">
                         <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
                           selectedBundle === bundle.qty ? "border-primary" : "border-gray-300"
                         }`}>
@@ -807,11 +810,11 @@ export default function ProductV2Page() {
                             <div className="w-2 h-2 rounded-full bg-primary" />
                           )}
                         </div>
-                        <div>
-                          <div className="flex items-center gap-2">
+                        <div className="min-w-0">
+                          <div className="flex items-center gap-2 flex-wrap">
                             <p className="font-semibold text-text-primary text-sm">{bundle.label}</p>
                             {bundle.badge && (
-                              <span className="text-xs font-bold text-primary bg-primary/10 px-2 py-0.5 rounded-full">
+                              <span className="text-xs font-bold text-primary bg-primary/10 px-2 py-0.5 rounded-full whitespace-nowrap">
                                 {bundle.badge}
                               </span>
                             )}
@@ -821,15 +824,15 @@ export default function ProductV2Page() {
                           </p>
                         </div>
                       </div>
-                      <div className="text-right">
+                      <div className="text-right flex-shrink-0">
                         <div className="flex items-center gap-1.5 justify-end">
                           {bundle.total < bundle.regularTotal && (
-                            <p className="text-xs text-text-muted line-through">${bundle.regularTotal.toFixed(2)}</p>
+                            <p className="text-xs text-text-muted line-through whitespace-nowrap">${bundle.regularTotal.toFixed(2)}</p>
                           )}
-                          <p className="font-bold text-text-primary">${bundle.total.toFixed(2)}</p>
+                          <p className="font-bold text-text-primary whitespace-nowrap">${bundle.total.toFixed(2)}</p>
                         </div>
                         {bundle.qty > 1 && (
-                          <p className="text-xs text-text-muted">${bundle.pricePerBottle.toFixed(2)}/bottle</p>
+                          <p className="text-xs text-text-muted whitespace-nowrap">${bundle.pricePerBottle.toFixed(2)}/bottle</p>
                         )}
                       </div>
                     </div>
