@@ -700,21 +700,21 @@ export default function ProductV2Page() {
                     alt="GMP Certified"
                     width={400}
                     height={400}
-                    className="w-20 h-20 min-[360px]:w-24 min-[360px]:h-24 sm:w-28 sm:h-28 lg:w-36 lg:h-36 object-contain"
+                    className="w-18 h-18 min-[360px]:w-22 min-[360px]:h-22 sm:w-25 sm:h-25 lg:w-32 lg:h-32 object-contain"
                   />
                   <Image
                     src="/made-in-usa.png"
                     alt="Made in USA"
                     width={400}
                     height={400}
-                    className="w-20 h-20 min-[360px]:w-24 min-[360px]:h-24 sm:w-28 sm:h-28 lg:w-36 lg:h-36 object-contain"
+                    className="w-18 h-18 min-[360px]:w-22 min-[360px]:h-22 sm:w-25 sm:h-25 lg:w-32 lg:h-32 object-contain"
                   />
                   <Image
                     src="/lab-tested.png"
                     alt="Lab Tested"
                     width={400}
                     height={400}
-                    className="w-20 h-20 min-[360px]:w-24 min-[360px]:h-24 sm:w-28 sm:h-28 lg:w-36 lg:h-36 object-contain"
+                    className="w-18 h-18 min-[360px]:w-22 min-[360px]:h-22 sm:w-25 sm:h-25 lg:w-32 lg:h-32 object-contain"
                   />
                 </div>
               </div>
