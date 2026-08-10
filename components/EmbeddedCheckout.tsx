@@ -10,6 +10,7 @@ import {
   EmbeddedCheckout as StripeEmbeddedCheckout,
 } from "@stripe/react-stripe-js";
 import { X } from "lucide-react";
+import { readCookie } from "@/lib/fbpixel";
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
@@ -38,10 +39,19 @@ export function EmbeddedCheckoutModal({
   onClose,
 }: EmbeddedCheckoutModalProps) {
   const fetchClientSecret = useCallback(async () => {
+    // Meta's browser cookies are the strongest ad-attribution signal, and the
+    // Stripe webhook has no browser context. Capture them here and carry them
+    // through the session so the server-side Purchase event can include them.
     const res = await fetch("/api/checkout-embedded", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ cartItems, promotionCodeId, email }),
+      body: JSON.stringify({
+        cartItems,
+        promotionCodeId,
+        email,
+        fbp: readCookie("_fbp"),
+        fbc: readCookie("_fbc"),
+      }),
     });
     const data = await res.json();
     if (!res.ok) throw new Error(data.error || "Failed to start checkout");

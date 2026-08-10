@@ -57,7 +57,28 @@ Warnings (as opposed to errors) about optional fields are fine to ignore.
 
 ---
 
-## 3. Check Meta Events Manager
+## 3. Add META_CAPI_ACCESS_TOKEN to Vercel  ← REQUIRED, tracking is off until this is set
+
+Purchase events now also send server-side from the Stripe webhook, which is
+the only path that fires for every order regardless of the customer's browser.
+That needs an access token, and until it exists the server-side half silently
+does nothing (it fails safe, orders are unaffected).
+
+**Steps:**
+1. Meta Events Manager -> select pixel `1812986660081810`
+2. **Settings** tab -> scroll to **Conversions API** -> **Generate access token**
+3. Copy the token
+4. Vercel -> project `rock-v1-6tkp` -> **Settings** -> **Environment Variables**
+5. Add `META_CAPI_ACCESS_TOKEN` = the token, scoped to **Production**
+6. Redeploy (env vars only apply to new builds)
+
+**Optional, for verification only:** also add `META_CAPI_TEST_EVENT_CODE` with
+the code from Events Manager -> Test Events. Remove it once verified, or all
+real events keep getting routed to the test stream instead of live reporting.
+
+---
+
+## 4. Check Meta Events Manager
 
 **What it means:** Confirming Facebook is actually receiving the purchase
 data we send. The code is correct — I verified all four events are wired and
@@ -76,7 +97,7 @@ session live if you want to confirm the pipe works end to end.
 
 ---
 
-## 4. Decide what happens when the sale ends — 28 Aug 2026
+## 5. Decide what happens when the sale ends — 28 Aug 2026
 
 Prices revert to $49.99 automatically and the countdown disappears on its own,
 so nothing breaks if you do nothing. But decide before the date whether you're
@@ -85,7 +106,7 @@ while ads are running. One line change in `lib/sale.ts`.
 
 ---
 
-## 5. Open engineering work (my side, not yours)
+## 6. Open engineering work (my side, not yours)
 
 - **LCP 6.5s** — render-blocking JS (est. 1,810 ms) and unused JS (254 KiB).
   The real performance bottleneck. Images are *not* the problem: Lighthouse
@@ -99,7 +120,5 @@ while ads are running. One line change in `lib/sale.ts`.
 
 ## Decisions for you (not bugs)
 
-- The email popup offers **5% off**, which is **$2.00** on a $39.95 bottle.
-  Probably too little to trade an email for. Raising it is a margin call.
-- A "20% OFF" banner plus a second 5% code can read as pricing games to a
-  cold visitor. Worth considering whether both should run at once.
+- A "20% OFF" banner plus the 10% `WELCOME10` code stacks to ~28% off the
+  original $49.99 ($35.96/bottle). Worth confirming the margin works.
