@@ -24,11 +24,19 @@ export async function POST(req: Request) {
     }
 
     const stripe = new Stripe(secretKey);
-    const { cartItems, promotionCodeId, email } = (await req.json()) as {
+    const { cartItems, promotionCodeId, email, fbp, fbc } = (await req.json()) as {
       cartItems: CartItem[];
       promotionCodeId?: string;
       email?: string;
+      fbp?: string | null;
+      fbc?: string | null;
     };
+
+    // Carried on the session so the webhook can attach them to the
+    // server-side Meta Purchase event, which has no browser context.
+    const metaMetadata: Record<string, string> = {};
+    if (fbp) metaMetadata.fbp = String(fbp).slice(0, 500);
+    if (fbc) metaMetadata.fbc = String(fbc).slice(0, 500);
 
     if (!Array.isArray(cartItems) || cartItems.length === 0) {
       return NextResponse.json({ error: "Cart is empty" }, { status: 400 });
@@ -60,6 +68,7 @@ export async function POST(req: Request) {
         mode: "subscription",
         line_items,
         ...(email ? { customer_email: email } : {}),
+        ...(Object.keys(metaMetadata).length ? { metadata: metaMetadata } : {}),
         shipping_address_collection: { allowed_countries: ["US"] },
         return_url: `${siteUrl}/success?session_id={CHECKOUT_SESSION_ID}`,
       });
@@ -94,6 +103,7 @@ export async function POST(req: Request) {
       ui_mode: "embedded",
       mode: "payment",
       line_items,
+      ...(Object.keys(metaMetadata).length ? { metadata: metaMetadata } : {}),
       ...(email ? { customer_email: email } : {}),
       ...(promotionCodeId
         ? { discounts: [{ promotion_code: promotionCodeId }] }

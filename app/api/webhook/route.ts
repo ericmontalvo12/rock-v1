@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
+import { sendPurchaseToMetaCapi } from "@/lib/meta-capi";
+import { SITE_URL } from "@/app/layout";
 
 export async function POST(req: NextRequest) {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
@@ -71,6 +73,32 @@ export async function POST(req: NextRequest) {
         });
       } catch (err) {
         console.error("Failed to send order confirmation to HighLevel:", err);
+      }
+
+      // Meta Purchase via the Conversions API.
+      // The browser also fires Purchase from /success, but only if the
+      // customer's browser actually loads the return_url - which frequently
+      // does not happen in in-app browsers. This webhook fires for every
+      // completed order, so it is the reliable path. Both carry the same
+      // event_id (the session id) and Meta dedupes them.
+      if (session.amount_total != null) {
+        await sendPurchaseToMetaCapi({
+          eventId: session.id,
+          value: session.amount_total / 100,
+          currency: session.currency || "usd",
+          email: session.customer_details?.email,
+          firstName: session.customer_details?.name?.split(" ")[0],
+          lastName: session.customer_details?.name?.split(" ").slice(1).join(" "),
+          phone: session.customer_details?.phone,
+          city: shippingAddress?.city,
+          state: shippingAddress?.state,
+          zip: shippingAddress?.postal_code,
+          country: shippingAddress?.country,
+          fbp: session.metadata?.fbp,
+          fbc: session.metadata?.fbc,
+          eventSourceUrl: `${SITE_URL}/success`,
+          testEventCode: process.env.META_CAPI_TEST_EVENT_CODE,
+        });
       }
 
       break;

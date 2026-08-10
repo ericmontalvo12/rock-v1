@@ -49,10 +49,16 @@ function SuccessContent() {
       .then((r) => r.json())
       .then((data) => {
         if (data.amountTotal != null) {
-          trackFbEvent("Purchase", {
-            value: data.amountTotal,
-            currency: (data.currency || "usd").toUpperCase(),
-          });
+          // Same event id the webhook sends to the Conversions API, so Meta
+          // dedupes the pair instead of counting the order twice.
+          trackFbEvent(
+            "Purchase",
+            {
+              value: data.amountTotal,
+              currency: (data.currency || "usd").toUpperCase(),
+            },
+            sessionId
+          );
           localStorage.setItem(trackedKey, "true");
         }
       })
