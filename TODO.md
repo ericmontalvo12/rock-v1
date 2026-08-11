@@ -57,47 +57,35 @@ Warnings (as opposed to errors) about optional fields are fine to ignore.
 
 ---
 
-## 3. Add META_CAPI_ACCESS_TOKEN to Vercel  ← REQUIRED, tracking is off until this is set
+## 3. Meta Purchase tracking — DONE ✅
 
-Purchase events now also send server-side from the Stripe webhook, which is
-the only path that fires for every order regardless of the customer's browser.
-That needs an access token, and until it exists the server-side half silently
-does nothing (it fails safe, orders are unaffected).
+Purchase events now send server-side from the Stripe webhook, which fires for
+every completed order regardless of whether the customer's browser reaches the
+thank-you page. This was the root cause of Ads Manager showing zero purchases
+against real orders.
 
-**Steps:**
-1. Meta Events Manager -> select pixel `1812986660081810`
-2. **Settings** tab -> scroll to **Conversions API** -> **Generate access token**
-3. Copy the token
-4. Vercel -> project `rock-v1-6tkp` -> **Settings** -> **Environment Variables**
-5. Add `META_CAPI_ACCESS_TOKEN` = the token, scoped to **Production**
-6. Redeploy (env vars only apply to new builds)
+Verified end to end: a resent Stripe webhook produced a clean Server Purchase
+in Meta Test Events, correct value and currency, and event-ID deduplication
+confirmed working. `META_CAPI_ACCESS_TOKEN` is live in Production and the
+temporary `META_CAPI_TEST_EVENT_CODE` has been removed.
 
-**Optional, for verification only:** also add `META_CAPI_TEST_EVENT_CODE` with
-the code from Events Manager -> Test Events. Remove it once verified, or all
-real events keep getting routed to the test stream instead of live reporting.
+**What to watch over the next week:** Purchase counts in Ads Manager should
+begin tracking your actual Stripe order count. Meta only attributes conversions
+going forward — past sales will not backfill.
 
----
-
-## 4. Check Meta Events Manager
-
-**What it means:** Confirming Facebook is actually receiving the purchase
-data we send. The code is correct — I verified all four events are wired and
-that Purchase reports the real Stripe amount and can't double-count. But
-correct code doesn't prove the events are arriving. If Purchase never lands,
-Meta can't learn who buys, so it shows your ads to random people.
-
-**Steps:**
-1. Open Meta Events Manager → select pixel `1812986660081810`
-2. Open the **Overview** or **Test Events** tab
-3. Confirm activity for: `PageView`, `AddToCart`, `InitiateCheckout`, `Purchase`
-
-`PageView` should show plenty. `Purchase` will show zero until a real sale
-happens — that alone isn't a bug. Use **Test Events** to watch your own
-session live if you want to confirm the pipe works end to end.
+**Optional follow-ups (neither is urgent):**
+- **Rotate `META_CAPI_ACCESS_TOKEN`.** It was pasted into a chat transcript
+  during setup. Its blast radius is limited to sending events to your own
+  pixel, but regenerating it in Events Manager and updating Vercel closes it
+  out. Two minutes.
+- **Enable phone collection at checkout.** Stripe currently never captures a
+  phone number, so that match field is always absent. Adding it would lift
+  Event Match Quality at the cost of one more checkout field. Worth doing once
+  you have conversion volume, not before.
 
 ---
 
-## 5. Decide what happens when the sale ends — 28 Aug 2026
+## 4. Decide what happens when the sale ends — 28 Aug 2026
 
 Prices revert to $49.99 automatically and the countdown disappears on its own,
 so nothing breaks if you do nothing. But decide before the date whether you're
@@ -106,7 +94,7 @@ while ads are running. One line change in `lib/sale.ts`.
 
 ---
 
-## 6. Open engineering work (my side, not yours)
+## 5. Open engineering work (my side, not yours)
 
 - **LCP 6.5s** — render-blocking JS (est. 1,810 ms) and unused JS (254 KiB).
   The real performance bottleneck. Images are *not* the problem: Lighthouse
