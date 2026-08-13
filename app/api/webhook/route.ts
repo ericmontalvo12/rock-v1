@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 import { sendPurchaseToMetaCapi } from "@/lib/meta-capi";
 import { SITE_URL } from "@/app/layout";
+import { upsertOrder, type OrderLineItem } from "@/lib/orders-db";
 
 export async function POST(req: NextRequest) {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
@@ -43,11 +44,48 @@ export async function POST(req: NextRequest) {
       console.log("Shipping Address:", session.collected_information?.shipping_details?.address || "N/A");
       console.log("=======================");
 
-      // TODO: Save order to database
-      // TODO: Update inventory
-
       const shippingDetails = session.collected_information?.shipping_details;
       const shippingAddress = shippingDetails?.address;
+
+      // Persist the order so it appears in the admin dashboard. Wrapped so a
+      // database blip can never cause Stripe to see a failed webhook and stop
+      // the confirmation email and Purchase event below from running.
+      if (session.amount_total != null) {
+        try {
+          let lineItems: OrderLineItem[] = [];
+          try {
+            const li = await stripe.checkout.sessions.listLineItems(session.id, { limit: 20 });
+            lineItems = li.data.map((item) => ({
+              description: item.description ?? "Item",
+              quantity: item.quantity ?? 1,
+              amountTotal: (item.amount_total ?? 0) / 100,
+            }));
+          } catch (err) {
+            console.error("Could not load line items for", session.id, err);
+          }
+
+          await upsertOrder({
+            stripeSessionId: session.id,
+            email: session.customer_details?.email ?? null,
+            customerName: session.customer_details?.name ?? null,
+            phone: session.customer_details?.phone ?? null,
+            amountTotal: session.amount_total / 100,
+            currency: session.currency ?? "usd",
+            paymentStatus: session.payment_status,
+            shippingName: shippingDetails?.name ?? null,
+            addressLine1: shippingAddress?.line1 ?? null,
+            addressLine2: shippingAddress?.line2 ?? null,
+            city: shippingAddress?.city ?? null,
+            state: shippingAddress?.state ?? null,
+            postalCode: shippingAddress?.postal_code ?? null,
+            country: shippingAddress?.country ?? null,
+            lineItems,
+            createdAt: new Date(session.created * 1000),
+          });
+        } catch (err) {
+          console.error("Failed to save order to database:", err);
+        }
+      }
 
       // Forward order to HighLevel for confirmation email
       try {

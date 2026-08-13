@@ -8,7 +8,7 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       // Transactional and account pages - no search value, and /success
       // can carry a Stripe session id in the query string.
-      disallow: ["/api/", "/cart", "/manage", "/success"],
+      disallow: ["/api/", "/admin", "/cart", "/manage", "/success"],
     },
     sitemap: `${SITE_URL}/sitemap.xml`,
   };

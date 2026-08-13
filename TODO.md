@@ -85,7 +85,51 @@ going forward — past sales will not backfill.
 
 ---
 
-## 4. Decide what happens when the sale ends — 28 Aug 2026
+## 4. Admin dashboard — set up before first use
+
+The dashboard lives at `/admin`. It will not work until three environment
+variables exist in Vercel (project `rock-v1-6tkp`, **Production**), and it
+fails closed — no password set means nobody gets in, including you.
+
+**Required:**
+
+1. `ADMIN_PASSWORD` — generate a long random one, do not invent it yourself.
+   In a terminal: `openssl rand -base64 32`
+   Treat this like the Stripe key. Anyone with it sees every customer's name,
+   email and shipping address.
+
+2. `ADMIN_SESSION_SECRET` — a second, different random value, 32+ characters.
+   `openssl rand -base64 48`
+   This signs the login cookie. Changing it later logs everyone out, which is
+   also how you revoke access if the password leaks.
+
+3. `GHL_TRACKING_WEBHOOK_URL` — see below.
+
+**Setting up the tracking email in GoHighLevel:**
+
+1. Create a new Workflow with an **Inbound Webhook** trigger
+2. Copy its webhook URL into `GHL_TRACKING_WEBHOOK_URL` in Vercel
+3. Add an email action using these fields, which the dashboard sends:
+   `email`, `first_name`, `full_name`, `order_id`, `carrier`,
+   `tracking_number`, `tracking_url`, `amount_total`, `currency`,
+   `shipping_name`, `shipping_address_line1`, `shipping_address_line2`,
+   `shipping_address_city`, `shipping_address_state`,
+   `shipping_address_postal_code`, `shipping_address_country`
+4. Make `tracking_url` a clickable link in the template — it is prebuilt for
+   USPS/UPS/FedEx/DHL, and empty for "Other / manual"
+5. Send it from the **same sender** as your order confirmations, or it lands
+   as a stranger in the customer's inbox and hurts deliverability
+
+**First run:** open `/admin`, sign in, then click **Import from Stripe** once.
+That pulls in every past paid order. It is safe to run repeatedly and never
+overwrites tracking numbers you have already entered.
+
+**Note:** login requires the database, so if Neon is down you cannot sign in.
+That is deliberate — the dashboard needs the database anyway.
+
+---
+
+## 5. Decide what happens when the sale ends — 28 Aug 2026
 
 Prices revert to $49.99 automatically and the countdown disappears on its own,
 so nothing breaks if you do nothing. But decide before the date whether you're
@@ -94,7 +138,7 @@ while ads are running. One line change in `lib/sale.ts`.
 
 ---
 
-## 5. Open engineering work (my side, not yours)
+## 6. Open engineering work (my side, not yours)
 
 - **LCP 6.5s** — render-blocking JS (est. 1,810 ms) and unused JS (254 KiB).
   The real performance bottleneck. Images are *not* the problem: Lighthouse
