@@ -307,19 +307,18 @@ export default function CartPage() {
                 {/* Email */}
                 <div className="mb-6">
                   <label htmlFor="email" className="text-sm text-text-secondary mb-2 block">
-                    Email <span className="text-text-muted">(for order updates)</span>
+                    Email <span className="text-text-muted">(optional)</span>
                   </label>
                   <input
                     id="email"
                     type="email"
-                    required
                     placeholder="you@example.com"
                     value={emailInput}
                     onChange={(e) => handleEmailChange(e.target.value)}
                     className="w-full px-3 py-2 rounded-lg bg-background border border-border text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-sm"
                   />
                   {emailInput.trim().length > 0 && !isValidEmail && (
-                    <p className="text-red-500 text-xs mt-1">Enter a valid email to continue.</p>
+                    <p className="text-text-muted text-xs mt-1">That doesn't look like a valid email.</p>
                   )}
                 </div>
 
@@ -378,11 +377,14 @@ export default function CartPage() {
                   )}
                 </div>
 
+                {/* Not gated on email: Stripe collects it on the next screen,
+                    so requiring it here blocked checkout for a field we were
+                    about to ask for anyway. It stays optional above purely to
+                    feed the abandoned-cart automation. */}
                 <CheckoutButton
                   cartItems={checkoutItems}
                   promotionCodeId={appliedPromo?.promotionCodeId}
-                  email={emailInput.trim()}
-                  disabled={!isValidEmail}
+                  email={isValidEmail ? emailInput.trim() : undefined}
                 />
 
                 <p className="text-xs text-text-muted text-center mt-4">

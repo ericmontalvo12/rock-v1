@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { EmbeddedCheckoutModal } from "@/components/EmbeddedCheckout";
+import { LazyCheckoutModal } from "@/components/LazyCheckoutModal";
 import { trackFbEvent } from "@/lib/fbpixel";
 
 interface CartItem {
@@ -45,7 +45,7 @@ export function CheckoutButton({ cartItems, className, disabled, promotionCodeId
       </Button>
 
       {showCheckout && (
-        <EmbeddedCheckoutModal
+        <LazyCheckoutModal
           cartItems={cartItems}
           promotionCodeId={promotionCodeId}
           email={email}

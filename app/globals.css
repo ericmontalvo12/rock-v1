@@ -99,3 +99,9 @@ body {
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
+
+/* Gallery crossfade. Pure CSS so the LCP image never depends on JS to paint. */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
