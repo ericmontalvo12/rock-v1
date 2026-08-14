@@ -12,6 +12,8 @@ import { Check, ChevronDown, ArrowRight, Star, Shield, FlaskConical, FileText, L
 import { getBundleTotal, getRegularBundleTotal, getPricePerBottle, isSaleActive } from "@/lib/sale";
 import { SaleCountdown } from "@/components/SaleCountdown";
 import { MAX_REVIEW_PHOTO_BYTES } from "@/lib/reviews-config";
+import { trackFbEvent } from "@/lib/fbpixel";
+import { LazyCheckoutModal } from "@/components/LazyCheckoutModal";
 
 const SALE_ACTIVE = isSaleActive();
 
@@ -503,7 +505,12 @@ export default function ProductV2Page() {
   const [addedToCart, setAddedToCart] = useState(false);
   const [activeImage, setActiveImage] = useState(0);
   const [selectedBundle, setSelectedBundle] = useState(1);
-  const { addToCart } = useCart();
+  const { addToCart, customerEmail } = useCart();
+  const [checkoutOpen, setCheckoutOpen] = useState(false);
+  const [checkoutPromoId, setCheckoutPromoId] = useState<string | undefined>();
+  const [checkoutItems, setCheckoutItems] = useState<
+    { name: string; price: number; quantity: number; image?: string }[]
+  >([]);
 
   const [activeTab, setActiveTab] = useState<TabId>("foundational");
   const [selectedIngredientIndex, setSelectedIngredientIndex] = useState(0);
@@ -621,8 +628,15 @@ export default function ProductV2Page() {
     }
   };
 
-  const handleAddToCart = () => {
+  /**
+   * Previously this only added to the cart and flashed "Added to Cart!",
+   * leaving the shopper on the page with no route forward - they had to find
+   * the header cart icon themselves. That was the largest drop-off in the
+   * funnel. Now it opens checkout directly.
+   */
+  const handleAddToCart = async () => {
     const bundle = BUNDLES.find((b) => b.qty === selectedBundle)!;
+
     addToCart(
       {
         id: "peak-performance",
@@ -634,6 +648,45 @@ export default function ProductV2Page() {
     );
     setAddedToCart(true);
     setTimeout(() => setAddedToCart(false), 2000);
+
+    setCheckoutItems([
+      {
+        name: "Peak Performance",
+        price: bundle.pricePerBottle,
+        quantity: bundle.qty,
+        image:
+          typeof window !== "undefined"
+            ? `${window.location.origin}/product-bottle.png`
+            : undefined,
+      },
+    ]);
+
+    // Honour a code claimed from the email popup. If it can't be validated we
+    // still open checkout - Stripe shows its own promo field as a fallback.
+    let promotionCodeId: string | undefined;
+    try {
+      const stored = localStorage.getItem("promoCode");
+      if (stored) {
+        const res = await fetch("/api/validate-promo", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ code: stored }),
+        });
+        if (res.ok) promotionCodeId = (await res.json()).promotionCodeId;
+      }
+    } catch {
+      // ignore - checkout still opens
+    }
+    setCheckoutPromoId(promotionCodeId);
+
+    trackFbEvent("InitiateCheckout", {
+      value: bundle.total,
+      currency: "USD",
+      num_items: bundle.qty,
+      content_type: "product",
+    });
+
+    setCheckoutOpen(true);
   };
 
   return (
@@ -647,25 +700,23 @@ export default function ProductV2Page() {
               <div className="lg:sticky lg:top-32">
                 {/* Main Image */}
                 <div className="rounded-2xl border border-border overflow-hidden flex items-center justify-center max-w-[500px] lg:max-w-none mx-auto mb-4 lg:w-[550px] bg-neutral-100">
-                  <AnimatePresence mode="wait">
-                    <motion.div
-                      key={activeImage}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.2 }}
-                      className="w-full h-full"
-                    >
-                      <Image
-                        src={galleryImages[activeImage].src}
-                        alt={galleryImages[activeImage].alt}
-                        width={550}
-                        height={650}
-                        className="w-full h-auto"
-                        priority
-                      />
-                    </motion.div>
-                  </AnimatePresence>
+                  {/* No entrance animation here on purpose. This is the LCP
+                      element: wrapping it in a motion.div that starts at
+                      opacity 0 shipped it to the browser invisible, so despite
+                      `priority` preloading it, it could not paint until the
+                      whole JS bundle had downloaded and hydrated. A CSS
+                      crossfade keyed on the image keeps the gallery transition
+                      without blocking first paint. */}
+                  <div key={activeImage} className="w-full h-full animate-[fadeIn_200ms_ease-out]">
+                    <Image
+                      src={galleryImages[activeImage].src}
+                      alt={galleryImages[activeImage].alt}
+                      width={550}
+                      height={650}
+                      className="w-full h-auto"
+                      priority
+                    />
+                  </div>
                 </div>
 
                 {/* Thumbnail Strip */}
@@ -1483,6 +1534,15 @@ export default function ProductV2Page() {
           </Button>
         </div>
       </div>
+
+      {checkoutOpen && (
+        <LazyCheckoutModal
+          cartItems={checkoutItems}
+          promotionCodeId={checkoutPromoId}
+          email={customerEmail || undefined}
+          onClose={() => setCheckoutOpen(false)}
+        />
+      )}
 
       <Footer />
     </div>

@@ -136,13 +136,28 @@ export function CartProvider({ children }: { children: ReactNode }) {
       return [...prev, { ...item, quantity, price: getPricePerBottle(quantity) }];
     });
 
-    trackFbEvent("AddToCart", {
-      content_name: item.name,
-      content_ids: [item.id],
-      content_type: "product",
-      value: getPricePerBottle(quantity) * quantity,
-      currency: "USD",
-    });
+    // Several buttons on the product page add the same item (main CTA, mobile
+    // sticky bar, final CTA). Without this, one shopper comparing bundles fires
+    // three AddToCart events and the funnel looks far worse than it is. Only
+    // report a distinct item+quantity once per browser session.
+    const signature = `${item.id}:${quantity}`;
+    let alreadyReported = false;
+    try {
+      alreadyReported = sessionStorage.getItem("fbAddToCart") === signature;
+      if (!alreadyReported) sessionStorage.setItem("fbAddToCart", signature);
+    } catch {
+      // sessionStorage can throw in private mode; fall back to always sending.
+    }
+
+    if (!alreadyReported) {
+      trackFbEvent("AddToCart", {
+        content_name: item.name,
+        content_ids: [item.id],
+        content_type: "product",
+        value: getPricePerBottle(quantity) * quantity,
+        currency: "USD",
+      });
+    }
   };
 
   const removeFromCart = (id: string) => {
