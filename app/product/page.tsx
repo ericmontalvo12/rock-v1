@@ -894,7 +894,7 @@ export default function ProductV2Page() {
               {/* CTA */}
               <div className="mb-4">
                 <Button size="lg" className="w-full" onClick={handleAddToCart}>
-                  {addedToCart ? "Added to Cart!" : "Add to Cart"}
+                  {addedToCart ? "Opening…" : "Buy Now"}
                 </Button>
               </div>
               <div className="flex flex-wrap justify-center gap-x-4 gap-y-1 mb-8 text-xs text-text-muted">
@@ -1497,7 +1497,7 @@ export default function ProductV2Page() {
                     onClick={handleAddToCart}
                     className="bg-white text-[#4A8BC9] hover:bg-white/90 px-12"
                   >
-                    {addedToCart ? "Added to Cart!" : "Buy Now"}
+                    {addedToCart ? "Opening…" : "Buy Now"}
                   </Button>
                   <div className="flex flex-wrap justify-center sm:justify-start gap-x-4 gap-y-1 mt-4 text-sm text-white/80">
                     <span className="flex items-center gap-1.5"><Check className="w-4 h-4" />30-Day Guarantee</span>
@@ -1530,7 +1530,7 @@ export default function ProductV2Page() {
             </p>
           </div>
           <Button className="flex-1" onClick={handleAddToCart}>
-            {addedToCart ? "Added!" : "Add to Cart"}
+            {addedToCart ? "Opening…" : "Buy Now"}
           </Button>
         </div>
       </div>
