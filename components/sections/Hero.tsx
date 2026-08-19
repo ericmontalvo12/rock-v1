@@ -120,12 +120,6 @@ export function Hero() {
                   Buy Now
                 </Button>
               </Link>
-              {/* Secondary CTA - hidden on mobile */}
-              <Link href="/formula" className="hidden sm:block sm:w-auto">
-                <Button size="lg" variant="outline" className="w-full sm:w-auto h-12 text-base rounded-lg sm:px-8 border-white/80 text-white hover:bg-white/10">
-                  Inside the Formula
-                </Button>
-              </Link>
             </div>
 
             {/* Shipping note */}

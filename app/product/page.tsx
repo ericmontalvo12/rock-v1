@@ -66,7 +66,6 @@ const corePrinciples = [
 
 const galleryImages = [
   { src: "/product-bottle.png", alt: "Peak Performance Bottle" },
-  { src: "/product-lifestyle.jpg", alt: "Higher Testosterone & Free Testosterone Availability" },
   { src: "/supplement-facts-new.png", alt: "Supplement Facts" },
   { src: "/how-to-use.jpg", alt: "How to Use" },
 ];
