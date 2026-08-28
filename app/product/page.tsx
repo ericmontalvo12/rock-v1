@@ -588,6 +588,20 @@ export default function ProductV2Page() {
     loadReviews();
   }, []);
 
+  // ViewContent on the product page. Meta uses this to build product-viewer
+  // audiences for retargeting and as the funnel step between PageView and
+  // AddToCart; without it there is nothing for catalog/Advantage+ features to
+  // key off. Fires once per visit to this page.
+  useEffect(() => {
+    trackFbEvent("ViewContent", {
+      content_name: "Peak Performance",
+      content_ids: ["peak-performance"],
+      content_type: "product",
+      value: getPricePerBottle(1),
+      currency: "USD",
+    });
+  }, []);
+
   const handleSubmitReview = async (e: React.FormEvent) => {
     e.preventDefault();
     setReviewError("");
