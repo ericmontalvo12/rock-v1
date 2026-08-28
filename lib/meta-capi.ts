@@ -35,6 +35,16 @@ export interface PurchaseEventInput {
   /** Meta browser cookies captured at checkout; the strongest ad-attribution signal. */
   fbp?: string | null;
   fbc?: string | null;
+  /**
+   * The customer's IP and user agent, captured when the checkout session was
+   * created. They cannot be read in the webhook - that request comes from
+   * Stripe's servers, so the headers there describe Stripe, not the buyer.
+   * Meta weights both heavily for attribution.
+   */
+  clientIpAddress?: string | null;
+  clientUserAgent?: string | null;
+  /** Stable per-customer id (Stripe customer id, else email). Hashed before sending. */
+  externalId?: string | null;
   eventSourceUrl?: string | null;
   /** Set only while verifying in Events Manager -> Test Events. */
   testEventCode?: string | null;
@@ -81,6 +91,14 @@ export async function sendPurchaseToMetaCapi(
   // Cookies are NOT hashed.
   if (input.fbp) userData.fbp = input.fbp;
   if (input.fbc) userData.fbc = input.fbc;
+
+  // IP and user agent are sent in the clear - Meta matches on the raw values.
+  if (input.clientIpAddress) userData.client_ip_address = input.clientIpAddress;
+  if (input.clientUserAgent) userData.client_user_agent = input.clientUserAgent;
+
+  // external_id is hashed like the other identifiers.
+  const externalId = hash(input.externalId);
+  if (externalId) userData.external_id = [externalId];
 
   const payload = {
     data: [

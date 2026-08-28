@@ -34,9 +34,26 @@ export async function POST(req: Request) {
 
     // Carried on the session so the webhook can attach them to the
     // server-side Meta Purchase event, which has no browser context.
+    //
+    // This request comes from the customer's browser, so these headers
+    // describe the actual buyer. The Stripe webhook cannot read them - that
+    // request originates from Stripe's servers.
+    //
+    // x-forwarded-for is a comma-separated chain; the first entry is the
+    // client. Stripe metadata caps values at 500 characters.
+    const forwardedFor = req.headers.get("x-forwarded-for");
+    const clientIp =
+      forwardedFor?.split(",")[0].trim() ||
+      req.headers.get("x-real-ip") ||
+      req.headers.get("x-vercel-forwarded-for") ||
+      null;
+    const userAgent = req.headers.get("user-agent");
+
     const metaMetadata: Record<string, string> = {};
     if (fbp) metaMetadata.fbp = String(fbp).slice(0, 500);
     if (fbc) metaMetadata.fbc = String(fbc).slice(0, 500);
+    if (clientIp) metaMetadata.client_ip = clientIp.slice(0, 100);
+    if (userAgent) metaMetadata.client_ua = userAgent.slice(0, 500);
 
     if (!Array.isArray(cartItems) || cartItems.length === 0) {
       return NextResponse.json({ error: "Cart is empty" }, { status: 400 });
