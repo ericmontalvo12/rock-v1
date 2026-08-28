@@ -134,6 +134,17 @@ export async function POST(req: NextRequest) {
           country: shippingAddress?.country,
           fbp: session.metadata?.fbp,
           fbc: session.metadata?.fbc,
+          // Captured from the browser when the session was created. The
+          // headers on THIS request belong to Stripe's servers, not the buyer.
+          clientIpAddress: session.metadata?.client_ip,
+          clientUserAgent: session.metadata?.client_ua,
+          // Stable per-customer id. Prefer the Stripe customer id; guest
+          // checkouts have none, so fall back to the email (hashed in
+          // meta-capi.ts either way).
+          externalId:
+            (typeof session.customer === "string"
+              ? session.customer
+              : session.customer?.id) ?? session.customer_details?.email,
           eventSourceUrl: `${SITE_URL}/success`,
           testEventCode: process.env.META_CAPI_TEST_EVENT_CODE,
         });
