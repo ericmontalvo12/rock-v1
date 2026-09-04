@@ -397,7 +397,7 @@ const productSections = [
           </ul>
         </div>
         <p className="text-sm text-text-muted text-center">
-          Each dose matches or exceeds what was used in peer-reviewed human studies. No label dressing. No filler.
+          Every ingredient is dosed at levels informed by peer-reviewed human research. No proprietary blends. No filler.
         </p>
         <div className="text-center pt-2">
           <button
