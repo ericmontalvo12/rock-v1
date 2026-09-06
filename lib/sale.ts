@@ -35,3 +35,6 @@ export function getPricePerBottle(quantity: number, atDate: Date = new Date()): 
 export function getRegularPricePerBottle(quantity: number): number {
   return parseFloat((getRegularBundleTotal(quantity) / tierFor(quantity)).toFixed(2));
 }
+
+export const SUBSCRIPTION_PRICE = 39.99;
+export const SUBSCRIPTION_PRICE_CENTS = 3999;

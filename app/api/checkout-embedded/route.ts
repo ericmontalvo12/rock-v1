@@ -1,6 +1,6 @@
 import Stripe from "stripe";
 import { NextResponse } from "next/server";
-import { getPricePerBottle } from "@/lib/sale";
+import { getPricePerBottle, SUBSCRIPTION_PRICE_CENTS } from "@/lib/sale";
 
 type CartItem = {
   name: string;
@@ -62,54 +62,71 @@ export async function POST(req: Request) {
     const isSubscription = cartItems.some((item) => item.isSubscription);
 
     if (isSubscription) {
-      // Subscription checkout
-      const line_items: Stripe.Checkout.SessionCreateParams.LineItem[] =
-        cartItems.map((item) => ({
-          quantity: item.quantity,
-          price_data: {
-            currency: "usd",
-            unit_amount: Math.round(item.price * 100),
-            product_data: {
-              name: item.name,
-              ...(item.image ? { images: [item.image] } : {}),
-            },
-            recurring: {
-              interval: "month" as const,
-              interval_count: item.subscriptionIntervalCount ?? 1,
-            },
-          },
-        }));
+      // Subscription: exactly 1 bottle of Peak Performance at the
+      // server-enforced monthly price. Nothing from the client is trusted.
+      const subItem = cartItems.find((item) => item.isSubscription);
+      if (!subItem || subItem.name !== "Peak Performance") {
+        return NextResponse.json(
+          { error: "Subscriptions are only available for Peak Performance." },
+          { status: 400 }
+        );
+      }
+
+      const subscriptionPriceId = process.env.STRIPE_SUBSCRIPTION_PRICE_ID;
+      if (!subscriptionPriceId) {
+        console.error("Missing STRIPE_SUBSCRIPTION_PRICE_ID env var");
+        return NextResponse.json(
+          { error: "Subscription checkout is not configured." },
+          { status: 500 }
+        );
+      }
 
       const session = await stripe.checkout.sessions.create({
         ui_mode: "embedded",
         mode: "subscription",
-        line_items,
+        line_items: [{ price: subscriptionPriceId, quantity: 1 }],
         ...(email ? { customer_email: email } : {}),
-        ...(Object.keys(metaMetadata).length ? { metadata: metaMetadata } : {}),
+        ...(Object.keys(metaMetadata).length
+          ? { subscription_data: { metadata: metaMetadata } }
+          : {}),
+        allow_promotion_codes: true,
         shipping_address_collection: { allowed_countries: ["US"] },
+        shipping_options: [
+          {
+            shipping_rate_data: {
+              type: "fixed_amount",
+              fixed_amount: { amount: 0, currency: "usd" },
+              display_name: "Free Shipping",
+              delivery_estimate: {
+                minimum: { unit: "business_day", value: 4 },
+                maximum: { unit: "business_day", value: 7 },
+              },
+            },
+          },
+        ],
         return_url: `${siteUrl}/success?session_id={CHECKOUT_SESSION_ID}`,
       });
 
       return NextResponse.json({ clientSecret: session.client_secret });
     }
 
-    // One-time payment checkout
-    // Peak Performance's price is recomputed here from quantity + the live
-    // sale window instead of trusting item.price, so a client can't check
-    // out at a stale sale price (or a tampered one) once the sale ends.
+    // One-time payment checkout — only Peak Performance is accepted.
+    // Price is recomputed server-side from quantity + the live sale window,
+    // so a client can't check out at a stale or tampered price.
     const line_items: Stripe.Checkout.SessionCreateParams.LineItem[] =
       cartItems.map((item) => {
-        const unitPrice =
-          item.name === "Peak Performance"
-            ? getPricePerBottle(item.quantity)
-            : item.price;
+        if (item.name !== "Peak Performance") {
+          throw new Error(`Unknown product: ${item.name}`);
+        }
+        const quantity = Math.max(1, Math.min(Math.floor(item.quantity), 10));
+        const unitPrice = getPricePerBottle(quantity);
         return {
-          quantity: item.quantity,
+          quantity,
           price_data: {
             currency: "usd",
             unit_amount: Math.round(unitPrice * 100),
             product_data: {
-              name: item.name,
+              name: "Peak Performance",
               ...(item.image ? { images: [item.image] } : {}),
             },
           },
