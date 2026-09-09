@@ -8,8 +8,8 @@ import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/lib/cart-context";
 import { motion, AnimatePresence } from "framer-motion";
-import { Check, ChevronDown, ChevronLeft, ChevronRight, ArrowRight, Star, X, Minus, Plus } from "lucide-react";
-import { getBundleTotal, getRegularBundleTotal, getPricePerBottle, getRegularPricePerBottle, isSaleActive, SUBSCRIPTION_PRICE } from "@/lib/sale";
+import { Check, ChevronDown, ChevronLeft, ChevronRight, ArrowRight, Star, Shield, FlaskConical, FileText, Lock, Zap, TrendingUp, Target, Layers, X } from "lucide-react";
+import { getBundleTotal, getRegularBundleTotal, getPricePerBottle, isSaleActive } from "@/lib/sale";
 import { SaleCountdown } from "@/components/SaleCountdown";
 import { MAX_REVIEW_PHOTO_BYTES } from "@/lib/reviews-config";
 import { trackFbEvent } from "@/lib/fbpixel";
@@ -19,55 +19,48 @@ const SALE_ACTIVE = isSaleActive();
 
 const REVIEW_SUBMISSION_ENABLED = true;
 
-type BundleOption = {
-  id: string;
-  qty: number;
-  label: string;
-  total: number;
-  regularTotal: number;
-  pricePerBottle: number;
-  badge: string | null;
-  perks: string[];
-  isSubscription: boolean;
-  priceSuffix: string;
-};
-
-const BUNDLES: BundleOption[] = [
+const BUNDLES = [
   {
-    id: "subscribe",
     qty: 1,
-    label: "Monthly Subscription",
-    total: SUBSCRIPTION_PRICE,
-    regularTotal: getRegularBundleTotal(1),
-    pricePerBottle: SUBSCRIPTION_PRICE,
-    badge: "MOST POPULAR",
-    perks: ["Free shipping", "Cancel anytime", "30-day guarantee"],
-    isSubscription: true,
-    priceSuffix: "/mo",
-  },
-  {
-    id: "bundle-3",
-    qty: 3,
-    label: "3-Bottle Protocol",
-    total: getBundleTotal(3),
-    regularTotal: getRegularBundleTotal(3),
-    pricePerBottle: getPricePerBottle(3),
-    badge: "BEST RESULTS",
-    perks: ["20% off", "Free shipping", "30-day guarantee"],
-    isSubscription: false,
-    priceSuffix: "",
-  },
-  {
-    id: "one-time",
-    qty: 1,
-    label: "One-Time Purchase",
+    label: "Buy 1 Bottle",
+    pricePerBottle: getPricePerBottle(1),
     total: getBundleTotal(1),
     regularTotal: getRegularBundleTotal(1),
-    pricePerBottle: getPricePerBottle(1),
+    badge: SALE_ACTIVE ? "20% OFF" : null,
+    perks: ["Free shipping", "30-day guarantee"],
+  },
+  {
+    qty: 2,
+    label: "Buy 2 Bottles",
+    pricePerBottle: getPricePerBottle(2),
+    total: getBundleTotal(2),
+    regularTotal: getRegularBundleTotal(2),
     badge: null,
     perks: ["Free shipping", "30-day guarantee"],
-    isSubscription: false,
-    priceSuffix: "",
+  },
+  {
+    qty: 3,
+    label: "Buy 3 Bottles",
+    pricePerBottle: getPricePerBottle(3),
+    total: getBundleTotal(3),
+    regularTotal: getRegularBundleTotal(3),
+    badge: "BEST VALUE",
+    perks: ["20% off", "Free shipping", "30-day guarantee"],
+  },
+];
+
+const corePrinciples = [
+  {
+    title: "Foundational nutrients enable natural production",
+    description: "Zinc, magnesium, vitamin D3, and fenugreek provide the raw materials and enzymatic support testosterone synthesis requires.",
+  },
+  {
+    title: "Stress balance restores hormonal function",
+    description: "Ashwagandha and Tongkat Ali lower cortisol, removing a barrier that suppresses natural testosterone production.",
+  },
+  {
+    title: "Free testosterone availability",
+    description: "Boron reduces SHBG to make more of your existing testosterone available for use.",
   },
 ];
 
@@ -77,10 +70,18 @@ const galleryImages = [
   { src: "/how-to-use.jpg", alt: "How to Use" },
 ];
 
+const ingredientTabs = [
+  { id: "foundational", label: "Foundational Hormone Support" },
+  { id: "stress", label: "Stress & Cortisol Balance" },
+  { id: "availability", label: "Free Testosterone Availability" },
+] as const;
+
+type TabId = typeof ingredientTabs[number]["id"];
 
 const ingredients = [
   {
     name: "Vitamin D3",
+    category: "foundational" as TabId,
     form: "Cholecalciferol",
     dosage: "3,000 IU",
     image: "/vitamin-d3.png",
@@ -97,6 +98,7 @@ const ingredients = [
   },
   {
     name: "Magnesium",
+    category: "foundational" as TabId,
     form: "Bisglycinate",
     dosage: "28.6 mg",
     image: "/magnesium.png",
@@ -113,6 +115,7 @@ const ingredients = [
   },
   {
     name: "Zinc",
+    category: "foundational" as TabId,
     form: "Citrate",
     dosage: "20 mg",
     image: "/zinc.png",
@@ -129,6 +132,7 @@ const ingredients = [
   },
   {
     name: "Boron",
+    category: "availability" as TabId,
     form: "Citrate",
     dosage: "9 mg",
     image: "/boron.png",
@@ -145,6 +149,7 @@ const ingredients = [
   },
   {
     name: "Ashwagandha",
+    category: "stress" as TabId,
     form: "KSM-66 Root Extract",
     dosage: "500 mg",
     image: "/ashwagandha.png",
@@ -161,6 +166,7 @@ const ingredients = [
   },
   {
     name: "Tongkat Ali",
+    category: "stress" as TabId,
     form: "200:1 Eurycomanone",
     dosage: "300 mg",
     image: "/tongkat-ali.png",
@@ -177,6 +183,7 @@ const ingredients = [
   },
   {
     name: "Fenugreek",
+    category: "foundational" as TabId,
     form: "50% Saponins Extract",
     dosage: "500 mg",
     image: "/fenugreek.png",
@@ -191,6 +198,13 @@ const ingredients = [
       { title: "Effect of fenugreek extract supplement on testosterone levels in male: A meta-analysis of clinical trials", url: "https://pubmed.ncbi.nlm.nih.gov/32048383/" },
     ],
   },
+];
+
+const timeline = [
+  { week: "Week 1-2", title: "Foundation Building", description: "Ingredients accumulate in your system", icon: Layers },
+  { week: "Week 2-4", title: "Energy Stabilizes", description: "More consistent energy through the day", icon: Zap },
+  { week: "Week 4-6", title: "Recovery Improves", description: "Better training recovery and mental clarity", icon: TrendingUp },
+  { week: "Week 6-8", title: "Full Effect", description: "Libido returns, body composition shifts", icon: Target },
 ];
 
 const comparisonRows = [
@@ -435,9 +449,9 @@ function AccordionItem({
     <div className="border-b border-border">
       <button
         onClick={onToggle}
-        className="w-full py-5 sm:py-4 flex items-center justify-between min-h-[56px] sm:min-h-0"
+        className="w-full py-5 sm:py-4 flex items-center justify-center text-center min-h-[56px] sm:min-h-0 gap-3"
       >
-        <span className="font-heading font-semibold text-text-primary">{title}</span>
+        <span className="font-semibold text-text-primary">{title}</span>
         <motion.span
           animate={{ rotate: isOpen ? 180 : 0 }}
           transition={{ duration: 0.2 }}
@@ -468,7 +482,7 @@ function StarRating({ rating }: { rating: number }) {
       {[1, 2, 3, 4, 5].map((star) => (
         <Star
           key={star}
-          className={`w-4 h-4 ${star <= rating ? "text-star fill-star" : "text-text-muted"}`}
+          className={`w-4 h-4 ${star <= rating ? "text-yellow-400 fill-yellow-400" : "text-gray-300"}`}
         />
       ))}
     </div>
@@ -489,27 +503,29 @@ export default function ProductV2Page() {
   const [openSection, setOpenSection] = useState<number | null>(null);
   const [addedToCart, setAddedToCart] = useState(false);
   const [activeImage, setActiveImage] = useState(0);
-  const [selectedBundleId, setSelectedBundleId] = useState("subscribe");
-  const [oneTimeQty, setOneTimeQty] = useState(1);
+  const [selectedBundle, setSelectedBundle] = useState(1);
   const { addToCart, customerEmail } = useCart();
-
-  const getActiveBundle = (bundle: BundleOption): BundleOption => {
-    if (bundle.id !== "one-time") return bundle;
-    const perBottle = getPricePerBottle(oneTimeQty);
-    const regularPerBottle = getRegularPricePerBottle(oneTimeQty);
-    return {
-      ...bundle,
-      qty: oneTimeQty,
-      total: parseFloat((oneTimeQty * perBottle).toFixed(2)),
-      regularTotal: parseFloat((oneTimeQty * regularPerBottle).toFixed(2)),
-      pricePerBottle: perBottle,
-    };
-  };
   const [checkoutOpen, setCheckoutOpen] = useState(false);
   const [checkoutPromoId, setCheckoutPromoId] = useState<string | undefined>();
   const [checkoutItems, setCheckoutItems] = useState<
-    { name: string; price: number; quantity: number; image?: string; isSubscription?: boolean }[]
+    { name: string; price: number; quantity: number; image?: string }[]
   >([]);
+
+  const [activeTab, setActiveTab] = useState<TabId>("foundational");
+  const [selectedIngredientIndex, setSelectedIngredientIndex] = useState(0);
+  const [showFullDesc, setShowFullDesc] = useState(false);
+  const filteredIngredients = ingredients.filter((ing) => ing.category === activeTab);
+
+  const handleTabChange = (tabId: TabId) => {
+    setActiveTab(tabId);
+    setSelectedIngredientIndex(0);
+    setShowFullDesc(false);
+  };
+
+  const handleIngredientSelect = (index: number) => {
+    setSelectedIngredientIndex(index);
+    setShowFullDesc(false);
+  };
 
   const [reviews, setReviews] = useState<ProductReview[]>([]);
   const [reviewCount, setReviewCount] = useState(0);
@@ -529,7 +545,7 @@ export default function ProductV2Page() {
   const [reviewError, setReviewError] = useState("");
   const [reviewSuccess, setReviewSuccess] = useState(false);
   const [gallerySlide, setGallerySlide] = useState(0);
-  const galleryTotal = 6;
+  const GALLERY_COUNT = 5;
 
   const handleReviewPhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0] ?? null;
@@ -634,7 +650,7 @@ export default function ProductV2Page() {
    * funnel. Now it opens checkout directly.
    */
   const handleAddToCart = async () => {
-    const bundle = getActiveBundle(BUNDLES.find((b) => b.id === selectedBundleId)!);
+    const bundle = BUNDLES.find((b) => b.qty === selectedBundle)!;
 
     addToCart(
       {
@@ -657,27 +673,24 @@ export default function ProductV2Page() {
           typeof window !== "undefined"
             ? `${window.location.origin}/product-bottle.png`
             : undefined,
-        ...(bundle.isSubscription ? { isSubscription: true } : {}),
       },
     ]);
 
-    // Promo codes are not pre-applied to subscription sessions — Stripe shows
-    // its own promo field for subscribers to enter the code themselves.
+    // Honour a code claimed from the email popup. If it can't be validated we
+    // still open checkout - Stripe shows its own promo field as a fallback.
     let promotionCodeId: string | undefined;
-    if (!bundle.isSubscription) {
-      try {
-        const stored = localStorage.getItem("promoCode");
-        if (stored) {
-          const res = await fetch("/api/validate-promo", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ code: stored }),
-          });
-          if (res.ok) promotionCodeId = (await res.json()).promotionCodeId;
-        }
-      } catch {
-        // ignore - checkout still opens
+    try {
+      const stored = localStorage.getItem("promoCode");
+      if (stored) {
+        const res = await fetch("/api/validate-promo", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ code: stored }),
+        });
+        if (res.ok) promotionCodeId = (await res.json()).promotionCodeId;
       }
+    } catch {
+      // ignore - checkout still opens
     }
     setCheckoutPromoId(promotionCodeId);
 
@@ -696,49 +709,12 @@ export default function ProductV2Page() {
       <Header />
       <main className="pt-28 sm:pt-32 pb-24 sm:pb-24 bg-surface/50">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          {/* Mobile: Title + reviews above gallery */}
-          <div className="lg:hidden mb-4">
-            <h1 className="font-heading text-2xl sm:text-3xl font-bold text-text-primary mb-2">
-              Peak Performance
-            </h1>
-            {REVIEW_SUBMISSION_ENABLED && (
-              <div className="flex flex-wrap items-center gap-3 mb-3 text-sm">
-                {reviewsLoading ? (
-                  <div className="h-5 w-44 bg-surface rounded animate-pulse" aria-hidden="true" />
-                ) : reviewCount > 0 ? (
-                  <>
-                    <div className="flex items-center gap-1">
-                      <StarRating rating={Math.round(reviewAverage)} />
-                    </div>
-                    <span className="text-border">|</span>
-                    <button
-                      onClick={() => document.getElementById('reviews')?.scrollIntoView({ behavior: 'smooth' })}
-                      className="text-primary hover:underline"
-                    >
-                      {reviewCount} review{reviewCount === 1 ? "" : "s"}
-                    </button>
-                  </>
-                ) : (
-                  <button
-                    onClick={() => document.getElementById('reviews')?.scrollIntoView({ behavior: 'smooth' })}
-                    className="text-primary hover:underline"
-                  >
-                    Be the first to leave a review
-                  </button>
-                )}
-              </div>
-            )}
-            <p className="text-sm text-text-secondary">
-              Research-backed testosterone support for energy, drive, and recovery. Seven clinically dosed ingredients. No proprietary blends.
-            </p>
-          </div>
-
           <div className="grid lg:grid-cols-2 gap-6 lg:gap-16">
             {/* Product Image Gallery */}
             <div className="relative order-1 lg:order-1">
               <div className="lg:sticky lg:top-32">
                 {/* Main Image */}
-                <div className="rounded-lg border border-border overflow-hidden flex items-center justify-center max-w-[500px] lg:max-w-none mx-auto mb-4 lg:w-[550px] bg-surface">
+                <div className="rounded-2xl border border-border overflow-hidden flex items-center justify-center max-w-[500px] lg:max-w-none mx-auto mb-4 lg:w-[550px] bg-neutral-100">
                   {/* No entrance animation here on purpose. This is the LCP
                       element: wrapping it in a motion.div that starts at
                       opacity 0 shipped it to the browser invisible, so despite
@@ -767,7 +743,7 @@ export default function ProductV2Page() {
                       className={`w-20 h-20 rounded-lg border-2 overflow-hidden transition-all bg-white ${
                         activeImage === index
                           ? "border-primary"
-                          : "border-border hover:border-text-muted"
+                          : "border-border hover:border-gray-300"
                       }`}
                     >
                       <Image
@@ -782,66 +758,90 @@ export default function ProductV2Page() {
                 </div>
 
                 {/* Trust Badges */}
-                <div className="flex justify-center items-center gap-8 sm:gap-16 mt-6">
-                  {[
-                    { src: "/gmp-certified.png", alt: "GMP Certified", label: "GMP Certified" },
-                    { src: "/made-in-usa.png", alt: "Made in USA", label: "Made in USA" },
-                    { src: "/lab-tested.png", alt: "Lab Tested", label: "Lab Tested" },
-                  ].map((badge) => (
-                    <div key={badge.alt} className="flex flex-col items-center gap-2">
-                      <Image
-                        src={badge.src}
-                        alt={badge.alt}
-                        width={56}
-                        height={56}
-                        className="w-12 h-12 sm:w-14 sm:h-14 object-contain"
-                      />
-                      <span className="text-[10px] sm:text-xs font-heading font-bold text-text-secondary uppercase tracking-wider">
-                        {badge.label}
-                      </span>
-                    </div>
-                  ))}
+                {/* Source art is square and full-bleed, so these need no
+                    negative margins to close up dead canvas space. */}
+                <div className="flex justify-center items-center gap-3 min-[360px]:gap-4 sm:gap-6 mt-6">
+                  <Image
+                    src="/gmp-certified.png"
+                    alt="GMP Certified"
+                    width={400}
+                    height={400}
+                    className="w-18 h-18 min-[360px]:w-22 min-[360px]:h-22 sm:w-25 sm:h-25 lg:w-32 lg:h-32 object-contain"
+                  />
+                  <Image
+                    src="/made-in-usa.png"
+                    alt="Made in USA"
+                    width={400}
+                    height={400}
+                    className="w-18 h-18 min-[360px]:w-22 min-[360px]:h-22 sm:w-25 sm:h-25 lg:w-32 lg:h-32 object-contain"
+                  />
+                  <Image
+                    src="/lab-tested.png"
+                    alt="Lab Tested"
+                    width={400}
+                    height={400}
+                    className="w-18 h-18 min-[360px]:w-22 min-[360px]:h-22 sm:w-25 sm:h-25 lg:w-32 lg:h-32 object-contain"
+                  />
                 </div>
               </div>
             </div>
 
             {/* Product Info */}
-            <div className="order-2 lg:order-2">
-              {/* Desktop: Title + reviews (hidden on mobile, shown above grid instead) */}
-              <div className="hidden lg:block">
-                <h1 className="font-heading text-4xl font-bold text-text-primary mb-2">
-                  Peak Performance
-                </h1>
-                {REVIEW_SUBMISSION_ENABLED && (
-                  <div className="flex flex-wrap items-center gap-3 mb-4 text-sm">
-                    {reviewsLoading ? (
-                      <div className="h-5 w-44 bg-surface rounded animate-pulse" aria-hidden="true" />
-                    ) : reviewCount > 0 ? (
-                      <>
-                        <div className="flex items-center gap-1">
-                          <StarRating rating={Math.round(reviewAverage)} />
-                        </div>
-                        <span className="text-border">|</span>
-                        <button
-                          onClick={() => document.getElementById('reviews')?.scrollIntoView({ behavior: 'smooth' })}
-                          className="text-primary hover:underline"
-                        >
-                          {reviewCount} review{reviewCount === 1 ? "" : "s"}
-                        </button>
-                      </>
-                    ) : (
+            <div className="order-2 lg:order-2 text-center">
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-text-primary mb-2">
+                Peak Performance
+              </h1>
+
+              {/* Social Proof Bar */}
+              {REVIEW_SUBMISSION_ENABLED && (
+                <div className="flex flex-wrap items-center justify-center gap-3 mb-4 text-sm">
+                  {reviewsLoading ? (
+                    // Reserve the space instead of flashing "be the first".
+                    <div className="h-5 w-44 bg-gray-100 rounded animate-pulse" aria-hidden="true" />
+                  ) : reviewCount > 0 ? (
+                    <>
+                      <div className="flex items-center gap-1">
+                        <StarRating rating={Math.round(reviewAverage)} />
+                      </div>
+                      <span className="text-gray-300">|</span>
                       <button
                         onClick={() => document.getElementById('reviews')?.scrollIntoView({ behavior: 'smooth' })}
                         className="text-primary hover:underline"
                       >
-                        Be the first to leave a review
+                        {reviewCount} review{reviewCount === 1 ? "" : "s"}
                       </button>
-                    )}
-                  </div>
-                )}
-                <p className="text-base text-text-secondary mb-6">
-                  Research-backed testosterone support for energy, drive, and recovery. Seven clinically dosed ingredients. No proprietary blends.
-                </p>
+                    </>
+                  ) : (
+                    <button
+                      onClick={() => document.getElementById('reviews')?.scrollIntoView({ behavior: 'smooth' })}
+                      className="text-primary hover:underline"
+                    >
+                      Be the first to leave a review
+                    </button>
+                  )}
+                </div>
+              )}
+
+              <p className="text-sm sm:text-base text-text-secondary mb-6">
+                A foundational testosterone support formula designed to help your body respond the way it used to.
+              </p>
+
+              {/* Core Principles */}
+              <div className="bg-surface border border-border rounded-lg p-4 sm:p-5 mb-8 text-left">
+                <h3 className="text-sm font-semibold text-text-primary mb-4 text-center">Core Principles</h3>
+                <div className="space-y-4">
+                  {corePrinciples.map((principle, index) => (
+                    <div key={index} className="flex items-start gap-3">
+                      <span className="flex-shrink-0 w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center mt-0.5">
+                        <Check className="w-3 h-3 text-primary" />
+                      </span>
+                      <div>
+                        <p className="text-sm font-medium text-text-primary">{principle.title}</p>
+                        <p className="text-xs sm:text-sm text-text-muted">{principle.description}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
 
               {/* Sale banner */}
@@ -854,83 +854,57 @@ export default function ProductV2Page() {
 
               {/* Bundle Options */}
               <div className="space-y-3 mb-4">
-                {BUNDLES.map((rawBundle) => {
-                  const bundle = getActiveBundle(rawBundle);
-                  return (
-                    <button
-                      key={bundle.id}
-                      onClick={() => setSelectedBundleId(bundle.id)}
-                      className={`w-full p-4 rounded-lg border-2 text-left transition-all ${
-                        selectedBundleId === bundle.id
-                          ? "border-primary bg-primary/5"
-                          : "border-border hover:border-text-muted"
-                      }`}
-                    >
-                      <div className="flex items-center justify-between gap-3">
-                        <div className="flex items-center gap-3 min-w-0">
-                          <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
-                            selectedBundleId === bundle.id ? "border-primary" : "border-border"
-                          }`}>
-                            {selectedBundleId === bundle.id && (
-                              <div className="w-2 h-2 rounded-full bg-primary" />
-                            )}
-                          </div>
-                          <div className="min-w-0">
-                            <div className="flex items-center gap-2 flex-wrap">
-                              <p className="font-semibold text-text-primary text-sm">{bundle.label}</p>
-                              {bundle.badge && (
-                                <span className="text-xs font-bold text-primary bg-primary/10 px-2 py-0.5 rounded-full whitespace-nowrap">
-                                  {bundle.badge}
-                                </span>
-                              )}
-                            </div>
-                            <p className="text-xs text-text-muted mt-0.5">
-                              {bundle.perks.join(" • ")}
-                            </p>
-                          </div>
-                        </div>
-                        <div className="text-right flex-shrink-0">
-                          <div className="flex items-center gap-1.5 justify-end">
-                            {bundle.total < bundle.regularTotal && (
-                              <p className="text-xs text-text-muted line-through whitespace-nowrap">${bundle.regularTotal.toFixed(2)}</p>
-                            )}
-                            <p className="font-bold text-text-primary whitespace-nowrap">${bundle.total.toFixed(2)}{bundle.priceSuffix}</p>
-                          </div>
-                          {bundle.qty > 1 && (
-                            <p className="text-xs text-text-muted whitespace-nowrap">${bundle.pricePerBottle.toFixed(2)}/bottle</p>
+                {BUNDLES.map((bundle) => (
+                  <button
+                    key={bundle.qty}
+                    onClick={() => setSelectedBundle(bundle.qty)}
+                    className={`w-full p-4 rounded-lg border-2 text-left transition-all ${
+                      selectedBundle === bundle.qty
+                        ? "border-primary bg-primary/5"
+                        : "border-border hover:border-gray-300"
+                    }`}
+                  >
+                    {/* min-w-0 lets the label column shrink; without it flexbox
+                        keeps it at content width and squeezes the price until
+                        the number wraps mid-digit ("$39.9" / "5"). */}
+                    <div className="flex items-center justify-between gap-3">
+                      <div className="flex items-center gap-3 min-w-0">
+                        <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
+                          selectedBundle === bundle.qty ? "border-primary" : "border-gray-300"
+                        }`}>
+                          {selectedBundle === bundle.qty && (
+                            <div className="w-2 h-2 rounded-full bg-primary" />
                           )}
                         </div>
+                        <div className="min-w-0">
+                          <div className="flex items-center gap-2 flex-wrap">
+                            <p className="font-semibold text-text-primary text-sm">{bundle.label}</p>
+                            {bundle.badge && (
+                              <span className="text-xs font-bold text-primary bg-primary/10 px-2 py-0.5 rounded-full whitespace-nowrap">
+                                {bundle.badge}
+                              </span>
+                            )}
+                          </div>
+                          <p className="text-xs text-text-muted mt-0.5">
+                            {bundle.perks.join(" • ")}
+                          </p>
+                        </div>
                       </div>
-                    </button>
-                  );
-                })}
+                      <div className="text-right flex-shrink-0">
+                        <div className="flex items-center gap-1.5 justify-end">
+                          {bundle.total < bundle.regularTotal && (
+                            <p className="text-xs text-text-muted line-through whitespace-nowrap">${bundle.regularTotal.toFixed(2)}</p>
+                          )}
+                          <p className="font-bold text-text-primary whitespace-nowrap">${bundle.total.toFixed(2)}</p>
+                        </div>
+                        {bundle.qty > 1 && (
+                          <p className="text-xs text-text-muted whitespace-nowrap">${bundle.pricePerBottle.toFixed(2)}/bottle</p>
+                        )}
+                      </div>
+                    </div>
+                  </button>
+                ))}
               </div>
-
-              {/* Quantity selector — one-time only */}
-              {selectedBundleId === "one-time" && (
-                <div className="flex items-center gap-2 mb-4">
-                  <span className="text-sm text-text-secondary font-medium">Qty</span>
-                  <div className="inline-flex items-center border border-border rounded-lg overflow-hidden">
-                    <button
-                      onClick={() => setOneTimeQty(Math.max(1, oneTimeQty - 1))}
-                      disabled={oneTimeQty <= 1}
-                      className="w-10 h-10 flex items-center justify-center text-text-primary hover:bg-surface transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
-                    >
-                      <Minus className="w-4 h-4" />
-                    </button>
-                    <span className="w-10 h-10 flex items-center justify-center font-heading font-bold text-text-primary border-x border-border">
-                      {oneTimeQty}
-                    </span>
-                    <button
-                      onClick={() => setOneTimeQty(Math.min(10, oneTimeQty + 1))}
-                      disabled={oneTimeQty >= 10}
-                      className="w-10 h-10 flex items-center justify-center text-text-primary hover:bg-surface transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
-                    >
-                      <Plus className="w-4 h-4" />
-                    </button>
-                  </div>
-                </div>
-              )}
 
               {/* CTA */}
               <div className="mb-4">
@@ -938,110 +912,324 @@ export default function ProductV2Page() {
                   {addedToCart ? "Opening…" : "Buy Now"}
                 </Button>
               </div>
-              <div className="flex flex-wrap gap-x-4 gap-y-1 mb-8 text-xs text-text-muted">
+              <div className="flex flex-wrap justify-center gap-x-4 gap-y-1 mb-8 text-xs text-text-muted">
                 <span className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-primary" />30-Day Guarantee</span>
-                <span className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-primary" />Cancel anytime</span>
+                <span className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-primary" />No commitment</span>
                 <span className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-primary" />Ships in 1-2 Days</span>
               </div>
 
-              {/* Product Details */}
-              <div className="bg-primary rounded-lg py-3 px-6 mt-6 mb-2">
-                <h2 className="font-heading text-base sm:text-lg font-bold text-white uppercase tracking-wide text-center">
-                  Product Details
-                </h2>
-              </div>
-              <div>
-                {productSections.map((section, index) => (
-                  <AccordionItem
-                    key={section.title}
-                    title={section.title}
-                    content={section.content}
-                    isOpen={openSection === index}
-                    onToggle={() =>
-                      setOpenSection(openSection === index ? null : index)
-                    }
-                  />
-                ))}
-              </div>
             </div>
           </div>
 
           {/* ============ NEW SECTIONS BELOW ============ */}
 
-          {/* Inside the Formula */}
-          <section id="ingredient-library" className="mt-16 sm:mt-24">
-            <div className="bg-primary rounded-lg py-3 px-6 mb-8">
+          {/* Product Details */}
+          <section className="mt-16 sm:mt-24">
+            <div className="bg-primary rounded-lg py-3 px-6 mb-2">
               <h2 className="font-heading text-base sm:text-lg font-bold text-white uppercase tracking-wide text-center">
-                What&apos;s Inside
+                Product Details
               </h2>
             </div>
+            <div>
+              {productSections.map((section, index) => (
+                <AccordionItem
+                  key={section.title}
+                  title={section.title}
+                  content={section.content}
+                  isOpen={openSection === index}
+                  onToggle={() =>
+                    setOpenSection(openSection === index ? null : index)
+                  }
+                />
+              ))}
+            </div>
+          </section>
 
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {ingredients.map((ingredient) => (
-                <div
-                  key={ingredient.name}
-                  className="bg-white border border-border rounded-lg overflow-hidden"
+          {/* Inside the Formula */}
+          <section id="ingredient-library" className="mt-16 sm:mt-24">
+            <div className="text-center mb-6">
+              <p className="text-primary font-semibold text-xs uppercase tracking-widest mb-2">What's Inside</p>
+              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">
+                Every Ingredient. Every Dose. Fully Transparent.
+              </h2>
+              <div className="flex flex-wrap justify-center gap-2">
+                {ingredientTabs.map((tab) => (
+                  <button
+                    key={tab.id}
+                    onClick={() => handleTabChange(tab.id)}
+                    className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+                      activeTab === tab.id
+                        ? "bg-primary text-white shadow-md"
+                        : "bg-white text-gray-600 border border-gray-300 hover:border-primary hover:text-primary"
+                    }`}
+                  >
+                    {tab.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* ==================== MOBILE: Unified Module ==================== */}
+            <div className="lg:hidden bg-white rounded-2xl border border-gray-200 shadow-lg p-4 overflow-hidden">
+              <motion.div
+                key={activeTab}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.2 }}
+                className="flex gap-2 overflow-x-auto pb-3 -mx-1 px-1 scrollbar-hide"
+                style={{ touchAction: "pan-x pinch-zoom" }}
+              >
+                {filteredIngredients.map((ingredient, index) => (
+                  <button
+                    key={ingredient.name}
+                    onClick={() => handleIngredientSelect(index)}
+                    className={`flex-shrink-0 px-3 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+                      selectedIngredientIndex === index
+                        ? "bg-primary text-white shadow-md"
+                        : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                    }`}
+                  >
+                    {ingredient.name}
+                  </button>
+                ))}
+              </motion.div>
+
+              <div className="flex justify-center py-3">
+                <motion.div
+                  key={filteredIngredients[selectedIngredientIndex]?.name}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.3 }}
+                  className="relative"
                 >
-                  <div className="flex items-center gap-3 p-4 border-b border-border">
-                    <div className="w-14 h-14 rounded-full bg-surface flex-shrink-0 overflow-hidden">
+                  <div className="w-36 h-36 rounded-full bg-gradient-to-br from-gray-50 to-white border-3 border-primary/10 shadow-lg flex items-center justify-center overflow-hidden">
+                    <Image
+                      src={filteredIngredients[selectedIngredientIndex]?.image || "/vitamin-d3.png"}
+                      alt={filteredIngredients[selectedIngredientIndex]?.name || "Ingredient"}
+                      width={144}
+                      height={144}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                </motion.div>
+              </div>
+
+              <motion.div
+                key={`panel-mobile-${filteredIngredients[selectedIngredientIndex]?.name}`}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3 }}
+                className="rounded-xl bg-gradient-to-b from-[#5B9BD5] to-[#4A8BC9] overflow-hidden shadow-lg border border-white/[0.18] -mx-1"
+              >
+                <div className="p-4 border border-white/[0.08] rounded-xl m-[1px]">
+                  <div className="flex items-center justify-between mb-2">
+                    <h3 className="text-lg font-bold text-white">
+                      {filteredIngredients[selectedIngredientIndex]?.name}
+                    </h3>
+                    <span className="text-xs font-bold px-2 py-1 rounded-full bg-white/20 text-white">
+                      {filteredIngredients[selectedIngredientIndex]?.dosage}
+                    </span>
+                  </div>
+                  <p className="text-white/70 text-xs mb-3">
+                    {filteredIngredients[selectedIngredientIndex]?.form}
+                  </p>
+                  <p className="text-white text-sm leading-relaxed mb-3">
+                    {filteredIngredients[selectedIngredientIndex]?.shortDesc}
+                  </p>
+                  <div className="mb-3">
+                    <h4 className="text-white/80 font-medium text-[10px] mb-1.5 uppercase tracking-wide">
+                      Key Benefits
+                    </h4>
+                    <ul className="space-y-1">
+                      {filteredIngredients[selectedIngredientIndex]?.benefits.slice(0, 3).map((benefit, i) => (
+                        <li key={i} className="flex items-start gap-1.5">
+                          <div className="w-3.5 h-3.5 rounded-full bg-white/25 flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <Check className="w-2 h-2 text-white" />
+                          </div>
+                          <span className="text-white text-xs leading-snug">{benefit}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  {filteredIngredients[selectedIngredientIndex]?.research?.[0] && (
+                    <a
+                      href={filteredIngredients[selectedIngredientIndex].research[0].url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white text-[#4A8BC9] font-semibold text-xs hover:bg-white/95 transition-colors shadow-sm"
+                    >
+                      See the Research
+                      <ArrowRight className="w-3 h-3" />
+                    </a>
+                  )}
+                </div>
+              </motion.div>
+            </div>
+
+            {/* ==================== DESKTOP: 3-Column Layout ==================== */}
+            <div className="hidden lg:block bg-white rounded-3xl border border-gray-200 shadow-lg pt-5 px-6 pb-8 overflow-hidden">
+              <div className="grid lg:grid-cols-12 gap-5 items-stretch">
+                <motion.div
+                  key={activeTab}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.2 }}
+                  className="lg:col-span-3 flex flex-col gap-1.5"
+                >
+                  {filteredIngredients.map((ingredient, index) => (
+                    <button
+                      key={ingredient.name}
+                      onClick={() => handleIngredientSelect(index)}
+                      className={`text-left px-3 py-2.5 rounded-xl transition-all duration-200 ${
+                        selectedIngredientIndex === index
+                          ? "bg-primary/10 border-l-4 border-primary"
+                          : "hover:bg-gray-50 border-l-4 border-transparent"
+                      }`}
+                    >
+                      <div className="flex items-center justify-between gap-2">
+                        <span className={`text-sm ${selectedIngredientIndex === index ? "text-primary font-semibold" : "text-gray-700 font-medium"}`}>
+                          {ingredient.name}
+                        </span>
+                        <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${
+                          selectedIngredientIndex === index
+                            ? "bg-primary text-white"
+                            : "bg-gray-100 text-gray-500"
+                        }`}>
+                          {ingredient.dosage}
+                        </span>
+                      </div>
+                    </button>
+                  ))}
+                </motion.div>
+
+                <div className="lg:col-span-3 flex justify-center items-center py-2">
+                  <motion.div
+                    key={filteredIngredients[selectedIngredientIndex]?.name}
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.3 }}
+                    className="relative"
+                  >
+                    <div className="w-64 h-64 rounded-full bg-gradient-to-br from-gray-50 to-white border-4 border-primary/10 shadow-lg flex items-center justify-center overflow-hidden">
                       <Image
-                        src={ingredient.image}
-                        alt={ingredient.name}
-                        width={56}
-                        height={56}
+                        src={filteredIngredients[selectedIngredientIndex]?.image || "/vitamin-d3.png"}
+                        alt={filteredIngredients[selectedIngredientIndex]?.name || "Ingredient"}
+                        width={256}
+                        height={256}
                         className="w-full h-full object-cover"
                       />
                     </div>
-                    <div className="min-w-0">
-                      <h3 className="font-heading font-bold text-text-primary text-sm">
-                        {ingredient.name}
-                      </h3>
-                      <p className="text-text-muted text-xs">{ingredient.form}</p>
+                    <div className="absolute inset-0 rounded-full bg-primary/5 blur-2xl -z-10" />
+                  </motion.div>
+                </div>
+
+                <motion.div
+                  key={`panel-${filteredIngredients[selectedIngredientIndex]?.name}`}
+                  initial={{ opacity: 0, x: 12 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.3 }}
+                  className="lg:col-span-6 rounded-2xl bg-gradient-to-b from-[#5B9BD5] to-[#4A8BC9] overflow-hidden shadow-xl border border-white/[0.18]"
+                >
+                  <div className="p-6 border border-white/[0.08] rounded-2xl m-[1px]">
+                    <h3 className="text-2xl font-bold text-white mb-1.5">
+                      {filteredIngredients[selectedIngredientIndex]?.name}
+                    </h3>
+
+                    <div className="mb-4">
+                      <p className="text-white text-base leading-relaxed">
+                        {filteredIngredients[selectedIngredientIndex]?.shortDesc}
+                      </p>
+                      {!showFullDesc ? (
+                        <button
+                          onClick={() => setShowFullDesc(true)}
+                          className="inline-flex items-center gap-1 text-white/80 text-sm mt-2 hover:text-white transition-colors"
+                        >
+                          Read more
+                          <ChevronDown className="w-3 h-3" />
+                        </button>
+                      ) : (
+                        <motion.p
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: "auto" }}
+                          className="text-white/90 text-base leading-relaxed mt-2"
+                        >
+                          {filteredIngredients[selectedIngredientIndex]?.fullDesc}
+                        </motion.p>
+                      )}
                     </div>
-                    <span className="ml-auto flex-shrink-0 text-xs font-heading font-bold px-2 py-1 rounded-[5px] bg-primary/10 text-primary">
-                      {ingredient.dosage}
-                    </span>
-                  </div>
-                  <div className="p-4">
-                    <p className="text-text-secondary text-sm leading-relaxed mb-3">
-                      {ingredient.shortDesc}
-                    </p>
-                    {ingredient.research?.[0] && (
+
+                    <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3 mb-4 border border-white/10">
+                      <div className="flex justify-between items-center border-b border-white/15 pb-2 mb-2">
+                        <span className="text-white/90 text-sm">Dose</span>
+                        <span className="text-white font-semibold text-sm">
+                          {filteredIngredients[selectedIngredientIndex]?.dosage}
+                        </span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-white/90 text-sm">Form</span>
+                        <span className="text-white text-sm text-right max-w-[65%]">
+                          {filteredIngredients[selectedIngredientIndex]?.form}
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="mb-4">
+                      <h4 className="text-white font-medium text-xs mb-2 uppercase tracking-wide">
+                        Key Benefits
+                      </h4>
+                      <ul className="space-y-1.5">
+                        {filteredIngredients[selectedIngredientIndex]?.benefits.map((benefit, i) => (
+                          <li key={i} className="flex items-start gap-2">
+                            <div className="w-4 h-4 rounded-full bg-white/30 flex items-center justify-center flex-shrink-0 mt-0.5">
+                              <Check className="w-2.5 h-2.5 text-white" />
+                            </div>
+                            <span className="text-white text-sm leading-snug">{benefit}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    {filteredIngredients[selectedIngredientIndex]?.research?.[0] && (
                       <a
-                        href={ingredient.research[0].url}
+                        href={filteredIngredients[selectedIngredientIndex].research[0].url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 text-primary font-heading font-semibold text-xs hover:underline"
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-white text-[#4A8BC9] font-semibold text-sm hover:bg-white/95 transition-colors shadow-sm"
                       >
                         See the Research
-                        <ArrowRight className="w-3 h-3" />
+                        <ArrowRight className="w-3.5 h-3.5" />
                       </a>
                     )}
                   </div>
-                </div>
-              ))}
-            </div>
-
-            <div className="text-center mt-6">
-              <Link
-                href="/formula"
-                className="inline-flex items-center gap-2 font-heading font-bold text-sm text-primary hover:underline"
-              >
-                Full Ingredient Breakdown
-                <ArrowRight className="w-4 h-4" />
-              </Link>
+                </motion.div>
+              </div>
             </div>
           </section>
 
           {/* The Difference */}
           <section className="mt-16 sm:mt-24">
-            <div className="bg-primary rounded-lg py-3 px-6 mb-8">
-              <h2 className="font-heading text-base sm:text-lg font-bold text-white uppercase tracking-wide text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="text-center mb-10"
+            >
+              <p className="text-primary font-semibold text-xs uppercase tracking-widest mb-2">
                 The Difference
+              </p>
+              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">
+                Why Peak Performance Is Different
               </h2>
-            </div>
+            </motion.div>
 
-            <div className="max-w-2xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="max-w-2xl mx-auto"
+            >
               {/* Product Images */}
               <div className="grid grid-cols-2 gap-3 mb-4">
                 <div className="flex justify-center items-end h-[200px] sm:h-[240px]">
@@ -1066,13 +1254,13 @@ export default function ProductV2Page() {
 
               {/* Table header */}
               <div className="grid grid-cols-2 gap-3 mb-3">
-                <div className="bg-surface-elevated rounded-lg px-4 py-3 text-center">
-                  <span className="text-xs font-heading font-bold uppercase tracking-wider text-text-muted">
-                    Typical Booster
+                <div className="bg-gray-100 rounded-xl px-4 py-3 text-center">
+                  <span className="text-xs font-semibold uppercase tracking-wider text-gray-500">
+                    Typical Testosterone Booster
                   </span>
                 </div>
-                <div className="bg-primary rounded-lg px-4 py-3 text-center">
-                  <span className="text-xs font-heading font-bold uppercase tracking-wider text-white">
+                <div className="bg-primary rounded-xl px-4 py-3 text-center">
+                  <span className="text-xs font-semibold uppercase tracking-wider text-white">
                     Peak Performance
                   </span>
                 </div>
@@ -1082,36 +1270,63 @@ export default function ProductV2Page() {
               <div className="space-y-2">
                 {comparisonRows.map((row, index) => (
                   <div key={index} className="grid grid-cols-2 gap-3">
-                    <div className="flex items-center gap-3 bg-surface border border-border rounded-lg px-4 py-3">
+                    <div className="flex items-center gap-3 bg-gray-50 border border-gray-200/80 rounded-xl px-4 py-3">
                       <X className="w-4 h-4 text-red-400 flex-shrink-0" />
-                      <span className="text-text-secondary text-sm leading-snug">{row.typical}</span>
+                      <span className="text-gray-600 text-sm leading-snug">{row.typical}</span>
                     </div>
-                    <div className="flex items-center gap-3 bg-primary/5 border border-primary/20 rounded-lg px-4 py-3">
+                    <div className="flex items-center gap-3 bg-primary/[0.05] border border-primary/20 rounded-xl px-4 py-3">
                       <Check className="w-4 h-4 text-primary flex-shrink-0" />
-                      <span className="text-text-primary text-sm font-medium leading-snug">{row.peak}</span>
+                      <span className="text-gray-800 text-sm font-medium leading-snug">{row.peak}</span>
                     </div>
                   </div>
                 ))}
               </div>
+            </motion.div>
+          </section>
+
+          {/* Benefits Timeline */}
+          <section className="mt-16 sm:mt-24">
+            <div className="text-center mb-10">
+              <p className="text-primary font-semibold text-xs uppercase tracking-widest mb-2">What To Expect</p>
+              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">Results Over Time</h2>
+              <p className="text-gray-600 mt-2">Designed for consistent, foundational support that builds over time.</p>
+            </div>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {timeline.map((item, index) => (
+                <motion.div
+                  key={item.week}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: index * 0.1 }}
+                  className="bg-white rounded-xl border border-gray-200 p-5 text-center relative"
+                >
+                  <div className="w-12 h-12 rounded-full bg-primary/10 mx-auto mb-4 flex items-center justify-center">
+                    <item.icon className="w-6 h-6 text-primary" />
+                  </div>
+                  <p className="text-primary font-semibold text-sm mb-1">{item.week}</p>
+                  <h3 className="font-bold text-gray-900 mb-2">{item.title}</h3>
+                  <p className="text-gray-600 text-sm">{item.description}</p>
+                </motion.div>
+              ))}
             </div>
           </section>
 
           {/* Reviews */}
           {REVIEW_SUBMISSION_ENABLED && (
           <section id="reviews" className="mt-16 sm:mt-24 scroll-mt-24">
-            <div className="bg-primary rounded-lg py-3 px-6 mb-8">
-              <h2 className="font-heading text-base sm:text-lg font-bold text-white uppercase tracking-wide text-center">
-                Reviews
-              </h2>
+            <div className="text-center mb-10">
+              <p className="text-primary font-semibold text-xs uppercase tracking-widest mb-2">Reviews</p>
+              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">Customer Reviews</h2>
+              {reviewCount > 0 && (
+                <div className="flex items-center justify-center gap-2 mt-3">
+                  <StarRating rating={Math.round(reviewAverage)} />
+                  <span className="text-gray-600 text-sm">
+                    {reviewAverage.toFixed(1)} out of 5 ({reviewCount} review{reviewCount === 1 ? "" : "s"})
+                  </span>
+                </div>
+              )}
             </div>
-            {reviewCount > 0 && (
-              <div className="flex items-center justify-center gap-2 mb-8">
-                <StarRating rating={Math.round(reviewAverage)} />
-                <span className="text-text-secondary text-sm">
-                  {reviewAverage.toFixed(1)} out of 5 ({reviewCount} review{reviewCount === 1 ? "" : "s"})
-                </span>
-              </div>
-            )}
 
             <div className="grid lg:grid-cols-2 gap-8">
               {/* Review list */}
@@ -1122,33 +1337,33 @@ export default function ProductV2Page() {
                     {[0, 1, 2].map((i) => (
                       <div
                         key={i}
-                        className="bg-white border border-border rounded-lg p-5 sm:p-6 animate-pulse"
+                        className="bg-white border border-gray-200 rounded-2xl p-5 sm:p-6 animate-pulse"
                       >
-                        <div className="h-4 w-28 bg-surface rounded mb-3" />
-                        <div className="h-3.5 w-24 bg-surface rounded mb-4" />
-                        <div className="h-3 w-full bg-surface rounded mb-2" />
-                        <div className="h-3 w-4/5 bg-surface rounded" />
+                        <div className="h-4 w-28 bg-gray-200 rounded mb-3" />
+                        <div className="h-3.5 w-24 bg-gray-200 rounded mb-4" />
+                        <div className="h-3 w-full bg-gray-100 rounded mb-2" />
+                        <div className="h-3 w-4/5 bg-gray-100 rounded" />
                       </div>
                     ))}
                   </div>
                 ) : reviews.length === 0 ? (
-                  <div className="bg-surface border border-border rounded-lg p-8 text-center text-text-muted text-sm">
+                  <div className="bg-gray-50 border border-gray-200 rounded-2xl p-8 text-center text-gray-500 text-sm">
                     No reviews yet. Be the first to share your experience.
                   </div>
                 ) : (
                   reviews.map((review) => (
-                    <div key={review.id} className="bg-white border border-border rounded-lg p-5 sm:p-6">
+                    <div key={review.id} className="bg-white border border-gray-200 rounded-2xl p-5 sm:p-6">
                       <div className="mb-2">
-                        <span className="font-heading font-semibold text-text-primary">{review.name}</span>
+                        <span className="font-semibold text-gray-900">{review.name}</span>
                       </div>
                       <StarRating rating={review.rating} />
-                      <p className="text-text-secondary text-sm mt-3 leading-relaxed">{review.quote}</p>
+                      <p className="text-gray-600 text-sm mt-3 leading-relaxed">{review.quote}</p>
                       {review.photoDataUrl && (
                         // eslint-disable-next-line @next/next/no-img-element
                         <img
                           src={review.photoDataUrl}
                           alt={`Photo from ${review.name}'s review`}
-                          className="mt-3 w-36 h-36 sm:w-48 sm:h-48 object-cover rounded-lg border border-border"
+                          className="mt-3 w-36 h-36 sm:w-48 sm:h-48 object-cover rounded-lg border border-gray-200"
                         />
                       )}
                     </div>
@@ -1158,22 +1373,22 @@ export default function ProductV2Page() {
 
               {/* Write a review form */}
               {REVIEW_SUBMISSION_ENABLED ? (
-                <div className="bg-surface border border-border rounded-lg p-6 sm:p-8 h-fit">
-                  <h3 className="font-heading font-bold text-text-primary mb-1">Write a Review</h3>
-                  <p className="text-text-muted text-sm mb-5">
+                <div className="bg-gray-50 border border-gray-200 rounded-2xl p-6 sm:p-8 h-fit">
+                  <h3 className="font-bold text-gray-900 mb-1">Write a Review</h3>
+                  <p className="text-gray-500 text-sm mb-5">
                     Only verified purchasers can leave a review. We'll check your email against your order.
                   </p>
 
                   {reviewSuccess ? (
                     <div className="text-center py-6">
                       <Check className="w-10 h-10 text-primary mx-auto mb-3" />
-                      <p className="font-heading font-semibold text-text-primary">Thanks for your review!</p>
-                      <p className="text-text-muted text-sm mt-1">It&apos;s now live on this page.</p>
+                      <p className="font-semibold text-gray-900">Thanks for your review!</p>
+                      <p className="text-gray-500 text-sm mt-1">It's now live on this page.</p>
                     </div>
                   ) : (
                     <form onSubmit={handleSubmitReview} className="space-y-4">
                       <div>
-                        <label className="text-sm text-text-secondary mb-1 block">Your Rating</label>
+                        <label className="text-sm text-gray-700 mb-1 block">Your Rating</label>
                         <div className="flex items-center gap-1">
                           {[1, 2, 3, 4, 5].map((star) => (
                             <button
@@ -1183,7 +1398,7 @@ export default function ProductV2Page() {
                               aria-label={`${star} star${star === 1 ? "" : "s"}`}
                             >
                               <Star
-                                className={`w-6 h-6 ${star <= reviewRating ? "text-star fill-star" : "text-text-muted"}`}
+                                className={`w-6 h-6 ${star <= reviewRating ? "text-yellow-400 fill-yellow-400" : "text-gray-300"}`}
                               />
                             </button>
                           ))}
@@ -1191,20 +1406,20 @@ export default function ProductV2Page() {
                       </div>
 
                       <div>
-                        <label htmlFor="review-name" className="text-sm text-text-secondary mb-1 block">Name</label>
+                        <label htmlFor="review-name" className="text-sm text-gray-700 mb-1 block">Name</label>
                         <input
                           id="review-name"
                           type="text"
                           required
                           value={reviewName}
                           onChange={(e) => setReviewName(e.target.value)}
-                          className="w-full px-3 py-2 rounded-[5px] bg-white border border-border text-text-primary text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                          className="w-full px-3 py-2 rounded-lg bg-white border border-gray-300 text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                         />
                       </div>
 
                       <div>
-                        <label htmlFor="review-email" className="text-sm text-text-secondary mb-1 block">
-                          Email <span className="text-text-muted">(used only to verify your purchase, not shown publicly)</span>
+                        <label htmlFor="review-email" className="text-sm text-gray-700 mb-1 block">
+                          Email <span className="text-gray-400">(used only to verify your purchase, not shown publicly)</span>
                         </label>
                         <input
                           id="review-email"
@@ -1212,12 +1427,12 @@ export default function ProductV2Page() {
                           required
                           value={reviewEmail}
                           onChange={(e) => setReviewEmail(e.target.value)}
-                          className="w-full px-3 py-2 rounded-[5px] bg-white border border-border text-text-primary text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                          className="w-full px-3 py-2 rounded-lg bg-white border border-gray-300 text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                         />
                       </div>
 
                       <div>
-                        <label htmlFor="review-quote" className="text-sm text-text-secondary mb-1 block">Your Review</label>
+                        <label htmlFor="review-quote" className="text-sm text-gray-700 mb-1 block">Your Review</label>
                         <textarea
                           id="review-quote"
                           required
@@ -1225,13 +1440,13 @@ export default function ProductV2Page() {
                           rows={4}
                           value={reviewQuote}
                           onChange={(e) => setReviewQuote(e.target.value)}
-                          className="w-full px-3 py-2 rounded-[5px] bg-white border border-border text-text-primary text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                          className="w-full px-3 py-2 rounded-lg bg-white border border-gray-300 text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                         />
                       </div>
 
                       <div>
-                        <label htmlFor="review-photo" className="text-sm text-text-secondary mb-1 block">
-                          Photo <span className="text-text-muted">(optional)</span>
+                        <label htmlFor="review-photo" className="text-sm text-gray-700 mb-1 block">
+                          Photo <span className="text-gray-400">(optional)</span>
                         </label>
                         {reviewPhotoPreview ? (
                           <div className="flex items-center gap-3">
@@ -1239,12 +1454,12 @@ export default function ProductV2Page() {
                             <img
                               src={reviewPhotoPreview}
                               alt="Selected review photo preview"
-                              className="w-16 h-16 object-cover rounded-lg border border-border"
+                              className="w-16 h-16 object-cover rounded-lg border border-gray-300"
                             />
                             <button
                               type="button"
                               onClick={clearReviewPhoto}
-                              className="text-sm text-text-muted hover:text-red-500 transition-colors"
+                              className="text-sm text-gray-500 hover:text-red-500 transition-colors"
                             >
                               Remove
                             </button>
@@ -1255,7 +1470,7 @@ export default function ProductV2Page() {
                             type="file"
                             accept="image/*"
                             onChange={handleReviewPhotoChange}
-                            className="w-full text-sm text-text-secondary file:mr-3 file:px-3 file:py-2 file:rounded-[5px] file:border-0 file:bg-primary/10 file:text-primary file:text-sm file:font-medium hover:file:bg-primary/20"
+                            className="w-full text-sm text-gray-600 file:mr-3 file:px-3 file:py-2 file:rounded-lg file:border-0 file:bg-primary/10 file:text-primary file:text-sm file:font-medium hover:file:bg-primary/20"
                           />
                         )}
                       </div>
@@ -1269,7 +1484,7 @@ export default function ProductV2Page() {
                   )}
                 </div>
               ) : (
-                <div className="bg-surface border border-border rounded-lg p-6 sm:p-8 h-fit flex items-center justify-center text-center text-text-muted text-sm min-h-[200px]">
+                <div className="bg-gray-50 border border-gray-200 rounded-2xl p-6 sm:p-8 h-fit flex items-center justify-center text-center text-gray-500 text-sm min-h-[200px]">
                   Review submissions are temporarily paused. Check back soon.
                 </div>
               )}
@@ -1285,14 +1500,14 @@ export default function ProductV2Page() {
               </h2>
             </div>
 
-            <div className="relative">
-              {/* Slideshow */}
+            {/* Mobile: Slideshow */}
+            <div className="sm:hidden relative">
               <div className="overflow-hidden rounded-lg">
                 <div
                   className="flex transition-transform duration-500 ease-in-out"
                   style={{ transform: `translateX(-${gallerySlide * 100}%)` }}
                 >
-                  {Array.from({ length: galleryTotal }, (_, i) => (
+                  {Array.from({ length: GALLERY_COUNT }, (_, i) => (
                     <div
                       key={i}
                       className="w-full flex-shrink-0 aspect-[4/3] bg-surface border border-border flex items-center justify-center"
@@ -1302,36 +1517,42 @@ export default function ProductV2Page() {
                   ))}
                 </div>
               </div>
-
-              {/* Prev / Next buttons */}
               <button
-                onClick={() => setGallerySlide((prev) => (prev === 0 ? galleryTotal - 1 : prev - 1))}
+                onClick={() => setGallerySlide((prev) => (prev === 0 ? GALLERY_COUNT - 1 : prev - 1))}
                 className="absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/90 border border-border shadow-sm flex items-center justify-center hover:bg-white transition-colors"
                 aria-label="Previous photo"
               >
                 <ChevronLeft className="w-5 h-5 text-text-primary" />
               </button>
               <button
-                onClick={() => setGallerySlide((prev) => (prev === galleryTotal - 1 ? 0 : prev + 1))}
+                onClick={() => setGallerySlide((prev) => (prev === GALLERY_COUNT - 1 ? 0 : prev + 1))}
                 className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/90 border border-border shadow-sm flex items-center justify-center hover:bg-white transition-colors"
                 aria-label="Next photo"
               >
                 <ChevronRight className="w-5 h-5 text-text-primary" />
               </button>
-
-              {/* Dot indicators */}
               <div className="flex justify-center gap-2 mt-4">
-                {Array.from({ length: galleryTotal }, (_, i) => (
+                {Array.from({ length: GALLERY_COUNT }, (_, i) => (
                   <button
                     key={i}
                     onClick={() => setGallerySlide(i)}
-                    className={`w-2 h-2 rounded-full transition-colors ${
-                      i === gallerySlide ? "bg-primary" : "bg-border"
-                    }`}
+                    className={`w-2 h-2 rounded-full transition-colors ${i === gallerySlide ? "bg-primary" : "bg-border"}`}
                     aria-label={`Go to photo ${i + 1}`}
                   />
                 ))}
               </div>
+            </div>
+
+            {/* Desktop: 5-photo grid */}
+            <div className="hidden sm:grid grid-cols-5 gap-3">
+              {Array.from({ length: GALLERY_COUNT }, (_, i) => (
+                <div
+                  key={i}
+                  className="aspect-[3/4] rounded-lg bg-surface border border-border flex items-center justify-center overflow-hidden"
+                >
+                  <span className="text-text-muted text-xs">Photo {i + 1}</span>
+                </div>
+              ))}
             </div>
           </section>
 
@@ -1339,31 +1560,22 @@ export default function ProductV2Page() {
       </main>
 
       {/* Mobile Sticky CTA */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-border p-4 md:hidden z-40">
+      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 md:hidden z-40">
         <div className="flex items-center justify-between gap-4">
           <div>
-            {(() => {
-              const active = getActiveBundle(BUNDLES.find((b) => b.id === selectedBundleId)!);
-              return (
-                <>
-                  <div className="flex items-center gap-1.5">
-                    {active.total < active.regularTotal && (
-                      <p className="text-xs text-text-muted line-through">
-                        ${active.regularTotal.toFixed(2)}
-                      </p>
-                    )}
-                    <p className="font-heading font-bold text-text-primary">
-                      ${active.total.toFixed(2)}{active.priceSuffix}
-                    </p>
-                  </div>
-                  <p className="text-xs text-text-muted">
-                    {active.isSubscription
-                      ? "Monthly subscription"
-                      : `${active.qty} bottle${active.qty > 1 ? "s" : ""} • One-time`}
-                  </p>
-                </>
-              );
-            })()}
+            <div className="flex items-center gap-1.5">
+              {SALE_ACTIVE && (
+                <p className="text-xs text-gray-400 line-through">
+                  ${BUNDLES.find((b) => b.qty === selectedBundle)!.regularTotal.toFixed(2)}
+                </p>
+              )}
+              <p className="font-bold text-gray-900">
+                ${BUNDLES.find((b) => b.qty === selectedBundle)!.total.toFixed(2)}
+              </p>
+            </div>
+            <p className="text-xs text-gray-500">
+              {selectedBundle} bottle{selectedBundle > 1 ? "s" : ""} • One-time
+            </p>
           </div>
           <Button className="flex-1" onClick={handleAddToCart}>
             {addedToCart ? "Opening…" : "Buy Now"}
