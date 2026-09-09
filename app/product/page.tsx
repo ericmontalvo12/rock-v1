@@ -532,12 +532,14 @@ export default function ProductV2Page() {
   const getActiveBundle = (): BundleOption => {
     const bundle = BUNDLES.find((b) => b.id === selectedBundleId)!;
     if (bundle.id === "one-time") {
+      const perBottle = getPricePerBottle(oneTimeQty);
+      const regularPerBottle = getRegularPricePerBottle(oneTimeQty);
       return {
         ...bundle,
         qty: oneTimeQty,
-        total: getBundleTotal(oneTimeQty),
-        regularTotal: getRegularBundleTotal(oneTimeQty),
-        pricePerBottle: getPricePerBottle(oneTimeQty),
+        total: parseFloat((perBottle * oneTimeQty).toFixed(2)),
+        regularTotal: parseFloat((regularPerBottle * oneTimeQty).toFixed(2)),
+        pricePerBottle: perBottle,
       };
     }
     return bundle;
