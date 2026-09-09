@@ -29,10 +29,10 @@ export function Hero() {
   return (
     <section
       ref={sectionRef}
-      className="relative h-[100svh] sm:min-h-screen flex items-center pt-[92px] sm:pt-[88px] overflow-hidden"
+      className="relative min-h-[480px] h-[100svh] sm:min-h-screen flex items-center pt-[100px] sm:pt-[110px] overflow-hidden"
     >
       {/* Background - Mobile */}
-      <div className="absolute inset-0 top-[92px] sm:hidden">
+      <div className="absolute inset-0 top-[100px] sm:hidden">
         <Image
           src="/hero-mobile.jpg"
           alt=""
@@ -44,7 +44,7 @@ export function Hero() {
         />
       </div>
       {/* Background - Desktop */}
-      <div className="absolute inset-0 top-[80px] hidden sm:block">
+      <div className="absolute inset-0 top-[110px] hidden sm:block">
         <Image
           src="/hero-mountain.jpg"
           alt=""

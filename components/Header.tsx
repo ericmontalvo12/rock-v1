@@ -85,14 +85,14 @@ export function Header() {
       <nav className="bg-white border-b border-border">
         <div className="mx-auto max-w-7xl px-4 lg:px-8">
           {/* Desktop Layout */}
-          <div className="hidden md:flex h-[68px] items-center justify-between">
+          <div className="hidden md:flex h-[72px] items-center justify-between">
             <Link href="/" className="flex items-center">
               <Image
                 src="/logo-new.png"
                 alt="Rock Mountain Performance"
-                width={200}
-                height={60}
-                className="h-[68px] w-auto scale-[2.15] translate-y-[8px]"
+                width={180}
+                height={54}
+                className="h-10 w-auto"
                 priority
               />
             </Link>
@@ -132,8 +132,8 @@ export function Header() {
             </div>
           </div>
 
-          {/* Mobile Layout */}
-          <div className="md:hidden grid grid-cols-3 items-center h-[56px]">
+          {/* Mobile Layout — matches Bucked Up: 55px top + 45px logo = ~100px total */}
+          <div className="md:hidden grid grid-cols-3 items-center h-[64px]">
             <div className="justify-self-start">
               <button
                 className="p-2 text-secondary hover:text-primary transition-colors"
@@ -153,9 +153,9 @@ export function Header() {
                 <Image
                   src="/logo-new.png"
                   alt="Rock Mountain Performance"
-                  width={210}
-                  height={60}
-                  className="max-w-[180px] sm:max-w-[210px] max-h-[50px] w-auto h-auto object-contain scale-[2] sm:scale-[1.75] translate-y-[5px]"
+                  width={160}
+                  height={48}
+                  className="h-9 w-auto"
                   priority
                 />
               </Link>
