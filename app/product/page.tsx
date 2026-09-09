@@ -46,6 +46,18 @@ const BUNDLES: BundleOption[] = [
     priceSuffix: "/mo",
   },
   {
+    id: "bundle-3",
+    qty: 3,
+    label: "3-Bottle Protocol",
+    total: getBundleTotal(3),
+    regularTotal: getRegularBundleTotal(3),
+    pricePerBottle: getPricePerBottle(3),
+    badge: "BEST RESULTS",
+    perks: ["20% off", "Free shipping", "30-day guarantee"],
+    isSubscription: false,
+    priceSuffix: "",
+  },
+  {
     id: "one-time",
     qty: 1,
     label: "One-Time Purchase",
