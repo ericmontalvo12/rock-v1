@@ -55,18 +55,10 @@ const galleryImages = [
   { src: "/how-to-use.jpg", alt: "How to Use" },
 ];
 
-const ingredientTabs = [
-  { id: "foundational", label: "Foundational Hormone Support" },
-  { id: "stress", label: "Stress & Cortisol Balance" },
-  { id: "availability", label: "Free Testosterone Availability" },
-] as const;
-
-type TabId = typeof ingredientTabs[number]["id"];
 
 const ingredients = [
   {
     name: "Vitamin D3",
-    category: "foundational" as TabId,
     form: "Cholecalciferol",
     dosage: "3,000 IU",
     image: "/vitamin-d3.png",
@@ -83,7 +75,6 @@ const ingredients = [
   },
   {
     name: "Magnesium",
-    category: "foundational" as TabId,
     form: "Bisglycinate",
     dosage: "28.6 mg",
     image: "/magnesium.png",
@@ -100,7 +91,6 @@ const ingredients = [
   },
   {
     name: "Zinc",
-    category: "foundational" as TabId,
     form: "Citrate",
     dosage: "20 mg",
     image: "/zinc.png",
@@ -117,7 +107,6 @@ const ingredients = [
   },
   {
     name: "Boron",
-    category: "availability" as TabId,
     form: "Citrate",
     dosage: "9 mg",
     image: "/boron.png",
@@ -134,7 +123,6 @@ const ingredients = [
   },
   {
     name: "Ashwagandha",
-    category: "stress" as TabId,
     form: "KSM-66 Root Extract",
     dosage: "500 mg",
     image: "/ashwagandha.png",
@@ -151,7 +139,6 @@ const ingredients = [
   },
   {
     name: "Tongkat Ali",
-    category: "stress" as TabId,
     form: "200:1 Eurycomanone",
     dosage: "300 mg",
     image: "/tongkat-ali.png",
@@ -168,7 +155,6 @@ const ingredients = [
   },
   {
     name: "Fenugreek",
-    category: "foundational" as TabId,
     form: "50% Saponins Extract",
     dosage: "500 mg",
     image: "/fenugreek.png",
@@ -489,22 +475,6 @@ export default function ProductV2Page() {
     { name: string; price: number; quantity: number; image?: string }[]
   >([]);
 
-  const [activeTab, setActiveTab] = useState<TabId>("foundational");
-  const [selectedIngredientIndex, setSelectedIngredientIndex] = useState(0);
-
-  const filteredIngredients = ingredients.filter((ing) => ing.category === activeTab);
-
-  const handleTabChange = (tabId: TabId) => {
-    setActiveTab(tabId);
-    setSelectedIngredientIndex(0);
-
-  };
-
-  const handleIngredientSelect = (index: number) => {
-    setSelectedIngredientIndex(index);
-
-  };
-
   const [reviews, setReviews] = useState<ProductReview[]>([]);
   const [reviewCount, setReviewCount] = useState(0);
   const [reviewAverage, setReviewAverage] = useState(0);
@@ -685,6 +655,43 @@ export default function ProductV2Page() {
       <Header />
       <main className="pt-28 sm:pt-32 pb-24 sm:pb-24 bg-surface/50">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          {/* Mobile: Title + reviews above gallery */}
+          <div className="lg:hidden mb-4">
+            <h1 className="font-heading text-2xl sm:text-3xl font-bold text-text-primary mb-2">
+              Peak Performance
+            </h1>
+            {REVIEW_SUBMISSION_ENABLED && (
+              <div className="flex flex-wrap items-center gap-3 mb-3 text-sm">
+                {reviewsLoading ? (
+                  <div className="h-5 w-44 bg-surface rounded animate-pulse" aria-hidden="true" />
+                ) : reviewCount > 0 ? (
+                  <>
+                    <div className="flex items-center gap-1">
+                      <StarRating rating={Math.round(reviewAverage)} />
+                    </div>
+                    <span className="text-border">|</span>
+                    <button
+                      onClick={() => document.getElementById('reviews')?.scrollIntoView({ behavior: 'smooth' })}
+                      className="text-primary hover:underline"
+                    >
+                      {reviewCount} review{reviewCount === 1 ? "" : "s"}
+                    </button>
+                  </>
+                ) : (
+                  <button
+                    onClick={() => document.getElementById('reviews')?.scrollIntoView({ behavior: 'smooth' })}
+                    className="text-primary hover:underline"
+                  >
+                    Be the first to leave a review
+                  </button>
+                )}
+              </div>
+            )}
+            <p className="text-sm text-text-secondary">
+              Research-backed testosterone support for energy, drive, and recovery. Seven clinically dosed ingredients. No proprietary blends.
+            </p>
+          </div>
+
           <div className="grid lg:grid-cols-2 gap-6 lg:gap-16">
             {/* Product Image Gallery */}
             <div className="relative order-1 lg:order-1">
@@ -764,42 +771,42 @@ export default function ProductV2Page() {
 
             {/* Product Info */}
             <div className="order-2 lg:order-2">
-              <h1 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-bold text-text-primary mb-2">
-                Peak Performance
-              </h1>
-
-              {/* Social Proof Bar */}
-              {REVIEW_SUBMISSION_ENABLED && (
-                <div className="flex flex-wrap items-center gap-3 mb-4 text-sm">
-                  {reviewsLoading ? (
-                    <div className="h-5 w-44 bg-surface rounded animate-pulse" aria-hidden="true" />
-                  ) : reviewCount > 0 ? (
-                    <>
-                      <div className="flex items-center gap-1">
-                        <StarRating rating={Math.round(reviewAverage)} />
-                      </div>
-                      <span className="text-border">|</span>
+              {/* Desktop: Title + reviews (hidden on mobile, shown above grid instead) */}
+              <div className="hidden lg:block">
+                <h1 className="font-heading text-4xl font-bold text-text-primary mb-2">
+                  Peak Performance
+                </h1>
+                {REVIEW_SUBMISSION_ENABLED && (
+                  <div className="flex flex-wrap items-center gap-3 mb-4 text-sm">
+                    {reviewsLoading ? (
+                      <div className="h-5 w-44 bg-surface rounded animate-pulse" aria-hidden="true" />
+                    ) : reviewCount > 0 ? (
+                      <>
+                        <div className="flex items-center gap-1">
+                          <StarRating rating={Math.round(reviewAverage)} />
+                        </div>
+                        <span className="text-border">|</span>
+                        <button
+                          onClick={() => document.getElementById('reviews')?.scrollIntoView({ behavior: 'smooth' })}
+                          className="text-primary hover:underline"
+                        >
+                          {reviewCount} review{reviewCount === 1 ? "" : "s"}
+                        </button>
+                      </>
+                    ) : (
                       <button
                         onClick={() => document.getElementById('reviews')?.scrollIntoView({ behavior: 'smooth' })}
                         className="text-primary hover:underline"
                       >
-                        {reviewCount} review{reviewCount === 1 ? "" : "s"}
+                        Be the first to leave a review
                       </button>
-                    </>
-                  ) : (
-                    <button
-                      onClick={() => document.getElementById('reviews')?.scrollIntoView({ behavior: 'smooth' })}
-                      className="text-primary hover:underline"
-                    >
-                      Be the first to leave a review
-                    </button>
-                  )}
-                </div>
-              )}
-
-              <p className="text-sm sm:text-base text-text-secondary mb-6">
-                Research-backed testosterone support for energy, drive, and recovery. Seven clinically dosed ingredients. No proprietary blends.
-              </p>
+                    )}
+                  </div>
+                )}
+                <p className="text-base text-text-secondary mb-6">
+                  Research-backed testosterone support for energy, drive, and recovery. Seven clinically dosed ingredients. No proprietary blends.
+                </p>
+              </div>
 
               {/* Sale banner */}
               {SALE_ACTIVE && (
@@ -901,244 +908,61 @@ export default function ProductV2Page() {
                 What&apos;s Inside
               </h2>
             </div>
-            <div className="text-center mb-6">
-              <h3 className="font-heading text-xl sm:text-2xl font-bold text-text-primary mb-4">
-                Every Ingredient. Every Dose. Fully Transparent.
-              </h3>
-              <div className="flex flex-wrap justify-center gap-2">
-                {ingredientTabs.map((tab) => (
-                  <button
-                    key={tab.id}
-                    onClick={() => handleTabChange(tab.id)}
-                    className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
-                      activeTab === tab.id
-                        ? "bg-primary text-white shadow-md"
-                        : "bg-white text-text-secondary border border-border hover:border-primary hover:text-primary"
-                    }`}
-                  >
-                    {tab.label}
-                  </button>
-                ))}
-              </div>
-            </div>
 
-            {/* ==================== MOBILE: Unified Module ==================== */}
-            <div className="lg:hidden bg-white rounded-lg border border-border shadow-lg p-4 overflow-hidden">
-              <motion.div
-                key={activeTab}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.2 }}
-                className="flex gap-2 overflow-x-auto pb-3 -mx-1 px-1 scrollbar-hide"
-                style={{ touchAction: "pan-x pinch-zoom" }}
-              >
-                {filteredIngredients.map((ingredient, index) => (
-                  <button
-                    key={ingredient.name}
-                    onClick={() => handleIngredientSelect(index)}
-                    className={`flex-shrink-0 px-3 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
-                      selectedIngredientIndex === index
-                        ? "bg-primary text-white shadow-md"
-                        : "bg-surface text-text-secondary hover:bg-surface-elevated"
-                    }`}
-                  >
-                    {ingredient.name}
-                  </button>
-                ))}
-              </motion.div>
-
-              <div className="flex justify-center py-3">
-                <motion.div
-                  key={filteredIngredients[selectedIngredientIndex]?.name}
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.3 }}
-                  className="relative"
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {ingredients.map((ingredient) => (
+                <div
+                  key={ingredient.name}
+                  className="bg-white border border-border rounded-lg overflow-hidden"
                 >
-                  <div className="w-36 h-36 rounded-full bg-gradient-to-br from-surface to-white border-3 border-primary/10 shadow-lg flex items-center justify-center overflow-hidden">
-                    <Image
-                      src={filteredIngredients[selectedIngredientIndex]?.image || "/vitamin-d3.png"}
-                      alt={filteredIngredients[selectedIngredientIndex]?.name || "Ingredient"}
-                      width={144}
-                      height={144}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                </motion.div>
-              </div>
-
-              <motion.div
-                key={`panel-mobile-${filteredIngredients[selectedIngredientIndex]?.name}`}
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3 }}
-                className="rounded-lg bg-primary overflow-hidden shadow-lg -mx-1"
-              >
-                <div className="p-4">
-                  <div className="flex items-center justify-between mb-2">
-                    <h3 className="text-lg font-bold text-white">
-                      {filteredIngredients[selectedIngredientIndex]?.name}
-                    </h3>
-                    <span className="text-xs font-bold px-2 py-1 rounded-full bg-white/20 text-white">
-                      {filteredIngredients[selectedIngredientIndex]?.dosage}
-                    </span>
-                  </div>
-                  <p className="text-white/70 text-xs mb-3">
-                    {filteredIngredients[selectedIngredientIndex]?.form}
-                  </p>
-                  <p className="text-white text-sm leading-relaxed mb-3">
-                    {filteredIngredients[selectedIngredientIndex]?.shortDesc}
-                  </p>
-                  <div className="mb-3">
-                    <h4 className="text-white/80 font-medium text-[10px] mb-1.5 uppercase tracking-wide">
-                      Key Benefits
-                    </h4>
-                    <ul className="space-y-1">
-                      {filteredIngredients[selectedIngredientIndex]?.benefits.slice(0, 3).map((benefit, i) => (
-                        <li key={i} className="flex items-start gap-1.5">
-                          <div className="w-3.5 h-3.5 rounded-full bg-white/25 flex items-center justify-center flex-shrink-0 mt-0.5">
-                            <Check className="w-2 h-2 text-white" />
-                          </div>
-                          <span className="text-white text-xs leading-snug">{benefit}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  {filteredIngredients[selectedIngredientIndex]?.research?.[0] && (
-                    <a
-                      href={filteredIngredients[selectedIngredientIndex].research[0].url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[5px] bg-white text-primary font-heading font-semibold text-xs hover:bg-white/95 transition-colors shadow-sm"
-                    >
-                      See the Research
-                      <ArrowRight className="w-3 h-3" />
-                    </a>
-                  )}
-                </div>
-              </motion.div>
-            </div>
-
-            {/* ==================== DESKTOP: 3-Column Layout ==================== */}
-            <div className="hidden lg:block bg-white rounded-lg border border-border shadow-lg pt-5 px-6 pb-8 overflow-hidden">
-              <div className="grid lg:grid-cols-12 gap-5 items-stretch">
-                <motion.div
-                  key={activeTab}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.2 }}
-                  className="lg:col-span-3 flex flex-col gap-1.5"
-                >
-                  {filteredIngredients.map((ingredient, index) => (
-                    <button
-                      key={ingredient.name}
-                      onClick={() => handleIngredientSelect(index)}
-                      className={`text-left px-3 py-2.5 rounded-xl transition-all duration-200 ${
-                        selectedIngredientIndex === index
-                          ? "bg-primary/10 border-l-4 border-primary"
-                          : "hover:bg-surface border-l-4 border-transparent"
-                      }`}
-                    >
-                      <div className="flex items-center justify-between gap-2">
-                        <span className={`text-sm ${selectedIngredientIndex === index ? "text-primary font-semibold" : "text-text-primary font-medium"}`}>
-                          {ingredient.name}
-                        </span>
-                        <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${
-                          selectedIngredientIndex === index
-                            ? "bg-primary text-white"
-                            : "bg-surface text-text-muted"
-                        }`}>
-                          {ingredient.dosage}
-                        </span>
-                      </div>
-                    </button>
-                  ))}
-                </motion.div>
-
-                <div className="lg:col-span-3 flex justify-center items-center py-2">
-                  <motion.div
-                    key={filteredIngredients[selectedIngredientIndex]?.name}
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.3 }}
-                    className="relative"
-                  >
-                    <div className="w-64 h-64 rounded-full bg-gradient-to-br from-surface to-white border-4 border-primary/10 shadow-lg flex items-center justify-center overflow-hidden">
+                  <div className="flex items-center gap-3 p-4 border-b border-border">
+                    <div className="w-14 h-14 rounded-full bg-surface flex-shrink-0 overflow-hidden">
                       <Image
-                        src={filteredIngredients[selectedIngredientIndex]?.image || "/vitamin-d3.png"}
-                        alt={filteredIngredients[selectedIngredientIndex]?.name || "Ingredient"}
-                        width={256}
-                        height={256}
+                        src={ingredient.image}
+                        alt={ingredient.name}
+                        width={56}
+                        height={56}
                         className="w-full h-full object-cover"
                       />
                     </div>
-                    <div className="absolute inset-0 rounded-full bg-primary/5 blur-2xl -z-10" />
-                  </motion.div>
-                </div>
-
-                <motion.div
-                  key={`panel-${filteredIngredients[selectedIngredientIndex]?.name}`}
-                  initial={{ opacity: 0, x: 12 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="lg:col-span-6 rounded-lg bg-primary overflow-hidden shadow-lg"
-                >
-                  <div className="p-6">
-                    <h3 className="text-2xl font-bold text-white mb-1.5">
-                      {filteredIngredients[selectedIngredientIndex]?.name}
-                    </h3>
-
-                    <div className="mb-4">
-                      <p className="text-white text-base leading-relaxed">
-                        {filteredIngredients[selectedIngredientIndex]?.shortDesc}
-                      </p>
+                    <div className="min-w-0">
+                      <h3 className="font-heading font-bold text-text-primary text-sm">
+                        {ingredient.name}
+                      </h3>
+                      <p className="text-text-muted text-xs">{ingredient.form}</p>
                     </div>
-
-                    <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3 mb-4 border border-white/10">
-                      <div className="flex justify-between items-center border-b border-white/15 pb-2 mb-2">
-                        <span className="text-white/90 text-sm">Dose</span>
-                        <span className="text-white font-semibold text-sm">
-                          {filteredIngredients[selectedIngredientIndex]?.dosage}
-                        </span>
-                      </div>
-                      <div className="flex justify-between items-center">
-                        <span className="text-white/90 text-sm">Form</span>
-                        <span className="text-white text-sm text-right max-w-[65%]">
-                          {filteredIngredients[selectedIngredientIndex]?.form}
-                        </span>
-                      </div>
-                    </div>
-
-                    <div className="mb-4">
-                      <h4 className="text-white font-medium text-xs mb-2 uppercase tracking-wide">
-                        Key Benefits
-                      </h4>
-                      <ul className="space-y-1.5">
-                        {filteredIngredients[selectedIngredientIndex]?.benefits.map((benefit, i) => (
-                          <li key={i} className="flex items-start gap-2">
-                            <div className="w-4 h-4 rounded-full bg-white/30 flex items-center justify-center flex-shrink-0 mt-0.5">
-                              <Check className="w-2.5 h-2.5 text-white" />
-                            </div>
-                            <span className="text-white text-sm leading-snug">{benefit}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    {filteredIngredients[selectedIngredientIndex]?.research?.[0] && (
+                    <span className="ml-auto flex-shrink-0 text-xs font-heading font-bold px-2 py-1 rounded-[5px] bg-primary/10 text-primary">
+                      {ingredient.dosage}
+                    </span>
+                  </div>
+                  <div className="p-4">
+                    <p className="text-text-secondary text-sm leading-relaxed mb-3">
+                      {ingredient.shortDesc}
+                    </p>
+                    {ingredient.research?.[0] && (
                       <a
-                        href={filteredIngredients[selectedIngredientIndex].research[0].url}
+                        href={ingredient.research[0].url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 px-4 py-2 rounded-[5px] bg-white text-primary font-heading font-semibold text-sm hover:bg-white/95 transition-colors shadow-sm"
+                        className="inline-flex items-center gap-1.5 text-primary font-heading font-semibold text-xs hover:underline"
                       >
                         See the Research
-                        <ArrowRight className="w-3.5 h-3.5" />
+                        <ArrowRight className="w-3 h-3" />
                       </a>
                     )}
                   </div>
-                </motion.div>
-              </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="text-center mt-6">
+              <Link
+                href="/formula"
+                className="inline-flex items-center gap-2 font-heading font-bold text-sm text-primary hover:underline"
+              >
+                Full Ingredient Breakdown
+                <ArrowRight className="w-4 h-4" />
+              </Link>
             </div>
           </section>
 
