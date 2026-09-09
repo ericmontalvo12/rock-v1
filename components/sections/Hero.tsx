@@ -4,7 +4,7 @@ import Link from "next/link";
 export function Hero() {
   return (
     <section
-      className="relative h-[440px] sm:h-[500px] lg:h-[600px] flex items-center pt-[100px] sm:pt-[110px] overflow-hidden"
+      className="relative h-[520px] sm:h-[600px] lg:h-[75vh] lg:min-h-[600px] lg:max-h-[800px] flex items-center pt-[100px] sm:pt-[110px] overflow-hidden"
     >
       {/* Background - Mobile */}
       <div className="absolute inset-0 top-[100px] sm:hidden">
@@ -37,11 +37,11 @@ export function Hero() {
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 w-full">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
           <div className="text-center lg:text-left max-w-[340px] sm:max-w-none mx-auto">
-            <h1 className="font-heading text-[28px] sm:text-4xl lg:text-6xl font-bold tracking-tight text-white mb-3 sm:mb-5 leading-[1.1]">
+            <h1 className="font-heading text-[32px] sm:text-5xl lg:text-7xl font-bold tracking-tight text-white mb-3 sm:mb-5 leading-[1.05]">
               Built for Men Who Read Labels
             </h1>
 
-            <p className="text-white/80 text-[15px] sm:text-lg mb-6 sm:mb-8 leading-relaxed max-w-md mx-auto lg:mx-0">
+            <p className="text-white/80 text-base sm:text-lg lg:text-xl mb-6 sm:mb-8 leading-relaxed max-w-lg mx-auto lg:mx-0">
               Research-backed testosterone support for energy, drive, and recovery.
             </p>
 
