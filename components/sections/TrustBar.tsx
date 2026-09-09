@@ -3,9 +3,9 @@
 import Image from "next/image";
 
 const badges = [
-  { src: "/gmp-badge.png", alt: "GMP Certified", label: "GMP Certified" },
-  { src: "/made-in-usa-badge.png", alt: "Made in USA", label: "Made in USA" },
-  { src: "/lab-tested-badge.png", alt: "Lab Tested", label: "Lab Tested" },
+  { src: "/gmp-certified.png", alt: "GMP Certified", label: "GMP Certified" },
+  { src: "/made-in-usa.png", alt: "Made in USA", label: "Made in USA" },
+  { src: "/lab-tested.png", alt: "Lab Tested", label: "Lab Tested" },
 ];
 
 export function TrustBar() {
