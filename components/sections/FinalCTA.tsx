@@ -1,41 +1,43 @@
 "use client";
 
-import { motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
 
 export function FinalCTA() {
   return (
-    <section className="py-16 sm:py-24 bg-white border-t border-gray-200">
-      <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-        >
-          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">
-            View the full formula breakdown
+    <section className="py-14 sm:py-20 bg-dark-bg">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col items-center text-center">
+          <h2 className="font-heading text-2xl sm:text-4xl font-bold text-white mb-3">
+            Ready to Feel the Difference?
           </h2>
-          <p className="text-gray-600 text-base sm:text-lg mb-8 max-w-xl mx-auto">
-            See exactly what's inside, the research behind each ingredient, and why the doses matter.
+          <p className="text-text-on-dark-muted text-sm sm:text-base mb-8 max-w-md">
+            Join thousands of men who switched to research-backed testosterone support.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/product" className="w-full sm:w-auto">
-              <Button size="lg" className="w-full sm:w-auto h-12 text-base px-8 rounded-md">
-                Buy Peak Performance
-                <ArrowRight className="w-4 h-4 ml-2" />
-              </Button>
-            </Link>
-            <Link href="/formula" className="w-full sm:w-auto">
-              <Button size="lg" variant="outline" className="w-full sm:w-auto h-12 text-base px-8 rounded-md border-primary text-primary hover:bg-primary/5">
-                Inside the Formula
-              </Button>
-            </Link>
+          <Link
+            href="/product"
+            className="inline-flex items-center justify-center h-12 px-10 rounded-[5px] bg-primary text-white font-heading font-bold text-base uppercase tracking-wide hover:bg-primary-hover transition-colors mb-8"
+          >
+            Shop Now
+          </Link>
+
+          <div className="flex items-center gap-6 text-text-on-dark-muted text-xs sm:text-sm">
+            <span>&#10003; Free Shipping</span>
+            <span>&#10003; 30-Day Guarantee</span>
+            <span>&#10003; No Commitment</span>
           </div>
-        </motion.div>
+
+          <div className="mt-10">
+            <Image
+              src="/product-bottle.png"
+              alt="Peak Performance"
+              width={200}
+              height={300}
+              className="w-32 sm:w-44 h-auto"
+            />
+          </div>
+        </div>
       </div>
     </section>
   );
