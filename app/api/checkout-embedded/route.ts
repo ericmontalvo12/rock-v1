@@ -8,7 +8,6 @@ type CartItem = {
   quantity: number;
   image?: string;
   isSubscription?: boolean;
-  subscriptionIntervalCount?: number; // billing every N months
 };
 
 export async function POST(req: Request) {
@@ -32,15 +31,6 @@ export async function POST(req: Request) {
       fbc?: string | null;
     };
 
-    // Carried on the session so the webhook can attach them to the
-    // server-side Meta Purchase event, which has no browser context.
-    //
-    // This request comes from the customer's browser, so these headers
-    // describe the actual buyer. The Stripe webhook cannot read them - that
-    // request originates from Stripe's servers.
-    //
-    // x-forwarded-for is a comma-separated chain; the first entry is the
-    // client. Stripe metadata caps values at 500 characters.
     const forwardedFor = req.headers.get("x-forwarded-for");
     const clientIp =
       forwardedFor?.split(",")[0].trim() ||
@@ -62,54 +52,67 @@ export async function POST(req: Request) {
     const isSubscription = cartItems.some((item) => item.isSubscription);
 
     if (isSubscription) {
-      // Subscription checkout
-      const line_items: Stripe.Checkout.SessionCreateParams.LineItem[] =
-        cartItems.map((item) => ({
-          quantity: item.quantity,
-          price_data: {
-            currency: "usd",
-            unit_amount: Math.round(item.price * 100),
-            product_data: {
-              name: item.name,
-              ...(item.image ? { images: [item.image] } : {}),
-            },
-            recurring: {
-              interval: "month" as const,
-              interval_count: item.subscriptionIntervalCount ?? 1,
-            },
-          },
-        }));
+      const subItem = cartItems.find((item) => item.isSubscription);
+      if (!subItem || subItem.name !== "Peak Performance") {
+        return NextResponse.json(
+          { error: "Subscriptions are only available for Peak Performance." },
+          { status: 400 }
+        );
+      }
+
+      const subscriptionPriceId = process.env.STRIPE_SUBSCRIPTION_PRICE_ID;
+      if (!subscriptionPriceId) {
+        console.error("Missing STRIPE_SUBSCRIPTION_PRICE_ID env var");
+        return NextResponse.json(
+          { error: "Subscription checkout is not configured." },
+          { status: 500 }
+        );
+      }
 
       const session = await stripe.checkout.sessions.create({
         ui_mode: "embedded",
         mode: "subscription",
-        line_items,
+        line_items: [{ price: subscriptionPriceId, quantity: 1 }],
         ...(email ? { customer_email: email } : {}),
-        ...(Object.keys(metaMetadata).length ? { metadata: metaMetadata } : {}),
+        ...(Object.keys(metaMetadata).length
+          ? { subscription_data: { metadata: metaMetadata } }
+          : {}),
+        allow_promotion_codes: true,
         shipping_address_collection: { allowed_countries: ["US"] },
+        shipping_options: [
+          {
+            shipping_rate_data: {
+              type: "fixed_amount",
+              fixed_amount: { amount: 0, currency: "usd" },
+              display_name: "Free Shipping",
+              delivery_estimate: {
+                minimum: { unit: "business_day", value: 4 },
+                maximum: { unit: "business_day", value: 7 },
+              },
+            },
+          },
+        ],
         return_url: `${siteUrl}/success?session_id={CHECKOUT_SESSION_ID}`,
       });
 
       return NextResponse.json({ clientSecret: session.client_secret });
     }
 
-    // One-time payment checkout
-    // Peak Performance's price is recomputed here from quantity + the live
-    // sale window instead of trusting item.price, so a client can't check
-    // out at a stale sale price (or a tampered one) once the sale ends.
+    // One-time payment checkout — price recomputed server-side from quantity.
     const line_items: Stripe.Checkout.SessionCreateParams.LineItem[] =
       cartItems.map((item) => {
-        const unitPrice =
-          item.name === "Peak Performance"
-            ? getPricePerBottle(item.quantity)
-            : item.price;
+        if (item.name !== "Peak Performance") {
+          throw new Error(`Unknown product: ${item.name}`);
+        }
+        const quantity = Math.max(1, Math.min(Math.floor(item.quantity), 10));
+        const unitPrice = getPricePerBottle(quantity);
         return {
-          quantity: item.quantity,
+          quantity,
           price_data: {
             currency: "usd",
             unit_amount: Math.round(unitPrice * 100),
             product_data: {
-              name: item.name,
+              name: "Peak Performance",
               ...(item.image ? { images: [item.image] } : {}),
             },
           },

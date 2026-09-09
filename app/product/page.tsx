@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { useCart } from "@/lib/cart-context";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check, ChevronDown, ArrowRight, Star, X } from "lucide-react";
-import { getBundleTotal, getRegularBundleTotal, getPricePerBottle, isSaleActive } from "@/lib/sale";
+import { getBundleTotal, getRegularBundleTotal, getPricePerBottle, isSaleActive, SUBSCRIPTION_PRICE } from "@/lib/sale";
 import { SaleCountdown } from "@/components/SaleCountdown";
 import { MAX_REVIEW_PHOTO_BYTES } from "@/lib/reviews-config";
 import { trackFbEvent } from "@/lib/fbpixel";
@@ -19,33 +19,55 @@ const SALE_ACTIVE = isSaleActive();
 
 const REVIEW_SUBMISSION_ENABLED = true;
 
-const BUNDLES = [
+type BundleOption = {
+  id: string;
+  qty: number;
+  label: string;
+  total: number;
+  regularTotal: number;
+  pricePerBottle: number;
+  badge: string | null;
+  perks: string[];
+  isSubscription: boolean;
+  priceSuffix: string;
+};
+
+const BUNDLES: BundleOption[] = [
   {
+    id: "subscribe",
     qty: 1,
-    label: "Buy 1 Bottle",
-    pricePerBottle: getPricePerBottle(1),
-    total: getBundleTotal(1),
+    label: "Monthly Subscription",
+    total: SUBSCRIPTION_PRICE,
     regularTotal: getRegularBundleTotal(1),
-    badge: SALE_ACTIVE ? "20% OFF" : null,
-    perks: ["Free shipping", "30-day guarantee"],
+    pricePerBottle: SUBSCRIPTION_PRICE,
+    badge: "MOST POPULAR",
+    perks: ["Free shipping", "Cancel anytime", "30-day guarantee"],
+    isSubscription: true,
+    priceSuffix: "/mo",
   },
   {
-    qty: 2,
-    label: "Buy 2 Bottles",
-    pricePerBottle: getPricePerBottle(2),
-    total: getBundleTotal(2),
-    regularTotal: getRegularBundleTotal(2),
-    badge: null,
-    perks: ["Free shipping", "30-day guarantee"],
-  },
-  {
+    id: "bundle-3",
     qty: 3,
-    label: "Buy 3 Bottles",
-    pricePerBottle: getPricePerBottle(3),
+    label: "3-Bottle Protocol",
     total: getBundleTotal(3),
     regularTotal: getRegularBundleTotal(3),
-    badge: "BEST VALUE",
+    pricePerBottle: getPricePerBottle(3),
+    badge: "BEST RESULTS",
     perks: ["20% off", "Free shipping", "30-day guarantee"],
+    isSubscription: false,
+    priceSuffix: "",
+  },
+  {
+    id: "single",
+    qty: 1,
+    label: "Single Bottle",
+    total: getBundleTotal(1),
+    regularTotal: getRegularBundleTotal(1),
+    pricePerBottle: getPricePerBottle(1),
+    badge: null,
+    perks: ["Free shipping", "30-day guarantee"],
+    isSubscription: false,
+    priceSuffix: "",
   },
 ];
 
@@ -467,12 +489,12 @@ export default function ProductV2Page() {
   const [openSection, setOpenSection] = useState<number | null>(null);
   const [addedToCart, setAddedToCart] = useState(false);
   const [activeImage, setActiveImage] = useState(0);
-  const [selectedBundle, setSelectedBundle] = useState(1);
+  const [selectedBundleId, setSelectedBundleId] = useState("subscribe");
   const { addToCart, customerEmail } = useCart();
   const [checkoutOpen, setCheckoutOpen] = useState(false);
   const [checkoutPromoId, setCheckoutPromoId] = useState<string | undefined>();
   const [checkoutItems, setCheckoutItems] = useState<
-    { name: string; price: number; quantity: number; image?: string }[]
+    { name: string; price: number; quantity: number; image?: string; isSubscription?: boolean }[]
   >([]);
 
   const [reviews, setReviews] = useState<ProductReview[]>([]);
@@ -596,7 +618,7 @@ export default function ProductV2Page() {
    * funnel. Now it opens checkout directly.
    */
   const handleAddToCart = async () => {
-    const bundle = BUNDLES.find((b) => b.qty === selectedBundle)!;
+    const bundle = BUNDLES.find((b) => b.id === selectedBundleId)!;
 
     addToCart(
       {
@@ -619,24 +641,27 @@ export default function ProductV2Page() {
           typeof window !== "undefined"
             ? `${window.location.origin}/product-bottle.png`
             : undefined,
+        ...(bundle.isSubscription ? { isSubscription: true } : {}),
       },
     ]);
 
-    // Honour a code claimed from the email popup. If it can't be validated we
-    // still open checkout - Stripe shows its own promo field as a fallback.
+    // Promo codes are not pre-applied to subscription sessions — Stripe shows
+    // its own promo field for subscribers to enter the code themselves.
     let promotionCodeId: string | undefined;
-    try {
-      const stored = localStorage.getItem("promoCode");
-      if (stored) {
-        const res = await fetch("/api/validate-promo", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ code: stored }),
-        });
-        if (res.ok) promotionCodeId = (await res.json()).promotionCodeId;
+    if (!bundle.isSubscription) {
+      try {
+        const stored = localStorage.getItem("promoCode");
+        if (stored) {
+          const res = await fetch("/api/validate-promo", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ code: stored }),
+          });
+          if (res.ok) promotionCodeId = (await res.json()).promotionCodeId;
+        }
+      } catch {
+        // ignore - checkout still opens
       }
-    } catch {
-      // ignore - checkout still opens
     }
     setCheckoutPromoId(promotionCodeId);
 
@@ -820,23 +845,20 @@ export default function ProductV2Page() {
               <div className="space-y-3 mb-4">
                 {BUNDLES.map((bundle) => (
                   <button
-                    key={bundle.qty}
-                    onClick={() => setSelectedBundle(bundle.qty)}
+                    key={bundle.id}
+                    onClick={() => setSelectedBundleId(bundle.id)}
                     className={`w-full p-4 rounded-lg border-2 text-left transition-all ${
-                      selectedBundle === bundle.qty
+                      selectedBundleId === bundle.id
                         ? "border-primary bg-primary/5"
                         : "border-border hover:border-text-muted"
                     }`}
                   >
-                    {/* min-w-0 lets the label column shrink; without it flexbox
-                        keeps it at content width and squeezes the price until
-                        the number wraps mid-digit ("$39.9" / "5"). */}
                     <div className="flex items-center justify-between gap-3">
                       <div className="flex items-center gap-3 min-w-0">
                         <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
-                          selectedBundle === bundle.qty ? "border-primary" : "border-border"
+                          selectedBundleId === bundle.id ? "border-primary" : "border-border"
                         }`}>
-                          {selectedBundle === bundle.qty && (
+                          {selectedBundleId === bundle.id && (
                             <div className="w-2 h-2 rounded-full bg-primary" />
                           )}
                         </div>
@@ -859,7 +881,7 @@ export default function ProductV2Page() {
                           {bundle.total < bundle.regularTotal && (
                             <p className="text-xs text-text-muted line-through whitespace-nowrap">${bundle.regularTotal.toFixed(2)}</p>
                           )}
-                          <p className="font-bold text-text-primary whitespace-nowrap">${bundle.total.toFixed(2)}</p>
+                          <p className="font-bold text-text-primary whitespace-nowrap">${bundle.total.toFixed(2)}{bundle.priceSuffix}</p>
                         </div>
                         {bundle.qty > 1 && (
                           <p className="text-xs text-text-muted whitespace-nowrap">${bundle.pricePerBottle.toFixed(2)}/bottle</p>
@@ -878,7 +900,7 @@ export default function ProductV2Page() {
               </div>
               <div className="flex flex-wrap gap-x-4 gap-y-1 mb-8 text-xs text-text-muted">
                 <span className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-primary" />30-Day Guarantee</span>
-                <span className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-primary" />No commitment</span>
+                <span className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-primary" />Cancel anytime</span>
                 <span className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-primary" />Ships in 1-2 Days</span>
               </div>
 
@@ -1240,7 +1262,7 @@ export default function ProductV2Page() {
                   </Button>
                   <div className="flex flex-wrap justify-center sm:justify-start gap-x-4 gap-y-1 mt-4 text-sm text-white/80">
                     <span className="flex items-center gap-1.5"><Check className="w-4 h-4" />30-Day Guarantee</span>
-                    <span className="flex items-center gap-1.5"><Check className="w-4 h-4" />No Commitment</span>
+                    <span className="flex items-center gap-1.5"><Check className="w-4 h-4" />Cancel Anytime</span>
                   </div>
                 </div>
               </div>
@@ -1254,19 +1276,28 @@ export default function ProductV2Page() {
       <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-border p-4 md:hidden z-40">
         <div className="flex items-center justify-between gap-4">
           <div>
-            <div className="flex items-center gap-1.5">
-              {SALE_ACTIVE && (
-                <p className="text-xs text-text-muted line-through">
-                  ${BUNDLES.find((b) => b.qty === selectedBundle)!.regularTotal.toFixed(2)}
-                </p>
-              )}
-              <p className="font-heading font-bold text-text-primary">
-                ${BUNDLES.find((b) => b.qty === selectedBundle)!.total.toFixed(2)}
-              </p>
-            </div>
-            <p className="text-xs text-text-muted">
-              {selectedBundle} bottle{selectedBundle > 1 ? "s" : ""} • One-time
-            </p>
+            {(() => {
+              const active = BUNDLES.find((b) => b.id === selectedBundleId)!;
+              return (
+                <>
+                  <div className="flex items-center gap-1.5">
+                    {active.total < active.regularTotal && (
+                      <p className="text-xs text-text-muted line-through">
+                        ${active.regularTotal.toFixed(2)}
+                      </p>
+                    )}
+                    <p className="font-heading font-bold text-text-primary">
+                      ${active.total.toFixed(2)}{active.priceSuffix}
+                    </p>
+                  </div>
+                  <p className="text-xs text-text-muted">
+                    {active.isSubscription
+                      ? "Monthly subscription"
+                      : `${active.qty} bottle${active.qty > 1 ? "s" : ""} • One-time`}
+                  </p>
+                </>
+              );
+            })()}
           </div>
           <Button className="flex-1" onClick={handleAddToCart}>
             {addedToCart ? "Opening…" : "Buy Now"}
