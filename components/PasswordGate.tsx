@@ -47,7 +47,7 @@ export function PasswordGate({ children }: { children: React.ReactNode }) {
         <div className="w-full max-w-sm">
           <div className="text-center mb-8">
             <Image
-              src="/logo.png"
+              src="/logo-new.png"
               alt="Rock Mountain Performance"
               width={200}
               height={60}
