@@ -122,7 +122,7 @@ function FAQItem({ question, answer }: { question: string; answer: string }) {
 
   return (
     <div className="pt-10 first:pt-0">
-      <h3 className="text-lg sm:text-xl font-semibold text-text-primary mb-4">
+      <h3 className="font-heading text-lg sm:text-xl font-semibold text-text-primary mb-4">
         {question}
       </h3>
       {renderAnswer()}
@@ -132,15 +132,15 @@ function FAQItem({ question, answer }: { question: string; answer: string }) {
 
 export default function FAQ() {
   return (
-    <div className="w-full max-w-full overflow-x-hidden">
+    <div className="w-full max-w-full overflow-x-hidden bg-surface/50">
       <Header />
       <main className="pt-32 pb-16 sm:pb-24">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <span className="inline-block px-3 py-1 mb-4 text-xs font-medium uppercase tracking-wider text-primary bg-primary/10 rounded-full">
-              FAQ
-            </span>
-            <h1 className="text-3xl sm:text-4xl font-bold text-text-primary mb-4">
+            <p className="font-heading text-primary font-bold text-xs uppercase tracking-widest mb-3">
+              Support
+            </p>
+            <h1 className="font-heading text-3xl sm:text-4xl font-bold text-text-primary mb-4">
               Frequently Asked Questions
             </h1>
             <p className="text-text-secondary max-w-2xl mx-auto">
@@ -148,14 +148,14 @@ export default function FAQ() {
             </p>
           </div>
 
-          <div className="mx-auto max-w-[720px] rounded-2xl bg-surface border border-border/50 shadow-sm p-8 sm:p-10">
+          <div className="mx-auto max-w-[720px] rounded-lg bg-white border border-border shadow-sm p-8 sm:p-10">
             {faqs.map((faq, index) => (
               <FAQItem key={index} question={faq.question} answer={faq.answer} />
             ))}
           </div>
 
-          <div className="mx-auto max-w-[720px] mt-16 text-center p-8 sm:p-10 rounded-2xl bg-surface border border-border/50 shadow-sm">
-            <h2 className="text-xl font-semibold text-text-primary mb-2">
+          <div className="mx-auto max-w-[720px] mt-16 text-center p-8 sm:p-10 rounded-lg bg-white border border-border shadow-sm">
+            <h2 className="font-heading text-xl font-semibold text-text-primary mb-2">
               Still have questions?
             </h2>
             <p className="text-text-secondary mb-6">
@@ -163,7 +163,7 @@ export default function FAQ() {
             </p>
             <a
               href="/contact"
-              className="inline-flex items-center justify-center px-6 py-3 rounded-md bg-primary text-background font-medium hover:bg-primary-hover transition-colors"
+              className="inline-flex items-center justify-center px-6 py-3 rounded-[5px] bg-primary text-white font-heading font-bold hover:bg-primary-hover transition-colors"
             >
               Contact Us
             </a>
