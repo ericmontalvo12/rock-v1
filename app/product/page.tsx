@@ -519,12 +519,12 @@ export default function ProductV2Page() {
   const handleTabChange = (tabId: TabId) => {
     setActiveTab(tabId);
     setSelectedIngredientIndex(0);
-    setShowFullDesc(false);
+
   };
 
   const handleIngredientSelect = (index: number) => {
     setSelectedIngredientIndex(index);
-    setShowFullDesc(false);
+
   };
 
   const [reviews, setReviews] = useState<ProductReview[]>([]);

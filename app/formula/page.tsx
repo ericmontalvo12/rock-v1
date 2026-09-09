@@ -176,13 +176,12 @@ export default function FormulaPage() {
   const handleTabChange = (tabId: TabId) => {
     setActiveTab(tabId);
     setSelectedIngredientIndex(0);
-    setShowFullDesc(false);
   };
 
   // Handle ingredient selection
   const handleIngredientSelect = (index: number) => {
     setSelectedIngredientIndex(index);
-    setShowFullDesc(false);
+
   };
 
   // Handle mini tile click with smooth scroll
@@ -193,7 +192,7 @@ export default function FormulaPage() {
     }
     const newIndex = ingredients.filter(ing => ing.category === category).findIndex(ing => ing.name === ingredient.name);
     setSelectedIngredientIndex(newIndex);
-    setShowFullDesc(false);
+
 
     // Smooth scroll to ingredient library
     document.getElementById('ingredient-library')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
