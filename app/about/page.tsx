@@ -184,9 +184,6 @@ export default function About() {
             <p className="text-text-secondary text-sm leading-relaxed max-w-2xl mx-auto mb-4">
               Not a lifestyle brand. Not influencer-founded. We&apos;re athletes who got tired of taking supplements we didn&apos;t trust — so we built what should exist.
             </p>
-            <p className="text-text-primary font-heading font-medium text-sm mb-8">
-              If it works, you&apos;ll know from how you feel. If not, we refund you. Simple.
-            </p>
             <Link
               href="/product"
               className="inline-flex items-center gap-2 font-heading font-bold text-sm text-primary hover:underline"
