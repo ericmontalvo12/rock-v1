@@ -8,8 +8,8 @@ import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/lib/cart-context";
 import { motion, AnimatePresence } from "framer-motion";
-import { Check, ChevronDown, ArrowRight, Star, X } from "lucide-react";
-import { getBundleTotal, getRegularBundleTotal, getPricePerBottle, isSaleActive, SUBSCRIPTION_PRICE } from "@/lib/sale";
+import { Check, ChevronDown, ArrowRight, Star, X, Minus, Plus } from "lucide-react";
+import { getBundleTotal, getRegularBundleTotal, getPricePerBottle, getRegularPricePerBottle, isSaleActive, SUBSCRIPTION_PRICE } from "@/lib/sale";
 import { SaleCountdown } from "@/components/SaleCountdown";
 import { MAX_REVIEW_PHOTO_BYTES } from "@/lib/reviews-config";
 import { trackFbEvent } from "@/lib/fbpixel";
@@ -46,21 +46,9 @@ const BUNDLES: BundleOption[] = [
     priceSuffix: "/mo",
   },
   {
-    id: "bundle-3",
-    qty: 3,
-    label: "3-Bottle Protocol",
-    total: getBundleTotal(3),
-    regularTotal: getRegularBundleTotal(3),
-    pricePerBottle: getPricePerBottle(3),
-    badge: "BEST RESULTS",
-    perks: ["20% off", "Free shipping", "30-day guarantee"],
-    isSubscription: false,
-    priceSuffix: "",
-  },
-  {
-    id: "single",
+    id: "one-time",
     qty: 1,
-    label: "Single Bottle",
+    label: "One-Time Purchase",
     total: getBundleTotal(1),
     regularTotal: getRegularBundleTotal(1),
     pricePerBottle: getPricePerBottle(1),
@@ -490,7 +478,21 @@ export default function ProductV2Page() {
   const [addedToCart, setAddedToCart] = useState(false);
   const [activeImage, setActiveImage] = useState(0);
   const [selectedBundleId, setSelectedBundleId] = useState("subscribe");
+  const [oneTimeQty, setOneTimeQty] = useState(1);
   const { addToCart, customerEmail } = useCart();
+
+  const getActiveBundle = (bundle: BundleOption): BundleOption => {
+    if (bundle.id !== "one-time") return bundle;
+    const perBottle = getPricePerBottle(oneTimeQty);
+    const regularPerBottle = getRegularPricePerBottle(oneTimeQty);
+    return {
+      ...bundle,
+      qty: oneTimeQty,
+      total: parseFloat((oneTimeQty * perBottle).toFixed(2)),
+      regularTotal: parseFloat((oneTimeQty * regularPerBottle).toFixed(2)),
+      pricePerBottle: perBottle,
+    };
+  };
   const [checkoutOpen, setCheckoutOpen] = useState(false);
   const [checkoutPromoId, setCheckoutPromoId] = useState<string | undefined>();
   const [checkoutItems, setCheckoutItems] = useState<
@@ -618,7 +620,7 @@ export default function ProductV2Page() {
    * funnel. Now it opens checkout directly.
    */
   const handleAddToCart = async () => {
-    const bundle = BUNDLES.find((b) => b.id === selectedBundleId)!;
+    const bundle = getActiveBundle(BUNDLES.find((b) => b.id === selectedBundleId)!);
 
     addToCart(
       {
@@ -843,54 +845,83 @@ export default function ProductV2Page() {
 
               {/* Bundle Options */}
               <div className="space-y-3 mb-4">
-                {BUNDLES.map((bundle) => (
-                  <button
-                    key={bundle.id}
-                    onClick={() => setSelectedBundleId(bundle.id)}
-                    className={`w-full p-4 rounded-lg border-2 text-left transition-all ${
-                      selectedBundleId === bundle.id
-                        ? "border-primary bg-primary/5"
-                        : "border-border hover:border-text-muted"
-                    }`}
-                  >
-                    <div className="flex items-center justify-between gap-3">
-                      <div className="flex items-center gap-3 min-w-0">
-                        <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
-                          selectedBundleId === bundle.id ? "border-primary" : "border-border"
-                        }`}>
-                          {selectedBundleId === bundle.id && (
-                            <div className="w-2 h-2 rounded-full bg-primary" />
-                          )}
-                        </div>
-                        <div className="min-w-0">
-                          <div className="flex items-center gap-2 flex-wrap">
-                            <p className="font-semibold text-text-primary text-sm">{bundle.label}</p>
-                            {bundle.badge && (
-                              <span className="text-xs font-bold text-primary bg-primary/10 px-2 py-0.5 rounded-full whitespace-nowrap">
-                                {bundle.badge}
-                              </span>
+                {BUNDLES.map((rawBundle) => {
+                  const bundle = getActiveBundle(rawBundle);
+                  return (
+                    <button
+                      key={bundle.id}
+                      onClick={() => setSelectedBundleId(bundle.id)}
+                      className={`w-full p-4 rounded-lg border-2 text-left transition-all ${
+                        selectedBundleId === bundle.id
+                          ? "border-primary bg-primary/5"
+                          : "border-border hover:border-text-muted"
+                      }`}
+                    >
+                      <div className="flex items-center justify-between gap-3">
+                        <div className="flex items-center gap-3 min-w-0">
+                          <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
+                            selectedBundleId === bundle.id ? "border-primary" : "border-border"
+                          }`}>
+                            {selectedBundleId === bundle.id && (
+                              <div className="w-2 h-2 rounded-full bg-primary" />
                             )}
                           </div>
-                          <p className="text-xs text-text-muted mt-0.5">
-                            {bundle.perks.join(" • ")}
-                          </p>
+                          <div className="min-w-0">
+                            <div className="flex items-center gap-2 flex-wrap">
+                              <p className="font-semibold text-text-primary text-sm">{bundle.label}</p>
+                              {bundle.badge && (
+                                <span className="text-xs font-bold text-primary bg-primary/10 px-2 py-0.5 rounded-full whitespace-nowrap">
+                                  {bundle.badge}
+                                </span>
+                              )}
+                            </div>
+                            <p className="text-xs text-text-muted mt-0.5">
+                              {bundle.perks.join(" • ")}
+                            </p>
+                          </div>
                         </div>
-                      </div>
-                      <div className="text-right flex-shrink-0">
-                        <div className="flex items-center gap-1.5 justify-end">
-                          {bundle.total < bundle.regularTotal && (
-                            <p className="text-xs text-text-muted line-through whitespace-nowrap">${bundle.regularTotal.toFixed(2)}</p>
+                        <div className="text-right flex-shrink-0">
+                          <div className="flex items-center gap-1.5 justify-end">
+                            {bundle.total < bundle.regularTotal && (
+                              <p className="text-xs text-text-muted line-through whitespace-nowrap">${bundle.regularTotal.toFixed(2)}</p>
+                            )}
+                            <p className="font-bold text-text-primary whitespace-nowrap">${bundle.total.toFixed(2)}{bundle.priceSuffix}</p>
+                          </div>
+                          {bundle.qty > 1 && (
+                            <p className="text-xs text-text-muted whitespace-nowrap">${bundle.pricePerBottle.toFixed(2)}/bottle</p>
                           )}
-                          <p className="font-bold text-text-primary whitespace-nowrap">${bundle.total.toFixed(2)}{bundle.priceSuffix}</p>
                         </div>
-                        {bundle.qty > 1 && (
-                          <p className="text-xs text-text-muted whitespace-nowrap">${bundle.pricePerBottle.toFixed(2)}/bottle</p>
-                        )}
                       </div>
-                    </div>
-                  </button>
-                ))}
+                    </button>
+                  );
+                })}
               </div>
+
+              {/* Quantity selector — one-time only */}
+              {selectedBundleId === "one-time" && (
+                <div className="flex items-center gap-2 mb-4">
+                  <span className="text-sm text-text-secondary font-medium">Qty</span>
+                  <div className="inline-flex items-center border border-border rounded-lg overflow-hidden">
+                    <button
+                      onClick={() => setOneTimeQty(Math.max(1, oneTimeQty - 1))}
+                      disabled={oneTimeQty <= 1}
+                      className="w-10 h-10 flex items-center justify-center text-text-primary hover:bg-surface transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+                    >
+                      <Minus className="w-4 h-4" />
+                    </button>
+                    <span className="w-10 h-10 flex items-center justify-center font-heading font-bold text-text-primary border-x border-border">
+                      {oneTimeQty}
+                    </span>
+                    <button
+                      onClick={() => setOneTimeQty(Math.min(10, oneTimeQty + 1))}
+                      disabled={oneTimeQty >= 10}
+                      className="w-10 h-10 flex items-center justify-center text-text-primary hover:bg-surface transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+                    >
+                      <Plus className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+              )}
 
               {/* CTA */}
               <div className="mb-4">
@@ -1277,7 +1308,7 @@ export default function ProductV2Page() {
         <div className="flex items-center justify-between gap-4">
           <div>
             {(() => {
-              const active = BUNDLES.find((b) => b.id === selectedBundleId)!;
+              const active = getActiveBundle(BUNDLES.find((b) => b.id === selectedBundleId)!);
               return (
                 <>
                   <div className="flex items-center gap-1.5">
