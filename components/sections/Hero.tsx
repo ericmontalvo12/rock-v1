@@ -1,35 +1,10 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef } from "react";
 
 export function Hero() {
-  const sectionRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    if (sectionRef.current && window.innerWidth < 640) {
-      const h = window.visualViewport ? window.visualViewport.height : window.innerHeight;
-      sectionRef.current.style.height = `${h}px`;
-    }
-
-    const handleOrientation = () => {
-      setTimeout(() => {
-        if (sectionRef.current && window.innerWidth < 640) {
-          const h = window.visualViewport ? window.visualViewport.height : window.innerHeight;
-          sectionRef.current.style.height = `${h}px`;
-        }
-      }, 200);
-    };
-
-    window.addEventListener("orientationchange", handleOrientation);
-    return () => window.removeEventListener("orientationchange", handleOrientation);
-  }, []);
-
   return (
     <section
-      ref={sectionRef}
-      className="relative min-h-[480px] h-[100svh] sm:min-h-screen flex items-center pt-[100px] sm:pt-[110px] overflow-hidden"
+      className="relative h-[440px] sm:h-[500px] lg:h-[600px] flex items-center pt-[100px] sm:pt-[110px] overflow-hidden"
     >
       {/* Background - Mobile */}
       <div className="absolute inset-0 top-[100px] sm:hidden">
