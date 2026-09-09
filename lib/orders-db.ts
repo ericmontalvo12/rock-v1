@@ -16,9 +16,13 @@ export interface OrderLineItem {
   amountTotal: number;
 }
 
+export type OrderType = "one_time" | "subscription" | "renewal";
+
 export interface Order {
   id: number;
-  stripeSessionId: string;
+  stripeSessionId: string | null;
+  stripeInvoiceId: string | null;
+  orderType: OrderType;
   email: string | null;
   customerName: string | null;
   phone: string | null;
@@ -75,6 +79,12 @@ async function ensureTables() {
   await sql`CREATE INDEX IF NOT EXISTS orders_status_idx ON orders (status)`;
   await sql`CREATE INDEX IF NOT EXISTS orders_email_idx ON orders (lower(email))`;
 
+  // Subscription renewals are keyed on invoice id, not checkout session.
+  await sql`ALTER TABLE orders ADD COLUMN IF NOT EXISTS stripe_invoice_id TEXT UNIQUE`;
+  await sql`ALTER TABLE orders ADD COLUMN IF NOT EXISTS order_type TEXT NOT NULL DEFAULT 'one_time'`;
+  // stripe_session_id was NOT NULL, but renewals don't have one.
+  await sql`ALTER TABLE orders ALTER COLUMN stripe_session_id DROP NOT NULL`;
+
   // Login throttling has to be shared across serverless instances, so it
   // lives in the database rather than in process memory.
   await sql`
@@ -94,6 +104,8 @@ function mapRow(row: any): Order {
   return {
     id: row.id,
     stripeSessionId: row.stripe_session_id,
+    stripeInvoiceId: row.stripe_invoice_id ?? null,
+    orderType: row.order_type ?? "one_time",
     email: row.email,
     customerName: row.customer_name,
     phone: row.phone,
@@ -118,6 +130,7 @@ function mapRow(row: any): Order {
 
 export interface UpsertOrderInput {
   stripeSessionId: string;
+  orderType?: OrderType;
   email?: string | null;
   customerName?: string | null;
   phone?: string | null;
@@ -145,11 +158,12 @@ export async function upsertOrder(input: UpsertOrderInput): Promise<void> {
   const sql = getSql();
   await sql`
     INSERT INTO orders (
-      stripe_session_id, email, customer_name, phone, amount_total, currency,
-      payment_status, shipping_name, address_line1, address_line2, city, state,
-      postal_code, country, line_items, created_at
+      stripe_session_id, order_type, email, customer_name, phone, amount_total,
+      currency, payment_status, shipping_name, address_line1, address_line2,
+      city, state, postal_code, country, line_items, created_at
     ) VALUES (
-      ${input.stripeSessionId}, ${input.email ?? null}, ${input.customerName ?? null},
+      ${input.stripeSessionId}, ${input.orderType ?? "one_time"},
+      ${input.email ?? null}, ${input.customerName ?? null},
       ${input.phone ?? null}, ${input.amountTotal}, ${input.currency},
       ${input.paymentStatus ?? null}, ${input.shippingName ?? null},
       ${input.addressLine1 ?? null}, ${input.addressLine2 ?? null}, ${input.city ?? null},
@@ -172,6 +186,34 @@ export async function upsertOrder(input: UpsertOrderInput): Promise<void> {
       country = EXCLUDED.country,
       line_items = EXCLUDED.line_items,
       updated_at = now()
+  `;
+}
+
+export interface UpsertRenewalInput {
+  stripeInvoiceId: string;
+  email?: string | null;
+  customerName?: string | null;
+  amountTotal: number;
+  currency: string;
+  lineItems?: OrderLineItem[];
+  createdAt?: Date;
+}
+
+export async function upsertRenewalOrder(input: UpsertRenewalInput): Promise<void> {
+  await ensureTables();
+  const sql = getSql();
+  await sql`
+    INSERT INTO orders (
+      stripe_invoice_id, order_type, email, customer_name, amount_total,
+      currency, payment_status, line_items, created_at
+    ) VALUES (
+      ${input.stripeInvoiceId}, 'renewal',
+      ${input.email ?? null}, ${input.customerName ?? null},
+      ${input.amountTotal}, ${input.currency}, 'paid',
+      ${JSON.stringify(input.lineItems ?? [])}::jsonb,
+      ${(input.createdAt ?? new Date()).toISOString()}
+    )
+    ON CONFLICT (stripe_invoice_id) DO NOTHING
   `;
 }
 
