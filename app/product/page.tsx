@@ -8,7 +8,7 @@ import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/lib/cart-context";
 import { motion, AnimatePresence } from "framer-motion";
-import { Check, ChevronDown, ArrowRight, Star, Shield, FlaskConical, FileText, Lock, Zap, TrendingUp, Target, Layers, X } from "lucide-react";
+import { Check, ChevronDown, ArrowRight, Star, X } from "lucide-react";
 import { getBundleTotal, getRegularBundleTotal, getPricePerBottle, isSaleActive } from "@/lib/sale";
 import { SaleCountdown } from "@/components/SaleCountdown";
 import { MAX_REVIEW_PHOTO_BYTES } from "@/lib/reviews-config";
@@ -46,21 +46,6 @@ const BUNDLES = [
     regularTotal: getRegularBundleTotal(3),
     badge: "BEST VALUE",
     perks: ["20% off", "Free shipping", "30-day guarantee"],
-  },
-];
-
-const corePrinciples = [
-  {
-    title: "Foundational nutrients enable natural production",
-    description: "Zinc, magnesium, vitamin D3, and fenugreek provide the raw materials and enzymatic support testosterone synthesis requires.",
-  },
-  {
-    title: "Stress balance restores hormonal function",
-    description: "Ashwagandha and Tongkat Ali lower cortisol, removing a barrier that suppresses natural testosterone production.",
-  },
-  {
-    title: "Free testosterone availability",
-    description: "Boron reduces SHBG to make more of your existing testosterone available for use.",
   },
 ];
 
@@ -198,13 +183,6 @@ const ingredients = [
       { title: "Effect of fenugreek extract supplement on testosterone levels in male: A meta-analysis of clinical trials", url: "https://pubmed.ncbi.nlm.nih.gov/32048383/" },
     ],
   },
-];
-
-const timeline = [
-  { week: "Week 1-2", title: "Foundation Building", description: "Ingredients accumulate in your system", icon: Layers },
-  { week: "Week 2-4", title: "Energy Stabilizes", description: "More consistent energy through the day", icon: Zap },
-  { week: "Week 4-6", title: "Recovery Improves", description: "Better training recovery and mental clarity", icon: TrendingUp },
-  { week: "Week 6-8", title: "Full Effect", description: "Libido returns, body composition shifts", icon: Target },
 ];
 
 const comparisonRows = [
@@ -449,9 +427,9 @@ function AccordionItem({
     <div className="border-b border-border">
       <button
         onClick={onToggle}
-        className="w-full py-5 sm:py-4 flex items-center justify-center text-center min-h-[56px] sm:min-h-0 gap-3"
+        className="w-full py-5 sm:py-4 flex items-center justify-between min-h-[56px] sm:min-h-0"
       >
-        <span className="font-semibold text-text-primary">{title}</span>
+        <span className="font-heading font-semibold text-text-primary">{title}</span>
         <motion.span
           animate={{ rotate: isOpen ? 180 : 0 }}
           transition={{ duration: 0.2 }}
@@ -482,7 +460,7 @@ function StarRating({ rating }: { rating: number }) {
       {[1, 2, 3, 4, 5].map((star) => (
         <Star
           key={star}
-          className={`w-4 h-4 ${star <= rating ? "text-yellow-400 fill-yellow-400" : "text-gray-300"}`}
+          className={`w-4 h-4 ${star <= rating ? "text-star fill-star" : "text-text-muted"}`}
         />
       ))}
     </div>
@@ -712,7 +690,7 @@ export default function ProductV2Page() {
             <div className="relative order-1 lg:order-1">
               <div className="lg:sticky lg:top-32">
                 {/* Main Image */}
-                <div className="rounded-2xl border border-border overflow-hidden flex items-center justify-center max-w-[500px] lg:max-w-none mx-auto mb-4 lg:w-[550px] bg-neutral-100">
+                <div className="rounded-lg border border-border overflow-hidden flex items-center justify-center max-w-[500px] lg:max-w-none mx-auto mb-4 lg:w-[550px] bg-surface">
                   {/* No entrance animation here on purpose. This is the LCP
                       element: wrapping it in a motion.div that starts at
                       opacity 0 shipped it to the browser invisible, so despite
@@ -741,7 +719,7 @@ export default function ProductV2Page() {
                       className={`w-20 h-20 rounded-lg border-2 overflow-hidden transition-all bg-white ${
                         activeImage === index
                           ? "border-primary"
-                          : "border-border hover:border-gray-300"
+                          : "border-border hover:border-text-muted"
                       }`}
                     >
                       <Image
@@ -785,23 +763,22 @@ export default function ProductV2Page() {
             </div>
 
             {/* Product Info */}
-            <div className="order-2 lg:order-2 text-center">
-              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-text-primary mb-2">
+            <div className="order-2 lg:order-2">
+              <h1 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-bold text-text-primary mb-2">
                 Peak Performance
               </h1>
 
               {/* Social Proof Bar */}
               {REVIEW_SUBMISSION_ENABLED && (
-                <div className="flex flex-wrap items-center justify-center gap-3 mb-4 text-sm">
+                <div className="flex flex-wrap items-center gap-3 mb-4 text-sm">
                   {reviewsLoading ? (
-                    // Reserve the space instead of flashing "be the first".
-                    <div className="h-5 w-44 bg-gray-100 rounded animate-pulse" aria-hidden="true" />
+                    <div className="h-5 w-44 bg-surface rounded animate-pulse" aria-hidden="true" />
                   ) : reviewCount > 0 ? (
                     <>
                       <div className="flex items-center gap-1">
                         <StarRating rating={Math.round(reviewAverage)} />
                       </div>
-                      <span className="text-gray-300">|</span>
+                      <span className="text-border">|</span>
                       <button
                         onClick={() => document.getElementById('reviews')?.scrollIntoView({ behavior: 'smooth' })}
                         className="text-primary hover:underline"
@@ -821,26 +798,8 @@ export default function ProductV2Page() {
               )}
 
               <p className="text-sm sm:text-base text-text-secondary mb-6">
-                A foundational testosterone support formula designed to help your body respond the way it used to.
+                Research-backed testosterone support for energy, drive, and recovery. Seven clinically dosed ingredients. No proprietary blends.
               </p>
-
-              {/* Core Principles */}
-              <div className="bg-surface border border-border rounded-lg p-4 sm:p-5 mb-8 text-left">
-                <h3 className="text-sm font-semibold text-text-primary mb-4 text-center">Core Principles</h3>
-                <div className="space-y-4">
-                  {corePrinciples.map((principle, index) => (
-                    <div key={index} className="flex items-start gap-3">
-                      <span className="flex-shrink-0 w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center mt-0.5">
-                        <Check className="w-3 h-3 text-primary" />
-                      </span>
-                      <div>
-                        <p className="text-sm font-medium text-text-primary">{principle.title}</p>
-                        <p className="text-xs sm:text-sm text-text-muted">{principle.description}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
 
               {/* Sale banner */}
               {SALE_ACTIVE && (
@@ -859,7 +818,7 @@ export default function ProductV2Page() {
                     className={`w-full p-4 rounded-lg border-2 text-left transition-all ${
                       selectedBundle === bundle.qty
                         ? "border-primary bg-primary/5"
-                        : "border-border hover:border-gray-300"
+                        : "border-border hover:border-text-muted"
                     }`}
                   >
                     {/* min-w-0 lets the label column shrink; without it flexbox
@@ -868,7 +827,7 @@ export default function ProductV2Page() {
                     <div className="flex items-center justify-between gap-3">
                       <div className="flex items-center gap-3 min-w-0">
                         <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
-                          selectedBundle === bundle.qty ? "border-primary" : "border-gray-300"
+                          selectedBundle === bundle.qty ? "border-primary" : "border-border"
                         }`}>
                           {selectedBundle === bundle.qty && (
                             <div className="w-2 h-2 rounded-full bg-primary" />
@@ -910,7 +869,7 @@ export default function ProductV2Page() {
                   {addedToCart ? "Opening…" : "Buy Now"}
                 </Button>
               </div>
-              <div className="flex flex-wrap justify-center gap-x-4 gap-y-1 mb-8 text-xs text-text-muted">
+              <div className="flex flex-wrap gap-x-4 gap-y-1 mb-8 text-xs text-text-muted">
                 <span className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-primary" />30-Day Guarantee</span>
                 <span className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-primary" />No commitment</span>
                 <span className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-primary" />Ships in 1-2 Days</span>
@@ -937,11 +896,15 @@ export default function ProductV2Page() {
 
           {/* Inside the Formula */}
           <section id="ingredient-library" className="mt-16 sm:mt-24">
-            <div className="text-center mb-6">
-              <p className="text-primary font-semibold text-xs uppercase tracking-widest mb-2">What's Inside</p>
-              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">
-                Every Ingredient. Every Dose. Fully Transparent.
+            <div className="bg-primary rounded-lg py-3 px-6 mb-8">
+              <h2 className="font-heading text-base sm:text-lg font-bold text-white uppercase tracking-wide text-center">
+                What&apos;s Inside
               </h2>
+            </div>
+            <div className="text-center mb-6">
+              <h3 className="font-heading text-xl sm:text-2xl font-bold text-text-primary mb-4">
+                Every Ingredient. Every Dose. Fully Transparent.
+              </h3>
               <div className="flex flex-wrap justify-center gap-2">
                 {ingredientTabs.map((tab) => (
                   <button
@@ -950,7 +913,7 @@ export default function ProductV2Page() {
                     className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
                       activeTab === tab.id
                         ? "bg-primary text-white shadow-md"
-                        : "bg-white text-gray-600 border border-gray-300 hover:border-primary hover:text-primary"
+                        : "bg-white text-text-secondary border border-border hover:border-primary hover:text-primary"
                     }`}
                   >
                     {tab.label}
@@ -960,7 +923,7 @@ export default function ProductV2Page() {
             </div>
 
             {/* ==================== MOBILE: Unified Module ==================== */}
-            <div className="lg:hidden bg-white rounded-2xl border border-gray-200 shadow-lg p-4 overflow-hidden">
+            <div className="lg:hidden bg-white rounded-lg border border-border shadow-lg p-4 overflow-hidden">
               <motion.div
                 key={activeTab}
                 initial={{ opacity: 0 }}
@@ -976,7 +939,7 @@ export default function ProductV2Page() {
                     className={`flex-shrink-0 px-3 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
                       selectedIngredientIndex === index
                         ? "bg-primary text-white shadow-md"
-                        : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                        : "bg-surface text-text-secondary hover:bg-surface-elevated"
                     }`}
                   >
                     {ingredient.name}
@@ -992,7 +955,7 @@ export default function ProductV2Page() {
                   transition={{ duration: 0.3 }}
                   className="relative"
                 >
-                  <div className="w-36 h-36 rounded-full bg-gradient-to-br from-gray-50 to-white border-3 border-primary/10 shadow-lg flex items-center justify-center overflow-hidden">
+                  <div className="w-36 h-36 rounded-full bg-gradient-to-br from-surface to-white border-3 border-primary/10 shadow-lg flex items-center justify-center overflow-hidden">
                     <Image
                       src={filteredIngredients[selectedIngredientIndex]?.image || "/vitamin-d3.png"}
                       alt={filteredIngredients[selectedIngredientIndex]?.name || "Ingredient"}
@@ -1009,9 +972,9 @@ export default function ProductV2Page() {
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3 }}
-                className="rounded-xl bg-gradient-to-b from-[#5B9BD5] to-[#4A8BC9] overflow-hidden shadow-lg border border-white/[0.18] -mx-1"
+                className="rounded-lg bg-primary overflow-hidden shadow-lg -mx-1"
               >
-                <div className="p-4 border border-white/[0.08] rounded-xl m-[1px]">
+                <div className="p-4">
                   <div className="flex items-center justify-between mb-2">
                     <h3 className="text-lg font-bold text-white">
                       {filteredIngredients[selectedIngredientIndex]?.name}
@@ -1046,7 +1009,7 @@ export default function ProductV2Page() {
                       href={filteredIngredients[selectedIngredientIndex].research[0].url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white text-[#4A8BC9] font-semibold text-xs hover:bg-white/95 transition-colors shadow-sm"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[5px] bg-white text-primary font-heading font-semibold text-xs hover:bg-white/95 transition-colors shadow-sm"
                     >
                       See the Research
                       <ArrowRight className="w-3 h-3" />
@@ -1057,7 +1020,7 @@ export default function ProductV2Page() {
             </div>
 
             {/* ==================== DESKTOP: 3-Column Layout ==================== */}
-            <div className="hidden lg:block bg-white rounded-3xl border border-gray-200 shadow-lg pt-5 px-6 pb-8 overflow-hidden">
+            <div className="hidden lg:block bg-white rounded-lg border border-border shadow-lg pt-5 px-6 pb-8 overflow-hidden">
               <div className="grid lg:grid-cols-12 gap-5 items-stretch">
                 <motion.div
                   key={activeTab}
@@ -1073,17 +1036,17 @@ export default function ProductV2Page() {
                       className={`text-left px-3 py-2.5 rounded-xl transition-all duration-200 ${
                         selectedIngredientIndex === index
                           ? "bg-primary/10 border-l-4 border-primary"
-                          : "hover:bg-gray-50 border-l-4 border-transparent"
+                          : "hover:bg-surface border-l-4 border-transparent"
                       }`}
                     >
                       <div className="flex items-center justify-between gap-2">
-                        <span className={`text-sm ${selectedIngredientIndex === index ? "text-primary font-semibold" : "text-gray-700 font-medium"}`}>
+                        <span className={`text-sm ${selectedIngredientIndex === index ? "text-primary font-semibold" : "text-text-primary font-medium"}`}>
                           {ingredient.name}
                         </span>
                         <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${
                           selectedIngredientIndex === index
                             ? "bg-primary text-white"
-                            : "bg-gray-100 text-gray-500"
+                            : "bg-surface text-text-muted"
                         }`}>
                           {ingredient.dosage}
                         </span>
@@ -1100,7 +1063,7 @@ export default function ProductV2Page() {
                     transition={{ duration: 0.3 }}
                     className="relative"
                   >
-                    <div className="w-64 h-64 rounded-full bg-gradient-to-br from-gray-50 to-white border-4 border-primary/10 shadow-lg flex items-center justify-center overflow-hidden">
+                    <div className="w-64 h-64 rounded-full bg-gradient-to-br from-surface to-white border-4 border-primary/10 shadow-lg flex items-center justify-center overflow-hidden">
                       <Image
                         src={filteredIngredients[selectedIngredientIndex]?.image || "/vitamin-d3.png"}
                         alt={filteredIngredients[selectedIngredientIndex]?.name || "Ingredient"}
@@ -1118,9 +1081,9 @@ export default function ProductV2Page() {
                   initial={{ opacity: 0, x: 12 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.3 }}
-                  className="lg:col-span-6 rounded-2xl bg-gradient-to-b from-[#5B9BD5] to-[#4A8BC9] overflow-hidden shadow-xl border border-white/[0.18]"
+                  className="lg:col-span-6 rounded-lg bg-primary overflow-hidden shadow-lg"
                 >
-                  <div className="p-6 border border-white/[0.08] rounded-2xl m-[1px]">
+                  <div className="p-6">
                     <h3 className="text-2xl font-bold text-white mb-1.5">
                       {filteredIngredients[selectedIngredientIndex]?.name}
                     </h3>
@@ -1167,7 +1130,7 @@ export default function ProductV2Page() {
                         href={filteredIngredients[selectedIngredientIndex].research[0].url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-white text-[#4A8BC9] font-semibold text-sm hover:bg-white/95 transition-colors shadow-sm"
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-[5px] bg-white text-primary font-heading font-semibold text-sm hover:bg-white/95 transition-colors shadow-sm"
                       >
                         See the Research
                         <ArrowRight className="w-3.5 h-3.5" />
@@ -1181,28 +1144,13 @@ export default function ProductV2Page() {
 
           {/* The Difference */}
           <section className="mt-16 sm:mt-24">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              className="text-center mb-10"
-            >
-              <p className="text-primary font-semibold text-xs uppercase tracking-widest mb-2">
+            <div className="bg-primary rounded-lg py-3 px-6 mb-8">
+              <h2 className="font-heading text-base sm:text-lg font-bold text-white uppercase tracking-wide text-center">
                 The Difference
-              </p>
-              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">
-                Why Peak Performance Is Different
               </h2>
-            </motion.div>
+            </div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="max-w-2xl mx-auto"
-            >
+            <div className="max-w-2xl mx-auto">
               {/* Product Images */}
               <div className="grid grid-cols-2 gap-3 mb-4">
                 <div className="flex justify-center items-end h-[200px] sm:h-[240px]">
@@ -1227,13 +1175,13 @@ export default function ProductV2Page() {
 
               {/* Table header */}
               <div className="grid grid-cols-2 gap-3 mb-3">
-                <div className="bg-gray-100 rounded-xl px-4 py-3 text-center">
-                  <span className="text-xs font-semibold uppercase tracking-wider text-gray-500">
-                    Typical Testosterone Booster
+                <div className="bg-surface-elevated rounded-lg px-4 py-3 text-center">
+                  <span className="text-xs font-heading font-bold uppercase tracking-wider text-text-muted">
+                    Typical Booster
                   </span>
                 </div>
-                <div className="bg-primary rounded-xl px-4 py-3 text-center">
-                  <span className="text-xs font-semibold uppercase tracking-wider text-white">
+                <div className="bg-primary rounded-lg px-4 py-3 text-center">
+                  <span className="text-xs font-heading font-bold uppercase tracking-wider text-white">
                     Peak Performance
                   </span>
                 </div>
@@ -1243,63 +1191,36 @@ export default function ProductV2Page() {
               <div className="space-y-2">
                 {comparisonRows.map((row, index) => (
                   <div key={index} className="grid grid-cols-2 gap-3">
-                    <div className="flex items-center gap-3 bg-gray-50 border border-gray-200/80 rounded-xl px-4 py-3">
+                    <div className="flex items-center gap-3 bg-surface border border-border rounded-lg px-4 py-3">
                       <X className="w-4 h-4 text-red-400 flex-shrink-0" />
-                      <span className="text-gray-600 text-sm leading-snug">{row.typical}</span>
+                      <span className="text-text-secondary text-sm leading-snug">{row.typical}</span>
                     </div>
-                    <div className="flex items-center gap-3 bg-primary/[0.05] border border-primary/20 rounded-xl px-4 py-3">
+                    <div className="flex items-center gap-3 bg-primary/5 border border-primary/20 rounded-lg px-4 py-3">
                       <Check className="w-4 h-4 text-primary flex-shrink-0" />
-                      <span className="text-gray-800 text-sm font-medium leading-snug">{row.peak}</span>
+                      <span className="text-text-primary text-sm font-medium leading-snug">{row.peak}</span>
                     </div>
                   </div>
                 ))}
               </div>
-            </motion.div>
-          </section>
-
-          {/* Benefits Timeline */}
-          <section className="mt-16 sm:mt-24">
-            <div className="text-center mb-10">
-              <p className="text-primary font-semibold text-xs uppercase tracking-widest mb-2">What To Expect</p>
-              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">Results Over Time</h2>
-              <p className="text-gray-600 mt-2">Designed for consistent, foundational support that builds over time.</p>
-            </div>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {timeline.map((item, index) => (
-                <motion.div
-                  key={item.week}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: index * 0.1 }}
-                  className="bg-white rounded-xl border border-gray-200 p-5 text-center relative"
-                >
-                  <div className="w-12 h-12 rounded-full bg-primary/10 mx-auto mb-4 flex items-center justify-center">
-                    <item.icon className="w-6 h-6 text-primary" />
-                  </div>
-                  <p className="text-primary font-semibold text-sm mb-1">{item.week}</p>
-                  <h3 className="font-bold text-gray-900 mb-2">{item.title}</h3>
-                  <p className="text-gray-600 text-sm">{item.description}</p>
-                </motion.div>
-              ))}
             </div>
           </section>
 
           {/* Reviews */}
           {REVIEW_SUBMISSION_ENABLED && (
           <section id="reviews" className="mt-16 sm:mt-24 scroll-mt-24">
-            <div className="text-center mb-10">
-              <p className="text-primary font-semibold text-xs uppercase tracking-widest mb-2">Reviews</p>
-              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">Customer Reviews</h2>
-              {reviewCount > 0 && (
-                <div className="flex items-center justify-center gap-2 mt-3">
-                  <StarRating rating={Math.round(reviewAverage)} />
-                  <span className="text-gray-600 text-sm">
-                    {reviewAverage.toFixed(1)} out of 5 ({reviewCount} review{reviewCount === 1 ? "" : "s"})
-                  </span>
-                </div>
-              )}
+            <div className="bg-primary rounded-lg py-3 px-6 mb-8">
+              <h2 className="font-heading text-base sm:text-lg font-bold text-white uppercase tracking-wide text-center">
+                Reviews
+              </h2>
             </div>
+            {reviewCount > 0 && (
+              <div className="flex items-center justify-center gap-2 mb-8">
+                <StarRating rating={Math.round(reviewAverage)} />
+                <span className="text-text-secondary text-sm">
+                  {reviewAverage.toFixed(1)} out of 5 ({reviewCount} review{reviewCount === 1 ? "" : "s"})
+                </span>
+              </div>
+            )}
 
             <div className="grid lg:grid-cols-2 gap-8">
               {/* Review list */}
@@ -1310,33 +1231,33 @@ export default function ProductV2Page() {
                     {[0, 1, 2].map((i) => (
                       <div
                         key={i}
-                        className="bg-white border border-gray-200 rounded-2xl p-5 sm:p-6 animate-pulse"
+                        className="bg-white border border-border rounded-lg p-5 sm:p-6 animate-pulse"
                       >
-                        <div className="h-4 w-28 bg-gray-200 rounded mb-3" />
-                        <div className="h-3.5 w-24 bg-gray-200 rounded mb-4" />
-                        <div className="h-3 w-full bg-gray-100 rounded mb-2" />
-                        <div className="h-3 w-4/5 bg-gray-100 rounded" />
+                        <div className="h-4 w-28 bg-surface rounded mb-3" />
+                        <div className="h-3.5 w-24 bg-surface rounded mb-4" />
+                        <div className="h-3 w-full bg-surface rounded mb-2" />
+                        <div className="h-3 w-4/5 bg-surface rounded" />
                       </div>
                     ))}
                   </div>
                 ) : reviews.length === 0 ? (
-                  <div className="bg-gray-50 border border-gray-200 rounded-2xl p-8 text-center text-gray-500 text-sm">
+                  <div className="bg-surface border border-border rounded-lg p-8 text-center text-text-muted text-sm">
                     No reviews yet. Be the first to share your experience.
                   </div>
                 ) : (
                   reviews.map((review) => (
-                    <div key={review.id} className="bg-white border border-gray-200 rounded-2xl p-5 sm:p-6">
+                    <div key={review.id} className="bg-white border border-border rounded-lg p-5 sm:p-6">
                       <div className="mb-2">
-                        <span className="font-semibold text-gray-900">{review.name}</span>
+                        <span className="font-heading font-semibold text-text-primary">{review.name}</span>
                       </div>
                       <StarRating rating={review.rating} />
-                      <p className="text-gray-600 text-sm mt-3 leading-relaxed">{review.quote}</p>
+                      <p className="text-text-secondary text-sm mt-3 leading-relaxed">{review.quote}</p>
                       {review.photoDataUrl && (
                         // eslint-disable-next-line @next/next/no-img-element
                         <img
                           src={review.photoDataUrl}
                           alt={`Photo from ${review.name}'s review`}
-                          className="mt-3 w-36 h-36 sm:w-48 sm:h-48 object-cover rounded-lg border border-gray-200"
+                          className="mt-3 w-36 h-36 sm:w-48 sm:h-48 object-cover rounded-lg border border-border"
                         />
                       )}
                     </div>
@@ -1346,22 +1267,22 @@ export default function ProductV2Page() {
 
               {/* Write a review form */}
               {REVIEW_SUBMISSION_ENABLED ? (
-                <div className="bg-gray-50 border border-gray-200 rounded-2xl p-6 sm:p-8 h-fit">
-                  <h3 className="font-bold text-gray-900 mb-1">Write a Review</h3>
-                  <p className="text-gray-500 text-sm mb-5">
+                <div className="bg-surface border border-border rounded-lg p-6 sm:p-8 h-fit">
+                  <h3 className="font-heading font-bold text-text-primary mb-1">Write a Review</h3>
+                  <p className="text-text-muted text-sm mb-5">
                     Only verified purchasers can leave a review. We'll check your email against your order.
                   </p>
 
                   {reviewSuccess ? (
                     <div className="text-center py-6">
                       <Check className="w-10 h-10 text-primary mx-auto mb-3" />
-                      <p className="font-semibold text-gray-900">Thanks for your review!</p>
-                      <p className="text-gray-500 text-sm mt-1">It's now live on this page.</p>
+                      <p className="font-heading font-semibold text-text-primary">Thanks for your review!</p>
+                      <p className="text-text-muted text-sm mt-1">It&apos;s now live on this page.</p>
                     </div>
                   ) : (
                     <form onSubmit={handleSubmitReview} className="space-y-4">
                       <div>
-                        <label className="text-sm text-gray-700 mb-1 block">Your Rating</label>
+                        <label className="text-sm text-text-secondary mb-1 block">Your Rating</label>
                         <div className="flex items-center gap-1">
                           {[1, 2, 3, 4, 5].map((star) => (
                             <button
@@ -1371,7 +1292,7 @@ export default function ProductV2Page() {
                               aria-label={`${star} star${star === 1 ? "" : "s"}`}
                             >
                               <Star
-                                className={`w-6 h-6 ${star <= reviewRating ? "text-yellow-400 fill-yellow-400" : "text-gray-300"}`}
+                                className={`w-6 h-6 ${star <= reviewRating ? "text-star fill-star" : "text-text-muted"}`}
                               />
                             </button>
                           ))}
@@ -1379,20 +1300,20 @@ export default function ProductV2Page() {
                       </div>
 
                       <div>
-                        <label htmlFor="review-name" className="text-sm text-gray-700 mb-1 block">Name</label>
+                        <label htmlFor="review-name" className="text-sm text-text-secondary mb-1 block">Name</label>
                         <input
                           id="review-name"
                           type="text"
                           required
                           value={reviewName}
                           onChange={(e) => setReviewName(e.target.value)}
-                          className="w-full px-3 py-2 rounded-lg bg-white border border-gray-300 text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                          className="w-full px-3 py-2 rounded-[5px] bg-white border border-border text-text-primary text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                         />
                       </div>
 
                       <div>
-                        <label htmlFor="review-email" className="text-sm text-gray-700 mb-1 block">
-                          Email <span className="text-gray-400">(used only to verify your purchase, not shown publicly)</span>
+                        <label htmlFor="review-email" className="text-sm text-text-secondary mb-1 block">
+                          Email <span className="text-text-muted">(used only to verify your purchase, not shown publicly)</span>
                         </label>
                         <input
                           id="review-email"
@@ -1400,12 +1321,12 @@ export default function ProductV2Page() {
                           required
                           value={reviewEmail}
                           onChange={(e) => setReviewEmail(e.target.value)}
-                          className="w-full px-3 py-2 rounded-lg bg-white border border-gray-300 text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                          className="w-full px-3 py-2 rounded-[5px] bg-white border border-border text-text-primary text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                         />
                       </div>
 
                       <div>
-                        <label htmlFor="review-quote" className="text-sm text-gray-700 mb-1 block">Your Review</label>
+                        <label htmlFor="review-quote" className="text-sm text-text-secondary mb-1 block">Your Review</label>
                         <textarea
                           id="review-quote"
                           required
@@ -1413,13 +1334,13 @@ export default function ProductV2Page() {
                           rows={4}
                           value={reviewQuote}
                           onChange={(e) => setReviewQuote(e.target.value)}
-                          className="w-full px-3 py-2 rounded-lg bg-white border border-gray-300 text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                          className="w-full px-3 py-2 rounded-[5px] bg-white border border-border text-text-primary text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                         />
                       </div>
 
                       <div>
-                        <label htmlFor="review-photo" className="text-sm text-gray-700 mb-1 block">
-                          Photo <span className="text-gray-400">(optional)</span>
+                        <label htmlFor="review-photo" className="text-sm text-text-secondary mb-1 block">
+                          Photo <span className="text-text-muted">(optional)</span>
                         </label>
                         {reviewPhotoPreview ? (
                           <div className="flex items-center gap-3">
@@ -1427,12 +1348,12 @@ export default function ProductV2Page() {
                             <img
                               src={reviewPhotoPreview}
                               alt="Selected review photo preview"
-                              className="w-16 h-16 object-cover rounded-lg border border-gray-300"
+                              className="w-16 h-16 object-cover rounded-lg border border-border"
                             />
                             <button
                               type="button"
                               onClick={clearReviewPhoto}
-                              className="text-sm text-gray-500 hover:text-red-500 transition-colors"
+                              className="text-sm text-text-muted hover:text-red-500 transition-colors"
                             >
                               Remove
                             </button>
@@ -1443,7 +1364,7 @@ export default function ProductV2Page() {
                             type="file"
                             accept="image/*"
                             onChange={handleReviewPhotoChange}
-                            className="w-full text-sm text-gray-600 file:mr-3 file:px-3 file:py-2 file:rounded-lg file:border-0 file:bg-primary/10 file:text-primary file:text-sm file:font-medium hover:file:bg-primary/20"
+                            className="w-full text-sm text-text-secondary file:mr-3 file:px-3 file:py-2 file:rounded-[5px] file:border-0 file:bg-primary/10 file:text-primary file:text-sm file:font-medium hover:file:bg-primary/20"
                           />
                         )}
                       </div>
@@ -1457,7 +1378,7 @@ export default function ProductV2Page() {
                   )}
                 </div>
               ) : (
-                <div className="bg-gray-50 border border-gray-200 rounded-2xl p-6 sm:p-8 h-fit flex items-center justify-center text-center text-gray-500 text-sm min-h-[200px]">
+                <div className="bg-surface border border-border rounded-lg p-6 sm:p-8 h-fit flex items-center justify-center text-center text-text-muted text-sm min-h-[200px]">
                   Review submissions are temporarily paused. Check back soon.
                 </div>
               )}
@@ -1467,31 +1388,29 @@ export default function ProductV2Page() {
 
           {/* Final CTA */}
           <section className="mt-16 sm:mt-24">
-            <div className="bg-gradient-to-br from-[#5B9BD5] to-[#4A8BC9] rounded-2xl overflow-hidden shadow-xl">
+            <div className="bg-primary rounded-lg overflow-hidden">
               <div className="grid sm:grid-cols-2 items-center gap-6 p-8 sm:p-12">
                 <div className="flex items-center justify-center order-2 sm:order-1">
-                  <div className="relative">
-                    <Image
-                      src="/product-bottle.png"
-                      alt="Peak Performance Bottle"
-                      width={220}
-                      height={280}
-                      className="relative z-10 w-40 sm:w-56 h-auto"
-                    />
-                    <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-24 sm:w-32 h-4 sm:h-5 bg-black/25 rounded-full blur-md" />
-                  </div>
+                  <Image
+                    src="/product-bottle.png"
+                    alt="Peak Performance Bottle"
+                    width={220}
+                    height={280}
+                    className="w-40 sm:w-52 h-auto"
+                  />
                 </div>
                 <div className="text-center sm:text-left order-1 sm:order-2">
-                  <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3">
-                    Ready to Feel Like Yourself Again?
+                  <h2 className="font-heading text-2xl sm:text-3xl font-bold text-white mb-3">
+                    Ready to Feel the Difference?
                   </h2>
                   <p className="text-white/80 mb-6">
-                    Buy now and start feeling the difference.
+                    Join thousands of men who switched to research-backed testosterone support.
                   </p>
                   <Button
                     size="lg"
+                    variant="secondary"
                     onClick={handleAddToCart}
-                    className="bg-white text-[#4A8BC9] hover:bg-white/90 px-12"
+                    className="px-12"
                   >
                     {addedToCart ? "Opening…" : "Buy Now"}
                   </Button>
@@ -1508,20 +1427,20 @@ export default function ProductV2Page() {
       </main>
 
       {/* Mobile Sticky CTA */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 md:hidden z-40">
+      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-border p-4 md:hidden z-40">
         <div className="flex items-center justify-between gap-4">
           <div>
             <div className="flex items-center gap-1.5">
               {SALE_ACTIVE && (
-                <p className="text-xs text-gray-400 line-through">
+                <p className="text-xs text-text-muted line-through">
                   ${BUNDLES.find((b) => b.qty === selectedBundle)!.regularTotal.toFixed(2)}
                 </p>
               )}
-              <p className="font-bold text-gray-900">
+              <p className="font-heading font-bold text-text-primary">
                 ${BUNDLES.find((b) => b.qty === selectedBundle)!.total.toFixed(2)}
               </p>
             </div>
-            <p className="text-xs text-gray-500">
+            <p className="text-xs text-text-muted">
               {selectedBundle} bottle{selectedBundle > 1 ? "s" : ""} • One-time
             </p>
           </div>
