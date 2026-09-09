@@ -994,28 +994,6 @@ export default function ProductV2Page() {
 
           {/* ============ NEW SECTIONS BELOW ============ */}
 
-          {/* Product Details */}
-          <section className="mt-16 sm:mt-24">
-            <div className="bg-primary rounded-lg py-3 px-6 mb-2">
-              <h2 className="font-heading text-base sm:text-lg font-bold text-white uppercase tracking-wide text-center">
-                Product Details
-              </h2>
-            </div>
-            <div>
-              {productSections.map((section, index) => (
-                <AccordionItem
-                  key={section.title}
-                  title={section.title}
-                  content={section.content}
-                  isOpen={openSection === index}
-                  onToggle={() =>
-                    setOpenSection(openSection === index ? null : index)
-                  }
-                />
-              ))}
-            </div>
-          </section>
-
           {/* Inside the Formula */}
           <section id="ingredient-library" className="mt-16 sm:mt-24">
             <div className="text-center mb-6">
@@ -1274,6 +1252,28 @@ export default function ProductV2Page() {
                   </div>
                 </motion.div>
               </div>
+            </div>
+          </section>
+
+          {/* Product Details */}
+          <section className="mt-16 sm:mt-24">
+            <div className="bg-primary rounded-lg py-3 px-6 mb-2">
+              <h2 className="font-heading text-base sm:text-lg font-bold text-white uppercase tracking-wide text-center">
+                Product Details
+              </h2>
+            </div>
+            <div>
+              {productSections.map((section, index) => (
+                <AccordionItem
+                  key={section.title}
+                  title={section.title}
+                  content={section.content}
+                  isOpen={openSection === index}
+                  onToggle={() =>
+                    setOpenSection(openSection === index ? null : index)
+                  }
+                />
+              ))}
             </div>
           </section>
 
