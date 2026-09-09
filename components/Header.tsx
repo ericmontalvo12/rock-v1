@@ -49,8 +49,7 @@ export function Header() {
             <>
               FREE SHIPPING{" "}
               <span className="mx-2 opacity-60">|</span> 30-DAY MONEY BACK
-              GUARANTEE{" "}
-              <span className="mx-2 opacity-60">|</span> NOW IN STOCK
+              GUARANTEE
             </>
           )}
         </p>
@@ -72,7 +71,6 @@ export function Header() {
                   FREE SHIPPING{" "}
                   <span className="mx-3 opacity-60">&bull;</span> 30-DAY
                   GUARANTEE{" "}
-                  <span className="mx-3 opacity-60">&bull;</span> NOW IN STOCK{" "}
                   <span className="mx-3 opacity-60">&bull;</span>
                 </>
               )}
