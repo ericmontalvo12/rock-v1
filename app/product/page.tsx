@@ -8,7 +8,7 @@ import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/lib/cart-context";
 import { motion, AnimatePresence } from "framer-motion";
-import { Check, ChevronDown, ArrowRight, Star, X, Minus, Plus } from "lucide-react";
+import { Check, ChevronDown, ChevronLeft, ChevronRight, ArrowRight, Star, X, Minus, Plus } from "lucide-react";
 import { getBundleTotal, getRegularBundleTotal, getPricePerBottle, getRegularPricePerBottle, isSaleActive, SUBSCRIPTION_PRICE } from "@/lib/sale";
 import { SaleCountdown } from "@/components/SaleCountdown";
 import { MAX_REVIEW_PHOTO_BYTES } from "@/lib/reviews-config";
@@ -528,6 +528,8 @@ export default function ProductV2Page() {
   const [reviewSubmitting, setReviewSubmitting] = useState(false);
   const [reviewError, setReviewError] = useState("");
   const [reviewSuccess, setReviewSuccess] = useState(false);
+  const [gallerySlide, setGallerySlide] = useState(0);
+  const galleryTotal = 6;
 
   const handleReviewPhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0] ?? null;
@@ -942,8 +944,13 @@ export default function ProductV2Page() {
                 <span className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-primary" />Ships in 1-2 Days</span>
               </div>
 
-              {/* Accordion Sections */}
-              <div className="border-t border-border">
+              {/* Product Details */}
+              <div className="bg-primary rounded-lg py-3 px-6 mt-6 mb-2">
+                <h2 className="font-heading text-base sm:text-lg font-bold text-white uppercase tracking-wide text-center">
+                  Product Details
+                </h2>
+              </div>
+              <div>
                 {productSections.map((section, index) => (
                   <AccordionItem
                     key={section.title}
@@ -1278,15 +1285,53 @@ export default function ProductV2Page() {
               </h2>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
-              {[1, 2, 3, 4, 5, 6].map((i) => (
+            <div className="relative">
+              {/* Slideshow */}
+              <div className="overflow-hidden rounded-lg">
                 <div
-                  key={i}
-                  className="aspect-square rounded-lg bg-surface border border-border flex items-center justify-center overflow-hidden"
+                  className="flex transition-transform duration-500 ease-in-out"
+                  style={{ transform: `translateX(-${gallerySlide * 100}%)` }}
                 >
-                  <span className="text-text-muted text-xs">Photo {i}</span>
+                  {Array.from({ length: galleryTotal }, (_, i) => (
+                    <div
+                      key={i}
+                      className="w-full flex-shrink-0 aspect-[4/3] bg-surface border border-border flex items-center justify-center"
+                    >
+                      <span className="text-text-muted text-sm">Photo {i + 1}</span>
+                    </div>
+                  ))}
                 </div>
-              ))}
+              </div>
+
+              {/* Prev / Next buttons */}
+              <button
+                onClick={() => setGallerySlide((prev) => (prev === 0 ? galleryTotal - 1 : prev - 1))}
+                className="absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/90 border border-border shadow-sm flex items-center justify-center hover:bg-white transition-colors"
+                aria-label="Previous photo"
+              >
+                <ChevronLeft className="w-5 h-5 text-text-primary" />
+              </button>
+              <button
+                onClick={() => setGallerySlide((prev) => (prev === galleryTotal - 1 ? 0 : prev + 1))}
+                className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/90 border border-border shadow-sm flex items-center justify-center hover:bg-white transition-colors"
+                aria-label="Next photo"
+              >
+                <ChevronRight className="w-5 h-5 text-text-primary" />
+              </button>
+
+              {/* Dot indicators */}
+              <div className="flex justify-center gap-2 mt-4">
+                {Array.from({ length: galleryTotal }, (_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setGallerySlide(i)}
+                    className={`w-2 h-2 rounded-full transition-colors ${
+                      i === gallerySlide ? "bg-primary" : "bg-border"
+                    }`}
+                    aria-label={`Go to photo ${i + 1}`}
+                  />
+                ))}
+              </div>
             </div>
           </section>
 
