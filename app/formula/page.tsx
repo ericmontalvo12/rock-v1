@@ -6,7 +6,7 @@ import Link from "next/link";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { motion } from "framer-motion";
-import { Check, ArrowRight, Shield, X, ChevronDown, FlaskConical, FileText, ChevronUp } from "lucide-react";
+import { Check, ArrowRight, Shield, X, FlaskConical, FileText, ChevronUp } from "lucide-react";
 
 // Tab definitions
 const ingredientTabs = [
@@ -152,7 +152,7 @@ const whatsNotItems = [
 export default function FormulaPage() {
   const [activeTab, setActiveTab] = useState<TabId>("foundational");
   const [selectedIngredientIndex, setSelectedIngredientIndex] = useState(0);
-  const [showFullDesc, setShowFullDesc] = useState(false);
+
   const [isJumpBarSticky, setIsJumpBarSticky] = useState(false);
   const heroRef = useRef<HTMLDivElement>(null);
 
@@ -525,28 +525,11 @@ export default function FormulaPage() {
                       {filteredIngredients[selectedIngredientIndex]?.name}
                     </h3>
 
-                    {/* Short Description + Read More */}
+                    {/* Description */}
                     <div className="mb-4">
                       <p className="text-white text-base leading-relaxed">
                         {filteredIngredients[selectedIngredientIndex]?.shortDesc}
                       </p>
-                      {!showFullDesc ? (
-                        <button
-                          onClick={() => setShowFullDesc(true)}
-                          className="inline-flex items-center gap-1 text-white/80 text-sm mt-2 hover:text-white transition-colors"
-                        >
-                          Read more
-                          <ChevronDown className="w-3 h-3" />
-                        </button>
-                      ) : (
-                        <motion.p
-                          initial={{ opacity: 0, height: 0 }}
-                          animate={{ opacity: 1, height: "auto" }}
-                          className="text-white/90 text-base leading-relaxed mt-2"
-                        >
-                          {filteredIngredients[selectedIngredientIndex]?.fullDesc}
-                        </motion.p>
-                      )}
                     </div>
 
                     {/* Dose & Form Row */}
