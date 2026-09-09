@@ -4,7 +4,7 @@ import { Hero } from "@/components/sections/Hero";
 import { TrustBar } from "@/components/sections/TrustBar";
 import { EducationBlock } from "@/components/sections/EducationBlock";
 import { HomeReviews } from "@/components/sections/HomeReviews";
-import { FinalCTA } from "@/components/sections/FinalCTA";
+import { JoinCommunity } from "@/components/sections/JoinCommunity";
 
 export default function Home() {
   return (
@@ -15,7 +15,7 @@ export default function Home() {
         <TrustBar />
         <EducationBlock />
         <HomeReviews />
-        <FinalCTA />
+        <JoinCommunity />
       </main>
       <Footer />
     </div>

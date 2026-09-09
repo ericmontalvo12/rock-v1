@@ -1275,6 +1275,25 @@ export default function ProductV2Page() {
           </section>
           )}
 
+          {/* In Action */}
+          <section className="mt-16 sm:mt-24">
+            <div className="bg-primary rounded-lg py-3 px-6 mb-8">
+              <h2 className="font-heading text-base sm:text-lg font-bold text-white uppercase tracking-wide text-center">
+                In Action
+              </h2>
+            </div>
+
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
+              {[1, 2, 3, 4, 5, 6].map((i) => (
+                <div
+                  key={i}
+                  className="aspect-square rounded-lg bg-surface border border-border flex items-center justify-center overflow-hidden"
+                >
+                  <span className="text-text-muted text-xs">Photo {i}</span>
+                </div>
+              ))}
+            </div>
+          </section>
 
         </div>
       </main>
