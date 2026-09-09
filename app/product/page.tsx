@@ -1275,42 +1275,6 @@ export default function ProductV2Page() {
           </section>
           )}
 
-          {/* Final CTA */}
-          <section className="mt-16 sm:mt-24">
-            <div className="bg-primary rounded-lg overflow-hidden">
-              <div className="grid sm:grid-cols-2 items-center gap-6 p-8 sm:p-12">
-                <div className="flex items-center justify-center order-2 sm:order-1">
-                  <Image
-                    src="/product-bottle.png"
-                    alt="Peak Performance Bottle"
-                    width={220}
-                    height={280}
-                    className="w-40 sm:w-52 h-auto"
-                  />
-                </div>
-                <div className="text-center sm:text-left order-1 sm:order-2">
-                  <h2 className="font-heading text-2xl sm:text-3xl font-bold text-white mb-3">
-                    Ready to Feel the Difference?
-                  </h2>
-                  <p className="text-white/80 mb-6">
-                    Join thousands of men who switched to research-backed testosterone support.
-                  </p>
-                  <Button
-                    size="lg"
-                    variant="secondary"
-                    onClick={handleAddToCart}
-                    className="px-12"
-                  >
-                    {addedToCart ? "Opening…" : "Buy Now"}
-                  </Button>
-                  <div className="flex flex-wrap justify-center sm:justify-start gap-x-4 gap-y-1 mt-4 text-sm text-white/80">
-                    <span className="flex items-center gap-1.5"><Check className="w-4 h-4" />30-Day Guarantee</span>
-                    <span className="flex items-center gap-1.5"><Check className="w-4 h-4" />Cancel Anytime</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
 
         </div>
       </main>
