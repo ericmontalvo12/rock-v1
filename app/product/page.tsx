@@ -513,7 +513,7 @@ export default function ProductV2Page() {
 
   const [activeTab, setActiveTab] = useState<TabId>("foundational");
   const [selectedIngredientIndex, setSelectedIngredientIndex] = useState(0);
-  const [showFullDesc, setShowFullDesc] = useState(false);
+
   const filteredIngredients = ingredients.filter((ing) => ing.category === activeTab);
 
   const handleTabChange = (tabId: TabId) => {
@@ -1129,23 +1129,6 @@ export default function ProductV2Page() {
                       <p className="text-white text-base leading-relaxed">
                         {filteredIngredients[selectedIngredientIndex]?.shortDesc}
                       </p>
-                      {!showFullDesc ? (
-                        <button
-                          onClick={() => setShowFullDesc(true)}
-                          className="inline-flex items-center gap-1 text-white/80 text-sm mt-2 hover:text-white transition-colors"
-                        >
-                          Read more
-                          <ChevronDown className="w-3 h-3" />
-                        </button>
-                      ) : (
-                        <motion.p
-                          initial={{ opacity: 0, height: 0 }}
-                          animate={{ opacity: 1, height: "auto" }}
-                          className="text-white/90 text-base leading-relaxed mt-2"
-                        >
-                          {filteredIngredients[selectedIngredientIndex]?.fullDesc}
-                        </motion.p>
-                      )}
                     </div>
 
                     <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3 mb-4 border border-white/10">
