@@ -780,30 +780,25 @@ export default function ProductV2Page() {
                 </div>
 
                 {/* Trust Badges */}
-                {/* Source art is square and full-bleed, so these need no
-                    negative margins to close up dead canvas space. */}
-                <div className="flex justify-center items-center gap-3 min-[360px]:gap-4 sm:gap-6 mt-6">
-                  <Image
-                    src="/gmp-certified.png"
-                    alt="GMP Certified"
-                    width={400}
-                    height={400}
-                    className="w-18 h-18 min-[360px]:w-22 min-[360px]:h-22 sm:w-25 sm:h-25 lg:w-32 lg:h-32 object-contain"
-                  />
-                  <Image
-                    src="/made-in-usa.png"
-                    alt="Made in USA"
-                    width={400}
-                    height={400}
-                    className="w-18 h-18 min-[360px]:w-22 min-[360px]:h-22 sm:w-25 sm:h-25 lg:w-32 lg:h-32 object-contain"
-                  />
-                  <Image
-                    src="/lab-tested.png"
-                    alt="Lab Tested"
-                    width={400}
-                    height={400}
-                    className="w-18 h-18 min-[360px]:w-22 min-[360px]:h-22 sm:w-25 sm:h-25 lg:w-32 lg:h-32 object-contain"
-                  />
+                <div className="flex justify-center items-center gap-8 sm:gap-16 mt-6">
+                  {[
+                    { src: "/gmp-certified.png", alt: "GMP Certified", label: "GMP Certified" },
+                    { src: "/made-in-usa.png", alt: "Made in USA", label: "Made in USA" },
+                    { src: "/lab-tested.png", alt: "Lab Tested", label: "Lab Tested" },
+                  ].map((badge) => (
+                    <div key={badge.alt} className="flex flex-col items-center gap-2">
+                      <Image
+                        src={badge.src}
+                        alt={badge.alt}
+                        width={56}
+                        height={56}
+                        className="w-12 h-12 sm:w-14 sm:h-14 object-contain"
+                      />
+                      <span className="text-[10px] sm:text-xs font-heading font-bold text-text-secondary uppercase tracking-wider">
+                        {badge.label}
+                      </span>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>

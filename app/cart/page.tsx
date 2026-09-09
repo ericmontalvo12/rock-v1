@@ -142,7 +142,7 @@ export default function CartPage() {
 
   if (items.length === 0) {
     return (
-      <div className="w-full max-w-full overflow-x-hidden">
+      <div className="w-full max-w-full overflow-x-hidden bg-surface/50">
         <Header />
         <main className="pt-32 pb-16 sm:pb-24 min-h-screen">
           <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
@@ -150,7 +150,7 @@ export default function CartPage() {
               <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-surface border border-border flex items-center justify-center">
                 <ShoppingBag className="w-10 h-10 text-text-muted" />
               </div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-text-primary mb-4">
+              <h1 className="font-heading text-2xl sm:text-3xl font-bold text-text-primary mb-4">
                 Your Cart is Empty
               </h1>
               <p className="text-text-secondary mb-8">
@@ -168,11 +168,11 @@ export default function CartPage() {
   }
 
   return (
-    <div className="w-full max-w-full overflow-x-hidden">
+    <div className="w-full max-w-full overflow-x-hidden bg-surface/50">
       <Header />
       <main className="pt-32 pb-16 sm:pb-24 min-h-screen">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <h1 className="text-3xl sm:text-4xl font-bold text-text-primary mb-2">
+          <h1 className="font-heading text-3xl sm:text-4xl font-bold text-text-primary mb-2">
             Your Cart
           </h1>
           <p className="text-text-muted text-sm mb-4">
@@ -192,7 +192,7 @@ export default function CartPage() {
               {items.map((item) => (
                 <div
                   key={item.id}
-                  className="flex gap-4 p-4 sm:p-6 rounded-2xl bg-surface border border-border"
+                  className="flex gap-4 p-4 sm:p-6 rounded-lg bg-white border border-border"
                 >
                   {/* Product Image */}
                   <div className="w-24 h-24 sm:w-32 sm:h-32 flex-shrink-0 rounded-xl bg-background border border-border overflow-hidden">
@@ -269,8 +269,8 @@ export default function CartPage() {
 
             {/* Order Summary */}
             <div className="lg:col-span-1">
-              <div className="sticky top-32 p-6 rounded-2xl bg-surface border border-border">
-                <h2 className="text-xl font-semibold text-text-primary mb-6">
+              <div className="sticky top-32 p-6 rounded-lg bg-white border border-border">
+                <h2 className="font-heading text-xl font-semibold text-text-primary mb-6">
                   Order Summary
                 </h2>
 
@@ -315,7 +315,7 @@ export default function CartPage() {
                     placeholder="you@example.com"
                     value={emailInput}
                     onChange={(e) => handleEmailChange(e.target.value)}
-                    className="w-full px-3 py-2 rounded-lg bg-background border border-border text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-sm"
+                    className="w-full px-3 py-2 rounded-[5px] bg-surface border border-border text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary text-sm"
                   />
                   {emailInput.trim().length > 0 && !isValidEmail && (
                     <p className="text-text-muted text-xs mt-1">That doesn't look like a valid email.</p>
@@ -333,7 +333,7 @@ export default function CartPage() {
                     placeholder="(555) 123-4567"
                     value={phoneInput}
                     onChange={(e) => handlePhoneChange(e.target.value)}
-                    className="w-full px-3 py-2 rounded-lg bg-background border border-border text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-sm"
+                    className="w-full px-3 py-2 rounded-[5px] bg-surface border border-border text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary text-sm"
                   />
                   <label className={`flex items-start gap-2 mt-3 text-xs text-text-muted ${phoneInput.trim() ? "" : "opacity-50"}`}>
                     <input
@@ -363,7 +363,7 @@ export default function CartPage() {
                       placeholder="Enter code"
                       value={promoInput}
                       onChange={(e) => { setPromoInput(e.target.value.toUpperCase()); setPromoError(""); }}
-                      className="flex-1 px-3 py-2 rounded-lg bg-background border border-border text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-sm"
+                      className="flex-1 px-3 py-2 rounded-[5px] bg-surface border border-border text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary text-sm"
                     />
                     <Button variant="outline" className="px-4 py-2 h-auto text-sm" onClick={handleApplyPromo} disabled={promoLoading}>
                       {promoLoading ? "..." : "Apply"}
