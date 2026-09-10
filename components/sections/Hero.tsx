@@ -4,16 +4,15 @@ import Link from "next/link";
 export function Hero() {
   return (
     <section className="relative overflow-hidden">
-      {/* Mobile image — fully visible, no cropping */}
-      <div className="sm:hidden relative w-full">
+      {/* Mobile image — 1:1 aspect ratio like Bucked Up */}
+      <div className="sm:hidden relative w-full aspect-square">
         <Image
           src="/hero-mobile.jpg"
           alt=""
           aria-hidden="true"
-          width={3712}
-          height={4608}
+          fill
           sizes="100vw"
-          className="w-full h-auto block"
+          className="object-cover object-center"
           priority
         />
         {/* Overlay */}
