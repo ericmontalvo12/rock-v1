@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden">
+    <section className="relative overflow-hidden mt-[100px] sm:mt-[110px]">
       {/* Mobile image — 1:1 aspect ratio like Bucked Up */}
       <div className="sm:hidden relative w-full aspect-square">
         <Image
