@@ -47,16 +47,15 @@ export function Hero() {
         </div>
       </div>
 
-      {/* Desktop image — fully visible, no cropping */}
-      <div className="hidden sm:block relative w-full">
+      {/* Desktop image — ~2545x827 aspect ratio */}
+      <div className="hidden sm:block relative w-full" style={{ aspectRatio: "2545 / 827" }}>
         <Image
           src="/hero-mountain.jpg"
           alt=""
           aria-hidden="true"
-          width={5504}
-          height={3072}
+          fill
           sizes="100vw"
-          className="w-full h-auto block"
+          className="object-cover object-center"
           priority
         />
         {/* Overlay */}
