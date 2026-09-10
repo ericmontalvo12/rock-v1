@@ -583,8 +583,6 @@ export default function ProductV2Page() {
   const [reviewSubmitting, setReviewSubmitting] = useState(false);
   const [reviewError, setReviewError] = useState("");
   const [reviewSuccess, setReviewSuccess] = useState(false);
-  const [gallerySlide, setGallerySlide] = useState(0);
-  const GALLERY_COUNT = 5;
 
   const handleReviewPhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0] ?? null;
@@ -1558,69 +1556,7 @@ export default function ProductV2Page() {
           </section>
           )}
 
-          {/* In Action */}
-          <section className="mt-16 sm:mt-24">
-            <div className="bg-primary rounded-lg py-3 px-6 mb-8">
-              <h2 className="font-heading text-base sm:text-lg font-bold text-white uppercase tracking-wide text-center">
-                In Action
-              </h2>
-            </div>
-
-            {/* Mobile: Slideshow */}
-            <div className="sm:hidden relative">
-              <div className="overflow-hidden rounded-lg">
-                <div
-                  className="flex transition-transform duration-500 ease-in-out"
-                  style={{ transform: `translateX(-${gallerySlide * 100}%)` }}
-                >
-                  {Array.from({ length: GALLERY_COUNT }, (_, i) => (
-                    <div
-                      key={i}
-                      className="w-full flex-shrink-0 aspect-[4/3] bg-surface border border-border flex items-center justify-center"
-                    >
-                      <span className="text-text-muted text-sm">Photo {i + 1}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              <button
-                onClick={() => setGallerySlide((prev) => (prev === 0 ? GALLERY_COUNT - 1 : prev - 1))}
-                className="absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/90 border border-border shadow-sm flex items-center justify-center hover:bg-white transition-colors"
-                aria-label="Previous photo"
-              >
-                <ChevronLeft className="w-5 h-5 text-text-primary" />
-              </button>
-              <button
-                onClick={() => setGallerySlide((prev) => (prev === GALLERY_COUNT - 1 ? 0 : prev + 1))}
-                className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/90 border border-border shadow-sm flex items-center justify-center hover:bg-white transition-colors"
-                aria-label="Next photo"
-              >
-                <ChevronRight className="w-5 h-5 text-text-primary" />
-              </button>
-              <div className="flex justify-center gap-2 mt-4">
-                {Array.from({ length: GALLERY_COUNT }, (_, i) => (
-                  <button
-                    key={i}
-                    onClick={() => setGallerySlide(i)}
-                    className={`w-2 h-2 rounded-full transition-colors ${i === gallerySlide ? "bg-primary" : "bg-border"}`}
-                    aria-label={`Go to photo ${i + 1}`}
-                  />
-                ))}
-              </div>
-            </div>
-
-            {/* Desktop: 5-photo grid */}
-            <div className="hidden sm:grid grid-cols-5 gap-3">
-              {Array.from({ length: GALLERY_COUNT }, (_, i) => (
-                <div
-                  key={i}
-                  className="aspect-[3/4] rounded-lg bg-surface border border-border flex items-center justify-center overflow-hidden"
-                >
-                  <span className="text-text-muted text-xs">Photo {i + 1}</span>
-                </div>
-              ))}
-            </div>
-          </section>
+          {/* In Action — hidden until lifestyle photos are ready */}
 
         </div>
       </main>
