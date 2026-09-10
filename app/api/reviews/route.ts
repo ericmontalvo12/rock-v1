@@ -41,6 +41,12 @@ export async function POST(req: NextRequest) {
         { status: 400 }
       );
     }
+    if (name.trim().length > 100) {
+      return NextResponse.json({ error: "Name is too long." }, { status: 400 });
+    }
+    if (quote.trim().length > 2000) {
+      return NextResponse.json({ error: "Review is too long (max 2000 characters)." }, { status: 400 });
+    }
 
     let photoDataUrl: string | null = null;
     if (photo instanceof File && photo.size > 0) {

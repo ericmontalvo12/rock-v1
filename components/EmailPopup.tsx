@@ -70,13 +70,13 @@ export function EmailPopup() {
       setCustomerEmail(email);
       setIsSubmitted(true);
       try {
-        await fetch("https://services.leadconnectorhq.com/hooks/EakYnXEQy1hvVFmdShYB/webhook-trigger/wFhzPl8SglWPsW3BeDsh", {
+        await fetch("/api/email-subscribe", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ email }),
         });
-      } catch (err) {
-        console.error("Failed to send to HighLevel:", err);
+      } catch {
+        // non-blocking
       }
     }
   };

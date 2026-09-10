@@ -1,11 +1,15 @@
 import { NextResponse } from "next/server";
 
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const MAX_NAME = 200;
+const MAX_SUBJECT = 300;
+const MAX_MESSAGE = 5000;
+
 export async function POST(request: Request) {
   try {
     const body = await request.json();
     const { name, email, subject, message } = body;
 
-    // Validate required fields
     if (!name || !email || !subject || !message) {
       return NextResponse.json(
         { error: "All fields are required" },
@@ -13,39 +17,31 @@ export async function POST(request: Request) {
       );
     }
 
-    // TODO: Implement email sending
-    // You can use services like:
-    // - Resend (https://resend.com)
-    // - SendGrid (https://sendgrid.com)
-    // - Nodemailer with SMTP
-    // - AWS SES
-    //
-    // Example with Resend:
-    // import { Resend } from 'resend';
-    // const resend = new Resend(process.env.RESEND_API_KEY);
-    // await resend.emails.send({
-    //   from: 'noreply@rockmountainperformance.com',
-    //   to: 'contact@rockmountainperformance.com',
-    //   subject: `Contact Form: ${subject}`,
-    //   html: `
-    //     <h2>New Contact Form Submission</h2>
-    //     <p><strong>Name:</strong> ${name}</p>
-    //     <p><strong>Email:</strong> ${email}</p>
-    //     <p><strong>Subject:</strong> ${subject}</p>
-    //     <p><strong>Message:</strong></p>
-    //     <p>${message}</p>
-    //   `,
-    // });
+    if (typeof name !== "string" || name.trim().length > MAX_NAME) {
+      return NextResponse.json({ error: "Name is too long" }, { status: 400 });
+    }
+    if (typeof email !== "string" || !EMAIL_REGEX.test(email.trim())) {
+      return NextResponse.json({ error: "Enter a valid email" }, { status: 400 });
+    }
+    if (typeof subject !== "string" || subject.trim().length > MAX_SUBJECT) {
+      return NextResponse.json({ error: "Subject is too long" }, { status: 400 });
+    }
+    if (typeof message !== "string" || message.trim().length > MAX_MESSAGE) {
+      return NextResponse.json({ error: "Message is too long" }, { status: 400 });
+    }
 
-    // For now, log the submission (remove in production)
-    console.log("Contact form submission:", { name, email, subject, message });
+    console.log("Contact form submission:", {
+      name: name.trim(),
+      email: email.trim(),
+      subject: subject.trim(),
+      message: message.trim().slice(0, 100) + "...",
+    });
 
     return NextResponse.json(
       { success: true, message: "Message sent successfully" },
       { status: 200 }
     );
-  } catch (error) {
-    console.error("Contact form error:", error);
+  } catch {
     return NextResponse.json(
       { error: "Failed to send message" },
       { status: 500 }

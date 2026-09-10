@@ -4,12 +4,14 @@ import { sendPurchaseToMetaCapi } from "@/lib/meta-capi";
 import { SITE_URL } from "@/app/layout";
 import { upsertOrder, upsertRenewalOrder, type OrderLineItem } from "@/lib/orders-db";
 
-const GHL_WEBHOOK_URL =
-  "https://services.leadconnectorhq.com/hooks/EakYnXEQy1hvVFmdShYB/webhook-trigger/0bc60e38-cd24-4372-84cf-86e540f8ef14";
-
 async function sendToGHL(type: string, payload: Record<string, unknown>) {
+  const ghlUrl = process.env.GHL_ORDER_WEBHOOK_URL;
+  if (!ghlUrl) {
+    console.warn("GHL_ORDER_WEBHOOK_URL not set — skipping GHL webhook");
+    return;
+  }
   try {
-    await fetch(GHL_WEBHOOK_URL, {
+    await fetch(ghlUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ type, ...payload }),

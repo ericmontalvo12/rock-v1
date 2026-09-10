@@ -5,8 +5,7 @@ import { Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/lib/cart-context";
 
-const GHL_EMAIL_WEBHOOK =
-  "https://services.leadconnectorhq.com/hooks/EakYnXEQy1hvVFmdShYB/webhook-trigger/wFhzPl8SglWPsW3BeDsh";
+const EMAIL_SUBSCRIBE_API = "/api/email-subscribe";
 
 export function JoinCommunity() {
   const [email, setEmail] = useState("");
@@ -21,7 +20,7 @@ export function JoinCommunity() {
     try {
       setCustomerEmail(email);
       localStorage.setItem("promoCode", "WELCOME10");
-      await fetch(GHL_EMAIL_WEBHOOK, {
+      await fetch(EMAIL_SUBSCRIBE_API, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),

@@ -146,10 +146,10 @@ export async function POST(req: Request) {
     });
 
     return NextResponse.json({ clientSecret: session.client_secret });
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.error("Stripe embedded checkout error:", err);
     return NextResponse.json(
-      { error: err?.message ?? "Failed to create checkout session" },
+      { error: "Failed to create checkout session" },
       { status: 500 }
     );
   }
