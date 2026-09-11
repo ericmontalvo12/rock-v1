@@ -137,9 +137,6 @@ export default function FAQ() {
       <main className="pt-32 pb-16 sm:pb-24">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <p className="font-heading text-primary font-bold text-xs uppercase tracking-widest mb-3">
-              Support
-            </p>
             <h1 className="font-heading text-3xl sm:text-4xl font-bold text-text-primary mb-4">
               Frequently Asked Questions
             </h1>
