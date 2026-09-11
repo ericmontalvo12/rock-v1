@@ -1,12 +1,12 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { motion } from "framer-motion";
-import { Check, ArrowRight, X, FlaskConical, Shield, ChevronUp } from "lucide-react";
+import { Check, ArrowRight, X, FlaskConical, Shield } from "lucide-react";
 
 const ingredients = [
   {
@@ -153,24 +153,6 @@ const whatsNotItems = [
 
 export default function FormulaPage() {
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const [isJumpBarSticky, setIsJumpBarSticky] = useState(false);
-  const heroRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (heroRef.current) {
-        const heroBottom = heroRef.current.getBoundingClientRect().bottom;
-        setIsJumpBarSticky(heroBottom <= 68);
-      }
-    };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
   const selected = ingredients[selectedIndex];
 
   return (
@@ -178,7 +160,7 @@ export default function FormulaPage() {
       <Header />
       <main className="pt-28 sm:pt-32">
         {/* Hero */}
-        <section ref={heroRef} className="pb-8 sm:pb-10">
+        <section className="pb-8 sm:pb-10">
           <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 text-center">
             <h1 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold text-text-primary mb-4">
               Every Ingredient. Every Dose. Fully Transparent.
@@ -200,87 +182,10 @@ export default function FormulaPage() {
           </div>
         </section>
 
-        {/* Sticky Jump Bar */}
-        <div
-          className={`transition-all duration-300 z-40 ${
-            isJumpBarSticky
-              ? "fixed top-[56px] sm:top-[68px] left-0 right-0 bg-white/95 backdrop-blur-md border-b border-border shadow-sm py-3"
-              : "bg-surface border-y border-border py-4"
-          }`}
-        >
-          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-            <div
-              className="flex items-center gap-3 overflow-x-auto scrollbar-hide"
-              style={{ touchAction: "pan-x pinch-zoom" }}
-            >
-              <span
-                className={`font-heading font-semibold text-text-muted uppercase tracking-wide flex-shrink-0 transition-all ${
-                  isJumpBarSticky ? "text-[10px]" : "text-xs"
-                }`}
-              >
-                Jump to:
-              </span>
-              <div className="flex gap-1.5 flex-1">
-                {ingredients.map((ingredient, index) => (
-                  <button
-                    key={ingredient.name}
-                    onClick={() => {
-                      setSelectedIndex(index);
-                      document
-                        .getElementById("ingredient-library")
-                        ?.scrollIntoView({ behavior: "smooth", block: "start" });
-                    }}
-                    className={`flex items-center gap-1.5 rounded-lg border transition-all flex-shrink-0 ${
-                      isJumpBarSticky ? "px-2 py-1" : "px-2.5 py-1.5"
-                    } ${
-                      selectedIndex === index
-                        ? "bg-primary/10 border-primary text-primary"
-                        : "bg-white border-border hover:border-primary/50 text-text-secondary"
-                    }`}
-                  >
-                    <div
-                      className={`rounded-full bg-surface overflow-hidden flex-shrink-0 ${
-                        isJumpBarSticky ? "w-5 h-5" : "w-6 h-6"
-                      }`}
-                    >
-                      <Image
-                        src={ingredient.image}
-                        alt={ingredient.name}
-                        width={24}
-                        height={24}
-                        className="w-full h-full object-contain"
-                      />
-                    </div>
-                    <span
-                      className={`font-medium ${
-                        isJumpBarSticky ? "text-[10px]" : "text-[11px]"
-                      }`}
-                    >
-                      {ingredient.name}
-                    </span>
-                  </button>
-                ))}
-              </div>
-              {isJumpBarSticky && (
-                <button
-                  onClick={scrollToTop}
-                  className="hidden sm:flex items-center gap-1 text-text-muted hover:text-primary text-[10px] font-medium flex-shrink-0 transition-colors"
-                >
-                  <ChevronUp className="w-3 h-3" />
-                  Top
-                </button>
-              )}
-            </div>
-          </div>
-        </div>
-
-        {isJumpBarSticky && <div className="h-[52px]" />}
-
         {/* Ingredient Library */}
         <section
           id="ingredient-library"
           className="pt-8 pb-12 sm:pt-10 sm:pb-14"
-          style={{ scrollMarginTop: "120px" }}
         >
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="bg-primary rounded-lg py-3 px-6 mb-8">
