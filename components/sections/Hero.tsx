@@ -4,7 +4,7 @@ import Link from "next/link";
 export function Hero() {
   return (
     <section className="relative overflow-hidden mt-[100px] sm:mt-[110px]">
-      {/* Mobile image — 1:1 aspect ratio like Bucked Up */}
+      {/* Mobile */}
       <div className="sm:hidden relative w-full aspect-square">
         <Image
           src="/hero-mobile.jpg"
@@ -17,37 +17,28 @@ export function Hero() {
         />
         {/* Overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
-        {/* Text content */}
-        <div className="absolute inset-0 flex items-center justify-center px-4">
-          <div className="text-center max-w-[340px]">
+        {/* Text content — heading top, button bottom */}
+        <div className="absolute inset-0 flex flex-col justify-between px-4 py-8">
+          <div className="text-center max-w-[340px] mx-auto">
             <h1 className="font-heading text-[32px] font-bold tracking-tight text-white mb-3 leading-[1.05]">
               Built for Men Who Read Labels
             </h1>
-            <p className="text-white/80 text-base mb-6 leading-relaxed">
+            <p className="text-white/80 text-base leading-relaxed">
               Research-backed testosterone support for energy, drive, and recovery.
             </p>
-            <div className="flex flex-col gap-3">
-              <Link
-                href="/product"
-                className="inline-flex items-center justify-center h-12 px-8 rounded-[5px] bg-primary text-white font-heading font-bold text-base hover:bg-primary-hover transition-colors"
-              >
-                SHOP NOW
-              </Link>
-              <Link
-                href="/formula"
-                className="inline-flex items-center justify-center h-12 px-8 rounded-[5px] border-2 border-white text-white font-heading font-bold text-base hover:bg-white hover:text-secondary transition-colors"
-              >
-                SEE THE FORMULA
-              </Link>
-            </div>
-            <p className="text-white/60 text-xs mt-4">
-              Free shipping &bull; 30-day money back guarantee
-            </p>
+          </div>
+          <div className="text-center">
+            <Link
+              href="/product"
+              className="inline-flex items-center justify-center h-12 px-8 rounded-[5px] bg-primary text-white font-heading font-bold text-base hover:bg-primary-hover transition-colors"
+            >
+              SHOP NOW
+            </Link>
           </div>
         </div>
       </div>
 
-      {/* Desktop image — ~2545x827 aspect ratio */}
+      {/* Desktop */}
       <div className="hidden sm:block relative w-full" style={{ aspectRatio: "2545 / 827" }}>
         <Image
           src="/hero-mountain.jpg"
@@ -60,34 +51,25 @@ export function Hero() {
         />
         {/* Overlay */}
         <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-black/20" />
-        {/* Text content */}
-        <div className="absolute inset-0 flex items-center">
+        {/* Text content — heading top, button bottom */}
+        <div className="absolute inset-0 flex flex-col justify-between py-10 lg:py-14">
           <div className="mx-auto max-w-7xl px-6 lg:px-8 w-full">
             <div className="max-w-xl">
               <h1 className="font-heading text-5xl lg:text-7xl font-bold tracking-tight text-white mb-5 leading-[1.05]">
                 Built for Men Who Read Labels
               </h1>
-              <p className="text-white/80 text-lg lg:text-xl mb-8 leading-relaxed max-w-lg">
+              <p className="text-white/80 text-lg lg:text-xl leading-relaxed max-w-lg">
                 Research-backed testosterone support for energy, drive, and recovery.
               </p>
-              <div className="flex flex-row gap-4">
-                <Link
-                  href="/product"
-                  className="inline-flex items-center justify-center h-12 px-8 rounded-[5px] bg-primary text-white font-heading font-bold text-base hover:bg-primary-hover transition-colors"
-                >
-                  SHOP NOW
-                </Link>
-                <Link
-                  href="/formula"
-                  className="inline-flex items-center justify-center h-12 px-8 rounded-[5px] border-2 border-white text-white font-heading font-bold text-base hover:bg-white hover:text-secondary transition-colors"
-                >
-                  SEE THE FORMULA
-                </Link>
-              </div>
-              <p className="text-white/60 text-sm mt-5">
-                Free shipping &bull; 30-day money back guarantee
-              </p>
             </div>
+          </div>
+          <div className="mx-auto max-w-7xl px-6 lg:px-8 w-full">
+            <Link
+              href="/product"
+              className="inline-flex items-center justify-center h-12 px-8 rounded-[5px] bg-primary text-white font-heading font-bold text-base hover:bg-primary-hover transition-colors"
+            >
+              SHOP NOW
+            </Link>
           </div>
         </div>
       </div>
