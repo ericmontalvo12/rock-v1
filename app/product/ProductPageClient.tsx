@@ -99,15 +99,15 @@ const ingredients = [
     form: "Cholecalciferol",
     dosage: "3,000 IU",
     image: "/vitamin-d3.png",
-    shortDesc: "Clinically shown to increase testosterone levels in men with low vitamin D status.",
+    shortDesc: "In a 12-month RCT (Pilz et al., 2011), men with low vitamin D who supplemented with 3,332 IU/day saw significant increases in total, free, and bioactive testosterone vs. placebo.",
     fullDesc: "A 12-month randomized controlled trial found that men supplementing with vitamin D experienced a significant increase in total testosterone, free testosterone, and bioactive testosterone compared to placebo. Most men training indoors are deficient without knowing it.",
     benefits: [
-      "Increased total testosterone in clinical trials",
+      "Increased total testosterone in clinical trial (Pilz et al., 2011)",
       "Supports free and bioactive testosterone levels",
       "Corrects a deficiency linked to low T",
     ],
     research: [
-      { title: "Effect of vitamin D supplementation on testosterone levels in men", url: "https://www.thieme-connect.de/products/ejournals/abstract/10.1055/s-0030-1269854" },
+      { title: "Effect of vitamin D supplementation on testosterone levels in men (Pilz et al., 2011)", url: "https://www.thieme-connect.de/products/ejournals/abstract/10.1055/s-0030-1269854" },
     ],
   },
   {
@@ -115,15 +115,15 @@ const ingredients = [
     form: "Bisglycinate",
     dosage: "28.6 mg",
     image: "/magnesium.png",
-    shortDesc: "Directly correlated with testosterone levels — higher magnesium means higher T.",
-    fullDesc: "Research shows a strong positive correlation between magnesium levels and testosterone in men. Athletes lose magnesium through sweat, and studies confirm that supplementation supports both total and free testosterone, especially in active men.",
+    shortDesc: "In a study by Cinar et al. (2011), magnesium supplementation was associated with higher total and free testosterone in both athletes and sedentary men.",
+    fullDesc: "Research by Cinar et al. shows a strong positive correlation between magnesium levels and testosterone in men. Athletes lose magnesium through sweat, and the study confirms that supplementation supports both total and free testosterone, especially in active men.",
     benefits: [
-      "Positively correlated with testosterone levels",
+      "Positively correlated with testosterone levels (Cinar et al., 2011)",
       "Supports both total and free testosterone",
       "Essential mineral depleted by training",
     ],
     research: [
-      { title: "Magnesium and testosterone in men", url: "https://pubmed.ncbi.nlm.nih.gov/20352370/" },
+      { title: "Effects of magnesium supplementation on testosterone levels (Cinar et al., 2011)", url: "https://pubmed.ncbi.nlm.nih.gov/20352370/" },
     ],
   },
   {
@@ -131,15 +131,15 @@ const ingredients = [
     form: "Citrate",
     dosage: "20 mg",
     image: "/zinc.png",
-    shortDesc: "Essential for testosterone synthesis — zinc deficiency directly lowers T levels.",
-    fullDesc: "Zinc is required for testosterone production at the cellular level. Clinical research shows that zinc-deficient men have significantly lower testosterone, and supplementation restores levels. It's one of the most well-established testosterone support nutrients.",
+    shortDesc: "In a study by Prasad et al. (1996), zinc-deficient men had significantly lower testosterone, and supplementation restored levels over 6 months.",
+    fullDesc: "Zinc is required for testosterone production at the cellular level. The study by Prasad et al. showed that zinc-deficient men have significantly lower testosterone, and supplementation restores levels. It is one of the most well-established testosterone support nutrients.",
     benefits: [
       "Required for testosterone synthesis",
-      "Restores T levels in deficient men",
+      "Restores T levels in deficient men (Prasad et al., 1996)",
       "One of the most studied T-support minerals",
     ],
     research: [
-      { title: "Zinc status and serum testosterone levels in adult males", url: "https://pubmed.ncbi.nlm.nih.gov/8875519/" },
+      { title: "Zinc status and serum testosterone levels in adult males (Prasad et al., 1996)", url: "https://pubmed.ncbi.nlm.nih.gov/8875519/" },
     ],
   },
   {
@@ -147,15 +147,15 @@ const ingredients = [
     form: "Citrate",
     dosage: "9 mg",
     image: "/boron.png",
-    shortDesc: "Shown to increase free testosterone by reducing SHBG in just one week.",
-    fullDesc: "A study found that just 10mg of boron daily significantly increased free testosterone and DHT while decreasing estradiol and SHBG after only 7 days. Boron doesn't just support T — it makes more of it available for your body to use.",
+    shortDesc: "In a 2011 trial (Naghii et al.), 10mg/day of boron increased free testosterone and reduced SHBG in healthy men within 7 days.",
+    fullDesc: "The study by Naghii et al. found that 10mg of boron daily significantly increased free testosterone and DHT while decreasing estradiol and SHBG after only 7 days. Boron may help make more existing testosterone available for the body to use.",
     benefits: [
-      "Increases free testosterone levels",
+      "Increased free testosterone (Naghii et al., 2011)",
       "Reduces SHBG (testosterone-binding protein)",
-      "Effects observed in just 7 days",
+      "Significant changes observed within 7 days (Naghii et al., 2011)",
     ],
     research: [
-      { title: "Comparative effects of daily boron supplementation on plasma steroid hormones", url: "https://pubmed.ncbi.nlm.nih.gov/21129941/" },
+      { title: "Comparative effects of daily boron supplementation on plasma steroid hormones (Naghii et al., 2011)", url: "https://pubmed.ncbi.nlm.nih.gov/21129941/" },
     ],
   },
   {
@@ -163,15 +163,15 @@ const ingredients = [
     form: "KSM-66 Root Extract",
     dosage: "500 mg",
     image: "/ashwagandha.png",
-    shortDesc: "Clinically proven to increase testosterone by 14-17% while lowering cortisol.",
-    fullDesc: "Multiple studies on KSM-66 show significant testosterone increases (14-17%) alongside cortisol reductions. High cortisol suppresses testosterone production — by managing stress hormones, ashwagandha indirectly unlocks your body's natural T production.",
+    shortDesc: "In a 2019 RCT (Lopresti et al.), 600mg/day of KSM-66 was associated with a 14–17% increase in testosterone in overweight men aged 40–70.",
+    fullDesc: "The study by Lopresti et al. showed significant testosterone increases (14–17%) alongside cortisol reductions with KSM-66 supplementation. High cortisol suppresses testosterone production — by managing stress hormones, ashwagandha may indirectly support the body’s natural T production.",
     benefits: [
-      "14-17% testosterone increase in studies",
+      "14–17% testosterone increase (Lopresti et al., 2019)",
       "Reduces cortisol (which suppresses T)",
       "Dual-action: direct and indirect T support",
     ],
     research: [
-      { title: "Ashwagandha supplementation and testosterone in overweight men", url: "https://pubmed.ncbi.nlm.nih.gov/31517876/" },
+      { title: "Ashwagandha supplementation and testosterone in overweight men (Lopresti et al., 2019)", url: "https://pubmed.ncbi.nlm.nih.gov/31517876/" },
     ],
   },
   {
@@ -179,15 +179,15 @@ const ingredients = [
     form: "200:1 Eurycomanone",
     dosage: "300 mg",
     image: "/tongkat-ali.png",
-    shortDesc: "Shown to increase testosterone by 37% in a 4-week clinical study.",
-    fullDesc: "In a controlled 4-week study, Tongkat Ali increased testosterone by 37% while reducing cortisol by 16%. It works by stimulating the release of free testosterone from SHBG and supporting the hypothalamic-pituitary-gonadal axis.",
+    shortDesc: "In a 4-week RCT (Tambi et al., 2012), 200mg/day of Tongkat Ali extract increased testosterone by 37% in moderately stressed men.",
+    fullDesc: "In the study by Tambi et al., Tongkat Ali increased testosterone by 37% while reducing cortisol by 16% over 4 weeks. It is believed to work by stimulating the release of free testosterone from SHBG and supporting the hypothalamic-pituitary-gonadal axis.",
     benefits: [
-      "37% testosterone increase in 4 weeks",
-      "Reduces cortisol by 16%",
+      "37% testosterone increase in 4-week RCT (Tambi et al., 2012)",
+      "16% cortisol reduction (Tambi et al., 2012)",
       "Releases bound testosterone from SHBG",
     ],
     research: [
-      { title: "Eurycoma longifolia and androgenic status in moderately stressed males", url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC3669033/" },
+      { title: "Eurycoma longifolia and androgenic status in moderately stressed males (Tambi et al., 2012)", url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC3669033/" },
     ],
   },
   {
@@ -195,15 +195,15 @@ const ingredients = [
     form: "50% Saponins Extract",
     dosage: "500 mg",
     image: "/fenugreek.png",
-    shortDesc: "Meta-analysis confirms significant testosterone increases across multiple trials.",
-    fullDesc: "A 2020 meta-analysis of clinical trials found that fenugreek extract significantly increases total testosterone levels in men. It works by inhibiting enzymes that convert testosterone to estrogen, keeping more T in circulation.",
+    shortDesc: "A 2020 meta-analysis (Mansoori et al.) of clinical trials found that fenugreek extract supplementation significantly increased total testosterone levels in men.",
+    fullDesc: "The meta-analysis by Mansoori et al. reviewed multiple clinical trials and found that fenugreek extract significantly increases total testosterone levels in men. It is thought to work by inhibiting enzymes that convert testosterone to estrogen, keeping more T in circulation.",
     benefits: [
-      "Significant T increase across multiple studies",
-      "Inhibits testosterone-to-estrogen conversion",
+      "Significant T increase across multiple studies (Mansoori et al., 2020)",
+      "May inhibit testosterone-to-estrogen conversion",
       "Meta-analysis confirmed effectiveness",
     ],
     research: [
-      { title: "Effect of fenugreek extract supplement on testosterone levels in male: A meta-analysis of clinical trials", url: "https://pubmed.ncbi.nlm.nih.gov/32048383/" },
+      { title: "Effect of fenugreek extract supplement on testosterone levels in male: A meta-analysis (Mansoori et al., 2020)", url: "https://pubmed.ncbi.nlm.nih.gov/32048383/" },
     ],
   },
 ];

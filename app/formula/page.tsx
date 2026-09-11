@@ -34,15 +34,15 @@ const ingredients = [
     dosage: "28.6 mg",
     image: "/magnesium.png",
     shortDesc:
-      "Directly correlated with testosterone levels — higher magnesium means higher T.",
+      "In a study by Cinar et al. (2011), magnesium supplementation was associated with higher total and free testosterone in both athletes and sedentary men.",
     benefits: [
-      "Positively correlated with testosterone levels",
+      "Positively correlated with testosterone levels (Cinar et al., 2011)",
       "Supports both total and free testosterone",
       "Essential mineral depleted by training",
     ],
     research: [
       {
-        title: "Magnesium and testosterone in men",
+        title: "Effects of magnesium supplementation on testosterone levels (Cinar et al., 2011)",
         url: "https://pubmed.ncbi.nlm.nih.gov/20352370/",
       },
     ],
@@ -53,15 +53,15 @@ const ingredients = [
     dosage: "20 mg",
     image: "/zinc.png",
     shortDesc:
-      "Essential for testosterone synthesis — zinc deficiency directly lowers T levels.",
+      "In a study by Prasad et al. (1996), zinc-deficient men had significantly lower testosterone, and supplementation restored levels over 6 months.",
     benefits: [
       "Required for testosterone synthesis",
-      "Restores T levels in deficient men",
+      "Restores T levels in deficient men (Prasad et al., 1996)",
       "One of the most studied T-support minerals",
     ],
     research: [
       {
-        title: "Zinc status and serum testosterone levels in adult males",
+        title: "Zinc status and serum testosterone levels in adult males (Prasad et al., 1996)",
         url: "https://pubmed.ncbi.nlm.nih.gov/8875519/",
       },
     ],
@@ -129,15 +129,15 @@ const ingredients = [
     dosage: "500 mg",
     image: "/fenugreek.png",
     shortDesc:
-      "Meta-analysis confirms significant testosterone increases across multiple trials.",
+      "A 2020 meta-analysis (Mansoori et al.) of clinical trials found that fenugreek extract supplementation significantly increased total testosterone levels in men.",
     benefits: [
-      "Significant T increase across multiple studies",
-      "Inhibits testosterone-to-estrogen conversion",
+      "Significant T increase across multiple studies (Mansoori et al., 2020)",
+      "May inhibit testosterone-to-estrogen conversion",
       "Meta-analysis confirmed effectiveness",
     ],
     research: [
       {
-        title: "Effect of fenugreek extract supplement on testosterone levels in male: A meta-analysis of clinical trials",
+        title: "Effect of fenugreek extract supplement on testosterone levels in male: A meta-analysis (Mansoori et al., 2020)",
         url: "https://pubmed.ncbi.nlm.nih.gov/32048383/",
       },
     ],
