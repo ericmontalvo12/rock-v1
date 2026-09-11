@@ -54,10 +54,10 @@ export function Header() {
           )}
         </p>
         <div className="sm:hidden announceTrack">
-          {Array.from({ length: 4 }).map((_, i) => (
+          {Array.from({ length: 8 }).map((_, i) => (
             <span
               key={i}
-              className="text-xs font-heading font-bold text-white whitespace-nowrap tracking-wide"
+              className="flex-shrink-0 text-xs font-heading font-bold text-white whitespace-nowrap tracking-wide"
             >
               {isSaleActive() ? (
                 <>
