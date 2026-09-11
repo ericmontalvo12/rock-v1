@@ -29,25 +29,6 @@ const ingredients = [
     ],
   },
   {
-    name: "Magnesium",
-    form: "Bisglycinate",
-    dosage: "28.6 mg",
-    image: "/magnesium.png",
-    shortDesc:
-      "In a study by Cinar et al. (2011), magnesium supplementation was associated with higher total and free testosterone in both athletes and sedentary men.",
-    benefits: [
-      "Positively correlated with testosterone levels (Cinar et al., 2011)",
-      "Supports both total and free testosterone",
-      "Essential mineral depleted by training",
-    ],
-    research: [
-      {
-        title: "Effects of magnesium supplementation on testosterone levels (Cinar et al., 2011)",
-        url: "https://pubmed.ncbi.nlm.nih.gov/20352370/",
-      },
-    ],
-  },
-  {
     name: "Zinc",
     form: "Citrate",
     dosage: "20 mg",
@@ -139,6 +120,25 @@ const ingredients = [
       {
         title: "Effect of fenugreek extract supplement on testosterone levels in male: A meta-analysis (Mansoori et al., 2020)",
         url: "https://pubmed.ncbi.nlm.nih.gov/32048383/",
+      },
+    ],
+  },
+  {
+    name: "Magnesium",
+    form: "Bisglycinate",
+    dosage: "28.6 mg",
+    image: "/magnesium.png",
+    shortDesc:
+      "In a study by Cinar et al. (2011), magnesium supplementation was associated with higher total and free testosterone in both athletes and sedentary men.",
+    benefits: [
+      "Positively correlated with testosterone levels (Cinar et al., 2011)",
+      "Supports both total and free testosterone",
+      "Essential mineral depleted by training",
+    ],
+    research: [
+      {
+        title: "Effects of magnesium supplementation on testosterone levels (Cinar et al., 2011)",
+        url: "https://pubmed.ncbi.nlm.nih.gov/20352370/",
       },
     ],
   },
