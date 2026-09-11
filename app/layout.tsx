@@ -36,13 +36,13 @@ export const metadata: Metadata = {
     title: DEFAULT_TITLE,
     description: DEFAULT_DESCRIPTION,
     url: SITE_URL,
-    images: [{ url: "/product-bottle.png", width: 1200, height: 630, alt: "Peak Performance" }],
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "Peak Performance — Built for Men Who Read Labels" }],
   },
   twitter: {
     card: "summary_large_image",
     title: DEFAULT_TITLE,
     description: DEFAULT_DESCRIPTION,
-    images: ["/product-bottle.png"],
+    images: ["/og-image.jpg"],
   },
   keywords: [
     "testosterone support",
