@@ -80,7 +80,7 @@ export function Header() {
       </div>
 
       {/* Navbar */}
-      <nav className="bg-white border-b border-border">
+      <nav className="bg-white">
         <div className="mx-auto max-w-7xl px-4 lg:px-8">
           {/* Desktop Layout */}
           <div className="hidden md:flex h-[72px] items-center justify-between">
