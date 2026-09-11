@@ -92,18 +92,10 @@ const galleryImages = [
   { src: "/how-to-use.jpg", alt: "How to Use" },
 ];
 
-const ingredientTabs = [
-  { id: "foundational", label: "Foundational Hormone Support" },
-  { id: "stress", label: "Stress & Cortisol Balance" },
-  { id: "availability", label: "Free Testosterone Availability" },
-] as const;
-
-type TabId = typeof ingredientTabs[number]["id"];
 
 const ingredients = [
   {
     name: "Vitamin D3",
-    category: "foundational" as TabId,
     form: "Cholecalciferol",
     dosage: "3,000 IU",
     image: "/vitamin-d3.png",
@@ -120,7 +112,6 @@ const ingredients = [
   },
   {
     name: "Magnesium",
-    category: "foundational" as TabId,
     form: "Bisglycinate",
     dosage: "28.6 mg",
     image: "/magnesium.png",
@@ -137,7 +128,6 @@ const ingredients = [
   },
   {
     name: "Zinc",
-    category: "foundational" as TabId,
     form: "Citrate",
     dosage: "20 mg",
     image: "/zinc.png",
@@ -154,7 +144,6 @@ const ingredients = [
   },
   {
     name: "Boron",
-    category: "availability" as TabId,
     form: "Citrate",
     dosage: "9 mg",
     image: "/boron.png",
@@ -171,7 +160,6 @@ const ingredients = [
   },
   {
     name: "Ashwagandha",
-    category: "stress" as TabId,
     form: "KSM-66 Root Extract",
     dosage: "500 mg",
     image: "/ashwagandha.png",
@@ -188,7 +176,6 @@ const ingredients = [
   },
   {
     name: "Tongkat Ali",
-    category: "stress" as TabId,
     form: "200:1 Eurycomanone",
     dosage: "300 mg",
     image: "/tongkat-ali.png",
@@ -205,7 +192,6 @@ const ingredients = [
   },
   {
     name: "Fenugreek",
-    category: "foundational" as TabId,
     form: "50% Saponins Extract",
     dosage: "500 mg",
     image: "/fenugreek.png",
@@ -550,20 +536,10 @@ export default function ProductV2Page() {
     { name: string; price: number; quantity: number; image?: string; isSubscription?: boolean }[]
   >([]);
 
-  const [activeTab, setActiveTab] = useState<TabId>("foundational");
   const [selectedIngredientIndex, setSelectedIngredientIndex] = useState(0);
-  const [showFullDesc, setShowFullDesc] = useState(false);
-  const filteredIngredients = ingredients.filter((ing) => ing.category === activeTab);
-
-  const handleTabChange = (tabId: TabId) => {
-    setActiveTab(tabId);
-    setSelectedIngredientIndex(0);
-    setShowFullDesc(false);
-  };
 
   const handleIngredientSelect = (index: number) => {
     setSelectedIngredientIndex(index);
-    setShowFullDesc(false);
   };
 
   const [reviews, setReviews] = useState<ProductReview[]>([]);
@@ -989,65 +965,44 @@ export default function ProductV2Page() {
 
           {/* Inside the Formula */}
           <section id="ingredient-library" className="mt-16 sm:mt-24">
-            <div className="text-center mb-6">
-              <p className="text-primary font-semibold text-xs uppercase tracking-widest mb-2">What's Inside</p>
-              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">
-                Every Ingredient. Every Dose. Fully Transparent.
+            <div className="bg-primary rounded-lg py-3 px-6 mb-8">
+              <h2 className="font-heading text-base sm:text-lg font-bold text-white uppercase tracking-wide text-center">
+                What&apos;s Inside
               </h2>
-              <div className="flex flex-wrap justify-center gap-2">
-                {ingredientTabs.map((tab) => (
-                  <button
-                    key={tab.id}
-                    onClick={() => handleTabChange(tab.id)}
-                    className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
-                      activeTab === tab.id
-                        ? "bg-primary text-white shadow-md"
-                        : "bg-white text-gray-600 border border-gray-300 hover:border-primary hover:text-primary"
-                    }`}
-                  >
-                    {tab.label}
-                  </button>
-                ))}
-              </div>
             </div>
 
-            {/* ==================== MOBILE: Unified Module ==================== */}
-            <div className="lg:hidden bg-white rounded-2xl border border-gray-200 shadow-lg p-4 overflow-hidden">
-              <motion.div
-                key={activeTab}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.2 }}
-                className="flex gap-2 overflow-x-auto pb-3 -mx-1 px-1 scrollbar-hide"
+            {/* Mobile: Pill selector + image + detail card */}
+            <div className="lg:hidden">
+              <div
+                className="flex gap-2 overflow-x-auto pb-4 scrollbar-hide"
                 style={{ touchAction: "pan-x pinch-zoom" }}
               >
-                {filteredIngredients.map((ingredient, index) => (
+                {ingredients.map((ingredient, index) => (
                   <button
                     key={ingredient.name}
                     onClick={() => handleIngredientSelect(index)}
-                    className={`flex-shrink-0 px-3 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+                    className={`flex-shrink-0 px-3 py-2 rounded-lg text-sm font-medium transition-all ${
                       selectedIngredientIndex === index
-                        ? "bg-primary text-white shadow-md"
-                        : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                        ? "bg-primary text-white"
+                        : "bg-surface border border-border text-text-secondary"
                     }`}
                   >
                     {ingredient.name}
                   </button>
                 ))}
-              </motion.div>
+              </div>
 
-              <div className="flex justify-center py-3">
+              <div className="flex justify-center py-4">
                 <motion.div
-                  key={filteredIngredients[selectedIngredientIndex]?.name}
+                  key={ingredients[selectedIngredientIndex]?.name}
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.3 }}
-                  className="relative"
                 >
-                  <div className="w-36 h-36 rounded-full bg-gradient-to-br from-gray-50 to-white border-3 border-primary/10 shadow-lg flex items-center justify-center overflow-hidden">
+                  <div className="w-36 h-36 rounded-full bg-surface border-2 border-primary/10 flex items-center justify-center overflow-hidden">
                     <Image
-                      src={filteredIngredients[selectedIngredientIndex]?.image || "/vitamin-d3.png"}
-                      alt={filteredIngredients[selectedIngredientIndex]?.name || "Ingredient"}
+                      src={ingredients[selectedIngredientIndex]?.image || "/vitamin-d3.png"}
+                      alt={ingredients[selectedIngredientIndex]?.name || "Ingredient"}
                       width={144}
                       height={144}
                       className="w-full h-full object-cover"
@@ -1057,48 +1012,46 @@ export default function ProductV2Page() {
               </div>
 
               <motion.div
-                key={`panel-mobile-${filteredIngredients[selectedIngredientIndex]?.name}`}
+                key={`panel-mobile-${ingredients[selectedIngredientIndex]?.name}`}
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3 }}
-                className="rounded-xl bg-gradient-to-b from-[#5B9BD5] to-[#4A8BC9] overflow-hidden shadow-lg border border-white/[0.18] -mx-1"
+                className="bg-primary rounded-lg overflow-hidden"
               >
-                <div className="p-4 border border-white/[0.08] rounded-xl m-[1px]">
-                  <div className="flex items-center justify-between mb-2">
-                    <h3 className="text-lg font-bold text-white">
-                      {filteredIngredients[selectedIngredientIndex]?.name}
+                <div className="p-5">
+                  <div className="flex items-center justify-between mb-1">
+                    <h3 className="font-heading text-lg font-bold text-white">
+                      {ingredients[selectedIngredientIndex]?.name}
                     </h3>
-                    <span className="text-xs font-bold px-2 py-1 rounded-full bg-white/20 text-white">
-                      {filteredIngredients[selectedIngredientIndex]?.dosage}
+                    <span className="text-xs font-heading font-bold px-2 py-1 rounded-[5px] bg-white/20 text-white">
+                      {ingredients[selectedIngredientIndex]?.dosage}
                     </span>
                   </div>
-                  <p className="text-white/70 text-xs mb-3">
-                    {filteredIngredients[selectedIngredientIndex]?.form}
+                  <p className="text-white/60 text-xs mb-3">{ingredients[selectedIngredientIndex]?.form}</p>
+                  <p className="text-white text-sm leading-relaxed mb-4">
+                    {ingredients[selectedIngredientIndex]?.shortDesc}
                   </p>
-                  <p className="text-white text-sm leading-relaxed mb-3">
-                    {filteredIngredients[selectedIngredientIndex]?.shortDesc}
-                  </p>
-                  <div className="mb-3">
-                    <h4 className="text-white/80 font-medium text-[10px] mb-1.5 uppercase tracking-wide">
-                      Key Benefits
-                    </h4>
-                    <ul className="space-y-1">
-                      {filteredIngredients[selectedIngredientIndex]?.benefits.slice(0, 3).map((benefit, i) => (
-                        <li key={i} className="flex items-start gap-1.5">
-                          <div className="w-3.5 h-3.5 rounded-full bg-white/25 flex items-center justify-center flex-shrink-0 mt-0.5">
-                            <Check className="w-2 h-2 text-white" />
-                          </div>
-                          <span className="text-white text-xs leading-snug">{benefit}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  {filteredIngredients[selectedIngredientIndex]?.research?.[0] && (
+
+                  <h4 className="text-white/70 font-heading font-medium text-[10px] mb-2 uppercase tracking-wide">
+                    Key Benefits
+                  </h4>
+                  <ul className="space-y-1.5 mb-4">
+                    {ingredients[selectedIngredientIndex]?.benefits.map((benefit, i) => (
+                      <li key={i} className="flex items-start gap-2">
+                        <div className="w-4 h-4 rounded-full bg-white/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                          <Check className="w-2.5 h-2.5 text-white" />
+                        </div>
+                        <span className="text-white text-xs leading-snug">{benefit}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  {ingredients[selectedIngredientIndex]?.research?.[0] && (
                     <a
-                      href={filteredIngredients[selectedIngredientIndex].research[0].url}
+                      href={ingredients[selectedIngredientIndex].research[0].url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white text-[#4A8BC9] font-semibold text-xs hover:bg-white/95 transition-colors shadow-sm"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[5px] bg-white text-primary font-heading font-semibold text-xs hover:bg-white/90 transition-colors"
                     >
                       See the Research
                       <ArrowRight className="w-3 h-3" />
@@ -1108,135 +1061,105 @@ export default function ProductV2Page() {
               </motion.div>
             </div>
 
-            {/* ==================== DESKTOP: 3-Column Layout ==================== */}
-            <div className="hidden lg:block bg-white rounded-3xl border border-gray-200 shadow-lg pt-5 px-6 pb-8 overflow-hidden">
+            {/* Desktop: 3-column layout */}
+            <div className="hidden lg:block bg-white rounded-lg border border-border p-6 overflow-hidden">
               <div className="grid lg:grid-cols-12 gap-5 items-stretch">
-                <motion.div
-                  key={activeTab}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.2 }}
-                  className="lg:col-span-3 flex flex-col gap-1.5"
-                >
-                  {filteredIngredients.map((ingredient, index) => (
+                <div className="lg:col-span-3 flex flex-col gap-1.5">
+                  {ingredients.map((ingredient, index) => (
                     <button
                       key={ingredient.name}
                       onClick={() => handleIngredientSelect(index)}
-                      className={`text-left px-3 py-2.5 rounded-xl transition-all duration-200 ${
+                      className={`text-left px-3 py-2.5 rounded-lg transition-all ${
                         selectedIngredientIndex === index
                           ? "bg-primary/10 border-l-4 border-primary"
-                          : "hover:bg-gray-50 border-l-4 border-transparent"
+                          : "hover:bg-surface border-l-4 border-transparent"
                       }`}
                     >
                       <div className="flex items-center justify-between gap-2">
-                        <span className={`text-sm ${selectedIngredientIndex === index ? "text-primary font-semibold" : "text-gray-700 font-medium"}`}>
+                        <span className={`text-sm ${selectedIngredientIndex === index ? "text-primary font-semibold" : "text-text-secondary font-medium"}`}>
                           {ingredient.name}
                         </span>
-                        <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${
+                        <span className={`text-[10px] font-heading font-bold px-1.5 py-0.5 rounded-[5px] ${
                           selectedIngredientIndex === index
                             ? "bg-primary text-white"
-                            : "bg-gray-100 text-gray-500"
+                            : "bg-surface text-text-muted"
                         }`}>
                           {ingredient.dosage}
                         </span>
                       </div>
                     </button>
                   ))}
-                </motion.div>
+                </div>
 
                 <div className="lg:col-span-3 flex justify-center items-center py-2">
                   <motion.div
-                    key={filteredIngredients[selectedIngredientIndex]?.name}
+                    key={ingredients[selectedIngredientIndex]?.name}
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.3 }}
-                    className="relative"
                   >
-                    <div className="w-64 h-64 rounded-full bg-gradient-to-br from-gray-50 to-white border-4 border-primary/10 shadow-lg flex items-center justify-center overflow-hidden">
+                    <div className="w-64 h-64 rounded-full bg-surface border-4 border-primary/10 flex items-center justify-center overflow-hidden">
                       <Image
-                        src={filteredIngredients[selectedIngredientIndex]?.image || "/vitamin-d3.png"}
-                        alt={filteredIngredients[selectedIngredientIndex]?.name || "Ingredient"}
+                        src={ingredients[selectedIngredientIndex]?.image || "/vitamin-d3.png"}
+                        alt={ingredients[selectedIngredientIndex]?.name || "Ingredient"}
                         width={256}
                         height={256}
                         className="w-full h-full object-cover"
                       />
                     </div>
-                    <div className="absolute inset-0 rounded-full bg-primary/5 blur-2xl -z-10" />
                   </motion.div>
                 </div>
 
                 <motion.div
-                  key={`panel-${filteredIngredients[selectedIngredientIndex]?.name}`}
+                  key={`panel-${ingredients[selectedIngredientIndex]?.name}`}
                   initial={{ opacity: 0, x: 12 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.3 }}
-                  className="lg:col-span-6 rounded-2xl bg-gradient-to-b from-[#5B9BD5] to-[#4A8BC9] overflow-hidden shadow-xl border border-white/[0.18]"
+                  className="lg:col-span-6 rounded-lg bg-primary overflow-hidden"
                 >
-                  <div className="p-6 border border-white/[0.08] rounded-2xl m-[1px]">
-                    <h3 className="text-2xl font-bold text-white mb-1.5">
-                      {filteredIngredients[selectedIngredientIndex]?.name}
+                  <div className="p-6">
+                    <h3 className="font-heading text-2xl font-bold text-white mb-1.5">
+                      {ingredients[selectedIngredientIndex]?.name}
                     </h3>
+                    <p className="text-white text-base leading-relaxed mb-4">
+                      {ingredients[selectedIngredientIndex]?.shortDesc}
+                    </p>
 
-                    <div className="mb-4">
-                      <p className="text-white text-base leading-relaxed">
-                        {filteredIngredients[selectedIngredientIndex]?.shortDesc}
-                      </p>
-                      {!showFullDesc ? (
-                        <button
-                          onClick={() => setShowFullDesc(true)}
-                          className="inline-flex items-center gap-1 text-white/80 text-sm mt-2 hover:text-white transition-colors"
-                        >
-                          Read more
-                          <ChevronDown className="w-3 h-3" />
-                        </button>
-                      ) : (
-                        <motion.p
-                          initial={{ opacity: 0, height: 0 }}
-                          animate={{ opacity: 1, height: "auto" }}
-                          className="text-white/90 text-base leading-relaxed mt-2"
-                        >
-                          {filteredIngredients[selectedIngredientIndex]?.fullDesc}
-                        </motion.p>
-                      )}
-                    </div>
-
-                    <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3 mb-4 border border-white/10">
+                    <div className="bg-white/10 rounded-lg p-3 mb-4">
                       <div className="flex justify-between items-center border-b border-white/15 pb-2 mb-2">
-                        <span className="text-white/90 text-sm">Dose</span>
-                        <span className="text-white font-semibold text-sm">
-                          {filteredIngredients[selectedIngredientIndex]?.dosage}
+                        <span className="text-white/80 text-sm">Dose</span>
+                        <span className="text-white font-heading font-semibold text-sm">
+                          {ingredients[selectedIngredientIndex]?.dosage}
                         </span>
                       </div>
                       <div className="flex justify-between items-center">
-                        <span className="text-white/90 text-sm">Form</span>
+                        <span className="text-white/80 text-sm">Form</span>
                         <span className="text-white text-sm text-right max-w-[65%]">
-                          {filteredIngredients[selectedIngredientIndex]?.form}
+                          {ingredients[selectedIngredientIndex]?.form}
                         </span>
                       </div>
                     </div>
 
-                    <div className="mb-4">
-                      <h4 className="text-white font-medium text-xs mb-2 uppercase tracking-wide">
-                        Key Benefits
-                      </h4>
-                      <ul className="space-y-1.5">
-                        {filteredIngredients[selectedIngredientIndex]?.benefits.map((benefit, i) => (
-                          <li key={i} className="flex items-start gap-2">
-                            <div className="w-4 h-4 rounded-full bg-white/30 flex items-center justify-center flex-shrink-0 mt-0.5">
-                              <Check className="w-2.5 h-2.5 text-white" />
-                            </div>
-                            <span className="text-white text-sm leading-snug">{benefit}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
+                    <h4 className="text-white font-heading font-medium text-xs mb-2 uppercase tracking-wide">
+                      Key Benefits
+                    </h4>
+                    <ul className="space-y-1.5 mb-4">
+                      {ingredients[selectedIngredientIndex]?.benefits.map((benefit, i) => (
+                        <li key={i} className="flex items-start gap-2">
+                          <div className="w-4 h-4 rounded-full bg-white/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <Check className="w-2.5 h-2.5 text-white" />
+                          </div>
+                          <span className="text-white text-sm leading-snug">{benefit}</span>
+                        </li>
+                      ))}
+                    </ul>
 
-                    {filteredIngredients[selectedIngredientIndex]?.research?.[0] && (
+                    {ingredients[selectedIngredientIndex]?.research?.[0] && (
                       <a
-                        href={filteredIngredients[selectedIngredientIndex].research[0].url}
+                        href={ingredients[selectedIngredientIndex].research[0].url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-white text-[#4A8BC9] font-semibold text-sm hover:bg-white/95 transition-colors shadow-sm"
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-[5px] bg-white text-primary font-heading font-semibold text-sm hover:bg-white/90 transition-colors"
                       >
                         See the Research
                         <ArrowRight className="w-3.5 h-3.5" />
