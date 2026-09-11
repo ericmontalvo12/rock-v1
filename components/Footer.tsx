@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 const footerLinks = {
   product: [
@@ -59,12 +60,23 @@ const socialLinks = [
 
 export function Footer() {
   return (
-    <footer className="bg-[#18181b]">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12">
-          {/* Product Links */}
+    <footer className="bg-dark-bg">
+      <div className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-8">
+        {/* Logo */}
+        <div className="pt-16 pb-10 flex justify-center">
+          <Image
+            src="/logo-new.png"
+            alt="Rock Mountain Performance"
+            width={180}
+            height={54}
+            className="h-14 w-auto brightness-0 invert opacity-90"
+          />
+        </div>
+
+        {/* Links */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12 pb-10">
           <div>
-            <h4 className="text-sm font-semibold text-white mb-4">
+            <h4 className="text-sm font-heading font-bold text-white mb-4 uppercase tracking-wide">
               Product
             </h4>
             <ul className="space-y-3">
@@ -72,7 +84,7 @@ export function Footer() {
                 <li key={link.label}>
                   <Link
                     href={link.href}
-                    className="text-sm text-gray-400 hover:text-white transition-colors"
+                    className="text-sm text-text-on-dark-muted hover:text-white transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -81,9 +93,8 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Company Links */}
           <div>
-            <h4 className="text-sm font-semibold text-white mb-4">
+            <h4 className="text-sm font-heading font-bold text-white mb-4 uppercase tracking-wide">
               Company
             </h4>
             <ul className="space-y-3">
@@ -91,7 +102,7 @@ export function Footer() {
                 <li key={link.label}>
                   <Link
                     href={link.href}
-                    className="text-sm text-gray-400 hover:text-white transition-colors"
+                    className="text-sm text-text-on-dark-muted hover:text-white transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -100,9 +111,8 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Legal Links */}
           <div>
-            <h4 className="text-sm font-semibold text-white mb-4">
+            <h4 className="text-sm font-heading font-bold text-white mb-4 uppercase tracking-wide">
               Legal
             </h4>
             <ul className="space-y-3">
@@ -110,7 +120,7 @@ export function Footer() {
                 <li key={link.label}>
                   <Link
                     href={link.href}
-                    className="text-sm text-gray-400 hover:text-white transition-colors"
+                    className="text-sm text-text-on-dark-muted hover:text-white transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -119,9 +129,8 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Social Links */}
           <div>
-            <h4 className="text-sm font-semibold text-white mb-4">
+            <h4 className="text-sm font-heading font-bold text-white mb-4 uppercase tracking-wide">
               Follow Us
             </h4>
             <div className="flex gap-4">
@@ -131,7 +140,7 @@ export function Footer() {
                   href={social.href}
                   target={social.href !== "#" ? "_blank" : undefined}
                   rel={social.href !== "#" ? "noopener noreferrer" : undefined}
-                  className="text-gray-400 hover:text-primary transition-colors"
+                  className="text-text-on-dark-muted hover:text-white transition-colors"
                   aria-label={social.label}
                 >
                   {social.icon}
@@ -141,21 +150,20 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Bottom */}
-        <div className="mt-12 pt-8 border-t border-gray-700 space-y-4">
-          {/* Required for dietary supplements making structure/function claims (21 CFR 101.93) */}
-          <p className="text-xs text-gray-500 text-center max-w-3xl mx-auto leading-relaxed">
+        {/* Disclaimers — MUST NOT be removed or altered per CLAUDE.md */}
+        <div className="pt-8 border-t border-white/10 space-y-4 pb-16">
+          <p className="text-xs text-text-on-dark-muted/70 text-center max-w-3xl mx-auto leading-relaxed">
             * These statements have not been evaluated by the Food and Drug
             Administration. This product is not intended to diagnose, treat,
             cure, or prevent any disease.
           </p>
-          <p className="text-xs text-gray-500 text-center max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xs text-text-on-dark-muted/70 text-center max-w-3xl mx-auto leading-relaxed">
             Individual results vary. Consult your physician before starting any
             supplement, especially if you are pregnant, nursing, under 18, have
             a medical condition, or take prescription medication.
           </p>
-          <p className="text-sm text-gray-500 text-center">
-            {new Date().getFullYear()} Rock Mountain Performance. All rights
+          <p className="text-sm text-text-on-dark-muted/50 text-center">
+            &copy; {new Date().getFullYear()} Rock Mountain Performance. All rights
             reserved.
           </p>
         </div>

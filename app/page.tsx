@@ -1,11 +1,10 @@
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Hero } from "@/components/sections/Hero";
-import { WhyMostFail } from "@/components/sections/WhyMostFail";
-import { HowFormulaWorks } from "@/components/sections/HowFormulaWorks";
+import { TrustBar } from "@/components/sections/TrustBar";
 import { EducationBlock } from "@/components/sections/EducationBlock";
-import { ResearchTrust } from "@/components/sections/ResearchTrust";
-import { FinalCTA } from "@/components/sections/FinalCTA";
+import { HomeReviews } from "@/components/sections/HomeReviews";
+import { JoinCommunity } from "@/components/sections/JoinCommunity";
 
 export default function Home() {
   return (
@@ -13,11 +12,10 @@ export default function Home() {
       <Header />
       <main>
         <Hero />
-        <WhyMostFail />
-        <HowFormulaWorks />
+        <TrustBar />
         <EducationBlock />
-        <ResearchTrust />
-        <FinalCTA />
+        <HomeReviews />
+        <JoinCommunity />
       </main>
       <Footer />
     </div>

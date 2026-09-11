@@ -5,16 +5,16 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ShoppingCart } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { useCart } from "@/lib/cart-context";
 import { isSaleActive } from "@/lib/sale";
 import { SaleCountdown } from "@/components/SaleCountdown";
 
 const navLinks = [
-  { href: "/product", label: "Product" },
-  { href: "/formula", label: "Inside The Formula" },
+  { href: "/product", label: "Shop" },
+  { href: "/formula", label: "Ingredients" },
   { href: "/about", label: "About" },
   { href: "/blog", label: "Articles" },
+  { href: "/faq", label: "FAQ" },
 ];
 
 export function Header() {
@@ -26,130 +26,150 @@ export function Header() {
     const handleScroll = () => {
       setShowAnnouncement(window.scrollY < 50);
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50">
       {/* Announcement Bar */}
       <div
-        className={`announceBar bg-black border-b border-border-subtle text-center transition-all duration-300 ease-in-out overflow-hidden ${showAnnouncement ? 'h-9 flex items-center justify-center px-4' : 'h-0'}`}
+        className={`announceBar bg-primary text-center transition-all duration-300 ease-in-out overflow-hidden ${showAnnouncement ? "h-9 flex items-center justify-center px-4" : "h-0"}`}
       >
-        {/* Desktop: static text */}
-        <p className="hidden sm:block text-sm font-medium text-white whitespace-nowrap">
+        <p className="hidden sm:block text-sm font-heading font-bold text-white whitespace-nowrap tracking-wide">
           {isSaleActive() ? (
             <>
-              20% OFF — $39.95/BOTTLE <span className="text-text-muted mx-2">•</span> ENDS IN <SaleCountdown className="font-semibold" />
+              20% OFF &mdash; $39.95/BOTTLE{" "}
+              <span className="mx-2 opacity-60">|</span> FREE SHIPPING ON
+              ORDERS $100+{" "}
+              <span className="mx-2 opacity-60">|</span> ENDS IN{" "}
+              <SaleCountdown className="font-bold" />
             </>
           ) : (
-            <>NOW IN STOCK <span className="text-text-muted mx-2">•</span> 30-DAY GUARANTEE</>
+            <>
+              FREE SHIPPING{" "}
+              <span className="mx-2 opacity-60">|</span> 30-DAY MONEY BACK
+              GUARANTEE
+            </>
           )}
         </p>
-        {/* Mobile: scrolling marquee */}
         <div className="sm:hidden announceTrack">
           {Array.from({ length: 4 }).map((_, i) => (
-            <span key={i} className="text-xs font-medium text-white whitespace-nowrap">
+            <span
+              key={i}
+              className="text-xs font-heading font-bold text-white whitespace-nowrap tracking-wide"
+            >
               {isSaleActive() ? (
-                <>20% OFF — $39.95/BOTTLE <span className="text-text-muted mx-2">•</span> ENDS IN <SaleCountdown /> <span className="text-text-muted mx-2">•</span></>
+                <>
+                  20% OFF &mdash; $39.95/BOTTLE{" "}
+                  <span className="mx-3 opacity-60">&bull;</span> ENDS IN{" "}
+                  <SaleCountdown />{" "}
+                  <span className="mx-3 opacity-60">&bull;</span>
+                </>
               ) : (
-                <>NOW IN STOCK <span className="text-text-muted mx-2">•</span> 30-DAY GUARANTEE <span className="text-text-muted mx-2">•</span></>
+                <>
+                  FREE SHIPPING{" "}
+                  <span className="mx-3 opacity-60">&bull;</span> 30-DAY
+                  GUARANTEE{" "}
+                  <span className="mx-3 opacity-60">&bull;</span>
+                </>
               )}
             </span>
           ))}
         </div>
       </div>
+
       {/* Navbar */}
-      <nav className="bg-surface/95 backdrop-blur-xl border-b border-black/[0.08] shadow-sm">
-        <div className="mx-auto max-w-7xl px-3 md:px-4 lg:px-8">
+      <nav className="bg-white border-b border-border">
+        <div className="mx-auto max-w-7xl px-4 lg:px-8">
           {/* Desktop Layout */}
-          <div className="hidden md:flex h-[68px] items-center justify-between">
-          {/* Logo */}
-          <Link href="/" className="flex items-center">
-            <Image
-              src="/logo-new.png"
-              alt="Rock Mountain Performance"
-              width={200}
-              height={60}
-              className="h-[68px] w-auto scale-[2.15] translate-y-[8px]"
-              priority
-            />
-          </Link>
-
-          {/* Desktop Navigation */}
-          <nav className="flex items-center gap-8">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="text-sm font-semibold text-text-primary hover:text-primary transition-colors"
-              >
-                {link.label}
-              </Link>
-            ))}
-          </nav>
-
-          {/* Desktop Actions */}
-          <div className="flex items-center gap-4">
-            <Link href="/cart" className="relative">
-              <Button variant="ghost" size="icon" aria-label="Cart" className="cursor-pointer text-text-primary hover:text-primary hover:bg-surface-elevated">
-                <ShoppingCart className="h-5 w-5" />
-                {totalItems > 0 && (
-                  <span className="absolute -top-1 -right-1 w-5 h-5 bg-primary text-background text-xs font-bold rounded-full flex items-center justify-center">
-                    {totalItems}
-                  </span>
-                )}
-              </Button>
-            </Link>
-            <Link href="/product">
-              <Button size="sm">Buy Now</Button>
-            </Link>
-          </div>
-        </div>
-
-        {/* Mobile Layout */}
-        <div className="md:hidden grid grid-cols-3 items-center h-[56px] max-h-[56px] overflow-hidden">
-          {/* Left: Hamburger */}
-          <div className="justify-self-start flex items-center">
-            <button
-              className="p-2 text-text-primary hover:text-primary transition-colors"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              aria-label="Toggle menu"
-            >
-              {mobileMenuOpen ? (
-                <X className="h-6 w-6" />
-              ) : (
-                <Menu className="h-6 w-6" />
-              )}
-            </button>
-          </div>
-
-          {/* Center: Logo */}
-          <div className="justify-self-center flex items-center justify-center">
-            <Link href="/" className="block">
+          <div className="hidden md:flex h-[72px] items-center justify-between">
+            <Link href="/" className="flex items-center">
               <Image
                 src="/logo-new.png"
                 alt="Rock Mountain Performance"
-                width={210}
-                height={60}
-                className="max-w-[180px] sm:max-w-[210px] max-h-[50px] w-auto h-auto object-contain scale-[2] sm:scale-[1.75] translate-y-[5px]"
+                width={180}
+                height={54}
+                className="h-10 w-auto"
                 priority
               />
             </Link>
+
+            <nav className="flex items-center gap-8">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="text-sm font-heading font-bold text-secondary uppercase tracking-wide hover:text-primary transition-colors"
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </nav>
+
+            <div className="flex items-center gap-4">
+              <Link href="/cart" className="relative">
+                <button
+                  aria-label="Cart"
+                  className="p-2 text-secondary hover:text-primary transition-colors cursor-pointer"
+                >
+                  <ShoppingCart className="h-5 w-5" />
+                  {totalItems > 0 && (
+                    <span className="absolute -top-0.5 -right-0.5 w-5 h-5 bg-primary text-white text-xs font-bold rounded-full flex items-center justify-center">
+                      {totalItems}
+                    </span>
+                  )}
+                </button>
+              </Link>
+              <Link
+                href="/product"
+                className="inline-flex items-center justify-center h-10 px-6 rounded-[5px] bg-primary text-white font-heading font-bold text-sm hover:bg-primary-hover transition-colors"
+              >
+                Buy Now
+              </Link>
+            </div>
           </div>
 
-          {/* Right: Cart */}
-          <div className="justify-self-end flex items-center justify-end">
-            <Link href="/cart" className="relative p-2 block">
-              <ShoppingCart className="h-5 w-5 text-text-primary" />
-              {totalItems > 0 && (
-                <span className="absolute top-0 right-0 w-5 h-5 bg-primary text-background text-xs font-bold rounded-full flex items-center justify-center">
-                  {totalItems}
-                </span>
-              )}
-            </Link>
+          {/* Mobile Layout — matches Bucked Up: 55px top + 45px logo = ~100px total */}
+          <div className="md:hidden grid grid-cols-3 items-center h-[64px]">
+            <div className="justify-self-start">
+              <button
+                className="p-2 text-secondary hover:text-primary transition-colors"
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                aria-label="Toggle menu"
+              >
+                {mobileMenuOpen ? (
+                  <X className="h-6 w-6" />
+                ) : (
+                  <Menu className="h-6 w-6" />
+                )}
+              </button>
+            </div>
+
+            <div className="justify-self-center">
+              <Link href="/" className="block">
+                <Image
+                  src="/logo-new.png"
+                  alt="Rock Mountain Performance"
+                  width={160}
+                  height={48}
+                  className="h-9 w-auto"
+                  priority
+                />
+              </Link>
+            </div>
+
+            <div className="justify-self-end flex items-center gap-2">
+              <Link href="/cart" className="relative p-2 block">
+                <ShoppingCart className="h-5 w-5 text-secondary" />
+                {totalItems > 0 && (
+                  <span className="absolute top-0 right-0 w-5 h-5 bg-primary text-white text-xs font-bold rounded-full flex items-center justify-center">
+                    {totalItems}
+                  </span>
+                )}
+              </Link>
+            </div>
           </div>
-        </div>
         </div>
       </nav>
 
@@ -161,22 +181,26 @@ export function Header() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.2 }}
-            className="md:hidden bg-surface/95 backdrop-blur-xl border-b border-border-subtle"
+            className="md:hidden bg-white border-b border-border"
           >
-            <nav className="flex flex-col px-4 py-4 gap-2">
+            <nav className="flex flex-col px-4 py-3">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="py-3 text-text-secondary hover:text-primary transition-colors"
+                  className="py-3 font-heading font-bold text-secondary uppercase text-sm tracking-wide hover:text-primary transition-colors border-b border-border-subtle last:border-b-0"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {link.label}
                 </Link>
               ))}
-              <div className="pt-4 border-t border-border-subtle">
-                <Link href="/product" onClick={() => setMobileMenuOpen(false)}>
-                  <Button className="w-full">Buy Now</Button>
+              <div className="pt-4">
+                <Link
+                  href="/product"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center justify-center w-full h-11 rounded-[5px] bg-primary text-white font-heading font-bold text-base hover:bg-primary-hover transition-colors"
+                >
+                  Buy Now
                 </Link>
               </div>
             </nav>

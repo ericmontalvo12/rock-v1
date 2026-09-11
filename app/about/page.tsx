@@ -2,265 +2,197 @@
 
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import Link from "next/link";
-import Image from "next/image";
-import { motion } from "framer-motion";
 import {
   ArrowRight,
   Check,
-  X,
   FlaskConical,
   FileText,
   Shield,
   AlertTriangle,
   Eye,
-  Beaker
+  Beaker,
 } from "lucide-react";
+import Link from "next/link";
 
 export default function About() {
   return (
-    <div className="w-full max-w-full overflow-x-hidden bg-white">
+    <div className="w-full max-w-full overflow-x-hidden bg-surface/50">
       <Header />
       <main className="pt-28 sm:pt-32">
-
         {/* Hero */}
-        <section className="bg-white py-10 sm:py-12">
-          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="text-center"
-            >
-              <p className="text-primary font-semibold text-xs uppercase tracking-widest mb-3">
-                About Rock Mountain Performance
-              </p>
-              <h1 className="text-3xl sm:text-4xl lg:text-[42px] font-bold text-gray-900 leading-tight max-w-xl mx-auto">
-                Finally, a formula backed by human studies.
-              </h1>
-            </motion.div>
+        <section className="pb-10 sm:pb-12">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 text-center">
+            <p className="font-heading text-primary font-bold text-xs uppercase tracking-widest mb-3">
+              About Rock Mountain Performance
+            </p>
+            <h1 className="font-heading text-3xl sm:text-4xl lg:text-[42px] font-bold text-text-primary leading-tight max-w-xl mx-auto">
+              Finally, a formula backed by human studies.
+            </h1>
           </div>
         </section>
 
-        {/* The Problem - Visual Cards */}
-        <section className="bg-[#F7F9FC] py-12 sm:py-14 border-y border-gray-200">
+        {/* The Problem We Saw */}
+        <section className="py-12 sm:py-14">
           <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              className="text-center mb-8"
-            >
-              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
+            <div className="bg-primary rounded-lg py-3 px-6 mb-8">
+              <h2 className="font-heading text-base sm:text-lg font-bold text-white uppercase tracking-wide text-center">
                 The Problem We Saw
               </h2>
-              <p className="text-gray-600 text-sm max-w-xl mx-auto">
-                Most testosterone supplements are built for marketing, not results.
-              </p>
-            </motion.div>
+            </div>
+            <p className="text-text-muted text-sm text-center max-w-xl mx-auto mb-8">
+              Most testosterone supplements are built for marketing, not results.
+            </p>
 
             <div className="grid sm:grid-cols-3 gap-4">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4 }}
-                className="bg-white p-5 rounded-xl border border-gray-200 shadow-sm flex flex-col items-center text-center"
-              >
+              <div className="bg-white p-5 rounded-lg border border-border flex flex-col items-center text-center">
                 <div className="w-10 h-10 rounded-lg bg-red-50 flex items-center justify-center mb-3">
                   <AlertTriangle className="w-5 h-5 text-red-500" />
                 </div>
-                <h3 className="font-semibold text-gray-900 mb-1.5 text-sm">Underdosed Formulas</h3>
-                <p className="text-gray-500 text-sm leading-relaxed">
-                  Active ingredients at 20% of clinically studied doses. Looks good on labels, doesn't work in practice.
+                <h3 className="font-heading font-semibold text-text-primary mb-1.5 text-sm">
+                  Underdosed Formulas
+                </h3>
+                <p className="text-text-muted text-sm leading-relaxed">
+                  Active ingredients at 20% of clinically studied doses. Looks good on labels, doesn&apos;t work in practice.
                 </p>
-              </motion.div>
+              </div>
 
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: 0.1 }}
-                className="bg-white p-5 rounded-xl border border-gray-200 shadow-sm flex flex-col items-center text-center"
-              >
+              <div className="bg-white p-5 rounded-lg border border-border flex flex-col items-center text-center">
                 <div className="w-10 h-10 rounded-lg bg-red-50 flex items-center justify-center mb-3">
                   <Eye className="w-5 h-5 text-red-500" />
                 </div>
-                <h3 className="font-semibold text-gray-900 mb-1.5 text-sm">Proprietary Blends</h3>
-                <p className="text-gray-500 text-sm leading-relaxed">
-                  Hidden behind "complexes" to avoid scrutiny. No way to verify what you're actually getting.
+                <h3 className="font-heading font-semibold text-text-primary mb-1.5 text-sm">
+                  Proprietary Blends
+                </h3>
+                <p className="text-text-muted text-sm leading-relaxed">
+                  Hidden behind &ldquo;complexes&rdquo; to avoid scrutiny. No way to verify what you&apos;re actually getting.
                 </p>
-              </motion.div>
+              </div>
 
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: 0.2 }}
-                className="bg-white p-5 rounded-xl border border-gray-200 shadow-sm flex flex-col items-center text-center"
-              >
+              <div className="bg-white p-5 rounded-lg border border-border flex flex-col items-center text-center">
                 <div className="w-10 h-10 rounded-lg bg-red-50 flex items-center justify-center mb-3">
                   <Beaker className="w-5 h-5 text-red-500" />
                 </div>
-                <h3 className="font-semibold text-gray-900 mb-1.5 text-sm">Ingredients With No Evidence</h3>
-                <p className="text-gray-500 text-sm leading-relaxed">
+                <h3 className="font-heading font-semibold text-text-primary mb-1.5 text-sm">
+                  Ingredients With No Evidence
+                </h3>
+                <p className="text-text-muted text-sm leading-relaxed">
                   Fillers and unproven compounds added for label appeal, not results.
                 </p>
-              </motion.div>
+              </div>
             </div>
           </div>
         </section>
 
-        {/* Our Approach - Icon Row */}
-        <section className="bg-white py-12 sm:py-14">
+        {/* How We Formulate */}
+        <section className="py-12 sm:py-14">
           <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              className="text-center mb-8"
-            >
-              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
+            <div className="bg-primary rounded-lg py-3 px-6 mb-8">
+              <h2 className="font-heading text-base sm:text-lg font-bold text-white uppercase tracking-wide text-center">
                 How We Formulate
               </h2>
-              <p className="text-gray-600 text-sm max-w-xl mx-auto">
-                Three principles. No compromises.
-              </p>
-            </motion.div>
+            </div>
+            <p className="text-text-muted text-sm text-center max-w-xl mx-auto mb-8">
+              Three principles. No compromises.
+            </p>
 
             <div className="grid sm:grid-cols-3 gap-4">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4 }}
-                className="text-center p-5 rounded-xl bg-gray-50 border border-gray-200"
-              >
+              <div className="text-center p-5 rounded-lg bg-white border border-border">
                 <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-3">
                   <FlaskConical className="w-6 h-6 text-primary" />
                 </div>
-                <h3 className="font-semibold text-gray-900 mb-1.5">Research First</h3>
-                <p className="text-gray-500 text-sm leading-relaxed">
+                <h3 className="font-heading font-semibold text-text-primary mb-1.5">
+                  Research First
+                </h3>
+                <p className="text-text-muted text-sm leading-relaxed">
                   Every ingredient backed by peer-reviewed human studies. No research, no inclusion.
                 </p>
-              </motion.div>
+              </div>
 
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: 0.1 }}
-                className="text-center p-5 rounded-xl bg-gray-50 border border-gray-200"
-              >
+              <div className="text-center p-5 rounded-lg bg-white border border-border">
                 <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-3">
                   <Shield className="w-6 h-6 text-primary" />
                 </div>
-                <h3 className="font-semibold text-gray-900 mb-1.5">Research-Backed Doses</h3>
-                <p className="text-gray-500 text-sm leading-relaxed">
+                <h3 className="font-heading font-semibold text-text-primary mb-1.5">
+                  Research-Backed Doses
+                </h3>
+                <p className="text-text-muted text-sm leading-relaxed">
                   Every ingredient dosed at levels shown effective in human studies. Not reduced for cost.
                 </p>
-              </motion.div>
+              </div>
 
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: 0.2 }}
-                className="text-center p-5 rounded-xl bg-gray-50 border border-gray-200"
-              >
+              <div className="text-center p-5 rounded-lg bg-white border border-border">
                 <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-3">
                   <FileText className="w-6 h-6 text-primary" />
                 </div>
-                <h3 className="font-semibold text-gray-900 mb-1.5">Full Disclosure</h3>
-                <p className="text-gray-500 text-sm leading-relaxed">
+                <h3 className="font-heading font-semibold text-text-primary mb-1.5">
+                  Full Disclosure
+                </h3>
+                <p className="text-text-muted text-sm leading-relaxed">
                   No proprietary blends. Every ingredient and dose listed. Verify it yourself.
                 </p>
-              </motion.div>
+              </div>
             </div>
 
-            <motion.p
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              className="text-center text-gray-500 text-sm mt-6 max-w-2xl mx-auto"
-            >
+            <p className="text-center text-text-muted text-sm mt-6 max-w-2xl mx-auto">
               We built this for real, lasting change — the kind you measure in how you recover, perform, and feel over time.
-            </motion.p>
+            </p>
           </div>
         </section>
 
-        {/* Who It's For / Not For - Side by Side */}
-        <section className="bg-[#F7F9FC] py-12 sm:py-14 border-y border-gray-200">
+        {/* Is This Right For You? */}
+        <section className="py-12 sm:py-14">
           <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              className="text-center mb-8"
-            >
-              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
+            <div className="bg-primary rounded-lg py-3 px-6 mb-8">
+              <h2 className="font-heading text-base sm:text-lg font-bold text-white uppercase tracking-wide text-center">
                 Is This Right For You?
               </h2>
-            </motion.div>
+            </div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4 }}
-              className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm max-w-lg mx-auto flex flex-col items-center text-center"
-            >
+            <div className="bg-white p-6 rounded-lg border border-border max-w-lg mx-auto">
               <div className="flex items-center gap-2 mb-4">
                 <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
                   <Check className="w-4 h-4 text-primary" />
                 </div>
-                <h3 className="font-semibold text-gray-900 text-sm">Built for men who:</h3>
+                <h3 className="font-heading font-semibold text-text-primary text-sm">
+                  Built for men who:
+                </h3>
               </div>
-              <ul className="space-y-2.5">
-                <li className="flex items-center justify-center gap-2.5 text-gray-600 text-sm">
-                  <span className="w-1 h-1 rounded-full bg-primary flex-shrink-0"></span>
+              <ul className="space-y-3">
+                <li className="flex items-start gap-3 text-text-secondary text-sm">
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0 mt-1.5" />
                   Want real hormonal support backed by research
                 </li>
-                <li className="flex items-center justify-center gap-2.5 text-gray-600 text-sm">
-                  <span className="w-1 h-1 rounded-full bg-primary flex-shrink-0"></span>
+                <li className="flex items-start gap-3 text-text-secondary text-sm">
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0 mt-1.5" />
                   Value fully disclosed ingredients at effective doses
                 </li>
-                <li className="flex items-center justify-center gap-2.5 text-gray-600 text-sm">
-                  <span className="w-1 h-1 rounded-full bg-primary flex-shrink-0"></span>
+                <li className="flex items-start gap-3 text-text-secondary text-sm">
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0 mt-1.5" />
                   Are ready to support energy, drive, and recovery
                 </li>
               </ul>
-            </motion.div>
+            </div>
           </div>
         </section>
 
-        {/* What We're Not - Compact */}
-        <section className="bg-white py-10 sm:py-12">
+        {/* What We're Not */}
+        <section className="py-12 sm:py-14">
           <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
+            <h2 className="font-heading text-xl sm:text-2xl font-bold text-text-primary mb-3">
+              What We&apos;re Not
+            </h2>
+            <p className="text-text-secondary text-sm leading-relaxed max-w-2xl mx-auto mb-4">
+              Not a lifestyle brand. Not influencer-founded. We&apos;re athletes who got tired of taking supplements we didn&apos;t trust — so we built what should exist.
+            </p>
+            <Link
+              href="/product"
+              className="inline-flex items-center gap-2 font-heading font-bold text-sm text-primary hover:underline"
             >
-              <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3">
-                What We're Not
-              </h2>
-              <p className="text-gray-600 text-sm leading-relaxed max-w-2xl mx-auto mb-4">
-                Not a lifestyle brand. Not influencer-founded. We're athletes who got tired of taking supplements we didn't trust — so we built what should exist.
-              </p>
-              <p className="text-gray-900 font-medium text-sm">
-                If it works, you'll know from how you feel. If not, we refund you. Simple.
-              </p>
-            </motion.div>
+              See the Product
+              <ArrowRight className="w-4 h-4" />
+            </Link>
           </div>
         </section>
-
-
       </main>
       <Footer />
     </div>

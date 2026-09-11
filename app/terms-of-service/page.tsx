@@ -11,17 +11,17 @@ export const metadata: Metadata = {
 
 export default function TermsOfService() {
   return (
-    <div className="w-full max-w-full overflow-x-hidden">
+    <div className="w-full max-w-full overflow-x-hidden bg-surface/50">
       <Header />
       <main className="pt-32 pb-16 sm:pb-24">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-          <h1 className="text-3xl sm:text-4xl font-bold text-text-primary mb-8">
+          <h1 className="font-heading text-3xl sm:text-4xl font-bold text-text-primary mb-8">
             Terms of Service
           </h1>
 
-          <div className="prose prose-invert max-w-none space-y-8 text-text-secondary">
+          <div className="max-w-none space-y-8 text-text-secondary">
             <section>
-              <h2 className="text-xl font-semibold text-text-primary mb-4">
+              <h2 className="font-heading text-xl font-semibold text-text-primary mb-4">
                 OVERVIEW
               </h2>
               <p className="mb-4">
@@ -42,7 +42,7 @@ export default function TermsOfService() {
             </section>
 
             <section>
-              <h2 className="text-xl font-semibold text-text-primary mb-4">
+              <h2 className="font-heading text-xl font-semibold text-text-primary mb-4">
                 SECTION 1 - ONLINE STORE TERMS
               </h2>
               <p className="mb-4">
@@ -60,7 +60,7 @@ export default function TermsOfService() {
             </section>
 
             <section>
-              <h2 className="text-xl font-semibold text-text-primary mb-4">
+              <h2 className="font-heading text-xl font-semibold text-text-primary mb-4">
                 SECTION 2 - GENERAL CONDITIONS
               </h2>
               <p className="mb-4">
@@ -78,7 +78,7 @@ export default function TermsOfService() {
             </section>
 
             <section>
-              <h2 className="text-xl font-semibold text-text-primary mb-4">
+              <h2 className="font-heading text-xl font-semibold text-text-primary mb-4">
                 SECTION 3 - ACCURACY, COMPLETENESS, AND TIMELINESS OF INFORMATION
               </h2>
               <p className="mb-4">
@@ -93,7 +93,7 @@ export default function TermsOfService() {
             </section>
 
             <section>
-              <h2 className="text-xl font-semibold text-text-primary mb-4">
+              <h2 className="font-heading text-xl font-semibold text-text-primary mb-4">
                 SECTION 4 - MODIFICATIONS TO THE SERVICE AND PRICES
               </h2>
               <p className="mb-4">
@@ -108,7 +108,7 @@ export default function TermsOfService() {
             </section>
 
             <section>
-              <h2 className="text-xl font-semibold text-text-primary mb-4">
+              <h2 className="font-heading text-xl font-semibold text-text-primary mb-4">
                 SECTION 5 - PRODUCTS OR SERVICES
               </h2>
               <p className="mb-4">
@@ -126,7 +126,7 @@ export default function TermsOfService() {
             </section>
 
             <section>
-              <h2 className="text-xl font-semibold text-text-primary mb-4">
+              <h2 className="font-heading text-xl font-semibold text-text-primary mb-4">
                 SECTION 6 - ACCURACY OF BILLING AND ACCOUNT INFORMATION
               </h2>
               <p className="mb-4">
@@ -141,7 +141,7 @@ export default function TermsOfService() {
             </section>
 
             <section>
-              <h2 className="text-xl font-semibold text-text-primary mb-4">
+              <h2 className="font-heading text-xl font-semibold text-text-primary mb-4">
                 SECTION 7 - USER COMMENTS, FEEDBACK, AND SUBMISSIONS
               </h2>
               <p className="mb-4">
@@ -153,7 +153,7 @@ export default function TermsOfService() {
             </section>
 
             <section>
-              <h2 className="text-xl font-semibold text-text-primary mb-4">
+              <h2 className="font-heading text-xl font-semibold text-text-primary mb-4">
                 SECTION 8 - PERSONAL INFORMATION
               </h2>
               <p>
@@ -162,7 +162,7 @@ export default function TermsOfService() {
             </section>
 
             <section>
-              <h2 className="text-xl font-semibold text-text-primary mb-4">
+              <h2 className="font-heading text-xl font-semibold text-text-primary mb-4">
                 SECTION 9 - ERRORS, INACCURACIES, AND OMISSIONS
               </h2>
               <p className="mb-4">
@@ -174,7 +174,7 @@ export default function TermsOfService() {
             </section>
 
             <section>
-              <h2 className="text-xl font-semibold text-text-primary mb-4">
+              <h2 className="font-heading text-xl font-semibold text-text-primary mb-4">
                 SECTION 10 - PROHIBITED USES
               </h2>
               <p className="mb-4">
@@ -193,7 +193,7 @@ export default function TermsOfService() {
             </section>
 
             <section>
-              <h2 className="text-xl font-semibold text-text-primary mb-4">
+              <h2 className="font-heading text-xl font-semibold text-text-primary mb-4">
                 SECTION 11 - DISCLAIMER OF WARRANTIES; LIMITATION OF LIABILITY
               </h2>
               <p className="mb-4">
@@ -208,7 +208,7 @@ export default function TermsOfService() {
             </section>
 
             <section>
-              <h2 className="text-xl font-semibold text-text-primary mb-4">
+              <h2 className="font-heading text-xl font-semibold text-text-primary mb-4">
                 SECTION 12 - INDEMNIFICATION
               </h2>
               <p>
@@ -217,7 +217,7 @@ export default function TermsOfService() {
             </section>
 
             <section>
-              <h2 className="text-xl font-semibold text-text-primary mb-4">
+              <h2 className="font-heading text-xl font-semibold text-text-primary mb-4">
                 SECTION 13 - SEVERABILITY
               </h2>
               <p>
@@ -226,7 +226,7 @@ export default function TermsOfService() {
             </section>
 
             <section>
-              <h2 className="text-xl font-semibold text-text-primary mb-4">
+              <h2 className="font-heading text-xl font-semibold text-text-primary mb-4">
                 SECTION 14 - TERMINATION
               </h2>
               <p className="mb-4">
@@ -238,7 +238,7 @@ export default function TermsOfService() {
             </section>
 
             <section>
-              <h2 className="text-xl font-semibold text-text-primary mb-4">
+              <h2 className="font-heading text-xl font-semibold text-text-primary mb-4">
                 SECTION 15 - ENTIRE AGREEMENT
               </h2>
               <p>
@@ -247,7 +247,7 @@ export default function TermsOfService() {
             </section>
 
             <section>
-              <h2 className="text-xl font-semibold text-text-primary mb-4">
+              <h2 className="font-heading text-xl font-semibold text-text-primary mb-4">
                 SECTION 16 - GOVERNING LAW
               </h2>
               <p>
@@ -256,7 +256,7 @@ export default function TermsOfService() {
             </section>
 
             <section>
-              <h2 className="text-xl font-semibold text-text-primary mb-4">
+              <h2 className="font-heading text-xl font-semibold text-text-primary mb-4">
                 SECTION 17 - CHANGES TO TERMS OF SERVICE
               </h2>
               <p className="mb-4">
@@ -268,7 +268,7 @@ export default function TermsOfService() {
             </section>
 
             <section>
-              <h2 className="text-xl font-semibold text-text-primary mb-4">
+              <h2 className="font-heading text-xl font-semibold text-text-primary mb-4">
                 SECTION 18 - CONTACT INFORMATION
               </h2>
               <p>

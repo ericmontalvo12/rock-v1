@@ -8,8 +8,8 @@ import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/lib/cart-context";
 import { motion, AnimatePresence } from "framer-motion";
-import { Check, ChevronDown, ArrowRight, Star, Shield, FlaskConical, FileText, Lock, Zap, TrendingUp, Target, Layers, X } from "lucide-react";
-import { getBundleTotal, getRegularBundleTotal, getPricePerBottle, isSaleActive } from "@/lib/sale";
+import { Check, ChevronDown, ChevronLeft, ChevronRight, ArrowRight, Star, Shield, FlaskConical, FileText, Lock, Zap, TrendingUp, Target, Layers, X, Minus, Plus } from "lucide-react";
+import { getBundleTotal, getRegularBundleTotal, getPricePerBottle, getRegularPricePerBottle, isSaleActive, SUBSCRIPTION_PRICE } from "@/lib/sale";
 import { SaleCountdown } from "@/components/SaleCountdown";
 import { MAX_REVIEW_PHOTO_BYTES } from "@/lib/reviews-config";
 import { trackFbEvent } from "@/lib/fbpixel";
@@ -19,33 +19,55 @@ const SALE_ACTIVE = isSaleActive();
 
 const REVIEW_SUBMISSION_ENABLED = true;
 
-const BUNDLES = [
+interface BundleOption {
+  id: string;
+  qty: number;
+  label: string;
+  pricePerBottle: number;
+  total: number;
+  regularTotal: number;
+  badge: string | null;
+  perks: string[];
+  isSubscription: boolean;
+  priceSuffix: string;
+}
+
+const BUNDLES: BundleOption[] = [
   {
+    id: "subscribe",
     qty: 1,
-    label: "Buy 1 Bottle",
-    pricePerBottle: getPricePerBottle(1),
-    total: getBundleTotal(1),
+    label: "Monthly Subscription",
+    pricePerBottle: SUBSCRIPTION_PRICE,
+    total: SUBSCRIPTION_PRICE,
     regularTotal: getRegularBundleTotal(1),
-    badge: SALE_ACTIVE ? "20% OFF" : null,
-    perks: ["Free shipping", "30-day guarantee"],
+    badge: "MOST POPULAR",
+    perks: ["Cancel anytime", "Free shipping", "30-day guarantee"],
+    isSubscription: true,
+    priceSuffix: "/mo",
   },
   {
-    qty: 2,
-    label: "Buy 2 Bottles",
-    pricePerBottle: getPricePerBottle(2),
-    total: getBundleTotal(2),
-    regularTotal: getRegularBundleTotal(2),
-    badge: null,
-    perks: ["Free shipping", "30-day guarantee"],
-  },
-  {
+    id: "bundle-3",
     qty: 3,
-    label: "Buy 3 Bottles",
+    label: "3-Bottle Protocol",
     pricePerBottle: getPricePerBottle(3),
     total: getBundleTotal(3),
     regularTotal: getRegularBundleTotal(3),
-    badge: "BEST VALUE",
-    perks: ["20% off", "Free shipping", "30-day guarantee"],
+    badge: "BEST RESULTS",
+    perks: ["Biggest savings", "Free shipping", "30-day guarantee"],
+    isSubscription: false,
+    priceSuffix: "",
+  },
+  {
+    id: "one-time",
+    qty: 1,
+    label: "One-Time Purchase",
+    pricePerBottle: getPricePerBottle(1),
+    total: getBundleTotal(1),
+    regularTotal: getRegularBundleTotal(1),
+    badge: null,
+    perks: ["Free shipping", "30-day guarantee"],
+    isSubscription: false,
+    priceSuffix: "",
   },
 ];
 
@@ -503,12 +525,29 @@ export default function ProductV2Page() {
   const [openSection, setOpenSection] = useState<number | null>(null);
   const [addedToCart, setAddedToCart] = useState(false);
   const [activeImage, setActiveImage] = useState(0);
-  const [selectedBundle, setSelectedBundle] = useState(1);
+  const [selectedBundleId, setSelectedBundleId] = useState("subscribe");
+  const [oneTimeQty, setOneTimeQty] = useState(1);
   const { addToCart, customerEmail } = useCart();
+
+  const getActiveBundle = (): BundleOption => {
+    const bundle = BUNDLES.find((b) => b.id === selectedBundleId)!;
+    if (bundle.id === "one-time") {
+      const perBottle = getPricePerBottle(oneTimeQty);
+      const regularPerBottle = getRegularPricePerBottle(oneTimeQty);
+      return {
+        ...bundle,
+        qty: oneTimeQty,
+        total: parseFloat((perBottle * oneTimeQty).toFixed(2)),
+        regularTotal: parseFloat((regularPerBottle * oneTimeQty).toFixed(2)),
+        pricePerBottle: perBottle,
+      };
+    }
+    return bundle;
+  };
   const [checkoutOpen, setCheckoutOpen] = useState(false);
   const [checkoutPromoId, setCheckoutPromoId] = useState<string | undefined>();
   const [checkoutItems, setCheckoutItems] = useState<
-    { name: string; price: number; quantity: number; image?: string }[]
+    { name: string; price: number; quantity: number; image?: string; isSubscription?: boolean }[]
   >([]);
 
   const [activeTab, setActiveTab] = useState<TabId>("foundational");
@@ -648,7 +687,7 @@ export default function ProductV2Page() {
    * funnel. Now it opens checkout directly.
    */
   const handleAddToCart = async () => {
-    const bundle = BUNDLES.find((b) => b.qty === selectedBundle)!;
+    const bundle = getActiveBundle();
 
     addToCart(
       {
@@ -671,11 +710,10 @@ export default function ProductV2Page() {
           typeof window !== "undefined"
             ? `${window.location.origin}/product-bottle.png`
             : undefined,
+        isSubscription: bundle.isSubscription,
       },
     ]);
 
-    // Honour a code claimed from the email popup. If it can't be validated we
-    // still open checkout - Stripe shows its own promo field as a fallback.
     let promotionCodeId: string | undefined;
     try {
       const stored = localStorage.getItem("promoCode");
@@ -756,30 +794,25 @@ export default function ProductV2Page() {
                 </div>
 
                 {/* Trust Badges */}
-                {/* Source art is square and full-bleed, so these need no
-                    negative margins to close up dead canvas space. */}
-                <div className="flex justify-center items-center gap-3 min-[360px]:gap-4 sm:gap-6 mt-6">
-                  <Image
-                    src="/gmp-certified.png"
-                    alt="GMP Certified"
-                    width={400}
-                    height={400}
-                    className="w-18 h-18 min-[360px]:w-22 min-[360px]:h-22 sm:w-25 sm:h-25 lg:w-32 lg:h-32 object-contain"
-                  />
-                  <Image
-                    src="/made-in-usa.png"
-                    alt="Made in USA"
-                    width={400}
-                    height={400}
-                    className="w-18 h-18 min-[360px]:w-22 min-[360px]:h-22 sm:w-25 sm:h-25 lg:w-32 lg:h-32 object-contain"
-                  />
-                  <Image
-                    src="/lab-tested.png"
-                    alt="Lab Tested"
-                    width={400}
-                    height={400}
-                    className="w-18 h-18 min-[360px]:w-22 min-[360px]:h-22 sm:w-25 sm:h-25 lg:w-32 lg:h-32 object-contain"
-                  />
+                <div className="flex justify-center items-center gap-8 sm:gap-16 mt-6">
+                  {[
+                    { src: "/gmp-certified.png", alt: "GMP Certified", label: "GMP Certified" },
+                    { src: "/made-in-usa.png", alt: "Made in USA", label: "Made in USA" },
+                    { src: "/lab-tested.png", alt: "Lab Tested", label: "Lab Tested" },
+                  ].map((badge) => (
+                    <div key={badge.alt} className="flex flex-col items-center gap-2">
+                      <Image
+                        src={badge.src}
+                        alt={badge.alt}
+                        width={56}
+                        height={56}
+                        className="w-12 h-12 sm:w-14 sm:h-14 object-contain"
+                      />
+                      <span className="text-[10px] sm:text-xs font-heading font-bold text-text-secondary uppercase tracking-wider">
+                        {badge.label}
+                      </span>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
@@ -852,84 +885,103 @@ export default function ProductV2Page() {
 
               {/* Bundle Options */}
               <div className="space-y-3 mb-4">
-                {BUNDLES.map((bundle) => (
-                  <button
-                    key={bundle.qty}
-                    onClick={() => setSelectedBundle(bundle.qty)}
-                    className={`w-full p-4 rounded-lg border-2 text-left transition-all ${
-                      selectedBundle === bundle.qty
-                        ? "border-primary bg-primary/5"
-                        : "border-border hover:border-gray-300"
-                    }`}
-                  >
-                    {/* min-w-0 lets the label column shrink; without it flexbox
-                        keeps it at content width and squeezes the price until
-                        the number wraps mid-digit ("$39.9" / "5"). */}
-                    <div className="flex items-center justify-between gap-3">
-                      <div className="flex items-center gap-3 min-w-0">
-                        <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
-                          selectedBundle === bundle.qty ? "border-primary" : "border-gray-300"
-                        }`}>
-                          {selectedBundle === bundle.qty && (
-                            <div className="w-2 h-2 rounded-full bg-primary" />
-                          )}
-                        </div>
-                        <div className="min-w-0">
-                          <div className="flex items-center gap-2 flex-wrap">
-                            <p className="font-semibold text-text-primary text-sm">{bundle.label}</p>
-                            {bundle.badge && (
-                              <span className="text-xs font-bold text-primary bg-primary/10 px-2 py-0.5 rounded-full whitespace-nowrap">
-                                {bundle.badge}
-                              </span>
+                {BUNDLES.map((bundle) => {
+                  const isSelected = selectedBundleId === bundle.id;
+                  const displayBundle = bundle.id === "one-time" && isSelected
+                    ? getActiveBundle()
+                    : bundle;
+                  return (
+                    <button
+                      key={bundle.id}
+                      onClick={() => setSelectedBundleId(bundle.id)}
+                      className={`w-full p-4 rounded-lg border-2 text-left transition-all ${
+                        isSelected
+                          ? "border-primary bg-primary/5"
+                          : "border-border hover:border-gray-300"
+                      }`}
+                    >
+                      <div className="flex items-center justify-between gap-3">
+                        <div className="flex items-center gap-3 min-w-0">
+                          <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
+                            isSelected ? "border-primary" : "border-gray-300"
+                          }`}>
+                            {isSelected && (
+                              <div className="w-2 h-2 rounded-full bg-primary" />
                             )}
                           </div>
-                          <p className="text-xs text-text-muted mt-0.5">
-                            {bundle.perks.join(" • ")}
-                          </p>
+                          <div className="min-w-0">
+                            <div className="flex items-center gap-2 flex-wrap">
+                              <p className="font-semibold text-text-primary text-sm">{bundle.label}</p>
+                              {bundle.badge && (
+                                <span className="text-xs font-bold text-primary bg-primary/10 px-2 py-0.5 rounded-full whitespace-nowrap">
+                                  {bundle.badge}
+                                </span>
+                              )}
+                            </div>
+                            <p className="text-xs text-text-muted mt-0.5">
+                              {bundle.perks.join(" • ")}
+                            </p>
+                          </div>
                         </div>
-                      </div>
-                      <div className="text-right flex-shrink-0">
-                        <div className="flex items-center gap-1.5 justify-end">
-                          {bundle.total < bundle.regularTotal && (
-                            <p className="text-xs text-text-muted line-through whitespace-nowrap">${bundle.regularTotal.toFixed(2)}</p>
+                        <div className="text-right flex-shrink-0">
+                          <div className="flex items-center gap-1.5 justify-end">
+                            {displayBundle.total < displayBundle.regularTotal && (
+                              <p className="text-xs text-text-muted line-through whitespace-nowrap">${displayBundle.regularTotal.toFixed(2)}</p>
+                            )}
+                            <p className="font-bold text-text-primary whitespace-nowrap">
+                              ${displayBundle.total.toFixed(2)}{bundle.priceSuffix}
+                            </p>
+                          </div>
+                          {displayBundle.qty > 1 && (
+                            <p className="text-xs text-text-muted whitespace-nowrap">${displayBundle.pricePerBottle.toFixed(2)}/bottle</p>
                           )}
-                          <p className="font-bold text-text-primary whitespace-nowrap">${bundle.total.toFixed(2)}</p>
                         </div>
-                        {bundle.qty > 1 && (
-                          <p className="text-xs text-text-muted whitespace-nowrap">${bundle.pricePerBottle.toFixed(2)}/bottle</p>
-                        )}
                       </div>
-                    </div>
-                  </button>
-                ))}
+                    </button>
+                  );
+                })}
               </div>
+
+              {/* Quantity selector (one-time only) */}
+              {selectedBundleId === "one-time" && (
+                <div className="flex items-center justify-center gap-4 mb-4 p-3 rounded-lg bg-surface border border-border">
+                  <span className="text-sm text-text-secondary font-medium">Quantity:</span>
+                  <div className="flex items-center border border-border rounded-lg bg-white">
+                    <button
+                      onClick={() => setOneTimeQty((q) => Math.max(1, q - 1))}
+                      disabled={oneTimeQty <= 1}
+                      className={`px-3 py-2 transition-colors ${oneTimeQty <= 1 ? "text-text-muted cursor-not-allowed" : "text-text-secondary hover:text-text-primary"}`}
+                      aria-label="Decrease quantity"
+                    >
+                      <Minus className="w-4 h-4" />
+                    </button>
+                    <span className="px-4 py-2 text-text-primary font-semibold min-w-[40px] text-center tabular-nums">
+                      {oneTimeQty}
+                    </span>
+                    <button
+                      onClick={() => setOneTimeQty((q) => Math.min(10, q + 1))}
+                      disabled={oneTimeQty >= 10}
+                      className={`px-3 py-2 transition-colors ${oneTimeQty >= 10 ? "text-text-muted cursor-not-allowed" : "text-text-secondary hover:text-text-primary"}`}
+                      aria-label="Increase quantity"
+                    >
+                      <Plus className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+              )}
 
               {/* CTA */}
               <div className="mb-4">
                 <Button size="lg" className="w-full" onClick={handleAddToCart}>
-                  {addedToCart ? "Opening…" : "Buy Now"}
+                  {addedToCart ? "Opening…" : selectedBundleId === "subscribe" ? "Subscribe Now" : "Buy Now"}
                 </Button>
               </div>
               <div className="flex flex-wrap justify-center gap-x-4 gap-y-1 mb-8 text-xs text-text-muted">
                 <span className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-primary" />30-Day Guarantee</span>
-                <span className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-primary" />No commitment</span>
+                <span className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-primary" />{selectedBundleId === "subscribe" ? "Cancel anytime" : "No commitment"}</span>
                 <span className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-primary" />Ships in 1-2 Days</span>
               </div>
 
-              {/* Accordion Sections */}
-              <div className="border-t border-border">
-                {productSections.map((section, index) => (
-                  <AccordionItem
-                    key={section.title}
-                    title={section.title}
-                    content={section.content}
-                    isOpen={openSection === index}
-                    onToggle={() =>
-                      setOpenSection(openSection === index ? null : index)
-                    }
-                  />
-                ))}
-              </div>
             </div>
           </div>
 
@@ -1193,6 +1245,28 @@ export default function ProductV2Page() {
                   </div>
                 </motion.div>
               </div>
+            </div>
+          </section>
+
+          {/* Product Details */}
+          <section className="mt-16 sm:mt-24">
+            <div className="bg-primary rounded-lg py-3 px-6 mb-2">
+              <h2 className="font-heading text-base sm:text-lg font-bold text-white uppercase tracking-wide text-center">
+                Product Details
+              </h2>
+            </div>
+            <div>
+              {productSections.map((section, index) => (
+                <AccordionItem
+                  key={section.title}
+                  title={section.title}
+                  content={section.content}
+                  isOpen={openSection === index}
+                  onToggle={() =>
+                    setOpenSection(openSection === index ? null : index)
+                  }
+                />
+              ))}
             </div>
           </section>
 
@@ -1482,68 +1556,33 @@ export default function ProductV2Page() {
           </section>
           )}
 
-          {/* Final CTA */}
-          <section className="mt-16 sm:mt-24">
-            <div className="bg-gradient-to-br from-[#5B9BD5] to-[#4A8BC9] rounded-2xl overflow-hidden shadow-xl">
-              <div className="grid sm:grid-cols-2 items-center gap-6 p-8 sm:p-12">
-                <div className="flex items-center justify-center order-2 sm:order-1">
-                  <div className="relative">
-                    <Image
-                      src="/product-bottle.png"
-                      alt="Peak Performance Bottle"
-                      width={220}
-                      height={280}
-                      className="relative z-10 w-40 sm:w-56 h-auto"
-                    />
-                    <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-24 sm:w-32 h-4 sm:h-5 bg-black/25 rounded-full blur-md" />
-                  </div>
-                </div>
-                <div className="text-center sm:text-left order-1 sm:order-2">
-                  <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3">
-                    Ready to Feel Like Yourself Again?
-                  </h2>
-                  <p className="text-white/80 mb-6">
-                    Buy now and start feeling the difference.
-                  </p>
-                  <Button
-                    size="lg"
-                    onClick={handleAddToCart}
-                    className="bg-white text-[#4A8BC9] hover:bg-white/90 px-12"
-                  >
-                    {addedToCart ? "Opening…" : "Buy Now"}
-                  </Button>
-                  <div className="flex flex-wrap justify-center sm:justify-start gap-x-4 gap-y-1 mt-4 text-sm text-white/80">
-                    <span className="flex items-center gap-1.5"><Check className="w-4 h-4" />30-Day Guarantee</span>
-                    <span className="flex items-center gap-1.5"><Check className="w-4 h-4" />No Commitment</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
+          {/* In Action — hidden until lifestyle photos are ready */}
 
         </div>
       </main>
 
       {/* Mobile Sticky CTA */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 md:hidden z-40">
+      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-border p-4 md:hidden z-40">
         <div className="flex items-center justify-between gap-4">
           <div>
             <div className="flex items-center gap-1.5">
-              {SALE_ACTIVE && (
-                <p className="text-xs text-gray-400 line-through">
-                  ${BUNDLES.find((b) => b.qty === selectedBundle)!.regularTotal.toFixed(2)}
+              {getActiveBundle().total < getActiveBundle().regularTotal && (
+                <p className="text-xs text-text-muted line-through">
+                  ${getActiveBundle().regularTotal.toFixed(2)}
                 </p>
               )}
-              <p className="font-bold text-gray-900">
-                ${BUNDLES.find((b) => b.qty === selectedBundle)!.total.toFixed(2)}
+              <p className="font-bold text-text-primary">
+                ${getActiveBundle().total.toFixed(2)}{getActiveBundle().priceSuffix}
               </p>
             </div>
-            <p className="text-xs text-gray-500">
-              {selectedBundle} bottle{selectedBundle > 1 ? "s" : ""} • One-time
+            <p className="text-xs text-text-muted">
+              {getActiveBundle().isSubscription
+                ? "Monthly • Cancel anytime"
+                : `${getActiveBundle().qty} bottle${getActiveBundle().qty > 1 ? "s" : ""} • One-time`}
             </p>
           </div>
           <Button className="flex-1" onClick={handleAddToCart}>
-            {addedToCart ? "Opening…" : "Buy Now"}
+            {addedToCart ? "Opening…" : getActiveBundle().isSubscription ? "Subscribe" : "Buy Now"}
           </Button>
         </div>
       </div>

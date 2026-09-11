@@ -28,10 +28,10 @@ export async function POST(req: Request) {
     });
 
     return NextResponse.json({ isSubscription: true, url: portalSession.url });
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.error("Portal session error:", err);
     return NextResponse.json(
-      { error: err?.message ?? "Failed to create portal session" },
+      { error: "Failed to create portal session" },
       { status: 500 }
     );
   }

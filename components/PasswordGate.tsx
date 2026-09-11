@@ -3,8 +3,6 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 
-const SITE_PASSWORD = "rock2024"; // Change this to your desired password
-
 export function PasswordGate({ children }: { children: React.ReactNode }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [password, setPassword] = useState("");
@@ -12,7 +10,6 @@ export function PasswordGate({ children }: { children: React.ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Check if already authenticated
     const auth = localStorage.getItem("siteAuthenticated");
     if (auth === "true") {
       setIsAuthenticated(true);
@@ -20,18 +17,26 @@ export function PasswordGate({ children }: { children: React.ReactNode }) {
     setIsLoading(false);
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (password === SITE_PASSWORD) {
-      localStorage.setItem("siteAuthenticated", "true");
-      setIsAuthenticated(true);
-      setError(false);
-    } else {
+    try {
+      const res = await fetch("/api/site-auth", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password }),
+      });
+      if (res.ok) {
+        localStorage.setItem("siteAuthenticated", "true");
+        setIsAuthenticated(true);
+        setError(false);
+      } else {
+        setError(true);
+      }
+    } catch {
       setError(true);
     }
   };
 
-  // Show nothing while checking auth status
   if (isLoading) {
     return (
       <div className="min-h-screen bg-white flex items-center justify-center">
@@ -40,14 +45,13 @@ export function PasswordGate({ children }: { children: React.ReactNode }) {
     );
   }
 
-  // Show password form if not authenticated
   if (!isAuthenticated) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white flex items-center justify-center p-4">
         <div className="w-full max-w-sm">
           <div className="text-center mb-8">
             <Image
-              src="/logo.png"
+              src="/logo-new.png"
               alt="Rock Mountain Performance"
               width={200}
               height={60}
@@ -96,6 +100,5 @@ export function PasswordGate({ children }: { children: React.ReactNode }) {
     );
   }
 
-  // Show the actual site content
   return <>{children}</>;
 }

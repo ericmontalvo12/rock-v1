@@ -1,163 +1,93 @@
-"use client";
-
-import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { Check } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { useEffect, useRef } from "react";
 
 export function Hero() {
-  const sectionRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    if (sectionRef.current && window.innerWidth < 640) {
-      // Capture height once on mount using visualViewport (excludes Instagram bottom nav).
-      // Do NOT listen to visualViewport resize — it fires on scroll and causes the glitch.
-      const h = window.visualViewport ? window.visualViewport.height : window.innerHeight;
-      sectionRef.current.style.height = `${h}px`;
-    }
-
-    const handleOrientation = () => {
-      // Only re-measure on orientation change (portrait ↔ landscape), not scroll
-      setTimeout(() => {
-        if (sectionRef.current && window.innerWidth < 640) {
-          const h = window.visualViewport ? window.visualViewport.height : window.innerHeight;
-          sectionRef.current.style.height = `${h}px`;
-        }
-      }, 200); // small delay to let the browser settle after rotation
-    };
-
-    window.addEventListener("orientationchange", handleOrientation);
-    return () => window.removeEventListener("orientationchange", handleOrientation);
-  }, []);
-
   return (
-    <section ref={sectionRef} className="relative h-[100svh] sm:min-h-screen flex items-start sm:items-center pt-[72px] sm:pt-[88px] pb-0 sm:pb-0 overflow-hidden">
-      {/* Background image - Mobile */}
-      {/* Both variants stay in the DOM (CSS decides which shows), so each one
-          declares a 1px width at the breakpoint where it's hidden. The browser
-          then picks the smallest srcset candidate for the hidden variant
-          instead of downloading a second full-size hero. */}
-      <div className="absolute inset-0 top-[92px] sm:hidden">
+    <section className="relative overflow-hidden mt-[100px] sm:mt-[110px]">
+      {/* Mobile image — 1:1 aspect ratio like Bucked Up */}
+      <div className="sm:hidden relative w-full aspect-square">
         <Image
           src="/hero-mobile.jpg"
           alt=""
           aria-hidden="true"
           fill
-          sizes="(max-width: 639px) 100vw, 1px"
+          sizes="100vw"
           className="object-cover object-center"
           priority
         />
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
+        {/* Text content */}
+        <div className="absolute inset-0 flex items-center justify-center px-4">
+          <div className="text-center max-w-[340px]">
+            <h1 className="font-heading text-[32px] font-bold tracking-tight text-white mb-3 leading-[1.05]">
+              Built for Men Who Read Labels
+            </h1>
+            <p className="text-white/80 text-base mb-6 leading-relaxed">
+              Research-backed testosterone support for energy, drive, and recovery.
+            </p>
+            <div className="flex flex-col gap-3">
+              <Link
+                href="/product"
+                className="inline-flex items-center justify-center h-12 px-8 rounded-[5px] bg-primary text-white font-heading font-bold text-base hover:bg-primary-hover transition-colors"
+              >
+                SHOP NOW
+              </Link>
+              <Link
+                href="/formula"
+                className="inline-flex items-center justify-center h-12 px-8 rounded-[5px] border-2 border-white text-white font-heading font-bold text-base hover:bg-white hover:text-secondary transition-colors"
+              >
+                SEE THE FORMULA
+              </Link>
+            </div>
+            <p className="text-white/60 text-xs mt-4">
+              Free shipping &bull; 30-day money back guarantee
+            </p>
+          </div>
+        </div>
       </div>
-      {/* Background image - Desktop */}
-      <div className="absolute inset-0 top-[80px] hidden sm:block">
+
+      {/* Desktop image — ~2545x827 aspect ratio */}
+      <div className="hidden sm:block relative w-full" style={{ aspectRatio: "2545 / 827" }}>
         <Image
           src="/hero-mountain.jpg"
           alt=""
           aria-hidden="true"
           fill
-          sizes="(max-width: 639px) 1px, 100vw"
-          className="object-cover object-[center_calc(20%_-_30px)]"
+          sizes="100vw"
+          className="object-cover object-center"
           priority
         />
-      </div>
-
-      {/* Gradient overlay - Mobile: top gradient, Desktop: left gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/30 to-black/15 sm:bg-gradient-to-r sm:from-black/75 sm:via-black/50 sm:to-black/15 lg:to-65%" />
-
-      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-6 sm:py-24 lg:py-32 w-full">
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
-          {/* Content */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center sm:text-center lg:text-left max-w-[320px] sm:max-w-none mx-auto"
-          >
-            {/* Headline */}
-            <h1 className="text-[26px] sm:text-4xl lg:text-6xl font-bold tracking-tight text-white mb-2 sm:mb-5 leading-[1.15] pt-[5px] sm:pt-0">
-              Built for Men Who Read Labels
-            </h1>
-
-            {/* Subheadline */}
-            <p className="text-white/85 text-[14px] sm:text-lg mb-4 sm:mb-8 leading-relaxed max-w-[280px] sm:max-w-md mx-auto lg:mx-0 text-center lg:text-left">
-              Research-backed testosterone support for energy, drive, and recovery.
-            </p>
-
-            {/* Trust indicators - HIDDEN on mobile, shown on sm+ */}
-            <div className="hidden sm:grid grid-cols-2 gap-y-3 gap-x-5 text-sm text-white max-w-sm mx-auto lg:mx-0 mb-8 sm:mb-10">
-              <div className="flex items-center gap-2.5">
-                <div className="w-5 h-5 rounded-full bg-primary flex items-center justify-center flex-shrink-0">
-                  <Check className="w-3 h-3 text-white" />
-                </div>
-                <span className="font-medium">Research-Backed</span>
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-black/20" />
+        {/* Text content */}
+        <div className="absolute inset-0 flex items-center">
+          <div className="mx-auto max-w-7xl px-6 lg:px-8 w-full">
+            <div className="max-w-xl">
+              <h1 className="font-heading text-5xl lg:text-7xl font-bold tracking-tight text-white mb-5 leading-[1.05]">
+                Built for Men Who Read Labels
+              </h1>
+              <p className="text-white/80 text-lg lg:text-xl mb-8 leading-relaxed max-w-lg">
+                Research-backed testosterone support for energy, drive, and recovery.
+              </p>
+              <div className="flex flex-row gap-4">
+                <Link
+                  href="/product"
+                  className="inline-flex items-center justify-center h-12 px-8 rounded-[5px] bg-primary text-white font-heading font-bold text-base hover:bg-primary-hover transition-colors"
+                >
+                  SHOP NOW
+                </Link>
+                <Link
+                  href="/formula"
+                  className="inline-flex items-center justify-center h-12 px-8 rounded-[5px] border-2 border-white text-white font-heading font-bold text-base hover:bg-white hover:text-secondary transition-colors"
+                >
+                  SEE THE FORMULA
+                </Link>
               </div>
-              <div className="flex items-center gap-2.5">
-                <div className="w-5 h-5 rounded-full bg-primary flex items-center justify-center flex-shrink-0">
-                  <Check className="w-3 h-3 text-white" />
-                </div>
-                <span className="font-medium">Fully Disclosed Labels</span>
-              </div>
-              <div className="flex items-center gap-2.5">
-                <div className="w-5 h-5 rounded-full bg-primary flex items-center justify-center flex-shrink-0">
-                  <Check className="w-3 h-3 text-white" />
-                </div>
-                <span className="font-medium">Batch Tested</span>
-              </div>
-              <div className="flex items-center gap-2.5">
-                <div className="w-5 h-5 rounded-full bg-primary flex items-center justify-center flex-shrink-0">
-                  <Check className="w-3 h-3 text-white" />
-                </div>
-                <span className="font-medium">30-Day Guarantee</span>
-              </div>
+              <p className="text-white/60 text-sm mt-5">
+                Free shipping &bull; 30-day money back guarantee
+              </p>
             </div>
-
-            {/* CTAs - Single CTA on mobile, both on desktop */}
-            <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-4 justify-center lg:justify-start">
-              <Link href="/product" className="w-full max-w-[280px] sm:max-w-none sm:w-auto mx-auto sm:mx-0">
-                <Button size="lg" className="w-full sm:w-auto h-12 sm:h-12 text-[15px] sm:text-base rounded-lg sm:px-8">
-                  Buy Now
-                </Button>
-              </Link>
-            </div>
-
-            {/* Shipping note */}
-            <p className="text-white text-[11px] sm:text-sm mt-3 sm:mt-4 text-center lg:text-left">
-              In stock. Ships within 1-2 business days.
-            </p>
-
-          </motion.div>
-
-        </div>
-      </div>
-
-      {/* Mobile trust indicators - Bottom of hero */}
-      <div className="sm:hidden absolute bottom-4 left-0 right-0 z-10 px-4">
-        <div className="grid grid-cols-2 gap-x-6 gap-y-2 max-w-[280px] mx-auto">
-          <div className="flex items-center gap-1.5">
-            <div className="w-4 h-4 rounded-full bg-primary flex items-center justify-center flex-shrink-0">
-              <Check className="w-2.5 h-2.5 text-white" />
-            </div>
-            <span className="text-white text-[11px] font-medium">Research-Backed</span>
-          </div>
-          <div className="flex items-center gap-1.5">
-            <div className="w-4 h-4 rounded-full bg-primary flex items-center justify-center flex-shrink-0">
-              <Check className="w-2.5 h-2.5 text-white" />
-            </div>
-            <span className="text-white text-[11px] font-medium">Fully Disclosed</span>
-          </div>
-          <div className="flex items-center gap-1.5">
-            <div className="w-4 h-4 rounded-full bg-primary flex items-center justify-center flex-shrink-0">
-              <Check className="w-2.5 h-2.5 text-white" />
-            </div>
-            <span className="text-white text-[11px] font-medium">Batch Tested</span>
-          </div>
-          <div className="flex items-center gap-1.5">
-            <div className="w-4 h-4 rounded-full bg-primary flex items-center justify-center flex-shrink-0">
-              <Check className="w-2.5 h-2.5 text-white" />
-            </div>
-            <span className="text-white text-[11px] font-medium">30-Day Guarantee</span>
           </div>
         </div>
       </div>

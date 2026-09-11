@@ -66,7 +66,7 @@ function SuccessContent() {
   }, [sessionId]);
 
   return (
-    <div className="w-full max-w-full overflow-x-hidden">
+    <div className="w-full max-w-full overflow-x-hidden bg-surface/50">
       <Header />
       <main className="pt-32 pb-16 sm:pb-24">
         <div className="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8">
@@ -75,7 +75,7 @@ function SuccessContent() {
               <CheckCircle className="w-10 h-10 text-green-500" />
             </div>
 
-            <h1 className="text-3xl sm:text-4xl font-bold text-text-primary mb-4">
+            <h1 className="font-heading text-3xl sm:text-4xl font-bold text-text-primary mb-4">
               Order Confirmed!
             </h1>
 
@@ -92,8 +92,8 @@ function SuccessContent() {
               </p>
             )}
 
-            <div className="bg-surface border border-border rounded-2xl p-6 mb-8 text-left">
-              <h2 className="font-semibold text-text-primary mb-4">
+            <div className="bg-white border border-border rounded-lg p-6 mb-8 text-left">
+              <h2 className="font-heading font-semibold text-text-primary mb-4">
                 What happens next?
               </h2>
               <ul className="space-y-3 text-text-secondary text-sm">

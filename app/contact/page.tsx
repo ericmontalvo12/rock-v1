@@ -48,12 +48,12 @@ export default function Contact() {
   };
 
   return (
-    <div className="w-full max-w-full overflow-x-hidden">
+    <div className="w-full max-w-full overflow-x-hidden bg-surface/50">
       <Header />
       <main className="pt-32 pb-16 sm:pb-24">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h1 className="text-3xl sm:text-4xl font-bold text-text-primary mb-4">
+            <h1 className="font-heading text-3xl sm:text-4xl font-bold text-text-primary mb-4">
               Contact Us
             </h1>
             <p className="text-text-secondary max-w-2xl mx-auto">
@@ -64,7 +64,7 @@ export default function Contact() {
 
           <form
             onSubmit={handleSubmit}
-            className="p-6 sm:p-8 rounded-2xl bg-surface border border-border"
+            className="p-6 sm:p-8 rounded-lg bg-white border border-border"
           >
             <div className="grid sm:grid-cols-2 gap-6 mb-6">
               <div>
@@ -81,7 +81,7 @@ export default function Contact() {
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 rounded-lg bg-background border border-border text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+                  className="w-full px-4 py-3 rounded-[5px] bg-surface border border-border text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
                   placeholder="Your name"
                 />
               </div>
@@ -99,7 +99,7 @@ export default function Contact() {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 rounded-lg bg-background border border-border text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+                  className="w-full px-4 py-3 rounded-[5px] bg-surface border border-border text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
                   placeholder="your@email.com"
                 />
               </div>
@@ -142,7 +142,7 @@ export default function Contact() {
                 onChange={handleChange}
                 required
                 rows={6}
-                className="w-full px-4 py-3 rounded-lg bg-background border border-border text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors resize-none"
+                className="w-full px-4 py-3 rounded-[5px] bg-surface border border-border text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors resize-none"
                 placeholder="Your message..."
               />
             </div>
