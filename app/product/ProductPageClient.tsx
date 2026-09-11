@@ -722,6 +722,38 @@ export default function ProductPageClient({
       <Header />
       <main className="pt-28 sm:pt-32 pb-24 sm:pb-24 bg-surface/50">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          {/* Mobile-only: title + reviews above gallery */}
+          <div className="lg:hidden text-center mb-4">
+            <h1 className="text-2xl font-bold text-text-primary mb-2">
+              Peak Performance
+            </h1>
+            {REVIEW_SUBMISSION_ENABLED && (
+              <div className="flex flex-wrap items-center justify-center gap-3 text-sm">
+                {reviewCount > 0 ? (
+                  <>
+                    <div className="flex items-center gap-1">
+                      <StarRating rating={Math.round(reviewAverage)} />
+                    </div>
+                    <span className="text-gray-300">|</span>
+                    <button
+                      onClick={() => document.getElementById('reviews')?.scrollIntoView({ behavior: 'smooth' })}
+                      className="text-primary hover:underline"
+                    >
+                      {reviewCount} review{reviewCount === 1 ? "" : "s"}
+                    </button>
+                  </>
+                ) : (
+                  <button
+                    onClick={() => document.getElementById('reviews')?.scrollIntoView({ behavior: 'smooth' })}
+                    className="text-primary hover:underline"
+                  >
+                    Be the first to leave a review
+                  </button>
+                )}
+              </div>
+            )}
+          </div>
+
           <div className="grid lg:grid-cols-2 gap-6 lg:gap-16">
             {/* Product Image Gallery */}
             <div className="relative order-1 lg:order-1">
@@ -796,13 +828,13 @@ export default function ProductPageClient({
 
             {/* Product Info */}
             <div className="order-2 lg:order-2 text-center">
-              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-text-primary mb-2">
+              {/* Desktop-only: title + reviews (shown above gallery on mobile) */}
+              <h1 className="hidden lg:block text-4xl font-bold text-text-primary mb-2">
                 Peak Performance
               </h1>
 
-              {/* Social Proof Bar */}
               {REVIEW_SUBMISSION_ENABLED && (
-                <div className="flex flex-wrap items-center justify-center gap-3 mb-4 text-sm">
+                <div className="hidden lg:flex flex-wrap items-center justify-center gap-3 mb-4 text-sm">
                   {reviewCount > 0 ? (
                     <>
                       <div className="flex items-center gap-1">
