@@ -4,10 +4,19 @@ import { sendPurchaseToMetaCapi } from "@/lib/meta-capi";
 import { SITE_URL } from "@/app/layout";
 import { upsertOrder, upsertRenewalOrder, type OrderLineItem } from "@/lib/orders-db";
 
+const GHL_URLS: Record<string, string | undefined> = {
+  order_confirmation: process.env.GHL_ORDER_WEBHOOK_URL,
+  subscriber_welcome: process.env.GHL_ORDER_WEBHOOK_URL,
+  renewal: process.env.GHL_ORDER_WEBHOOK_URL,
+  payment_failed: process.env.GHL_PAYMENT_FAILED_WEBHOOK_URL,
+  cancellation_pending: process.env.GHL_CANCELLATION_WEBHOOK_URL,
+  subscription_ended: process.env.GHL_SUBSCRIPTION_ENDED_WEBHOOK_URL,
+};
+
 async function sendToGHL(type: string, payload: Record<string, unknown>) {
-  const ghlUrl = process.env.GHL_ORDER_WEBHOOK_URL;
+  const ghlUrl = GHL_URLS[type] ?? process.env.GHL_ORDER_WEBHOOK_URL;
   if (!ghlUrl) {
-    console.warn("GHL_ORDER_WEBHOOK_URL not set — skipping GHL webhook");
+    console.warn(`GHL webhook URL not set for ${type} — skipping`);
     return;
   }
   try {
