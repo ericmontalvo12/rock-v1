@@ -1178,6 +1178,492 @@ export const blogPosts: BlogPost[] = [
       },
     ],
   },
+  {
+    slug: "natural-ways-to-boost-testosterone",
+    category: "Testosterone",
+    title: "Natural Ways to Boost Testosterone: What the Research Actually Supports",
+    excerpt:
+      "Search \"boost testosterone naturally\" and you'll get 200 listicles telling you to eat Brazil nuts and take cold showers. Here's what the clinical research actually says moves the needle — ranked by strength of evidence.",
+    date: "September 15, 2026",
+    coverImage: "/natural-ways-to-boost-testosterone.jpg",
+    content: [
+      {
+        type: "paragraph",
+        text: "The internet is full of testosterone advice that ranges from oversimplified to completely made up. The reality is less dramatic but more useful: a handful of behaviors and a few specific nutrients have genuine clinical support behind them, and they work through mechanisms that are well understood. Everything else is noise.",
+      },
+      {
+        type: "paragraph",
+        text: "What follows is what the research actually shows — not what influencers repeat to each other.",
+      },
+      {
+        type: "heading",
+        text: "1. Fix your sleep first",
+      },
+      {
+        type: "paragraph",
+        text: "This isn't optional and it isn't third on the list — it's first. The majority of daily testosterone release in men occurs during sleep, peaking in the early morning hours. When researchers restricted healthy young men to five hours of sleep per night for one week, measured daytime testosterone dropped by 10–15%, roughly equivalent to 10–15 years of aging (Leproult & Van Cauter, 2011).",
+      },
+      {
+        type: "paragraph",
+        text: "No supplement, food, or training program overcomes chronic sleep restriction. If you're sleeping fewer than seven hours consistently, that's the first thing to fix. Everything else builds on top of it.",
+      },
+      {
+        type: "heading",
+        text: "2. Train with resistance — and train hard",
+      },
+      {
+        type: "paragraph",
+        text: "Resistance training is one of the strongest acute stimulators of testosterone in the research. Compound lifts — squats, deadlifts, presses, rows — at meaningful intensity produce the largest hormonal response. The effect is both acute (post-workout spike) and chronic (baseline elevation over months of consistent training).",
+      },
+      {
+        type: "paragraph",
+        text: "Endurance training, particularly high-volume chronic cardio, shows the opposite pattern in some studies — lower baseline testosterone, likely related to elevated cortisol and energy deficit. This doesn't mean \"don't do cardio.\" It means prioritize heavy resistance work and keep endurance training moderate.",
+      },
+      {
+        type: "heading",
+        text: "3. Manage your stress and cortisol",
+      },
+      {
+        type: "paragraph",
+        text: "Cortisol and testosterone operate in a seesaw relationship. When cortisol is chronically elevated — from poor sleep, overtraining, work stress, or all three — testosterone gets suppressed. The mechanism is direct: cortisol acts on the hypothalamus to reduce GnRH secretion, which lowers LH, which lowers testicular output.",
+      },
+      {
+        type: "paragraph",
+        text: "You don't need to meditate for an hour. You need to manage the big stressors: get enough sleep, don't overtrain, build in genuine rest days, and offload cognitive stress before bed. The research on ashwagandha (KSM-66) in this context is among the strongest in the botanical literature — a 2019 systematic review found it significantly reduced cortisol across multiple randomized trials (Lopresti et al., 2019).",
+      },
+      {
+        type: "heading",
+        text: "4. Close your nutrient gaps",
+      },
+      {
+        type: "paragraph",
+        text: "Three nutrients have clear, dose-dependent relationships with testosterone in the research:",
+      },
+      {
+        type: "list",
+        items: [
+          "Zinc — A required cofactor in testosterone synthesis. Restricting zinc in healthy men lowered testosterone significantly; supplementing zinc-deficient men restored it (Prasad et al., 1996). Lost through sweat, making active men especially vulnerable.",
+          "Vitamin D — Functions more like a hormone than a vitamin. A 12-month RCT found that men who corrected a vitamin D deficiency saw significant increases in total and free testosterone (Pilz et al., 2011). Most men who work indoors are lower than they think.",
+          "Magnesium — Linked to free testosterone through its effect on SHBG. A 2011 trial found supplementation raised both free and total testosterone, with the largest effect in men who trained (Cinar et al., 2011).",
+        ],
+      },
+      {
+        type: "paragraph",
+        text: "The pattern is the same across all three: correcting a real deficiency helps. Megadosing past sufficiency does not. Get tested if you can, supplement to close the gap, and eat the foods that keep you there.",
+      },
+      {
+        type: "heading",
+        text: "5. Reduce SHBG to free what you already make",
+      },
+      {
+        type: "paragraph",
+        text: "Most conversations about testosterone focus on total production. But the majority of testosterone in your blood — roughly 98% — is bound to proteins, primarily sex hormone-binding globulin (SHBG). Only the free fraction actually enters cells and does anything useful.",
+      },
+      {
+        type: "paragraph",
+        text: "Two men with identical total testosterone can feel completely different depending on how much of it is free. Ingredients that address SHBG directly — like boron, which in one study raised free testosterone and lowered SHBG in about a week at 10mg/day (Naghii et al., 2011) — target this often-overlooked part of the equation.",
+      },
+      {
+        type: "heading",
+        text: "6. Maintain a healthy body composition",
+      },
+      {
+        type: "paragraph",
+        text: "Excess body fat, particularly visceral fat, increases aromatase activity — the enzyme that converts testosterone to estrogen. This creates a feedback loop: more fat leads to more conversion, which leads to lower testosterone, which makes it harder to lose fat. Reducing body fat — especially around the midsection — measurably improves the testosterone-to-estrogen ratio.",
+      },
+      {
+        type: "paragraph",
+        text: "Crash dieting isn't the answer, though. Severe caloric restriction raises cortisol and can suppress testosterone on its own. A moderate, sustained deficit with adequate protein and resistance training is the approach the research supports.",
+      },
+      {
+        type: "heading",
+        text: "What doesn't work",
+      },
+      {
+        type: "paragraph",
+        text: "Cold showers, \"testosterone-boosting\" foods like pomegranate or ginger in the amounts people actually eat, tribulus terrestris, D-aspartic acid long-term, and most proprietary blends with undisclosed doses. These either have no human data, have data that failed to replicate, or work only in rodents at doses that don't translate.",
+      },
+      {
+        type: "heading",
+        text: "The bottom line",
+      },
+      {
+        type: "callout",
+        text: "The takeaway isn't complicated: sleep enough, train heavy, manage stress, close your nutrient gaps, and don't carry excess body fat. These aren't hacks — they're the basics the research keeps pointing back to. The reason they work is that they address the actual biological systems that regulate testosterone production and availability.",
+      },
+    ],
+  },
+  {
+    slug: "signs-of-low-testosterone-in-your-20s-and-30s",
+    category: "Men's Health",
+    title: "Signs of Low Testosterone in Your 20s and 30s: What Most Men Miss",
+    excerpt:
+      "Low testosterone isn't just a problem for men over 50. Declining levels are showing up earlier than ever — and the symptoms don't look like what most guys expect.",
+    date: "September 15, 2026",
+    coverImage: "/signs-of-low-testosterone-in-your-20s-and-30s.jpg",
+    content: [
+      {
+        type: "paragraph",
+        text: "When most men picture low testosterone, they picture a guy in his 60s in a doctor's office. The reality is different. Research published in the Journal of Clinical Endocrinology & Metabolism found that average testosterone levels in American men have been declining roughly 1% per year since the 1980s — independent of age and lifestyle factors (Travison et al., 2007). A 30-year-old man today has measurably less testosterone than a 30-year-old man in 1990.",
+      },
+      {
+        type: "paragraph",
+        text: "The symptoms don't arrive as one obvious event. They accumulate gradually, and most men rationalize every single one of them. Here's what to actually look for.",
+      },
+      {
+        type: "heading",
+        text: "The symptoms no one connects to testosterone",
+      },
+      {
+        type: "subheading",
+        text: "You're tired but you \"slept enough.\"",
+      },
+      {
+        type: "paragraph",
+        text: "You got seven or eight hours, but you wake up feeling like you got five. Low testosterone doesn't always cause insomnia — it causes unrefreshing sleep. The deep sleep stages where testosterone is produced are the same stages that leave you feeling restored. When hormonal signaling is off, sleep quantity stays the same but sleep quality drops.",
+      },
+      {
+        type: "subheading",
+        text: "Your motivation disappeared and you can't explain why.",
+      },
+      {
+        type: "paragraph",
+        text: "Not depression exactly — more like apathy. Things you used to be driven to do now feel like they take more effort than they're worth. Testosterone is directly involved in dopaminergic pathways that drive motivation and reward-seeking behavior. When levels decline, the internal push fades before the external circumstances change.",
+      },
+      {
+        type: "subheading",
+        text: "Training feels harder and recovers slower.",
+      },
+      {
+        type: "paragraph",
+        text: "You're doing the same program but the weights feel heavier, the soreness lasts longer, and the progress stalled. Testosterone is a primary driver of protein synthesis and muscle recovery. A decline doesn't make training impossible — it makes identical training produce less result.",
+      },
+      {
+        type: "subheading",
+        text: "Body composition is shifting without dietary changes.",
+      },
+      {
+        type: "paragraph",
+        text: "Gaining fat around the midsection despite eating the same. Losing muscle definition despite still training. The hormonal environment dictates how your body partitions calories — toward muscle or toward fat — and a decline in testosterone tilts that partition toward storage.",
+      },
+      {
+        type: "subheading",
+        text: "Your libido dropped and you're blaming stress.",
+      },
+      {
+        type: "paragraph",
+        text: "Some decline in sex drive happens to everyone during genuinely stressful periods. But if the stress has passed and the drive hasn't returned, testosterone is a more likely explanation than lingering anxiety. Sex drive is one of the most testosterone-sensitive functions in the male body.",
+      },
+      {
+        type: "subheading",
+        text: "Brain fog and trouble concentrating.",
+      },
+      {
+        type: "paragraph",
+        text: "Struggling to hold complex thoughts, forgetting things you wouldn't normally forget, feeling mentally \"slow.\" Testosterone receptors are distributed throughout the brain, particularly in areas involved in memory and executive function. Cognitive symptoms are among the earliest and most commonly dismissed signs.",
+      },
+      {
+        type: "heading",
+        text: "Why it's happening younger",
+      },
+      {
+        type: "paragraph",
+        text: "The population-level decline isn't fully explained, but the leading candidates are well documented:",
+      },
+      {
+        type: "list",
+        items: [
+          "Chronic sleep restriction — The average American sleeps less than previous generations. Even modest, consistent sleep debt suppresses testosterone measurably.",
+          "Chronic stress — Higher cortisol baselines from work stress, financial pressure, and constant connectivity suppress GnRH and downstream testosterone production.",
+          "Nutrient insufficiencies — Zinc, magnesium, and vitamin D shortfalls are extremely common in men who eat a standard processed diet. All three are directly involved in testosterone synthesis.",
+          "Sedentary behavior — Office jobs and screen time have replaced physical labor. Resistance training is one of the strongest natural testosterone stimulators, and most men don't do it.",
+          "Higher body fat percentages — Population-wide increases in body fat mean more aromatase activity, converting testosterone to estrogen at higher rates.",
+          "Endocrine disruptors — BPA, phthalates, and other chemicals in plastics, food packaging, and personal care products have demonstrated anti-androgenic effects in research.",
+        ],
+      },
+      {
+        type: "heading",
+        text: "When to get tested",
+      },
+      {
+        type: "paragraph",
+        text: "If three or more of the symptoms above sound familiar and have been present for more than a few weeks, get a blood panel. Request:",
+      },
+      {
+        type: "list",
+        items: [
+          "Total testosterone — The overall number. \"Normal\" range is roughly 300–1000 ng/dL, but \"normal\" is a statistical range, not an optimal one. A 32-year-old at 320 is technically normal and almost certainly symptomatic.",
+          "Free testosterone — The fraction that's actually usable. This is often low even when total looks fine, especially in men with elevated SHBG.",
+          "SHBG — The protein that binds testosterone and makes it unavailable. High SHBG with a \"normal\" total number is one of the most common patterns in symptomatic young men.",
+          "Cortisol (AM) — Helps rule out stress-driven suppression.",
+          "Vitamin D, zinc, and magnesium — Correctable deficiencies that directly affect production.",
+        ],
+      },
+      {
+        type: "callout",
+        text: "Test in the morning, fasted, before 10 AM. Testosterone peaks in the early morning and drops through the day — an afternoon draw can read 20–30% lower and miss the real picture.",
+      },
+      {
+        type: "heading",
+        text: "What to do before considering TRT",
+      },
+      {
+        type: "paragraph",
+        text: "TRT is a legitimate medical intervention, but it's also a lifelong commitment that suppresses your own production. Before going there, address the correctable factors: sleep, training, stress, body composition, and nutrient status. For many men in their 20s and 30s, these changes alone move the numbers meaningfully — because the decline wasn't caused by a broken system, it was caused by inputs the system wasn't getting.",
+      },
+      {
+        type: "heading",
+        text: "The bottom line",
+      },
+      {
+        type: "callout",
+        text: "Low testosterone in young men isn't rare anymore — it's increasingly common, and the symptoms are subtle enough that most men live with them for years before connecting the dots. The earlier you identify it, the more options you have that don't involve a prescription.",
+      },
+    ],
+  },
+  {
+    slug: "proprietary-blend-vs-full-label-supplements",
+    category: "Education",
+    title: "Proprietary Blend vs. Full-Label Supplements: What the Industry Doesn't Want You Comparing",
+    excerpt:
+      "Two products can list the exact same ingredients and be completely different formulas. The difference is in two words most people skip past — and that's exactly the point.",
+    date: "September 15, 2026",
+    coverImage: "/proprietary-blend-vs-full-label-supplements.jpg",
+    content: [
+      {
+        type: "paragraph",
+        text: "Pick up any two testosterone support supplements and you'll see similar ingredients: ashwagandha, fenugreek, zinc, maybe tongkat ali. The labels look comparable. The prices are in the same range. So what's the difference?",
+      },
+      {
+        type: "paragraph",
+        text: "Usually, the difference is everything. And it's hidden behind two words: \"proprietary blend.\"",
+      },
+      {
+        type: "heading",
+        text: "What a proprietary blend actually is",
+      },
+      {
+        type: "paragraph",
+        text: "A proprietary blend is a legal label structure where multiple ingredients are listed together under one combined weight. The FDA requires the total weight of the blend to be disclosed, and the individual ingredients to be listed in descending order by weight — but individual doses are not required.",
+      },
+      {
+        type: "callout",
+        text: "That means a \"Testosterone Support Matrix — 1,500mg\" containing eight ingredients could have 1,400mg of the cheapest filler and 12.5mg of each of the other seven. The label is legal. The product is useless. And you have no way to tell from the outside.",
+      },
+      {
+        type: "heading",
+        text: "Why companies use them",
+      },
+      {
+        type: "paragraph",
+        text: "The industry explanation is \"protecting our formula from competitors.\" The actual reason, in the majority of cases, is simpler: it costs less.",
+      },
+      {
+        type: "paragraph",
+        text: "Clinical research on an ingredient like KSM-66 ashwagandha uses a specific dose — typically 300–600mg of a standardized extract. That standardized extract has a real cost. A company that lists \"ashwagandha root powder\" inside a proprietary blend might be including 50mg of a non-standardized powder that costs a fraction of the real thing. The ingredient name looks identical on the label. The dose and quality are not remotely comparable.",
+      },
+      {
+        type: "paragraph",
+        text: "Proprietary blends are not inherently fraudulent — a few legitimate companies use them. But the structure overwhelmingly favors companies with something to hide, which is why the majority of low-quality supplements use them and the majority of serious formulas don't.",
+      },
+      {
+        type: "heading",
+        text: "What a full-label formula looks like",
+      },
+      {
+        type: "paragraph",
+        text: "A full-label (sometimes called \"fully transparent\" or \"open label\") supplement lists every single ingredient with its exact dose. No combined weights, no blends, no ambiguity. You can take any ingredient, look up the clinical research, and verify whether the dose in the product matches what the study used.",
+      },
+      {
+        type: "paragraph",
+        text: "This is a higher bar for the company to meet, because every number is checkable. If a study used 500mg and the label says 500mg, the claim is verifiable. If the label says \"Testosterone Support Complex — 2,000mg,\" there's nothing to check.",
+      },
+      {
+        type: "heading",
+        text: "How to compare two products in 60 seconds",
+      },
+      {
+        type: "numbered-list",
+        items: [
+          "Look for \"Proprietary Blend\" or any combined-weight listing. If you see one, the company has chosen not to tell you what you're getting. That's the single most important piece of information on the label.",
+          "Check for standardized extracts. \"Ashwagandha root extract (KSM-66)\" is a specific, researched, quality-controlled extract. \"Ashwagandha root powder\" is a generic raw material with no guaranteed active compound concentration. The name matters less than the standardization.",
+          "Compare doses to the research. If the product lists individual doses, look up the ingredient. KSM-66 is typically studied at 300–600mg. Fenugreek at 500–600mg. Tongkat ali at 200–400mg. If the dose on the label is dramatically lower than the dose in the research, the ingredient is decorative.",
+          "Count the ingredients. More isn't better. A formula with 20+ ingredients almost certainly underdoses most of them — there isn't enough room in a capsule. The math doesn't work. A formula with 5–8 ingredients at full doses is making choices about what works and committing to it.",
+        ],
+      },
+      {
+        type: "heading",
+        text: "The cost math",
+      },
+      {
+        type: "paragraph",
+        text: "Full-dose formulas cost more to produce. That's a fact. When a product is priced at $15 for a month's supply and claims to contain eight researched ingredients, the math doesn't add up — the raw materials alone would cost more than that at clinical doses. Price alone doesn't guarantee quality, but a price that's too low virtually guarantees underdosing.",
+      },
+      {
+        type: "heading",
+        text: "The bottom line",
+      },
+      {
+        type: "callout",
+        text: "The supplement industry survives on the gap between ingredient names and ingredient doses. A proprietary blend exploits that gap by design. A full-label formula closes it. The question isn't whether two products contain \"the same ingredients\" — it's whether they contain the same doses. That's where most comparisons fall apart.",
+      },
+    ],
+  },
+  {
+    slug: "do-testosterone-boosters-actually-work",
+    category: "Testosterone",
+    title: "Do Testosterone Boosters Actually Work? An Honest Answer",
+    excerpt:
+      "The supplement industry says yes. Skeptics say no. The real answer depends entirely on which ingredients, at what doses, for which men — and most products fail on all three.",
+    date: "September 15, 2026",
+    coverImage: "/do-testosterone-boosters-actually-work.jpg",
+    content: [
+      {
+        type: "paragraph",
+        text: "It's a fair question, and the honest answer is more nuanced than either side of the debate typically admits. The supplement industry overpromises. Skeptics lump everything together and dismiss the entire category. Neither approach is useful if you're actually trying to figure out what's worth your money.",
+      },
+      {
+        type: "paragraph",
+        text: "Here's the breakdown.",
+      },
+      {
+        type: "heading",
+        text: "Why most testosterone boosters don't work",
+      },
+      {
+        type: "paragraph",
+        text: "The majority of testosterone support supplements on the market fail for one or more of three reasons:",
+      },
+      {
+        type: "subheading",
+        text: "1. Underdosed ingredients hidden in proprietary blends",
+      },
+      {
+        type: "paragraph",
+        text: "An ingredient studied at 500mg does nothing meaningful at 50mg. A proprietary blend makes it impossible to tell which dose you're getting. This is the single most common reason people conclude \"supplements don't work\" — the ingredient was sound, the dose was insufficient, and the label was designed so you couldn't tell.",
+      },
+      {
+        type: "subheading",
+        text: "2. Ingredients with no human evidence",
+      },
+      {
+        type: "paragraph",
+        text: "Tribulus terrestris is in hundreds of products. It has a long history in traditional medicine and positive results in animal models. In human clinical trials? A 2016 systematic review found no significant effect on testosterone levels in men (Qureshi et al., 2014). D-aspartic acid showed an initial promising study, but follow-up research in trained men found no testosterone benefit and, in one study, a decrease (Willoughby & Leutholtz, 2013). These ingredients persist in formulas because the name recognition sells, not because the data supports them.",
+      },
+      {
+        type: "subheading",
+        text: "3. Wrong mechanism for the wrong person",
+      },
+      {
+        type: "paragraph",
+        text: "A zinc supplement will raise testosterone in a zinc-deficient man. It won't do anything measurable in a man who's already replete. The same principle applies across the category: supplements that address a real physiological bottleneck work; supplements taken by someone without that bottleneck don't. Most products are sold without any attention to who they're appropriate for.",
+      },
+      {
+        type: "heading",
+        text: "What actually has evidence",
+      },
+      {
+        type: "paragraph",
+        text: "A smaller number of ingredients have genuine human clinical evidence — randomized, controlled trials in men, with testosterone as a measured outcome. These are the ones worth paying attention to:",
+      },
+      {
+        type: "subheading",
+        text: "Ashwagandha (KSM-66), 300–600mg",
+      },
+      {
+        type: "paragraph",
+        text: "A 2019 systematic review by Lopresti and colleagues, covering five randomized controlled trials, found KSM-66 significantly reduced cortisol. A separate 2015 RCT in resistance-trained men (Wankhede et al.) found significantly greater increases in testosterone and muscle strength versus placebo over 8 weeks. The evidence is strongest for men under chronic stress.",
+      },
+      {
+        type: "subheading",
+        text: "Tongkat Ali (standardized extract), 200–400mg",
+      },
+      {
+        type: "paragraph",
+        text: "A 2022 meta-analysis of randomized trials concluded that tongkat ali supplementation had a significant effect on total testosterone. The most-cited trial (Tambi et al., 2012) showed improved testosterone-to-cortisol ratio alongside better mood scores in moderately stressed adults. Extract standardization matters — unstandardized root powder has not been studied to the same degree.",
+      },
+      {
+        type: "subheading",
+        text: "Fenugreek (standardized extract), 500–600mg",
+      },
+      {
+        type: "paragraph",
+        text: "A 2020 meta-analysis of randomized trials in Phytotherapy Research (Mansoori et al.) found a significant positive effect on total testosterone. The proposed mechanism is mild inhibition of aromatase, the enzyme that converts testosterone to estrogen.",
+      },
+      {
+        type: "subheading",
+        text: "Zinc, 20–30mg",
+      },
+      {
+        type: "paragraph",
+        text: "Classic work by Prasad and colleagues demonstrated that restricting zinc in healthy young men lowered testosterone significantly, and that supplementing marginally deficient men restored it. The effect is a correction, not a boost — but the correction matters, because zinc deficiency is common in hard-training men who lose it through sweat.",
+      },
+      {
+        type: "subheading",
+        text: "Vitamin D3, 3,000–5,000 IU",
+      },
+      {
+        type: "paragraph",
+        text: "A 12-month RCT by Pilz and colleagues found significant increases in total, free, and bioactive testosterone in men who corrected a vitamin D deficiency. In men who were already sufficient, the effect was not significant. Test first if you can.",
+      },
+      {
+        type: "subheading",
+        text: "Boron, 6–10mg",
+      },
+      {
+        type: "paragraph",
+        text: "A small study by Naghii and colleagues found that about a week of supplementation near this dose raised free testosterone and lowered SHBG. The study is small and needs replication, but the mechanism — reducing SHBG-bound testosterone — is plausible and distinct from ingredients that target production.",
+      },
+      {
+        type: "heading",
+        text: "The real question: are you a good candidate?",
+      },
+      {
+        type: "paragraph",
+        text: "A testosterone support supplement is most likely to produce a noticeable result in men who have one or more of these factors:",
+      },
+      {
+        type: "list",
+        items: [
+          "Chronic stress or poor stress management (elevated cortisol suppressing production)",
+          "Nutrient insufficiencies — zinc, magnesium, or vitamin D — from diet, training, or lifestyle",
+          "Poor or insufficient sleep (under 7 hours, inconsistent timing, or poor quality)",
+          "High SHBG binding most of their testosterone in an unusable fraction",
+          "Consistent training that creates higher mineral turnover through sweat",
+        ],
+      },
+      {
+        type: "paragraph",
+        text: "If none of those apply — if you sleep well, eat well, train consistently, manage stress, and have no correctable deficiencies — a supplement is unlikely to move your numbers meaningfully. That's the honest truth most brands won't say.",
+      },
+      {
+        type: "heading",
+        text: "What to look for in a product",
+      },
+      {
+        type: "paragraph",
+        text: "If you decide a supplement is worth trying, here's the short checklist:",
+      },
+      {
+        type: "list",
+        items: [
+          "Full-label dosing with no proprietary blends — every ingredient and every dose visible",
+          "Ingredients backed by human trials, not just animal studies or traditional use",
+          "Doses that match the research, not token amounts for label decoration",
+          "Standardized extracts where applicable (KSM-66, not generic \"ashwagandha powder\")",
+          "Manufactured in a cGMP-certified facility with third-party testing",
+        ],
+      },
+      {
+        type: "heading",
+        text: "The bottom line",
+      },
+      {
+        type: "callout",
+        text: "Do testosterone boosters work? Some ingredients, at specific doses, for certain men — yes. The category as a whole? Mostly not, because most products are underdosed, poorly formulated, or sold to men who don't have the bottleneck the ingredients address. The answer depends on what's in the bottle and what's going on in your body. Both matter equally.",
+      },
+    ],
+  },
 ];
 
 export function getPostBySlug(slug: string): BlogPost | undefined {
