@@ -151,10 +151,29 @@ export interface UpsertOrderInput {
  * may cover orders the webhook already saved. Fulfilment fields are never
  * overwritten, so a re-delivered webhook can't wipe a tracking number.
  */
-export async function upsertOrder(input: UpsertOrderInput): Promise<void> {
+// Customer-facing order numbers are derived from the row id, offset so the
+// first order doesn't advertise itself as number 1.
+const ORDER_NUMBER_OFFSET = 1000;
+
+export function formatOrderNumber(id: number): string {
+  return `RMP-${ORDER_NUMBER_OFFSET + id}`;
+}
+
+export async function getOrderNumberBySessionId(
+  sessionId: string
+): Promise<string | null> {
   await ensureTables();
   const sql = getSql();
-  await sql`
+  const rows = await sql`
+    SELECT id FROM orders WHERE stripe_session_id = ${sessionId} LIMIT 1
+  `;
+  return rows.length ? formatOrderNumber(Number(rows[0].id)) : null;
+}
+
+export async function upsertOrder(input: UpsertOrderInput): Promise<number> {
+  await ensureTables();
+  const sql = getSql();
+  const rows = await sql`
     INSERT INTO orders (
       stripe_session_id, order_type, email, customer_name, phone, amount_total,
       currency, payment_status, shipping_name, address_line1, address_line2,
@@ -184,7 +203,9 @@ export async function upsertOrder(input: UpsertOrderInput): Promise<void> {
       country = EXCLUDED.country,
       line_items = EXCLUDED.line_items,
       updated_at = now()
+    RETURNING id
   `;
+  return Number(rows[0].id);
 }
 
 export interface UpsertRenewalInput {

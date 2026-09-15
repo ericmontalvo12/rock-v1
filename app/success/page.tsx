@@ -15,6 +15,7 @@ function SuccessContent() {
   const sessionId = searchParams.get("session_id");
   const { clearCart } = useCart();
   const [portalUrl, setPortalUrl] = useState<string | null>(null);
+  const [orderRef, setOrderRef] = useState<string | null>(null);
 
   // Clear the cart after successful purchase
   useEffect(() => {
@@ -36,6 +37,37 @@ function SuccessContent() {
         if (data.isSubscription && data.url) setPortalUrl(data.url);
       })
       .catch(() => {});
+  }, [sessionId]);
+
+  // The order row is created by the Stripe webhook, which can land a moment
+  // after this page does — retry briefly before falling back to a session code.
+  useEffect(() => {
+    if (!sessionId) return;
+    let cancelled = false;
+    let attempts = 0;
+
+    const poll = () => {
+      fetch(`/api/checkout-session?session_id=${encodeURIComponent(sessionId)}`)
+        .then((r) => r.json())
+        .then((data) => {
+          if (cancelled) return;
+          if (data.orderNumber) {
+            setOrderRef(data.orderNumber);
+          } else if (++attempts < 4) {
+            setTimeout(poll, 1500);
+          } else {
+            setOrderRef(sessionId.slice(-8).toUpperCase());
+          }
+        })
+        .catch(() => {
+          if (!cancelled) setOrderRef(sessionId.slice(-8).toUpperCase());
+        });
+    };
+    poll();
+
+    return () => {
+      cancelled = true;
+    };
   }, [sessionId]);
 
   // Fire the Meta Pixel Purchase event once per session ID, so refreshing
@@ -83,11 +115,11 @@ function SuccessContent() {
               Thanks for your order. It's in stock and will ship shortly.
             </p>
 
-            {sessionId && (
+            {orderRef && (
               <p className="text-text-muted text-sm mb-8">
-                Order reference:{" "}
-                <code className="bg-surface px-2 py-1 rounded">
-                  {sessionId.slice(0, 20)}...
+                Order number:{" "}
+                <code className="bg-surface px-2 py-1 rounded font-semibold text-text-primary">
+                  {orderRef}
                 </code>
               </p>
             )}
