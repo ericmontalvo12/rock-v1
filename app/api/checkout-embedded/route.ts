@@ -10,6 +10,26 @@ type CartItem = {
   isSubscription?: boolean;
 };
 
+// Shared by both checkout modes — Peak Performance is a physical product, so
+// subscriptions need an address collected at signup just like one-time orders.
+const SHIPPING_ADDRESS_COLLECTION = {
+  allowed_countries: ["US"],
+} satisfies Stripe.Checkout.SessionCreateParams.ShippingAddressCollection;
+
+const SHIPPING_OPTIONS: Stripe.Checkout.SessionCreateParams.ShippingOption[] = [
+  {
+    shipping_rate_data: {
+      type: "fixed_amount",
+      fixed_amount: { amount: 0, currency: "usd" },
+      display_name: "Free Shipping",
+      delivery_estimate: {
+        minimum: { unit: "business_day", value: 4 },
+        maximum: { unit: "business_day", value: 7 },
+      },
+    },
+  },
+];
+
 export async function POST(req: Request) {
   try {
     const secretKey = process.env.STRIPE_SECRET_KEY;
@@ -78,6 +98,8 @@ export async function POST(req: Request) {
           ? { subscription_data: { metadata: metaMetadata } }
           : {}),
         allow_promotion_codes: true,
+        shipping_address_collection: SHIPPING_ADDRESS_COLLECTION,
+        shipping_options: SHIPPING_OPTIONS,
         return_url: `${siteUrl}/success?session_id={CHECKOUT_SESSION_ID}`,
       });
 
@@ -114,20 +136,8 @@ export async function POST(req: Request) {
       ...(promotionCodeId
         ? { discounts: [{ promotion_code: promotionCodeId }] }
         : { allow_promotion_codes: true }),
-      shipping_address_collection: { allowed_countries: ["US"] },
-      shipping_options: [
-        {
-          shipping_rate_data: {
-            type: "fixed_amount",
-            fixed_amount: { amount: 0, currency: "usd" },
-            display_name: "Free Shipping",
-            delivery_estimate: {
-              minimum: { unit: "business_day", value: 4 },
-              maximum: { unit: "business_day", value: 7 },
-            },
-          },
-        },
-      ],
+      shipping_address_collection: SHIPPING_ADDRESS_COLLECTION,
+      shipping_options: SHIPPING_OPTIONS,
       return_url: `${siteUrl}/success?session_id={CHECKOUT_SESSION_ID}`,
     });
 
