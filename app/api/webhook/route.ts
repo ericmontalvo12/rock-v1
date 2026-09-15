@@ -19,7 +19,10 @@ const GHL_URLS: Record<string, string | undefined> = {
 };
 
 async function sendToGHL(type: string, payload: Record<string, unknown>) {
-  const ghlUrl = GHL_URLS[type] ?? process.env.GHL_ORDER_WEBHOOK_URL;
+  // Deliberately no fallback URL: the order-confirmation workflow sends its
+  // email to anything that reaches it, so routing an unconfigured type there
+  // would tell a customer whose card just declined that their order shipped.
+  const ghlUrl = GHL_URLS[type];
   if (!ghlUrl) {
     console.warn(`GHL webhook URL not set for ${type} — skipping`);
     return;
