@@ -2,7 +2,12 @@ import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 import { sendPurchaseToMetaCapi } from "@/lib/meta-capi";
 import { SITE_URL } from "@/app/layout";
-import { upsertOrder, upsertRenewalOrder, type OrderLineItem } from "@/lib/orders-db";
+import {
+  upsertOrder,
+  upsertRenewalOrder,
+  formatOrderNumber,
+  type OrderLineItem,
+} from "@/lib/orders-db";
 
 const GHL_URLS: Record<string, string | undefined> = {
   order_confirmation: process.env.GHL_ORDER_WEBHOOK_URL,
@@ -71,6 +76,7 @@ export async function POST(req: NextRequest) {
 
       const shippingDetails = session.collected_information?.shipping_details;
       const shippingAddress = shippingDetails?.address;
+      let orderNumber: string | null = null;
 
       if (session.amount_total != null) {
         try {
@@ -86,7 +92,7 @@ export async function POST(req: NextRequest) {
             console.error("Could not load line items for", session.id, err);
           }
 
-          await upsertOrder({
+          const orderId = await upsertOrder({
             stripeSessionId: session.id,
             orderType: isSubscription ? "subscription" : "one_time",
             email: session.customer_details?.email ?? null,
@@ -105,6 +111,7 @@ export async function POST(req: NextRequest) {
             lineItems,
             createdAt: new Date(session.created * 1000),
           });
+          orderNumber = formatOrderNumber(orderId);
         } catch (err) {
           console.error("Failed to save order to database:", err);
         }
@@ -114,7 +121,8 @@ export async function POST(req: NextRequest) {
         email: session.customer_details?.email || null,
         first_name: session.customer_details?.name?.split(" ")[0] || null,
         last_name: session.customer_details?.name?.split(" ").slice(1).join(" ") || null,
-        order_id: session.id,
+        order_id: orderNumber ?? session.id,
+        stripe_session_id: session.id,
         amount_total: session.amount_total ? (session.amount_total / 100).toFixed(2) : null,
         currency: session.currency,
         payment_status: session.payment_status,
