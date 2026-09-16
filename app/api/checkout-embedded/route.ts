@@ -43,10 +43,13 @@ export async function POST(req: Request) {
     }
 
     const stripe = new Stripe(secretKey);
-    const { cartItems, promotionCodeId, email, fbp, fbc } = (await req.json()) as {
+    // The client still sends an email for abandoned-cart capture, but it is
+    // deliberately not passed to Stripe as customer_email: doing so locks the
+    // field read-only in Checkout, leaving a customer who mistyped it unable to
+    // correct their own address.
+    const { cartItems, promotionCodeId, fbp, fbc } = (await req.json()) as {
       cartItems: CartItem[];
       promotionCodeId?: string;
-      email?: string;
       fbp?: string | null;
       fbc?: string | null;
     };
@@ -93,7 +96,6 @@ export async function POST(req: Request) {
         ui_mode: "embedded",
         mode: "subscription",
         line_items: [{ price: subscriptionPriceId, quantity: 1 }],
-        ...(email ? { customer_email: email } : {}),
         ...(Object.keys(metaMetadata).length
           ? { subscription_data: { metadata: metaMetadata } }
           : {}),
@@ -133,7 +135,6 @@ export async function POST(req: Request) {
       mode: "payment",
       line_items,
       ...(Object.keys(metaMetadata).length ? { metadata: metaMetadata } : {}),
-      ...(email ? { customer_email: email } : {}),
       ...(promotionCodeId
         ? { discounts: [{ promotion_code: promotionCodeId }] }
         : { allow_promotion_codes: true }),
