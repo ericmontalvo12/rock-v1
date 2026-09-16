@@ -98,8 +98,9 @@ export async function POST(req: Request) {
           ? { subscription_data: { metadata: metaMetadata } }
           : {}),
         allow_promotion_codes: true,
+        // Address only — Stripe Checkout rejects inline shipping_options in
+        // subscription mode. Shipping is free, so there's no rate to attach.
         shipping_address_collection: SHIPPING_ADDRESS_COLLECTION,
-        shipping_options: SHIPPING_OPTIONS,
         return_url: `${siteUrl}/success?session_id={CHECKOUT_SESSION_ID}`,
       });
 
