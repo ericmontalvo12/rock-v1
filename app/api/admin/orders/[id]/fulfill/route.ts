@@ -3,6 +3,7 @@ import {
   getOrderById,
   markTrackingEmailSent,
   saveTracking,
+  formatOrderNumber,
 } from "@/lib/orders-db";
 import { getCarrier, normaliseTracking } from "@/lib/shipping";
 
@@ -94,7 +95,8 @@ export async function POST(
         email: order.email,
         first_name: firstName,
         full_name: order.customerName || order.shippingName || null,
-        order_id: order.stripeSessionId,
+        order_id: formatOrderNumber(order.id),
+        stripe_session_id: order.stripeSessionId,
         carrier: carrier.label,
         tracking_number: trackingNumber,
         tracking_url: trackingUrl,
