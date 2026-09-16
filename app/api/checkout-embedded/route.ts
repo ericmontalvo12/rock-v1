@@ -23,8 +23,8 @@ const SHIPPING_OPTIONS: Stripe.Checkout.SessionCreateParams.ShippingOption[] = [
       fixed_amount: { amount: 0, currency: "usd" },
       display_name: "Free Shipping",
       delivery_estimate: {
-        minimum: { unit: "business_day", value: 4 },
-        maximum: { unit: "business_day", value: 7 },
+        minimum: { unit: "business_day", value: 3 },
+        maximum: { unit: "business_day", value: 5 },
       },
     },
   },
