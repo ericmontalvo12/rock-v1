@@ -250,8 +250,11 @@ export async function POST(req: NextRequest) {
         const customer = await stripe.customers.retrieve(
           subscription.customer as string
         );
+        const cancelName = !("deleted" in customer) ? customer.name : null;
         await sendToGHL("cancellation_pending", {
           email: !("deleted" in customer) ? customer.email : null,
+          first_name: cancelName?.split(" ")[0] || null,
+          last_name: cancelName?.split(" ").slice(1).join(" ") || null,
           subscription_id: subscription.id,
           cancel_at: subscription.cancel_at
             ? new Date(subscription.cancel_at * 1000).toISOString()
@@ -269,8 +272,11 @@ export async function POST(req: NextRequest) {
       const customer = await stripe.customers.retrieve(
         subscription.customer as string
       );
+      const endedName = !("deleted" in customer) ? customer.name : null;
       await sendToGHL("subscription_ended", {
         email: !("deleted" in customer) ? customer.email : null,
+        first_name: endedName?.split(" ")[0] || null,
+        last_name: endedName?.split(" ").slice(1).join(" ") || null,
         subscription_id: subscription.id,
       });
 
