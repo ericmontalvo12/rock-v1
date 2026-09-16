@@ -11,7 +11,7 @@ import {
 
 const GHL_URLS: Record<string, string | undefined> = {
   order_confirmation: process.env.GHL_ORDER_WEBHOOK_URL,
-  subscriber_welcome: process.env.GHL_ORDER_WEBHOOK_URL,
+  subscriber_welcome: process.env.GHL_SUBSCRIBER_WELCOME_WEBHOOK_URL,
   renewal: process.env.GHL_ORDER_WEBHOOK_URL,
   payment_failed: process.env.GHL_PAYMENT_FAILED_WEBHOOK_URL,
   cancellation_pending: process.env.GHL_CANCELLATION_WEBHOOK_URL,
