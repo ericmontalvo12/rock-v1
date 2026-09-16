@@ -242,10 +242,17 @@ export async function POST(req: NextRequest) {
       const subscription = event.data.object as Stripe.Subscription;
       const previousAttributes = (event.data as any).previous_attributes;
 
-      if (
-        previousAttributes?.cancel_at_period_end !== undefined &&
-        subscription.cancel_at_period_end
-      ) {
+      // Stripe's customer portal schedules a cancellation either by flipping
+      // cancel_at_period_end or by setting a cancel_at timestamp, depending on
+      // how the portal is configured. Watching only the boolean misses every
+      // cancellation made the other way.
+      const scheduledToCancel =
+        subscription.cancel_at_period_end || subscription.cancel_at != null;
+      const justScheduled =
+        previousAttributes?.cancel_at_period_end !== undefined ||
+        previousAttributes?.cancel_at !== undefined;
+
+      if (justScheduled && scheduledToCancel) {
         console.log(`=== CANCELLATION PENDING: sub ${subscription.id} ===`);
         const customer = await stripe.customers.retrieve(
           subscription.customer as string
@@ -256,8 +263,13 @@ export async function POST(req: NextRequest) {
           first_name: cancelName?.split(" ")[0] || null,
           last_name: cancelName?.split(" ").slice(1).join(" ") || null,
           subscription_id: subscription.id,
+          // Rendered straight into customer-facing email copy, so send a
+          // readable date rather than an ISO timestamp.
           cancel_at: subscription.cancel_at
-            ? new Date(subscription.cancel_at * 1000).toISOString()
+            ? new Date(subscription.cancel_at * 1000).toLocaleDateString(
+                "en-US",
+                { month: "long", day: "numeric", year: "numeric", timeZone: "UTC" }
+              )
             : null,
         });
       }
