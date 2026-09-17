@@ -227,12 +227,20 @@ export async function POST(req: NextRequest) {
       const invoice = event.data.object as Stripe.Invoice;
       console.error(`=== PAYMENT FAILED: invoice ${invoice.id} ===`);
 
+      const failedName = invoice.customer_name;
       await sendToGHL("payment_failed", {
         email: invoice.customer_email,
+        first_name: failedName?.split(" ")[0] || null,
+        last_name: failedName?.split(" ").slice(1).join(" ") || null,
         invoice_id: invoice.id,
         amount_due: ((invoice.amount_due ?? 0) / 100).toFixed(2),
         currency: invoice.currency,
         attempt_count: invoice.attempt_count,
+        // The dunning email's only CTA. Points at the portal lookup page
+        // rather than a generated Stripe session URL: Stripe retries a failed
+        // payment over roughly two weeks, and a session link would expire long
+        // before the customer opens the last of those emails.
+        billing_portal_url: `${SITE_URL}/manage`,
       });
 
       break;
