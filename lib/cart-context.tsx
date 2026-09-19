@@ -137,14 +137,19 @@ export function CartProvider({ children }: { children: ReactNode }) {
     });
 
     // Several buttons on the product page add the same item (main CTA, mobile
-    // sticky bar, final CTA). Without this, one shopper comparing bundles fires
-    // three AddToCart events and the funnel looks far worse than it is. Only
-    // report a distinct item+quantity once per browser session.
-    const signature = `${item.id}:${quantity}`;
+    // sticky bar, final CTA), so collapse rapid repeat clicks. This used to
+    // suppress a whole session per item+quantity, which swallowed roughly
+    // three quarters of AddToCart events — the funnel showed fewer adds than
+    // purchases. A short window catches double-clicks without dropping a
+    // shopper who genuinely comes back and adds again.
+    const DEDUP_MS = 10_000;
     let alreadyReported = false;
     try {
-      alreadyReported = sessionStorage.getItem("fbAddToCart") === signature;
-      if (!alreadyReported) sessionStorage.setItem("fbAddToCart", signature);
+      const last = Number(sessionStorage.getItem("fbAddToCartAt") ?? 0);
+      alreadyReported = Date.now() - last < DEDUP_MS;
+      if (!alreadyReported) {
+        sessionStorage.setItem("fbAddToCartAt", String(Date.now()));
+      }
     } catch {
       // sessionStorage can throw in private mode; fall back to always sending.
     }
