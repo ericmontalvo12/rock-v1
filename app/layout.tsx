@@ -32,6 +32,11 @@ export const metadata: Metadata = {
   },
   description: DEFAULT_DESCRIPTION,
   alternates: { canonical: "/" },
+  // Proves domain ownership to Meta, which is a prerequisite for Aggregated
+  // Event Measurement — without it iOS conversions can't be attributed to ads.
+  other: {
+    "facebook-domain-verification": "2hlf5lgboz8j8psb8boqrkkwczvg43",
+  },
   openGraph: {
     type: "website",
     siteName: "Rock Mountain Performance",
