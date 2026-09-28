@@ -534,6 +534,10 @@ export default function ProductV2Page() {
   // render the "no reviews yet" empty state - it tells every visitor the
   // product has zero reviews for the first second of their visit.
   const [reviewsLoading, setReviewsLoading] = useState(true);
+  // A failed request is not the same thing as an empty list. Without this the
+  // page renders "No reviews yet" whenever the API errors, which tells every
+  // visitor the product has zero reviews and hides the outage from us too.
+  const [reviewsError, setReviewsError] = useState(false);
 
   const [reviewName, setReviewName] = useState("");
   const [reviewEmail, setReviewEmail] = useState("");
@@ -573,14 +577,24 @@ export default function ProductV2Page() {
   };
 
   const loadReviews = () => {
+    setReviewsLoading(true);
+    setReviewsError(false);
     fetch("/api/reviews")
-      .then((r) => r.json())
+      .then((r) => {
+        // An error response still parses as JSON, so checking ok is the only
+        // way to tell a real empty list from a failed load.
+        if (!r.ok) throw new Error(`/api/reviews returned HTTP ${r.status}`);
+        return r.json();
+      })
       .then((data) => {
         setReviews(data.reviews || []);
         setReviewCount(data.count || 0);
         setReviewAverage(data.average || 0);
       })
-      .catch(() => {})
+      .catch((err) => {
+        console.error("Could not load reviews:", err);
+        setReviewsError(true);
+      })
       .finally(() => setReviewsLoading(false));
   };
 
@@ -796,7 +810,7 @@ export default function ProductV2Page() {
                   {reviewsLoading ? (
                     // Reserve the space instead of flashing "be the first".
                     <div className="h-5 w-44 bg-gray-100 rounded animate-pulse" aria-hidden="true" />
-                  ) : reviewCount > 0 ? (
+                  ) : reviewsError ? null : reviewCount > 0 ? (
                     <>
                       <div className="flex items-center gap-1">
                         <StarRating rating={Math.round(reviewAverage)} />
@@ -1335,6 +1349,19 @@ export default function ProductV2Page() {
                         <div className="h-3 w-4/5 bg-gray-100 rounded" />
                       </div>
                     ))}
+                  </div>
+                ) : reviewsError ? (
+                  <div className="bg-gray-50 border border-gray-200 rounded-2xl p-8 text-center text-sm">
+                    <p className="text-gray-500">
+                      We couldn&apos;t load reviews just now.
+                    </p>
+                    <button
+                      type="button"
+                      onClick={loadReviews}
+                      className="text-primary hover:underline mt-2"
+                    >
+                      Try again
+                    </button>
                   </div>
                 ) : reviews.length === 0 ? (
                   <div className="bg-gray-50 border border-gray-200 rounded-2xl p-8 text-center text-gray-500 text-sm">
