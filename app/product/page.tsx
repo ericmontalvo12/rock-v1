@@ -495,7 +495,7 @@ interface ProductReview {
   rating: number;
   quote: string;
   createdAt: string;
-  photoDataUrl: string | null;
+  hasPhoto: boolean;
   verifiedPurchase: boolean;
 }
 
@@ -576,10 +576,14 @@ export default function ProductV2Page() {
     setReviewPhotoPreview(null);
   };
 
-  const loadReviews = () => {
+  // The list response is CDN-cached for five minutes, so after submitting a
+  // review a plain reload can come back without it while the form says it is
+  // live. A unique query string is a distinct cache key, so it always hits the
+  // origin.
+  const loadReviews = (fresh = false) => {
     setReviewsLoading(true);
     setReviewsError(false);
-    fetch("/api/reviews")
+    fetch(fresh ? `/api/reviews?t=${Date.now()}` : "/api/reviews")
       .then((r) => {
         // An error response still parses as JSON, so checking ok is the only
         // way to tell a real empty list from a failed load.
@@ -646,7 +650,7 @@ export default function ProductV2Page() {
         setReviewRating(0);
         setReviewQuote("");
         clearReviewPhoto();
-        loadReviews();
+        loadReviews(true);
       }
     } catch {
       setReviewError("Something went wrong. Try again.");
@@ -1357,7 +1361,7 @@ export default function ProductV2Page() {
                     </p>
                     <button
                       type="button"
-                      onClick={loadReviews}
+                      onClick={() => loadReviews(true)}
                       className="text-primary hover:underline mt-2"
                     >
                       Try again
@@ -1375,11 +1379,18 @@ export default function ProductV2Page() {
                       </div>
                       <StarRating rating={review.rating} />
                       <p className="text-gray-600 text-sm mt-3 leading-relaxed">{review.quote}</p>
-                      {review.photoDataUrl && (
+                      {review.hasPhoto && (
+                        // Fetched per photo rather than inlined in the list
+                        // response, and lazy so photos below the fold cost
+                        // nothing until scrolled to.
                         // eslint-disable-next-line @next/next/no-img-element
                         <img
-                          src={review.photoDataUrl}
+                          src={`/api/reviews/${review.id}/photo`}
                           alt={`Photo from ${review.name}'s review`}
+                          loading="lazy"
+                          decoding="async"
+                          width={192}
+                          height={192}
                           className="mt-3 w-36 h-36 sm:w-48 sm:h-48 object-cover rounded-lg border border-gray-200"
                         />
                       )}
