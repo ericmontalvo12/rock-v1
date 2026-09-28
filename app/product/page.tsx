@@ -3,10 +3,13 @@ import ProductPageClient from "./ProductPageClient";
 
 export default async function ProductPage() {
   let initialReviews: Awaited<ReturnType<typeof getReviews>> = [];
+  // Distinguished from a genuinely empty list so the page does not tell every
+  // visitor there are zero reviews when the database is simply unreachable.
+  let reviewsUnavailable = false;
   try {
     initialReviews = await getReviews();
   } catch {
-    // Fall back to empty — the client can still submit/refresh reviews.
+    reviewsUnavailable = true;
   }
 
   const count = initialReviews.length;
@@ -20,6 +23,7 @@ export default async function ProductPage() {
       initialReviews={initialReviews}
       initialReviewCount={count}
       initialReviewAverage={average}
+      reviewsUnavailable={reviewsUnavailable}
     />
   );
 }

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getReviews, hasReviewForEmail, insertReview, verifyPurchase } from "@/lib/reviews-db";
 import { REQUIRE_VERIFIED_PURCHASE, MAX_REVIEW_PHOTO_BYTES } from "@/lib/reviews-config";
+import { shrinkPhoto } from "@/lib/review-photos";
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -10,7 +11,19 @@ export async function GET() {
     const count = reviews.length;
     const average =
       count > 0 ? reviews.reduce((sum, r) => sum + r.rating, 0) / count : 0;
-    return NextResponse.json({ reviews, count, average });
+    return NextResponse.json(
+      { reviews, count, average },
+      {
+        headers: {
+          // Reviews change rarely, but this ran uncached - every call a fresh
+          // round trip to Neon. Five minutes at the CDN collapses a burst of ad
+          // traffic into a single database read, and stale-while-revalidate
+          // keeps the refresh off the visitor's path. Only successful responses
+          // carry this, so an outage is never cached.
+          "Cache-Control": "public, s-maxage=300, stale-while-revalidate=600",
+        },
+      }
+    );
   } catch (err) {
     console.error("Failed to fetch reviews:", err);
     return NextResponse.json({ error: "Failed to fetch reviews" }, { status: 500 });
@@ -56,8 +69,18 @@ export async function POST(req: NextRequest) {
       if (photo.size > MAX_REVIEW_PHOTO_BYTES) {
         return NextResponse.json({ error: "Photo must be under 2MB." }, { status: 400 });
       }
+      // Re-encode to a web-sized WebP before storing. The original upload can
+      // be a multi-megabyte phone photo, and base64 adds another third on top;
+      // storing those raw is what exhausted the database's transfer allowance.
       const bytes = Buffer.from(await photo.arrayBuffer());
-      photoDataUrl = `data:${photo.type};base64,${bytes.toString("base64")}`;
+      const shrunk = await shrinkPhoto(bytes);
+      if (!shrunk) {
+        return NextResponse.json(
+          { error: "We couldn't read that image. Try a different photo." },
+          { status: 400 }
+        );
+      }
+      photoDataUrl = `data:${shrunk.contentType};base64,${shrunk.body.toString("base64")}`;
     }
 
     const alreadyReviewed = await hasReviewForEmail(email);

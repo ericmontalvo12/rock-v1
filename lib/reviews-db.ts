@@ -15,7 +15,14 @@ export interface Review {
   rating: number;
   quote: string;
   createdAt: string;
-  photoDataUrl: string | null;
+  /**
+   * Whether a photo exists - NOT the photo itself. Photos are stored as base64
+   * data URLs, so selecting them here put every photo into both the API
+   * response and the server-rendered product page: ~5.5MB per view, which
+   * exhausted Neon's transfer allowance and suspended the database. Photos are
+   * served one at a time from /api/reviews/[id]/photo, which the CDN can cache.
+   */
+  hasPhoto: boolean;
   verifiedPurchase: boolean;
 }
 
@@ -40,8 +47,11 @@ async function ensureTable() {
 export async function getReviews(): Promise<Review[]> {
   await ensureTable();
   const sql = getSql();
+  // photo_data_url is deliberately not selected - see Review.hasPhoto.
   const rows = (await sql`
-    SELECT id, name, rating, quote, created_at, photo_data_url, verified_purchase
+    SELECT
+      id, name, rating, quote, created_at, verified_purchase,
+      photo_data_url IS NOT NULL AS has_photo
     FROM reviews
     ORDER BY created_at DESC
   `) as Array<{
@@ -50,7 +60,7 @@ export async function getReviews(): Promise<Review[]> {
     rating: number;
     quote: string;
     created_at: string;
-    photo_data_url: string | null;
+    has_photo: boolean;
     verified_purchase: boolean;
   }>;
 
@@ -60,9 +70,31 @@ export async function getReviews(): Promise<Review[]> {
     rating: row.rating,
     quote: row.quote,
     createdAt: row.created_at,
-    photoDataUrl: row.photo_data_url,
+    hasPhoto: row.has_photo,
     verifiedPurchase: row.verified_purchase,
   }));
+}
+
+/**
+ * Loads one review's photo. Kept separate from getReviews so a page listing
+ * reviews transfers kilobytes instead of megabytes.
+ */
+export async function getReviewPhoto(
+  id: number
+): Promise<{ contentType: string; body: Buffer } | null> {
+  const sql = getSql();
+  const rows = (await sql`
+    SELECT photo_data_url FROM reviews WHERE id = ${id} LIMIT 1
+  `) as Array<{ photo_data_url: string | null }>;
+
+  const dataUrl = rows[0]?.photo_data_url;
+  if (!dataUrl) return null;
+
+  // [\s\S] rather than the /s flag, which needs an es2018 target.
+  const match = /^data:([^;,]+);base64,([\s\S]*)$/.exec(dataUrl);
+  if (!match) return null;
+
+  return { contentType: match[1], body: Buffer.from(match[2], "base64") };
 }
 
 export async function hasReviewForEmail(email: string): Promise<boolean> {
