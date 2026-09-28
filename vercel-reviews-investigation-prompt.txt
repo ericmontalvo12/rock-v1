@@ -1,0 +1,54 @@
+You have access to my Vercel dashboard. One API route on my live site is
+returning HTTP 500 and I need you to find out why. Investigate and report only
+— do not change settings, redeploy, or edit anything.
+
+Project: rock-v1-6tkp   (live domain: www.rockmountainperformance.com)
+Broken endpoint: GET /api/reviews
+Current response: HTTP 500  {"error":"Failed to fetch reviews"}
+That route reads a Neon Postgres database using the DATABASE_URL env variable.
+Symptom for customers: the product page shows "No reviews yet".
+
+=== SECURITY RULE — READ FIRST ===
+Never output, type, paste, screenshot, or repeat the VALUE of any environment
+variable or secret — especially DATABASE_URL, POSTGRES_URL, STRIPE_SECRET_KEY,
+STRIPE_WEBHOOK_SECRET, META_CAPI_ACCESS_TOKEN, ADMIN_PASSWORD,
+ADMIN_SESSION_SECRET. Do not click any "reveal" or "show value" control on them.
+For each variable report only: does it exist, which environments it applies to,
+and when it was last updated. If a log line or error contains anything that
+looks like a password, token, or full connection string, replace it with
+[REDACTED] before reporting.
+
+=== CHECK 1: RUNTIME LOGS (most important) ===
+Project -> Logs (or Observability -> Logs). Filter: Production, path
+/api/reviews, last 24 hours. Find a line starting with
+"Failed to fetch reviews:" and report the full error message, name, and code
+that follow it (redacted per the rule above).
+If no logs exist for that path, say so explicitly — that is itself a finding.
+To force a fresh log entry: open
+https://www.rockmountainperformance.com/api/reviews in a new tab, wait ~30
+seconds, then reload the Logs view.
+
+=== CHECK 2: ENVIRONMENT VARIABLES ===
+Settings -> Environment Variables. Without revealing values, report:
+- Does DATABASE_URL exist? Does POSTGRES_URL exist?
+- For each, exactly which environment checkboxes are ticked: Production,
+  Preview, Development. If one is set for Preview but NOT Production, flag
+  that loudly — it is a prime suspect.
+- Last-updated date for each.
+- Is either supplied by an integration rather than entered manually?
+
+=== CHECK 3: DATABASE STATE ===
+Storage tab and Integrations. Is a Neon/Postgres database connected to this
+project? What state is shown — active, paused, suspended, over quota,
+disconnected, deleted? Quote any warning or banner text verbatim.
+If you can reach the Neon console from there: is the project/branch active,
+does a table named "reviews" exist, and roughly how many rows does it have?
+Run no destructive SQL. Do not copy the connection string.
+
+=== CHECK 4: DEPLOYMENTS ===
+What is the current Production deployment, when was it deployed, and did it
+succeed? Any failed deployments in the past week?
+
+=== REPORT ===
+Give me the exact error text from Check 1, the findings from Checks 2-4, and
+your single best conclusion about the cause. Do not attempt a fix.
