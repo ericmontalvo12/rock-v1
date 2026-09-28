@@ -503,7 +503,7 @@ export interface ProductReview {
   rating: number;
   quote: string;
   createdAt: string;
-  photoDataUrl: string | null;
+  hasPhoto: boolean;
   verifiedPurchase: boolean;
 }
 
@@ -511,12 +511,15 @@ interface ProductPageClientProps {
   initialReviews: ProductReview[];
   initialReviewCount: number;
   initialReviewAverage: number;
+  /** True when the server could not read reviews, as opposed to there being none. */
+  reviewsUnavailable?: boolean;
 }
 
 export default function ProductPageClient({
   initialReviews,
   initialReviewCount,
   initialReviewAverage,
+  reviewsUnavailable = false,
 }: ProductPageClientProps) {
   const [openSection, setOpenSection] = useState<number | null>(null);
   const [addedToCart, setAddedToCart] = useState(false);
@@ -593,8 +596,11 @@ export default function ProductPageClient({
     setReviewPhotoPreview(null);
   };
 
+  // The list response is CDN-cached for five minutes, so a plain reload after
+  // submitting can come back without the new review while the form says it is
+  // live. A unique query string is a distinct cache key, so it hits the origin.
   const loadReviews = () => {
-    fetch("/api/reviews")
+    fetch(`/api/reviews?t=${Date.now()}`)
       .then((r) => r.json())
       .then((data) => {
         setReviews(data.reviews || []);
@@ -1348,7 +1354,14 @@ export default function ProductPageClient({
             <div className="grid lg:grid-cols-2 gap-8">
               {/* Review list */}
               <div className="space-y-4">
-                {reviews.length === 0 ? (
+                {reviews.length === 0 && reviewsUnavailable ? (
+                  // A failed load is not an empty list. Claiming zero reviews
+                  // when we could not read them tells every visitor the product
+                  // has none, and hides the outage from us.
+                  <div className="bg-gray-50 border border-gray-200 rounded-2xl p-8 text-center text-gray-500 text-sm">
+                    We couldn&apos;t load reviews just now. Please check back shortly.
+                  </div>
+                ) : reviews.length === 0 ? (
                   <div className="bg-gray-50 border border-gray-200 rounded-2xl p-8 text-center text-gray-500 text-sm">
                     No reviews yet. Be the first to share your experience.
                   </div>
@@ -1360,11 +1373,18 @@ export default function ProductPageClient({
                       </div>
                       <StarRating rating={review.rating} />
                       <p className="text-gray-600 text-sm mt-3 leading-relaxed">{review.quote}</p>
-                      {review.photoDataUrl && (
+                      {review.hasPhoto && (
+                        // Fetched per photo rather than inlined in the page
+                        // payload, and lazy so photos below the fold cost
+                        // nothing until scrolled to.
                         // eslint-disable-next-line @next/next/no-img-element
                         <img
-                          src={review.photoDataUrl}
+                          src={`/api/reviews/${review.id}/photo`}
                           alt={`Photo from ${review.name}'s review`}
+                          loading="lazy"
+                          decoding="async"
+                          width={192}
+                          height={192}
                           className="mt-3 w-36 h-36 sm:w-48 sm:h-48 object-cover rounded-lg border border-gray-200"
                         />
                       )}

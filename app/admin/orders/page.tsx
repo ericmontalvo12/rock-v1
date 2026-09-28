@@ -11,6 +11,7 @@ import {
   LogOut,
   RefreshCw,
   Download,
+  ImageDown,
 } from "lucide-react";
 import type { Order, OrderStatus } from "@/lib/orders-db";
 import { OrderDetail } from "./OrderDetail";
@@ -49,6 +50,7 @@ export default function AdminOrdersPage() {
   const [status, setStatus] = useState<OrderStatus | "all">("all");
   const [selected, setSelected] = useState<Order | null>(null);
   const [backfilling, setBackfilling] = useState(false);
+  const [shrinking, setShrinking] = useState(false);
   const [notice, setNotice] = useState("");
 
   const load = useCallback(async () => {
@@ -106,6 +108,63 @@ export default function AdminOrdersPage() {
     }
   };
 
+  // Rewrites review photos that predate the upload size cap. Measures first and
+  // asks before writing, since it re-encodes stored images in place.
+  const handleShrinkPhotos = async () => {
+    setShrinking(true);
+    setNotice("");
+    const mb = (bytes: number) => `${(bytes / 1024 / 1024).toFixed(2)}MB`;
+    try {
+      const dry = await fetch("/api/admin/shrink-review-photos", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ apply: false }),
+      });
+      const plan = await dry.json();
+      if (!dry.ok) {
+        setNotice(plan.error || "Could not check review photos.");
+        return;
+      }
+
+      const oversized = plan.rows.filter(
+        (r: { action: string }) => r.action === "would-rewrite"
+      ).length;
+      if (oversized === 0) {
+        setNotice(
+          `All ${plan.photos} review photo${plan.photos === 1 ? "" : "s"} are already optimised. Nothing to do.`
+        );
+        return;
+      }
+
+      const confirmed = window.confirm(
+        `${oversized} review photo${oversized === 1 ? "" : "s"} can be shrunk, ` +
+          `taking ${mb(plan.bytesBefore)} down to ${mb(plan.bytesAfter)}.\n\n` +
+          `The stored images are re-encoded in place and the originals are not kept. ` +
+          `Displayed size on the review cards does not change.\n\nProceed?`
+      );
+      if (!confirmed) {
+        setNotice("Cancelled - nothing was changed.");
+        return;
+      }
+
+      const res = await fetch("/api/admin/shrink-review-photos", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ apply: true }),
+      });
+      const done = await res.json();
+      setNotice(
+        res.ok
+          ? `Shrank ${done.rewritten} review photo${done.rewritten === 1 ? "" : "s"}: ${mb(done.bytesBefore)} → ${mb(done.bytesAfter)}.`
+          : done.error || "Could not shrink review photos."
+      );
+    } catch {
+      setNotice("Could not shrink review photos.");
+    } finally {
+      setShrinking(false);
+    }
+  };
+
   const exportCsv = () => {
     const header = [
       "Order", "Date", "Name", "Email", "Total", "Status", "Carrier", "Tracking",
@@ -146,6 +205,15 @@ export default function AdminOrdersPage() {
           >
             <RefreshCw className={`w-4 h-4 ${backfilling ? "animate-spin" : ""}`} />
             {backfilling ? "Importing…" : "Import from Stripe"}
+          </button>
+          <button
+            onClick={handleShrinkPhotos}
+            disabled={shrinking}
+            className="inline-flex items-center gap-1.5 h-9 px-3 rounded-lg border border-gray-300 bg-white text-sm text-gray-700 hover:bg-gray-50 disabled:opacity-50"
+            title="Re-encode review photos uploaded before the size cap, to cut database transfer"
+          >
+            <ImageDown className={`w-4 h-4 ${shrinking ? "animate-pulse" : ""}`} />
+            {shrinking ? "Checking…" : "Shrink review photos"}
           </button>
           <button
             onClick={exportCsv}
