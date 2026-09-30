@@ -1,6 +1,13 @@
 "use client";
 
-import { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useCallback,
+  ReactNode,
+} from "react";
 import { trackFbEvent } from "./fbpixel";
 import { getPricePerBottle } from "./sale";
 
@@ -183,10 +190,13 @@ export function CartProvider({ children }: { children: ReactNode }) {
     );
   };
 
-  const clearCart = () => {
+  // Stable across renders: /success clears the cart from an effect that lists
+  // this in its dependencies, so a fresh function each render re-fired the
+  // effect, which re-rendered the provider, and so on until React gave up.
+  const clearCart = useCallback(() => {
     setItems([]);
     localStorage.removeItem("cartActivitySignature");
-  };
+  }, []);
 
   const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
   const totalPrice = items.reduce(
