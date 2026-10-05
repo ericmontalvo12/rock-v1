@@ -7,7 +7,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { buttonVariants } from "@/components/ui/button";
 import { CheckCircle } from "lucide-react";
-import { useCart } from "@/lib/cart-context";
+import { useCart, type CartItem } from "@/lib/cart-context";
 import { trackFbEvent } from "@/lib/fbpixel";
 
 function SuccessContent() {
@@ -16,6 +16,25 @@ function SuccessContent() {
   const { clearCart } = useCart();
   const [portalUrl, setPortalUrl] = useState<string | null>(null);
   const [orderRef, setOrderRef] = useState<string | null>(null);
+
+  // Read straight from storage rather than the cart context: effects run
+  // child-before-parent, so on the first commit the provider hasn't loaded
+  // localStorage yet and its items are still empty. This runs during render,
+  // before the clear effect below wipes the key.
+  const [cartSnapshot] = useState<number | null>(() => {
+    if (typeof window === "undefined") return null;
+    try {
+      const raw = localStorage.getItem("cart");
+      if (!raw) return null;
+      const total = (JSON.parse(raw) as CartItem[]).reduce(
+        (sum, item) => sum + item.price * item.quantity,
+        0
+      );
+      return total > 0 ? total : null;
+    } catch {
+      return null;
+    }
+  });
 
   // Clear the cart after successful purchase
   useEffect(() => {
@@ -75,27 +94,48 @@ function SuccessContent() {
   useEffect(() => {
     if (!sessionId) return;
     const trackedKey = `fbPurchaseTracked:${sessionId}`;
-    if (localStorage.getItem(trackedKey)) return;
+    try {
+      if (localStorage.getItem(trackedKey)) return;
+    } catch {
+      // Private mode can throw; fall through and send the event.
+    }
+
+    let sent = false;
+    // The event id is the Stripe session, the same one the webhook gives the
+    // Conversions API, so Meta dedupes the pair however this fires.
+    const send = (value: number, currency: string) => {
+      if (sent) return;
+      sent = true;
+      trackFbEvent("Purchase", { value, currency }, sessionId);
+      try {
+        localStorage.setItem(trackedKey, "true");
+      } catch {
+        // Not fatal - the server copy shares the event id and dedupes.
+      }
+    };
+
+    // Most buyers arrive here in the Instagram or Facebook in-app browser and
+    // some close the tab within a second, so the amount lookup must not be the
+    // only path to the event. The cart total is an approximation (it predates
+    // any promo code or shipping), so it only goes out if the authoritative
+    // amount is slow to arrive.
+    const fallback =
+      cartSnapshot != null
+        ? setTimeout(() => send(cartSnapshot, "USD"), 1200)
+        : undefined;
 
     fetch(`/api/checkout-session?session_id=${encodeURIComponent(sessionId)}`)
       .then((r) => r.json())
       .then((data) => {
         if (data.amountTotal != null) {
-          // Same event id the webhook sends to the Conversions API, so Meta
-          // dedupes the pair instead of counting the order twice.
-          trackFbEvent(
-            "Purchase",
-            {
-              value: data.amountTotal,
-              currency: (data.currency || "usd").toUpperCase(),
-            },
-            sessionId
-          );
-          localStorage.setItem(trackedKey, "true");
+          clearTimeout(fallback);
+          send(data.amountTotal, (data.currency || "usd").toUpperCase());
         }
       })
       .catch(() => {});
-  }, [sessionId]);
+
+    return () => clearTimeout(fallback);
+  }, [sessionId, cartSnapshot]);
 
   return (
     <div className="w-full max-w-full overflow-x-hidden bg-surface/50">
