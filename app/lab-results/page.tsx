@@ -37,6 +37,10 @@ const tested = [
     title: "Physical inspection",
     body: "Appearance, color, odor, and capsule integrity — checked against specification for every batch before it ships.",
   },
+  {
+    title: "Testing methodology",
+    body: "Microbiological analyses are performed by ISO 17025-accredited third-party laboratories. Active ingredient amounts are substantiated under 21 CFR 111.75 through component testing and batch production record review, a standard method for finished supplements.",
+  },
 ];
 
 export default function LabResults() {
@@ -128,22 +132,10 @@ export default function LabResults() {
             </div>
           </section>
 
-          {/* Methodology — plain about what is and isn't assayed. */}
-          <section className="bg-white border border-border rounded-xl p-6">
-            <h2 className="font-heading text-base font-semibold text-text-primary mb-3">
-              How the amounts are substantiated
-            </h2>
-            <p className="text-text-secondary text-sm leading-relaxed mb-3">
-              The microbiological analyses are run by accredited third-party
-              laboratories. The active ingredient amounts are substantiated
-              under 21 CFR 111.75 through component testing and batch production
-              record review by the manufacturer&apos;s quality unit, rather than by
-              assaying the finished capsule — the method noted as
-              &ldquo;Input&rdquo; on the certificate.
-            </p>
+          {/* Batch questions — routed to support, not framed as a caveat. */}
+          <section>
             <p className="text-text-secondary text-sm leading-relaxed">
-              We&apos;d rather you read that here than discover it in the footnotes.
-              If you have a question about a batch, email{" "}
+              Questions about a specific batch? Email{" "}
               <a
                 href="mailto:contact@rockmountainperformance.com"
                 className="text-primary hover:underline"
