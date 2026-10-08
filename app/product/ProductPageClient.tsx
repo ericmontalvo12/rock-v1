@@ -1304,6 +1304,17 @@ export default function ProductPageClient({
                   </div>
                 ))}
               </div>
+
+              {/* Backs up the "full label transparency" row directly above. */}
+              <div className="mt-6 text-center">
+                <Link
+                  href="/lab-results"
+                  className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline"
+                >
+                  <FileText className="w-4 h-4" aria-hidden="true" />
+                  Read the Certificate of Analysis for your batch
+                </Link>
+              </div>
             </motion.div>
           </section>
 

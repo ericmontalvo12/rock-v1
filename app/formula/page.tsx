@@ -6,7 +6,7 @@ import Link from "next/link";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { motion } from "framer-motion";
-import { Check, ArrowRight, X, FlaskConical, Shield } from "lucide-react";
+import { Check, ArrowRight, X, FlaskConical, Shield, FileText } from "lucide-react";
 
 const ingredients = [
   {
@@ -483,6 +483,23 @@ export default function FormulaPage() {
                     </p>
                   </div>
                 </div>
+
+                <Link
+                  href="/lab-results"
+                  className="flex items-center gap-4 p-4 bg-white rounded-lg border border-border hover:border-primary/30 transition-colors group"
+                >
+                  <div className="w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <FileText className="w-5 h-5 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="font-heading font-semibold text-text-primary text-sm group-hover:text-primary transition-colors">
+                      Certificate of Analysis
+                    </h3>
+                    <p className="text-xs text-text-muted">
+                      Every batch, lot by lot
+                    </p>
+                  </div>
+                </Link>
 
                 <Link
                   href="/product"

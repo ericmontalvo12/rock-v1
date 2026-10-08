@@ -5,6 +5,7 @@ const footerLinks = {
   product: [
     { label: "Peak Performance", href: "/product" },
     { label: "Inside The Formula", href: "/formula" },
+    { label: "Lab Results", href: "/lab-results" },
     { label: "Reviews", href: "/product#reviews" },
   ],
   company: [
