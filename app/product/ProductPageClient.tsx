@@ -48,7 +48,7 @@ const BUNDLES: BundleOption[] = [
   {
     id: "bundle-3",
     qty: 3,
-    label: "3-Bottle Protocol",
+    label: "90 Day Supply",
     pricePerBottle: getPricePerBottle(3),
     total: getBundleTotal(3),
     regularTotal: getRegularBundleTotal(3),
@@ -60,7 +60,7 @@ const BUNDLES: BundleOption[] = [
   {
     id: "one-time",
     qty: 1,
-    label: "One-Time Purchase",
+    label: "30 Day Supply",
     pricePerBottle: getPricePerBottle(1),
     total: getBundleTotal(1),
     regularTotal: getRegularBundleTotal(1),
